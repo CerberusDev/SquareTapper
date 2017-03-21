@@ -22,12 +22,12 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto closeItem = MenuItemImage::create("CloseNormal.png",
-                                           "CloseSelected.png",
+    auto closeItem = MenuItemImage::create("Restart_idle.png",
+                                           "Restart_pressed.png",
                                            CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
     
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+    closeItem->setPosition(Vec2(origin.x + visibleSize.width * 0.815f - closeItem->getContentSize().width / 2.0f,
+                                origin.y + visibleSize.height * 0.05f + closeItem->getContentSize().height / 2.0f));
 
     auto menu = Menu::create(closeItem, nullptr);
     menu->setPosition(Vec2::ZERO);
@@ -45,8 +45,8 @@ bool HelloWorld::init()
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 	this->addChild(sprite, 0);
 
-	float OffsetX = 0.18f;
-	float OffsetY = 0.22f;
+	float OffsetX = 0.23f;
+	float OffsetY = 0.2f;
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{

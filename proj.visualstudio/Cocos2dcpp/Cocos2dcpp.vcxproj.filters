@@ -2260,6 +2260,9 @@
     <ClInclude Include="..\..\cocos2d\cocos\audio\android\utils\Utils.h">
       <Filter>cocos\audio\android\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\MySquare.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4222,6 +4225,9 @@
     </ClCompile>
     <ClCompile Include="..\..\cocos2d\cocos\audio\android\utils\Utils.cpp">
       <Filter>cocos\audio\android\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\MySquare.cpp">
+      <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

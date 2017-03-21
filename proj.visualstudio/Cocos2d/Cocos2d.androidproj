@@ -95,6 +95,8 @@
     <Content Include="assets\fonts\arial.ttf" />
     <Content Include="assets\fonts\Marker Felt.ttf" />
     <Content Include="assets\HelloWorld.png" />
+    <Content Include="assets\Square1.png" />
+    <Content Include="assets\Square2.png" />
     <Content Include="libs\android-async-http-1.4.9.jar" />
     <Content Include="libs\com.android.vending.expansion.zipfile.jar" />
     <Content Include="libs\httpclient-4.4.1.1.jar" />

@@ -175,6 +175,7 @@
     <ClInclude Include="$(VS_NdkRoot)\sources\android\cpufeatures\cpu-features.h" />
     <ClInclude Include="..\..\Classes\AppDelegate.h" />
     <ClInclude Include="..\..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\..\Classes\LevelSelectScene.h" />
     <ClInclude Include="..\..\Classes\MySquare.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCAction.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCActionCamera.h" />
@@ -931,6 +932,7 @@
     <ClCompile Include="$(VS_NdkRoot)\sources\android\cpufeatures\cpu-features.c" />
     <ClCompile Include="..\..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\..\Classes\LevelSelectScene.cpp" />
     <ClCompile Include="..\..\Classes\MySquare.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCAction.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCActionCamera.cpp" />

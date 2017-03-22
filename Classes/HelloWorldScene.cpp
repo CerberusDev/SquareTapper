@@ -1,6 +1,7 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "MySquare.h"
+#include "LevelSelectScene.h"
 
 USING_NS_CC;
 
@@ -22,14 +23,25 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto closeItem = MenuItemImage::create("Restart_idle.png",
-                                           "Restart_pressed.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width * 0.815f - closeItem->getContentSize().width / 2.0f,
-                                origin.y + visibleSize.height * 0.05f + closeItem->getContentSize().height / 2.0f));
+	Vector<MenuItem*> MenuItems;
 
-    auto menu = Menu::create(closeItem, nullptr);
+    auto BackItem = MenuItemImage::create("Back_idle.png", "Back_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(LevelSelectScene::createScene());
+	});
+    
+	BackItem->setPosition(Vec2(origin.x + visibleSize.width * 0.77f, origin.y + visibleSize.height * 0.07f));
+	MenuItems.pushBack(BackItem);
+
+	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(HelloWorld::createScene());
+	});
+
+	RestartItem->setPosition(Vec2(origin.x + visibleSize.width * 0.88f, origin.y + visibleSize.height * 0.07f));
+	MenuItems.pushBack(RestartItem);
+
+    auto menu = Menu::createWithArray(MenuItems);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
     
@@ -96,15 +108,4 @@ void HelloWorld::ShowNextSquare()
 
 		runAction(Sequence::create(DelayAction, StartFunc, nullptr));
 	}
-}
-
-void HelloWorld::menuCloseCallback(Ref* pSender)
-{
-	Director::getInstance()->replaceScene(HelloWorld::createScene());
-
-//    Director::getInstance()->end();
-//
-//    #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-//    exit(0);
-//#endif
 }

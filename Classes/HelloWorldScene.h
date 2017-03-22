@@ -20,8 +20,6 @@ public:
 
     virtual bool init();
 	virtual void onExit();
-
-    void menuCloseCallback(cocos2d::Ref* pSender);
     
     CREATE_FUNC(HelloWorld);
 

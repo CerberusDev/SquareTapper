@@ -2263,6 +2263,9 @@
     <ClInclude Include="..\..\Classes\MySquare.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\LevelSelectScene.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4227,6 +4230,9 @@
       <Filter>cocos\audio\android\utils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\MySquare.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\LevelSelectScene.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

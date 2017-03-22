@@ -90,9 +90,13 @@
     <Content Include="..\..\cocos2d\cocos\platform\android\java\src\com\enhance\gameservice\IGameTuningService.aidl">
       <Link>src\com\enhance\gameservice\IGameTuningService.aidl</Link>
     </Content>
+    <Content Include="assets\Back_idle.png" />
+    <Content Include="assets\Back_pressed.png" />
     <Content Include="assets\fonts\arial.ttf" />
     <Content Include="assets\fonts\Marker Felt.ttf" />
     <Content Include="assets\HelloWorld.png" />
+    <Content Include="assets\Level1_idle.png" />
+    <Content Include="assets\Level1_pressed.png" />
     <Content Include="assets\Restart_idle.png" />
     <Content Include="assets\Restart_pressed.png" />
     <Content Include="assets\Square1.png" />

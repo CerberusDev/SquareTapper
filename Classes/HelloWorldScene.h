@@ -9,15 +9,13 @@ class MySquare;
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
 
-class HelloWorld : public cocos2d::Layer
+class HelloWorld : public cocos2d::Scene
 {
 protected:
 	MySquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];
 	std::vector<std::pair<int, int>> AvailableSquares;
 
 public:
-    static cocos2d::Scene* createScene();
-
     virtual bool init();
 	virtual void onExit();
     

@@ -5,19 +5,9 @@
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene()
-{
-    auto scene = Scene::create();
-    auto layer = HelloWorld::create();
-
-    scene->addChild(layer);
-
-    return scene;
-}
-
 bool HelloWorld::init()
 {
-    if ( !Layer::init() )
+    if (!Scene::init())
         return false;
     
     auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -27,7 +17,7 @@ bool HelloWorld::init()
 
     auto BackItem = MenuItemImage::create("Back_idle.png", "Back_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(LevelSelectScene::createScene());
+		Director::getInstance()->replaceScene(LevelSelectScene::create());
 	});
     
 	BackItem->setPosition(Vec2(origin.x + visibleSize.width * 0.77f, origin.y + visibleSize.height * 0.07f));
@@ -35,7 +25,7 @@ bool HelloWorld::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(HelloWorld::createScene());
+		Director::getInstance()->replaceScene(HelloWorld::create());
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + visibleSize.width * 0.88f, origin.y + visibleSize.height * 0.07f));
@@ -88,7 +78,7 @@ bool HelloWorld::init()
 
 void HelloWorld::onExit()
 {
-	Layer::onExit();
+	Scene::onExit();
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)

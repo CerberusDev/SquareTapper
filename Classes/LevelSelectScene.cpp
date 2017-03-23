@@ -3,19 +3,9 @@
 
 USING_NS_CC;
 
-Scene* LevelSelectScene::createScene()
-{
-    auto scene = Scene::create();
-    auto layer = LevelSelectScene::create();
-
-    scene->addChild(layer);
-
-    return scene;
-}
-
 bool LevelSelectScene::init()
 {
-	if (!Layer::init())
+	if (!Scene::init())
 		return false;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -28,7 +18,7 @@ bool LevelSelectScene::init()
 
 	auto Level1Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 	[&](Ref* sender) {
-		Director::getInstance()->replaceScene(HelloWorld::createScene());
+		Director::getInstance()->replaceScene(HelloWorld::create());
 	});
 
 	Level1Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.7f));

@@ -9,7 +9,7 @@ class MySquare;
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
 
-class HelloWorld : public cocos2d::Scene
+class GameScene : public cocos2d::Scene
 {
 protected:
 	MySquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];
@@ -19,7 +19,7 @@ public:
     virtual bool init();
 	virtual void onExit();
     
-    CREATE_FUNC(HelloWorld);
+    CREATE_FUNC(GameScene);
 
 	void ShowNextSquare();
 };

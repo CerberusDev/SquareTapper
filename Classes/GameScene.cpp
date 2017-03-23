@@ -1,11 +1,11 @@
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include "SimpleAudioEngine.h"
 #include "MySquare.h"
 #include "LevelSelectScene.h"
 
 USING_NS_CC;
 
-bool HelloWorld::init()
+bool GameScene::init()
 {
     if (!Scene::init())
         return false;
@@ -25,7 +25,7 @@ bool HelloWorld::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(HelloWorld::create());
+		Director::getInstance()->replaceScene(GameScene::create());
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + visibleSize.width * 0.88f, origin.y + visibleSize.height * 0.07f));
@@ -76,7 +76,7 @@ bool HelloWorld::init()
     return true;
 }
 
-void HelloWorld::onExit()
+void GameScene::onExit()
 {
 	Scene::onExit();
 
@@ -85,7 +85,7 @@ void HelloWorld::onExit()
 			delete Squares[x][y];
 }
 
-void HelloWorld::ShowNextSquare()
+void GameScene::ShowNextSquare()
 {
 	if (!AvailableSquares.empty())
 	{

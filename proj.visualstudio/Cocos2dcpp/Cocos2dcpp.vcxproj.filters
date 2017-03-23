@@ -4,9 +4,6 @@
     <ClInclude Include="..\..\Classes\AppDelegate.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Classes\HelloWorldScene.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\cocos2d\cocos\cocos2d.h">
       <Filter>cocos</Filter>
     </ClInclude>
@@ -2266,6 +2263,9 @@
     <ClInclude Include="..\..\Classes\LevelSelectScene.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\GameScene.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -2574,9 +2574,6 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\AppDelegate.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Classes\HelloWorldScene.cpp">
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cocos2d\cocos\cocos2d.cpp">
@@ -4233,6 +4230,9 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\LevelSelectScene.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\GameScene.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,12 +2,12 @@
 
 #include "cocos2d.h"
 
-class HelloWorld;
+class GameScene;
 
 class MySquare
 {
 protected:
-	HelloWorld* ParentLayer;
+	GameScene* ParentLayer;
 	cocos2d::Sprite* MySprite;
 	cocos2d::Sprite* MySecondSprite;
 	cocos2d::Vec2 Position;
@@ -16,6 +16,6 @@ protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 
 public:
-	MySquare(HelloWorld* argLayer, const cocos2d::Vec2& argPosition);
+	MySquare(GameScene* argLayer, const cocos2d::Vec2& argPosition);
 	void StartShowing();
 };

@@ -1,9 +1,9 @@
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include "MySquare.h"
 
 USING_NS_CC;
 
-MySquare::MySquare(HelloWorld* argLayer, const Vec2& argPosition):
+MySquare::MySquare(GameScene* argLayer, const Vec2& argPosition):
 ParentLayer(argLayer), MySprite(nullptr), MySecondSprite(nullptr), Position(argPosition), bClickable(false)
 {
 	MySprite = Sprite::create("Square1.png");

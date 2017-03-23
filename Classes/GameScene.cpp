@@ -67,11 +67,15 @@ bool GameScene::init()
     
 	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
     auto label = Label::createWithTTF("Tap the squares!", "fonts/Marker Felt.ttf", FontSize);
+	label->setPosition(Vec2(origin.x + visibleSize.width / 2.0f, origin.y + visibleSize.height * 0.955f));
+	this->addChild(label, 1);
 
-    label->setPosition(Vec2(origin.x + visibleSize.width / 2.0f,
-                            origin.y + visibleSize.height * 0.975f - label->getContentSize().height));
-
-    this->addChild(label, 1);
+	FontSize = 36.0f / Director::getInstance()->getContentScaleFactor();
+	std::stringstream Stream;
+	Stream << "Level " << LevelNumber;
+	label = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", FontSize);
+	label->setPosition(Vec2(origin.x + visibleSize.width / 2.0f, origin.y + visibleSize.height * 0.9f));
+	this->addChild(label, 1);
 
     auto sprite = Sprite::create("HelloWorld.png");
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));

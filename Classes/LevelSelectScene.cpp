@@ -20,13 +20,44 @@ bool LevelSelectScene::init()
 	label->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.9f));
 	this->addChild(label, 1);
 
+	Vector<MenuItem*> MenuItems;
+
 	auto Level1Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 	[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(1, 1.8f, 1.5f));
+		Director::getInstance()->replaceScene(GameScene::create(1, 1.5f, 1.6f));
 	});
+	Level1Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.7f));
+	MenuItems.pushBack(Level1Button);
 
-	Level1Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.7f));
-	auto LevelMenu = Menu::create(Level1Button, nullptr);
+	auto Level2Button = MenuItemImage::create("Level2_idle.png", "Level2_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(GameScene::create(2, 1.1f, 1.4f));
+	});
+	Level2Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.7f));
+	MenuItems.pushBack(Level2Button);
+
+	auto Level3Button = MenuItemImage::create("Level3_idle.png", "Level3_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(GameScene::create(3, 0.8f, 1.2f));
+	});
+	Level3Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.7f));
+	MenuItems.pushBack(Level3Button);
+
+	auto Level4Button = MenuItemImage::create("Level4_idle.png", "Level4_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(GameScene::create(4, 0.5f, 1.2f));
+	});
+	Level4Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.55f));
+	MenuItems.pushBack(Level4Button);
+
+	auto Level5Button = MenuItemImage::create("Level5_idle.png", "Level5_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(GameScene::create(5, 0.3f, 1.2f));
+	});
+	Level5Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.55f));
+	MenuItems.pushBack(Level5Button);
+
+	auto LevelMenu = Menu::createWithArray(MenuItems);
 	LevelMenu->setPosition(Vec2::ZERO);
 	this->addChild(LevelMenu, 1);
 

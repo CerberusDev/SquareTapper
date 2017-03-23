@@ -163,5 +163,17 @@ void GameScene::OnSquareCompleted()
 
 void GameScene::OnSquareFailed()
 {
-	--ActiveSquaresNumber;
+	Director::getInstance()->getActionManager()->pauseAllRunningActions();
+
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	auto sprite = Sprite::create("SmallFrame.png");
+	sprite->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.55f));
+	this->addChild(sprite, 2);
+
+	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
+	auto label = Label::createWithTTF("You lost!", "fonts/Marker Felt.ttf", FontSize);
+	label->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.55f));
+	this->addChild(label, 3);
 }

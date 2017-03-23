@@ -21,5 +21,5 @@ protected:
 
 public:
 	MySquare(GameScene* argScene, const cocos2d::Vec2& argPosition);
-	void StartShowing();
+	void StartActivation(float ActivationTotalTime);
 };

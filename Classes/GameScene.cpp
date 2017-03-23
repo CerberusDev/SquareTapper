@@ -9,30 +9,32 @@
 
 USING_NS_CC;
 
-GameScene::GameScene(void):
-LevelNumber(-1)
+GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime):
+LevelNumber(argLevelNumber),
+StartDelay(0.5f),
+MaxTimeWithoutActiveSquare(0.5f),
+TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
+SquareActivationTotalTime(argSquareActivationTotalTime),
+ActiveSquaresNumber(0)
 {
 
 }
 
-GameScene* GameScene::create(int argLevelNumber)
+GameScene* GameScene::create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime)
 {
-	GameScene *pRet = new(std::nothrow) GameScene();
+	GameScene *pRet = new(std::nothrow) GameScene(argLevelNumber, argTimeBetweenSquaresActivation, argSquareActivationTotalTime);
 
-	if (pRet)
+	if (pRet && pRet->init())
 	{
-		pRet->LevelNumber = argLevelNumber;
-
-		if (pRet->init())
-		{
-			pRet->autorelease();
-			return pRet;
-		}
+		pRet->autorelease();
+		return pRet;
 	}
-
-	delete pRet;
-	pRet = nullptr;
-	return nullptr;
+	else
+	{
+		delete pRet;
+		pRet = nullptr;
+		return nullptr;
+	}
 }
 
 bool GameScene::init()
@@ -55,7 +57,7 @@ bool GameScene::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(LevelNumber));
+		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime));
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + visibleSize.width * 0.88f, origin.y + visibleSize.height * 0.07f));
@@ -99,11 +101,9 @@ bool GameScene::init()
 
 	std::random_shuffle(AvailableSquares.begin(), AvailableSquares.end());
 
-	auto StartDelayAction = DelayTime::create(0.5f);
-	auto StartShowing = CallFunc::create([&]() {
-		ShowNextSquare();
-	});
-	runAction(Sequence::create(StartDelayAction, StartShowing, nullptr));
+	auto StartDelayAction = DelayTime::create(StartDelay);
+	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
+	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
 
 	CCLOG("Initialization end");
 
@@ -119,17 +119,49 @@ void GameScene::onExit()
 			delete Squares[x][y];
 }
 
-void GameScene::ShowNextSquare()
+void GameScene::ActivateNextSquare()
 {
-	if (!AvailableSquares.empty())
-	{
-		auto DelayAction = DelayTime::create(0.3f);
-		auto StartFunc = CallFunc::create([&]() {
-			std::pair<int, int> NextSquareCoords = AvailableSquares.back();
-			Squares[NextSquareCoords.first][NextSquareCoords.second]->StartShowing();
-			AvailableSquares.pop_back();
-		});
+	std::pair<int, int> NextSquareCoords = AvailableSquares.back();
+	Squares[NextSquareCoords.first][NextSquareCoords.second]->StartActivation(SquareActivationTotalTime);
+	AvailableSquares.pop_back();
+	++ActiveSquaresNumber;
 
-		runAction(Sequence::create(DelayAction, StartFunc, nullptr));
+	if (!AvailableSquares.empty())
+		QueueNextSquareActivation(TimeBetweenSquaresActivation);
+}
+
+void GameScene::QueueNextSquareActivation(float Delay)
+{
+	auto DelayAction = DelayTime::create(Delay);
+	auto ActivateNextSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
+	auto MySequence = Sequence::create(DelayAction, ActivateNextSquareAction, nullptr);
+	MySequence->setTag(ACTIVATION_SEQUENCE_ACTION_TAG);
+	runAction(MySequence);
+}
+
+void GameScene::OnSquareCompleted()
+{
+	--ActiveSquaresNumber;
+
+	if (ActiveSquaresNumber == 0)
+	{
+		auto ActionManager = Director::getInstance()->getActionManager();
+		auto ReturnedAction = ActionManager->getActionByTag(ACTIVATION_SEQUENCE_ACTION_TAG, this);
+
+		if (Sequence* ReturnedSequence = dynamic_cast<Sequence*>(ReturnedAction))
+		{
+			const float SequenceRemainingTime = ReturnedSequence->getDuration() - ReturnedSequence->getElapsed();
+
+			if (SequenceRemainingTime > MaxTimeWithoutActiveSquare)
+			{
+				ActionManager->removeAllActionsFromTarget(this);
+				QueueNextSquareActivation(MaxTimeWithoutActiveSquare);
+			}
+		}
 	}
+}
+
+void GameScene::OnSquareFailed()
+{
+	--ActiveSquaresNumber;
 }

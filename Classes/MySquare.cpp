@@ -43,17 +43,17 @@ ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), Position(argP
 	ParentScene->addChild(MySecondSprite, 2);
 }
 
-void MySquare::StartShowing()
+void MySquare::StartActivation(float ActivationTotalTime)
 {
 	bClickable = true;
 
 	auto StartFunc = CallFunc::create([&]() {
 		bClickable = true;
 	});
-	auto ScaleAction = ScaleTo::create(1.5f, 1.0f);
+	auto ScaleAction = ScaleTo::create(ActivationTotalTime, 1.0f);
 	auto EndFunc = CallFunc::create([&]() {
 		bClickable = false;
-		ParentScene->ShowNextSquare();
+		ParentScene->OnSquareFailed();
 	});
 	MySecondSprite->runAction(Sequence::create(StartFunc, ScaleAction, EndFunc, nullptr));
 }
@@ -73,6 +73,6 @@ void MySquare::OnTouch(Touch* touch, Event* event)
 		auto ScaleAction3 = ScaleTo::create(0.15f, 1.0f);
 		MySecondSprite->runAction(Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr));
 
-		ParentScene->ShowNextSquare();
+		ParentScene->OnSquareCompleted();
 	}
 }

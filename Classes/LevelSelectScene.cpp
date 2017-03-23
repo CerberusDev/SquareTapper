@@ -22,7 +22,7 @@ bool LevelSelectScene::init()
 
 	auto Level1Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 	[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create());
+		Director::getInstance()->replaceScene(GameScene::create(1));
 	});
 
 	Level1Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.7f));

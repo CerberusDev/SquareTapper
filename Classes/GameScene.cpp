@@ -9,6 +9,32 @@
 
 USING_NS_CC;
 
+GameScene::GameScene(void):
+LevelNumber(-1)
+{
+
+}
+
+GameScene* GameScene::create(int argLevelNumber)
+{
+	GameScene *pRet = new(std::nothrow) GameScene();
+
+	if (pRet)
+	{
+		pRet->LevelNumber = argLevelNumber;
+
+		if (pRet->init())
+		{
+			pRet->autorelease();
+			return pRet;
+		}
+	}
+
+	delete pRet;
+	pRet = nullptr;
+	return nullptr;
+}
+
 bool GameScene::init()
 {
     if (!Scene::init())
@@ -29,7 +55,7 @@ bool GameScene::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create());
+		Director::getInstance()->replaceScene(GameScene::create(LevelNumber));
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + visibleSize.width * 0.88f, origin.y + visibleSize.height * 0.07f));

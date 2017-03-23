@@ -18,12 +18,17 @@ class GameScene : public cocos2d::Scene
 protected:
 	MySquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];
 	std::vector<std::pair<int, int>> AvailableSquares;
+	int LevelNumber;
+
+// ---------------------------------------------------------------------------------------------------
 
 public:
+	GameScene();
+
     virtual bool init();
 	virtual void onExit();
     
-    CREATE_FUNC(GameScene);
+	static GameScene* create(int argLevelNumber);
 
 	void ShowNextSquare();
 };

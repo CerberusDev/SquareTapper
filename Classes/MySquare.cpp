@@ -7,11 +7,11 @@
 
 USING_NS_CC;
 
-MySquare::MySquare(GameScene* argScene, const Vec2& argPosition):
-ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), Position(argPosition), bClickable(false)
+MySquare::MySquare(GameScene* argScene, const Vec2& argSpritePosition):
+ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), SpritePosition(argSpritePosition), bClickable(false)
 {
 	MySprite = Sprite::create("Square1.png");
-	MySprite->setPosition(Position);
+	MySprite->setPosition(SpritePosition);
 	ParentScene->addChild(MySprite, 1);
 
 	auto listener1 = EventListenerTouchOneByOne::create();
@@ -38,7 +38,7 @@ ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), Position(argP
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener1, ParentScene);
 
 	MySecondSprite = Sprite::create("Square2.png");
-	MySecondSprite->setPosition(Position);
+	MySecondSprite->setPosition(SpritePosition);
 	MySecondSprite->setScale(0.0f);
 	ParentScene->addChild(MySecondSprite, 2);
 }

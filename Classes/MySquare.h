@@ -14,12 +14,12 @@ protected:
 	GameScene* ParentScene;
 	cocos2d::Sprite* MySprite;
 	cocos2d::Sprite* MySecondSprite;
-	cocos2d::Vec2 Position;
+	cocos2d::Vec2 SpritePosition;
 	bool bClickable;
 
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 
 public:
-	MySquare(GameScene* argScene, const cocos2d::Vec2& argPosition);
+	MySquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition);
 	void StartActivation(float ActivationTotalTime);
 };

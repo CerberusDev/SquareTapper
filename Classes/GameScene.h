@@ -18,7 +18,7 @@ class GameScene : public cocos2d::Scene
 {
 protected:
 	MySquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];
-	std::vector<std::pair<int, int>> AvailableSquares;
+	std::vector<MySquare*> AvailableSquares;
 	const int LevelNumber;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;

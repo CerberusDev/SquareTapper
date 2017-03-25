@@ -7,8 +7,9 @@
 
 USING_NS_CC;
 
-MySquare::MySquare(GameScene* argScene, const Vec2& argSpritePosition):
-ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), SpritePosition(argSpritePosition), bClickable(false)
+MySquare::MySquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
+PosX(argPosX), PosY(argPosY), ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), 
+SpritePosition(argSpritePosition), bClickable(false)
 {
 	MySprite = Sprite::create("Square1.png");
 	MySprite->setPosition(SpritePosition);

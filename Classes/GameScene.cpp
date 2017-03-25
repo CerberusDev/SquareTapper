@@ -94,8 +94,9 @@ bool GameScene::init()
 		{
 			float PosYMod = OffsetY + (float)y / (SQUARE_AMOUNT_Y - 1) * (1.0f - 2.0f * OffsetY);
 			Vec2 Pos = Vec2(visibleSize.width * PosXMod + origin.x, visibleSize.height * PosYMod + origin.y);
-			Squares[x][y] = new MySquare(this, Pos);
-			AvailableSquares.push_back(std::pair<int, int>(x, y));
+			MySquare* NewSquare = new MySquare(this, Pos, x, y);
+			Squares[x][y] = NewSquare;
+			AvailableSquares.push_back(NewSquare);
 		}
 	}
 
@@ -121,8 +122,7 @@ void GameScene::onExit()
 
 void GameScene::ActivateNextSquare()
 {
-	std::pair<int, int> NextSquareCoords = AvailableSquares.back();
-	Squares[NextSquareCoords.first][NextSquareCoords.second]->StartActivation(SquareActivationTotalTime);
+	Squares[AvailableSquares.back()->PosX][AvailableSquares.back()->PosY]->StartActivation(SquareActivationTotalTime);
 	AvailableSquares.pop_back();
 	++ActiveSquaresNumber;
 

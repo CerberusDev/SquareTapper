@@ -15,7 +15,9 @@ StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
 TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
 SquareActivationTotalTime(argSquareActivationTotalTime),
-ActiveSquaresNumber(0)
+ActiveSquaresNumber(0),
+SquarePositionMarginX(0.23f),
+SquarePositionMarginY(0.2f)
 {
 
 }
@@ -42,7 +44,7 @@ bool GameScene::init()
     if (!Scene::init())
         return false;
     
-    auto visibleSize = Director::getInstance()->getVisibleSize();
+    VisibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	Vector<MenuItem*> MenuItems;
@@ -52,7 +54,7 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(LevelSelectScene::create());
 	});
     
-	BackItem->setPosition(Vec2(origin.x + visibleSize.width * 0.77f, origin.y + visibleSize.height * 0.07f));
+	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
 	MenuItems.pushBack(BackItem);
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
@@ -60,7 +62,7 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime));
 	});
 
-	RestartItem->setPosition(Vec2(origin.x + visibleSize.width * 0.88f, origin.y + visibleSize.height * 0.07f));
+	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
 	MenuItems.pushBack(RestartItem);
 
     auto menu = Menu::createWithArray(MenuItems);
@@ -69,31 +71,28 @@ bool GameScene::init()
     
 	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
     auto label = Label::createWithTTF("Tap the squares!", "fonts/Marker Felt.ttf", FontSize);
-	label->setPosition(Vec2(origin.x + visibleSize.width / 2.0f, origin.y + visibleSize.height * 0.955f));
+	label->setPosition(Vec2(origin.x + VisibleSize.width / 2.0f, origin.y + VisibleSize.height * 0.955f));
 	this->addChild(label, 1);
 
 	FontSize = 36.0f / Director::getInstance()->getContentScaleFactor();
 	std::stringstream Stream;
 	Stream << "Level " << LevelNumber;
 	label = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", FontSize);
-	label->setPosition(Vec2(origin.x + visibleSize.width / 2.0f, origin.y + visibleSize.height * 0.9f));
+	label->setPosition(Vec2(origin.x + VisibleSize.width / 2.0f, origin.y + VisibleSize.height * 0.9f));
 	this->addChild(label, 1);
 
     auto sprite = Sprite::create("HelloWorld.png");
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+    sprite->setPosition(Vec2(VisibleSize.width/2 + origin.x, VisibleSize.height/2 + origin.y));
 	this->addChild(sprite, 0);
-
-	float OffsetX = 0.23f;
-	float OffsetY = 0.2f;
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{
-		float PosXMod = OffsetX + (float)x / (SQUARE_AMOUNT_X - 1) * (1.0f - 2.0f * OffsetX);
+		float PosXMod = SquarePositionMarginX + (float)x / (SQUARE_AMOUNT_X - 1) * (1.0f - 2.0f * SquarePositionMarginX);
 
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
-			float PosYMod = OffsetY + (float)y / (SQUARE_AMOUNT_Y - 1) * (1.0f - 2.0f * OffsetY);
-			Vec2 Pos = Vec2(visibleSize.width * PosXMod + origin.x, visibleSize.height * PosYMod + origin.y);
+			float PosYMod = SquarePositionMarginY + (float)y / (SQUARE_AMOUNT_Y - 1) * (1.0f - 2.0f * SquarePositionMarginY);
+			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 			GameSquare* NewSquare = new GameSquare(this, Pos, x, y);
 			Squares[x][y] = NewSquare;
 			AvailableSquares.push_back(NewSquare);
@@ -118,6 +117,22 @@ void GameScene::onExit()
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			delete Squares[x][y];
+}
+
+float GameScene::GetScreenPositionX(int SquareIndexX) const
+{
+	return GetScreenPosition(SquareIndexX, SQUARE_AMOUNT_X, SquarePositionMarginX, VisibleSize.width);
+}
+
+float GameScene::GetScreenPositionY(int SquareIndexY) const
+{
+	return GetScreenPosition(SquareIndexY, SQUARE_AMOUNT_Y, SquarePositionMarginY, VisibleSize.height);
+}
+
+float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float SquarePositionMargin, float ScreenSize) const
+{
+	float PosMod = SquarePositionMargin + (float)SquareIndex / (SquaresNumber - 1) * (1.0f - 2.0f * SquarePositionMargin);
+	return ScreenSize * PosMod;
 }
 
 void GameScene::ActivateNextSquare()

@@ -24,6 +24,9 @@ protected:
 	const float MaxTimeWithoutActiveSquare;
 	const float TimeBetweenSquaresActivation;
 	const float SquareActivationTotalTime;
+	const float SquarePositionMarginX;
+	const float SquarePositionMarginY;
+	cocos2d::Size VisibleSize;
 	int ActiveSquaresNumber;
 
 // ---------------------------------------------------------------------------------------------------
@@ -36,8 +39,13 @@ public:
     
 	static GameScene* create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime);
 
+	float GetScreenPositionX(int SquareIndexX) const;
+	float GetScreenPositionY(int SquareIndexY) const;
 	void ActivateNextSquare();
 	void QueueNextSquareActivation(float Delay);
 	void OnSquareCompleted();
 	void OnSquareFailed();
+
+protected:
+	float GetScreenPosition(int SquareIndex, int SquareMax, float SquarePositionMargin, float ScreenSize) const;
 };

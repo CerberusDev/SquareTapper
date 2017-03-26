@@ -4,7 +4,7 @@
 
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
-#include "MySquare.h"
+#include "GameSquare.h"
 #include "LevelSelectScene.h"
 
 USING_NS_CC;
@@ -94,7 +94,7 @@ bool GameScene::init()
 		{
 			float PosYMod = OffsetY + (float)y / (SQUARE_AMOUNT_Y - 1) * (1.0f - 2.0f * OffsetY);
 			Vec2 Pos = Vec2(visibleSize.width * PosXMod + origin.x, visibleSize.height * PosYMod + origin.y);
-			MySquare* NewSquare = new MySquare(this, Pos, x, y);
+			GameSquare* NewSquare = new GameSquare(this, Pos, x, y);
 			Squares[x][y] = NewSquare;
 			AvailableSquares.push_back(NewSquare);
 		}

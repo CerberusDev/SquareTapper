@@ -3,11 +3,11 @@
 // ---------------------------------------------------------------------------------------------------
 
 #include "GameScene.h"
-#include "MySquare.h"
+#include "GameSquare.h"
 
 USING_NS_CC;
 
-MySquare::MySquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
+GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX), PosY(argPosY), ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), 
 SpritePosition(argSpritePosition), bClickable(false)
 {
@@ -44,7 +44,7 @@ SpritePosition(argSpritePosition), bClickable(false)
 	ParentScene->addChild(MySecondSprite, 2);
 }
 
-void MySquare::StartActivation(float ActivationTotalTime)
+void GameSquare::StartActivation(float ActivationTotalTime)
 {
 	bClickable = true;
 
@@ -59,7 +59,7 @@ void MySquare::StartActivation(float ActivationTotalTime)
 	MySecondSprite->runAction(Sequence::create(StartFunc, ScaleAction, EndFunc, nullptr));
 }
 
-void MySquare::OnTouch(Touch* touch, Event* event)
+void GameSquare::OnTouch(Touch* touch, Event* event)
 {
 	CCLOG("Touched! %f %f", touch->getLocation().x, touch->getLocation().y);
 

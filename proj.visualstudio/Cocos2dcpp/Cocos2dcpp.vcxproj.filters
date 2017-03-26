@@ -2257,13 +2257,13 @@
     <ClInclude Include="..\..\cocos2d\cocos\audio\android\utils\Utils.h">
       <Filter>cocos\audio\android\utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Classes\MySquare.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Classes\LevelSelectScene.h">
       <Filter>jni</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classes\GameScene.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\GameSquare.h">
       <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>
@@ -4226,13 +4226,13 @@
     <ClCompile Include="..\..\cocos2d\cocos\audio\android\utils\Utils.cpp">
       <Filter>cocos\audio\android\utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Classes\MySquare.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Classes\LevelSelectScene.cpp">
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\GameScene.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\GameSquare.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

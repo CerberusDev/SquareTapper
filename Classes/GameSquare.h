@@ -8,7 +8,7 @@
 
 class GameScene;
 
-class MySquare
+class GameSquare
 {
 public:
 	const int PosX;
@@ -26,6 +26,6 @@ protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 
 public:
-	MySquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 	void StartActivation(float ActivationTotalTime);
 };

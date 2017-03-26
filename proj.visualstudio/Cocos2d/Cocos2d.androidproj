@@ -105,6 +105,7 @@
     <Content Include="assets\Level4_pressed.png" />
     <Content Include="assets\Level5_idle.png" />
     <Content Include="assets\Level5_pressed.png" />
+    <Content Include="assets\Mask1.png" />
     <Content Include="assets\Restart_idle.png" />
     <Content Include="assets\Restart_pressed.png" />
     <Content Include="assets\SmallFrame.png" />

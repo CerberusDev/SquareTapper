@@ -6,10 +6,12 @@
 #include "SimpleAudioEngine.h"
 #include "GameSquare.h"
 #include "LevelSelectScene.h"
+#include "GameMask.h"
 
 USING_NS_CC;
 
 GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime):
+Mask(nullptr),
 LevelNumber(argLevelNumber),
 StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
@@ -101,6 +103,8 @@ bool GameScene::init()
 
 	std::random_shuffle(AvailableSquares.begin(), AvailableSquares.end());
 
+	Mask = new GameMask(this);
+
 	auto StartDelayAction = DelayTime::create(StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
 	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
@@ -117,6 +121,8 @@ void GameScene::onExit()
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			delete Squares[x][y];
+
+	delete Mask;
 }
 
 float GameScene::GetScreenPositionX(int SquareIndexX) const

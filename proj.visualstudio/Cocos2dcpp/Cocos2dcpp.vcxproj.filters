@@ -2266,6 +2266,9 @@
     <ClInclude Include="..\..\Classes\GameSquare.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\GameMask.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4233,6 +4236,9 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\GameSquare.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\GameMask.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

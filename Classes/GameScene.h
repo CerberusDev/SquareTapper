@@ -10,6 +10,7 @@
 #include "cocos2d.h"
 
 class GameSquare;
+class GameMask;
 
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
@@ -19,6 +20,7 @@ class GameScene : public cocos2d::Scene
 protected:
 	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];
 	std::vector<GameSquare*> AvailableSquares;
+	GameMask* Mask;
 	const int LevelNumber;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;

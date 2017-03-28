@@ -19,7 +19,8 @@ TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
 SquareActivationTotalTime(argSquareActivationTotalTime),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
-ActiveSquaresNumber(0)
+ActiveSquaresNumber(0),
+UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y)
 {
 
 }
@@ -94,11 +95,8 @@ bool GameScene::init()
 			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 			GameSquare* NewSquare = new GameSquare(this, Pos, x, y);
 			Squares[x][y] = NewSquare;
-			AvailableSquares.push_back(NewSquare);
 		}
 	}
-
-	std::random_shuffle(AvailableSquares.begin(), AvailableSquares.end());
 
 	Mask = new GameMask(this);
 
@@ -137,14 +135,30 @@ float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float Squ
 	float PosMod = SquarePositionMargin + (float)SquareIndex / (SquaresNumber - 1) * (1.0f - 2.0f * SquarePositionMargin);
 	return ScreenSize * PosMod;
 }
+GameSquare* GameScene::GetSquareForActivation() const
+{
+	std::vector<GameSquare*> AvailableSquares;
+
+	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
+	{
+		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
+		{
+			if (Squares[x][y]->GetState() == ESquareState::Inactive)
+				AvailableSquares.push_back(Squares[x][y]);
+		}
+	}
+
+	std::random_shuffle(AvailableSquares.begin(), AvailableSquares.end());
+	return AvailableSquares.back();
+}
 
 void GameScene::ActivateNextSquare()
 {
-	Squares[AvailableSquares.back()->PosX][AvailableSquares.back()->PosY]->StartActivation(SquareActivationTotalTime);
-	AvailableSquares.pop_back();
+	GetSquareForActivation()->StartActivation(SquareActivationTotalTime);
 	++ActiveSquaresNumber;
+	--UnactivatedSquaresNumber;
 
-	if (!AvailableSquares.empty())
+	if (UnactivatedSquaresNumber > 0)
 		QueueNextSquareActivation(TimeBetweenSquaresActivation);
 }
 

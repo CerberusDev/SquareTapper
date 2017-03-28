@@ -16,8 +16,7 @@ class GameMask;
 class GameScene : public cocos2d::Scene
 {
 protected:
-	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];
-	std::vector<GameSquare*> AvailableSquares;
+	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];	
 	GameMask* Mask;
 	const int LevelNumber;
 	const float StartDelay;
@@ -28,6 +27,7 @@ protected:
 	const float SquarePositionMarginY;
 	cocos2d::Size VisibleSize;
 	int ActiveSquaresNumber;
+	int UnactivatedSquaresNumber;
 
 // ---------------------------------------------------------------------------------------------------
 
@@ -41,6 +41,7 @@ public:
 
 	float GetScreenPositionX(int SquareIndexX) const;
 	float GetScreenPositionY(int SquareIndexY) const;
+	GameSquare* GetSquareForActivation() const;
 	void ActivateNextSquare();
 	void QueueNextSquareActivation(float Delay);
 	void OnSquareCompleted();

@@ -89,11 +89,8 @@ bool GameScene::init()
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{
-		float PosXMod = SquarePositionMarginX + (float)x / (SQUARE_AMOUNT_X - 1) * (1.0f - 2.0f * SquarePositionMarginX);
-
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
-			float PosYMod = SquarePositionMarginY + (float)y / (SQUARE_AMOUNT_Y - 1) * (1.0f - 2.0f * SquarePositionMarginY);
 			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 			GameSquare* NewSquare = new GameSquare(this, Pos, x, y);
 			Squares[x][y] = NewSquare;

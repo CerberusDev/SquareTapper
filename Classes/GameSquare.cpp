@@ -9,7 +9,7 @@ USING_NS_CC;
 
 GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX), PosY(argPosY), ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), 
-SpritePosition(argSpritePosition), State(ESquareState::Inactive)
+SpritePosition(argSpritePosition), State(ESquareState::Inactive), bCoveredByMask(false)
 {
 	MySprite = Sprite::create("Square1.png");
 	MySprite->setPosition(SpritePosition);

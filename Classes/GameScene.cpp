@@ -143,13 +143,13 @@ GameSquare* GameScene::GetSquareForActivation() const
 	{
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
-			if (Squares[x][y]->GetState() == ESquareState::Inactive)
+			if (Squares[x][y]->GetState() == ESquareState::Inactive && Squares[x][y]->GetCoveredByMask() == false)
 				AvailableSquares.push_back(Squares[x][y]);
 		}
 	}
 
 	std::random_shuffle(AvailableSquares.begin(), AvailableSquares.end());
-	return AvailableSquares.back();
+	return AvailableSquares.size() > 0 ? AvailableSquares[0] : nullptr;
 }
 
 void GameScene::ActivateNextSquare()

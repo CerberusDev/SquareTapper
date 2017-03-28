@@ -47,6 +47,8 @@ public:
 	void OnSquareCompleted();
 	void OnSquareFailed();
 
+	GameSquare* (&GetSquares())[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y] { return Squares; }
+
 protected:
 	float GetScreenPosition(int SquareIndex, int SquareMax, float SquarePositionMargin, float ScreenSize) const;
 };

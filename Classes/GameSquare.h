@@ -20,6 +20,7 @@ protected:
 	cocos2d::Sprite* MySecondSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
+	bool bCoveredByMask;
 
 // ---------------------------------------------------------------------------------------------------
 protected:
@@ -31,4 +32,6 @@ public:
 	void StartActivation(float ActivationTotalTime);
 
 	ESquareState GetState() const { return State; }
+	bool GetCoveredByMask() const { return bCoveredByMask; }
+	void SetCoveredByMask(bool argbCoveredByMask) { bCoveredByMask = argbCoveredByMask; }
 };

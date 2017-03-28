@@ -7,12 +7,14 @@
 #include "SquareTapper.h"
 
 class GameScene;
+class GameSquare;
 
 class GameMask
 {
 protected:
 	GameScene* ParentScene;
 	cocos2d::Sprite* MaskSprite;
+	std::vector<GameSquare*> CoveredSquares;
 	int CurrentRowIndex;
 
 // ---------------------------------------------------------------------------------------------------
@@ -21,5 +23,7 @@ public:
 
 protected:
 	void UpdatePosition();
+	void CoverSquares();
+	void UncoverSquares();
 	void OnFadingOutEnd();
 };

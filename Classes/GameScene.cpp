@@ -154,9 +154,12 @@ GameSquare* GameScene::GetSquareForActivation() const
 
 void GameScene::ActivateNextSquare()
 {
-	GetSquareForActivation()->StartActivation(SquareActivationTotalTime);
-	++ActiveSquaresNumber;
-	--UnactivatedSquaresNumber;
+	if (GameSquare* NextSquare = GetSquareForActivation())
+	{
+		NextSquare->StartActivation(SquareActivationTotalTime);
+		++ActiveSquaresNumber;
+		--UnactivatedSquaresNumber;
+	}
 
 	if (UnactivatedSquaresNumber > 0)
 		QueueNextSquareActivation(TimeBetweenSquaresActivation);

@@ -17,9 +17,9 @@ StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
 TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
 SquareActivationTotalTime(argSquareActivationTotalTime),
-ActiveSquaresNumber(0),
 SquarePositionMarginX(0.23f),
-SquarePositionMarginY(0.2f)
+SquarePositionMarginY(0.2f),
+ActiveSquaresNumber(0)
 {
 
 }

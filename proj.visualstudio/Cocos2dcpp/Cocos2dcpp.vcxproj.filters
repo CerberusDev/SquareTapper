@@ -2269,6 +2269,9 @@
     <ClInclude Include="..\..\Classes\GameMask.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\SquareTapper.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">

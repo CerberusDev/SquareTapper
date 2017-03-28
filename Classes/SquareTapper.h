@@ -4,12 +4,7 @@
 
 #pragma once
 
-#include "SquareTapper.h"
+#define COCOS2D_DEBUG 1
 
-class LevelSelectScene : public cocos2d::Scene
-{
-public:
-	virtual bool init();
+#include "cocos2d.h"
 
-	CREATE_FUNC(LevelSelectScene);
-};

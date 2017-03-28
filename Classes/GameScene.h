@@ -4,16 +4,14 @@
 
 #pragma once
 
-#define COCOS2D_DEBUG 1
-#define ACTIVATION_SEQUENCE_ACTION_TAG 1000
+#include "SquareTapper.h"
 
-#include "cocos2d.h"
+#define ACTIVATION_SEQUENCE_ACTION_TAG 1000
+#define SQUARE_AMOUNT_X 3
+#define SQUARE_AMOUNT_Y 5
 
 class GameSquare;
 class GameMask;
-
-#define SQUARE_AMOUNT_X 3
-#define SQUARE_AMOUNT_Y 5
 
 class GameScene : public cocos2d::Scene
 {

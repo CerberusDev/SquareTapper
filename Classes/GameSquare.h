@@ -19,7 +19,7 @@ protected:
 	cocos2d::Sprite* MySprite;
 	cocos2d::Sprite* MySecondSprite;
 	cocos2d::Vec2 SpritePosition;
-	bool bClickable;
+	ESquareState State;
 
 // ---------------------------------------------------------------------------------------------------
 protected:
@@ -27,5 +27,8 @@ protected:
 
 public:
 	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+
 	void StartActivation(float ActivationTotalTime);
+
+	ESquareState GetState() const { return State; }
 };

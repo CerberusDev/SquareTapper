@@ -9,7 +9,7 @@ USING_NS_CC;
 
 GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX), PosY(argPosY), ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), 
-SpritePosition(argSpritePosition), bClickable(false)
+SpritePosition(argSpritePosition), State(ESquareState::Inactive)
 {
 	MySprite = Sprite::create("Square1.png");
 	MySprite->setPosition(SpritePosition);
@@ -46,26 +46,23 @@ SpritePosition(argSpritePosition), bClickable(false)
 
 void GameSquare::StartActivation(float ActivationTotalTime)
 {
-	bClickable = true;
+	State = ESquareState::DuringActivation;
 
-	auto StartFunc = CallFunc::create([&]() {
-		bClickable = true;
-	});
 	auto ScaleAction = ScaleTo::create(ActivationTotalTime, 1.0f);
 	auto EndFunc = CallFunc::create([&]() {
-		bClickable = false;
+		State = ESquareState::Failed;
 		ParentScene->OnSquareFailed();
 	});
-	MySecondSprite->runAction(Sequence::create(StartFunc, ScaleAction, EndFunc, nullptr));
+	MySecondSprite->runAction(Sequence::create(ScaleAction, EndFunc, nullptr));
 }
 
 void GameSquare::OnTouch(Touch* touch, Event* event)
 {
 	CCLOG("Touched! %f %f", touch->getLocation().x, touch->getLocation().y);
 
-	if (bClickable)
+	if (State == ESquareState::DuringActivation)
 	{
-		bClickable = false;
+		State = ESquareState::Completed;
 
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MySecondSprite);
 

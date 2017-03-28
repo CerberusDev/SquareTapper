@@ -8,3 +8,4 @@
 
 #include "cocos2d.h"
 
+enum class ESquareState { Inactive, DuringActivation, Completed, Failed };

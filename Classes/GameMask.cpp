@@ -10,7 +10,7 @@ USING_NS_CC;
 GameMask::GameMask(GameScene* argScene) :
 ParentScene(argScene),
 MaskSprite(nullptr),
-StartIndex(0)
+CurrentRowIndex(0)
 {
 	MaskSprite = Sprite::create("Mask1.png");
 	MaskSprite->setOpacity(0.0f);
@@ -29,11 +29,11 @@ StartIndex(0)
 void GameMask::UpdatePosition()
 {
 	float PosY = Director::getInstance()->getVisibleSize().height * 0.5f;
-	MaskSprite->setPosition(ParentScene->GetScreenPositionX(StartIndex), PosY);
+	MaskSprite->setPosition(ParentScene->GetScreenPositionX(CurrentRowIndex), PosY);
 }
 
 void GameMask::OnFadingOutEnd()
 {
-	StartIndex = (++StartIndex % SQUARE_AMOUNT_X);
+	CurrentRowIndex = (++CurrentRowIndex % SQUARE_AMOUNT_X);
 	UpdatePosition();
 }

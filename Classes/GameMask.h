@@ -13,7 +13,7 @@ class GameMask
 protected:
 	GameScene* ParentScene;
 	cocos2d::Sprite* MaskSprite;
-	int StartIndex;
+	int CurrentRowIndex;
 
 // ---------------------------------------------------------------------------------------------------
 public:

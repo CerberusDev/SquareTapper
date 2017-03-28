@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "LevelSelectScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -61,11 +61,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    // create a scene. it's an autorelease object
-    auto scene = LevelSelectScene::create();
-
-    // run
-    director->runWithScene(scene);
+	director->runWithScene(GameScene::create(1, 1.5f, 1.6f));
 
     return true;
 }

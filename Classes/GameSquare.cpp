@@ -60,7 +60,7 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 {
 	CCLOG("Touched! %f %f", touch->getLocation().x, touch->getLocation().y);
 
-	if (State == ESquareState::DuringActivation)
+	if (State == ESquareState::DuringActivation && !bCoveredByMask)
 	{
 		State = ESquareState::Completed;
 

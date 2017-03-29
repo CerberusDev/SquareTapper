@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "GameScene.h"
+#include "LevelSelectScene.h"
 
 USING_NS_CC;
 
@@ -61,7 +61,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-	director->runWithScene(GameScene::create(1, 1.5f, 1.6f));
+	director->runWithScene(LevelSelectScene::create());
 
     return true;
 }

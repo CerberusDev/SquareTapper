@@ -9,7 +9,7 @@ USING_NS_CC;
 
 GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX), PosY(argPosY), ParentScene(argScene), MySprite(nullptr), MySecondSprite(nullptr), 
-SpritePosition(argSpritePosition), State(ESquareState::Inactive), bCoveredByMask(false)
+SpritePosition(argSpritePosition), State(ESquareState::Inactive), bCoveredByMask(false), bPausedOnGameOver(false)
 {
 	MySprite = Sprite::create("Square1.png");
 	MySprite->setPosition(SpritePosition);
@@ -60,7 +60,7 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 {
 	CCLOG("Touched! %f %f", touch->getLocation().x, touch->getLocation().y);
 
-	if (State == ESquareState::DuringActivation && !bCoveredByMask)
+	if (State == ESquareState::DuringActivation && !bCoveredByMask && !bPausedOnGameOver)
 	{
 		State = ESquareState::Completed;
 
@@ -86,4 +86,10 @@ void GameSquare::SetCoveredByMask(bool argbCoveredByMask)
 		else
 			Director::getInstance()->getActionManager()->resumeTarget(MySecondSprite);
 	}
+}
+
+void GameSquare::PauseOnGameOver()
+{
+	bPausedOnGameOver = true;
+	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MySecondSprite);
 }

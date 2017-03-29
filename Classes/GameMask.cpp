@@ -15,7 +15,7 @@ CurrentRowIndex(0)
 {
 	MaskSprite = Sprite::create("Mask1.png");
 	MaskSprite->setOpacity(0.0f);
-	ParentScene->addChild(MaskSprite, 4);
+	ParentScene->addChild(MaskSprite, 3);
 	UpdatePosition();
 
 	auto FadeInAction = FadeIn::create(0.15f);

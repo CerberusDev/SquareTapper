@@ -21,6 +21,7 @@ protected:
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
 	bool bCoveredByMask;
+	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------
 protected:
@@ -31,6 +32,7 @@ public:
 
 	void StartActivation(float ActivationTotalTime);
 	void SetCoveredByMask(bool argbCoveredByMask);
+	void PauseOnGameOver();
 
 	ESquareState GetState() const { return State; }
 	bool GetCoveredByMask() const { return bCoveredByMask; }

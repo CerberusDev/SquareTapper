@@ -198,4 +198,18 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 {
 	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), FailedSquare));
+
+	for (GameSquare* CurrSquare : ActiveSquares)
+		CurrSquare->PauseOnGameOver();
+	
+	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
+
+	auto sprite = Sprite::create("SmallFrame.png");
+	sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+	this->addChild(sprite, 4);
+
+	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
+	auto label = Label::createWithTTF("You lost!", "fonts/Marker Felt.ttf", FontSize);
+	label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+	this->addChild(label, 5);
 }

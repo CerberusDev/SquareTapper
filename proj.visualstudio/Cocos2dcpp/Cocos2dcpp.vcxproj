@@ -177,8 +177,10 @@
     <ClInclude Include="..\..\Classes\GameMask.h" />
     <ClInclude Include="..\..\Classes\GameScene.h" />
     <ClInclude Include="..\..\Classes\GameSquare.h" />
+    <ClInclude Include="..\..\Classes\HorizontalGameMask.h" />
     <ClInclude Include="..\..\Classes\LevelSelectScene.h" />
     <ClInclude Include="..\..\Classes\SquareTapper.h" />
+    <ClInclude Include="..\..\Classes\VerticalGameMask.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCAction.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCActionCamera.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCActionCatmullRom.h" />
@@ -936,7 +938,9 @@
     <ClCompile Include="..\..\Classes\GameMask.cpp" />
     <ClCompile Include="..\..\Classes\GameScene.cpp" />
     <ClCompile Include="..\..\Classes\GameSquare.cpp" />
+    <ClCompile Include="..\..\Classes\HorizontalGameMask.cpp" />
     <ClCompile Include="..\..\Classes\LevelSelectScene.cpp" />
+    <ClCompile Include="..\..\Classes\VerticalGameMask.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCAction.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCActionCamera.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCActionCatmullRom.cpp" />

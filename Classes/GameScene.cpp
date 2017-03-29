@@ -6,7 +6,8 @@
 #include "SimpleAudioEngine.h"
 #include "GameSquare.h"
 #include "LevelSelectScene.h"
-#include "GameMask.h"
+#include "VerticalGameMask.h"
+#include "HorizontalGameMask.h"
 
 USING_NS_CC;
 
@@ -99,7 +100,7 @@ bool GameScene::init()
 	}
 
 	if (bSpawnGameMask)
-		Mask = new GameMask(this);
+		Mask = new HorizontalGameMask(this);
 
 	auto StartDelayAction = DelayTime::create(StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });

@@ -2272,6 +2272,12 @@
     <ClInclude Include="..\..\Classes\SquareTapper.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\VerticalGameMask.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\HorizontalGameMask.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4242,6 +4248,12 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\GameMask.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\VerticalGameMask.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\HorizontalGameMask.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

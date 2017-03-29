@@ -8,15 +8,13 @@
 
 USING_NS_CC;
 
-GameMask::GameMask(GameScene* argScene) :
+GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath) :
 ParentScene(argScene),
-MaskSprite(nullptr),
-CurrentRowIndex(0)
+MaskSprite(nullptr)
 {
-	MaskSprite = Sprite::create("Mask1.png");
+	MaskSprite = Sprite::create(SpriteFilePath);
 	MaskSprite->setOpacity(0.0f);
 	ParentScene->addChild(MaskSprite, 3);
-	UpdatePosition();
 
 	auto FadeInAction = FadeIn::create(0.15f);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { CoverSquares(); });
@@ -29,26 +27,9 @@ CurrentRowIndex(0)
 	MaskSprite->runAction(RepeatForever::create(SequenceAction));
 }
 
-void GameMask::UpdatePosition()
-{
-	float PosY = Director::getInstance()->getVisibleSize().height * 0.5f;
-	MaskSprite->setPosition(ParentScene->GetScreenPositionX(CurrentRowIndex), PosY);
-}
-
 void GameMask::OnGameOver()
 {
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MaskSprite);
-}
-
-void GameMask::CoverSquares()
-{
-	auto Squares = ParentScene->GetSquares();
-
-	for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
-	{
-		CoveredSquares.push_back(Squares[CurrentRowIndex][y]);
-		Squares[CurrentRowIndex][y]->SetCoveredByMask(true);
-	}
 }
 
 void GameMask::UncoverSquares()
@@ -59,9 +40,8 @@ void GameMask::UncoverSquares()
 	CoveredSquares.clear();
 }
 
-
 void GameMask::OnFadingOutEnd()
 {
-	CurrentRowIndex = (++CurrentRowIndex % SQUARE_AMOUNT_X);
-	UpdatePosition();
+	Move();
+	UpdateSpritePosition();
 }

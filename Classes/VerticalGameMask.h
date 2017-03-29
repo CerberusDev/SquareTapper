@@ -5,27 +5,19 @@
 #pragma once
 
 #include "SquareTapper.h"
+#include "GameMask.h"
 
-class GameScene;
-class GameSquare;
-
-class GameMask
+class VerticalGameMask : public GameMask
 {
 protected:
-	GameScene* ParentScene;
-	cocos2d::Sprite* MaskSprite;
-	std::vector<GameSquare*> CoveredSquares;
+	int CurrentColumnIndex;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameMask(GameScene* argScene, std::string SpriteFilePath);
-
-	void OnGameOver();
+	VerticalGameMask(GameScene* argScene);
 
 protected:
-	virtual void UpdateSpritePosition() = 0;
-	virtual void Move() = 0;
-	virtual void CoverSquares() = 0;
-	void UncoverSquares();
-	void OnFadingOutEnd();
+	virtual void UpdateSpritePosition();
+	virtual void Move();
+	virtual void CoverSquares();
 };

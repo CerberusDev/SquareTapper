@@ -20,7 +20,7 @@ CurrentRowIndex(0)
 
 	auto FadeInAction = FadeIn::create(0.15f);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { CoverSquares(); });
-	auto DelayAction = DelayTime::create(2.0f);
+	auto DelayAction = DelayTime::create(0.6f);
 	auto OnFadingOutStartFunction = CallFunc::create([&]() { UncoverSquares(); });
 	auto FadeOutAction = FadeOut::create(0.15f);
 	auto OnFadingOutEndFunction = CallFunc::create([&]() { OnFadingOutEnd(); });

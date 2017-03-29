@@ -51,7 +51,7 @@ void GameSquare::StartActivation(float ActivationTotalTime)
 	auto ScaleAction = ScaleTo::create(ActivationTotalTime, 1.0f);
 	auto EndFunc = CallFunc::create([&]() {
 		State = ESquareState::Failed;
-		ParentScene->OnSquareFailed();
+		ParentScene->OnSquareFailed(this);
 	});
 	MySecondSprite->runAction(Sequence::create(ScaleAction, EndFunc, nullptr));
 }
@@ -71,7 +71,7 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 		auto ScaleAction3 = ScaleTo::create(0.15f, 1.0f);
 		MySecondSprite->runAction(Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr));
 
-		ParentScene->OnSquareCompleted();
+		ParentScene->OnSquareCompleted(this);
 	}
 }
 

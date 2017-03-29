@@ -19,7 +19,6 @@ TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
 SquareActivationTotalTime(argSquareActivationTotalTime),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
-ActiveSquaresNumber(0),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y)
 {
 
@@ -157,7 +156,7 @@ void GameScene::ActivateNextSquare()
 	if (GameSquare* NextSquare = GetSquareForActivation())
 	{
 		NextSquare->StartActivation(SquareActivationTotalTime);
-		++ActiveSquaresNumber;
+		ActiveSquares.push_back(NextSquare);
 		--UnactivatedSquaresNumber;
 	}
 
@@ -174,11 +173,11 @@ void GameScene::QueueNextSquareActivation(float Delay)
 	runAction(MySequence);
 }
 
-void GameScene::OnSquareCompleted()
+void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 {
-	--ActiveSquaresNumber;
+	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), CompletedSquare));
 
-	if (ActiveSquaresNumber == 0)
+	if (ActiveSquares.empty())
 	{
 		auto ActionManager = Director::getInstance()->getActionManager();
 		auto ReturnedAction = ActionManager->getActionByTag(ACTIVATION_SEQUENCE_ACTION_TAG, this);
@@ -196,7 +195,7 @@ void GameScene::OnSquareCompleted()
 	}
 }
 
-void GameScene::OnSquareFailed()
+void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 {
-	--ActiveSquaresNumber;
+	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), FailedSquare));
 }

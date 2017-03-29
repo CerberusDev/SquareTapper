@@ -24,9 +24,6 @@ protected:
 	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------
-protected:
-	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
-
 public:
 	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 
@@ -36,4 +33,7 @@ public:
 
 	ESquareState GetState() const { return State; }
 	bool GetCoveredByMask() const { return bCoveredByMask; }
+
+protected:
+	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 };

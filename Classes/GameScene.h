@@ -28,16 +28,17 @@ protected:
 	const float SquarePositionMarginY;
 	cocos2d::Size VisibleSize;
 	int UnactivatedSquaresNumber;
+	bool bSpawnGameMask;
 
 // ---------------------------------------------------------------------------------------------------
 
 public:
-	GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime);
+	GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask);
 
     virtual bool init();
 	virtual void onExit();
     
-	static GameScene* create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime);
+	static GameScene* create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask);
 
 	float GetScreenPositionX(int SquareIndexX) const;
 	float GetScreenPositionY(int SquareIndexY) const;

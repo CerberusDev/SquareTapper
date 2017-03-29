@@ -10,7 +10,7 @@
 
 USING_NS_CC;
 
-GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime):
+GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask):
 Mask(nullptr),
 LevelNumber(argLevelNumber),
 StartDelay(0.5f),
@@ -19,14 +19,15 @@ TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
 SquareActivationTotalTime(argSquareActivationTotalTime),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
-UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y)
+UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
+bSpawnGameMask(argbSpawnGameMask)
 {
 
 }
 
-GameScene* GameScene::create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime)
+GameScene* GameScene::create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask)
 {
-	GameScene *pRet = new(std::nothrow) GameScene(argLevelNumber, argTimeBetweenSquaresActivation, argSquareActivationTotalTime);
+	GameScene *pRet = new(std::nothrow) GameScene(argLevelNumber, argTimeBetweenSquaresActivation, argSquareActivationTotalTime, argbSpawnGameMask);
 
 	if (pRet && pRet->init())
 	{
@@ -61,7 +62,7 @@ bool GameScene::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime));
+		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime, bSpawnGameMask));
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
@@ -97,7 +98,8 @@ bool GameScene::init()
 		}
 	}
 
-	Mask = new GameMask(this);
+	if (bSpawnGameMask)
+		Mask = new GameMask(this);
 
 	auto StartDelayAction = DelayTime::create(StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
@@ -116,7 +118,8 @@ void GameScene::onExit()
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			delete Squares[x][y];
 
-	delete Mask;
+	if (Mask)
+		delete Mask;
 }
 
 float GameScene::GetScreenPositionX(int SquareIndexX) const
@@ -202,7 +205,8 @@ void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 	for (GameSquare* CurrSquare : ActiveSquares)
 		CurrSquare->PauseOnGameOver();
 	
-	Mask->OnGameOver();
+	if (Mask)
+		Mask->OnGameOver();
 
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 

@@ -30,8 +30,8 @@ public:
 	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 
 	void StartActivation(float ActivationTotalTime);
+	void SetCoveredByMask(bool argbCoveredByMask);
 
 	ESquareState GetState() const { return State; }
 	bool GetCoveredByMask() const { return bCoveredByMask; }
-	void SetCoveredByMask(bool argbCoveredByMask) { bCoveredByMask = argbCoveredByMask; }
 };

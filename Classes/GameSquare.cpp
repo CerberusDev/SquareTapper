@@ -74,3 +74,13 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 		ParentScene->OnSquareCompleted();
 	}
 }
+
+void GameSquare::SetCoveredByMask(bool argbCoveredByMask)
+{
+	bCoveredByMask = argbCoveredByMask;
+
+	if (bCoveredByMask)
+		Director::getInstance()->getActionManager()->pauseTarget(MySecondSprite);
+	else
+		Director::getInstance()->getActionManager()->resumeTarget(MySecondSprite);
+}

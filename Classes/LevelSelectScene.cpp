@@ -57,6 +57,13 @@ bool LevelSelectScene::init()
 	Level5Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.55f));
 	MenuItems.pushBack(Level5Button);
 
+	auto Level6Button = MenuItemImage::create("Level6_idle.png", "Level6_pressed.png",
+		[&](Ref* sender) {
+		Director::getInstance()->replaceScene(GameScene::create(6, 0.3f, 1.2f));
+	});
+	Level6Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.55f));
+	MenuItems.pushBack(Level6Button);
+
 	auto LevelMenu = Menu::createWithArray(MenuItems);
 	LevelMenu->setPosition(Vec2::ZERO);
 	this->addChild(LevelMenu, 1);

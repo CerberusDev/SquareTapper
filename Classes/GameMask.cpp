@@ -18,11 +18,11 @@ CurrentRowIndex(0)
 	ParentScene->addChild(MaskSprite, 4);
 	UpdatePosition();
 
-	auto FadeInAction = FadeIn::create(0.3f);
+	auto FadeInAction = FadeIn::create(0.15f);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { CoverSquares(); });
 	auto DelayAction = DelayTime::create(2.0f);
 	auto OnFadingOutStartFunction = CallFunc::create([&]() { UncoverSquares(); });
-	auto FadeOutAction = FadeOut::create(0.3f);
+	auto FadeOutAction = FadeOut::create(0.15f);
 	auto OnFadingOutEndFunction = CallFunc::create([&]() { OnFadingOutEnd(); });
 	auto SequenceAction = Sequence::create(FadeInAction, OnFadingInEndFunction, DelayAction, OnFadingOutStartFunction, FadeOutAction, OnFadingOutEndFunction, nullptr);
 

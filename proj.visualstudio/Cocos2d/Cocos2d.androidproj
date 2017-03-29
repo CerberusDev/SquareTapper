@@ -90,27 +90,10 @@
     <Content Include="..\..\cocos2d\cocos\platform\android\java\src\com\enhance\gameservice\IGameTuningService.aidl">
       <Link>src\com\enhance\gameservice\IGameTuningService.aidl</Link>
     </Content>
-    <Content Include="assets\Back_idle.png" />
-    <Content Include="assets\Back_pressed.png" />
-    <Content Include="assets\fonts\arial.ttf" />
-    <Content Include="assets\fonts\Marker Felt.ttf" />
-    <Content Include="assets\HelloWorld.png" />
-    <Content Include="assets\Level1_idle.png" />
-    <Content Include="assets\Level1_pressed.png" />
-    <Content Include="assets\Level2_idle.png" />
-    <Content Include="assets\Level2_pressed.png" />
-    <Content Include="assets\Level3_idle.png" />
-    <Content Include="assets\Level3_pressed.png" />
-    <Content Include="assets\Level4_idle.png" />
-    <Content Include="assets\Level4_pressed.png" />
-    <Content Include="assets\Level5_idle.png" />
-    <Content Include="assets\Level5_pressed.png" />
-    <Content Include="assets\Mask1.png" />
-    <Content Include="assets\Restart_idle.png" />
-    <Content Include="assets\Restart_pressed.png" />
-    <Content Include="assets\SmallFrame.png" />
-    <Content Include="assets\Square1.png" />
-    <Content Include="assets\Square2.png" />
+    <Content Include="..\..\Resources\**\*.*">
+      <Link>assets\%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="libs\android-async-http-1.4.9.jar" />
     <Content Include="libs\com.android.vending.expansion.zipfile.jar" />
     <Content Include="libs\httpclient-4.4.1.1.jar" />

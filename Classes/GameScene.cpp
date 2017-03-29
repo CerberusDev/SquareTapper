@@ -202,6 +202,8 @@ void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 	for (GameSquare* CurrSquare : ActiveSquares)
 		CurrSquare->PauseOnGameOver();
 	
+	Mask->OnGameOver();
+
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
 	auto sprite = Sprite::create("SmallFrame.png");

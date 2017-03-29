@@ -35,6 +35,11 @@ void GameMask::UpdatePosition()
 	MaskSprite->setPosition(ParentScene->GetScreenPositionX(CurrentRowIndex), PosY);
 }
 
+void GameMask::OnGameOver()
+{
+	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MaskSprite);
+}
+
 void GameMask::CoverSquares()
 {
 	auto Squares = ParentScene->GetSquares();

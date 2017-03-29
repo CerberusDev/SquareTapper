@@ -21,6 +21,8 @@ protected:
 public:
 	GameMask(GameScene* argScene);
 
+	void OnGameOver();
+
 protected:
 	void UpdatePosition();
 	void CoverSquares();

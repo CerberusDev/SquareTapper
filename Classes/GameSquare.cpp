@@ -79,8 +79,11 @@ void GameSquare::SetCoveredByMask(bool argbCoveredByMask)
 {
 	bCoveredByMask = argbCoveredByMask;
 
-	if (bCoveredByMask)
-		Director::getInstance()->getActionManager()->pauseTarget(MySecondSprite);
-	else
-		Director::getInstance()->getActionManager()->resumeTarget(MySecondSprite);
+	if (State == ESquareState::DuringActivation)
+	{
+		if (bCoveredByMask)
+			Director::getInstance()->getActionManager()->pauseTarget(MySecondSprite);
+		else
+			Director::getInstance()->getActionManager()->resumeTarget(MySecondSprite);
+	}
 }

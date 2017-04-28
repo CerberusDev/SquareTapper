@@ -196,6 +196,17 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 				QueueNextSquareActivation(MaxTimeWithoutActiveSquare);
 			}
 		}
+		else
+		{
+			auto sprite = Sprite::create("SmallFrame.png");
+			sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+			this->addChild(sprite, 4);
+
+			float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
+			auto label = Label::createWithTTF("You win!", "fonts/Marker Felt.ttf", FontSize);
+			label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+			this->addChild(label, 5);
+		}
 	}
 }
 

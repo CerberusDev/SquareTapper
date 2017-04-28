@@ -18,6 +18,7 @@ protected:
 	GameScene* ParentScene;
 	cocos2d::Sprite* MySprite;
 	cocos2d::Sprite* MySecondSprite;
+	cocos2d::Sprite* FailedSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
 	bool bCoveredByMask;
@@ -36,4 +37,5 @@ public:
 
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
+	void Failed();
 };

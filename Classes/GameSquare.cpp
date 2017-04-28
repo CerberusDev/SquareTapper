@@ -13,6 +13,7 @@ PosY(argPosY),
 ParentScene(argScene),
 MySprite(nullptr),
 MySecondSprite(nullptr), 
+FailedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
 bCoveredByMask(false),
@@ -56,10 +57,8 @@ void GameSquare::StartActivation(float ActivationTotalTime)
 	State = ESquareState::DuringActivation;
 
 	auto ScaleAction = ScaleTo::create(ActivationTotalTime, 1.0f);
-	auto EndFunc = CallFunc::create([&]() {
-		State = ESquareState::Failed;
-		ParentScene->OnSquareFailed(this);
-	});
+	auto EndFunc = CallFunc::create([&]() { Failed(); });
+
 	MySecondSprite->runAction(Sequence::create(ScaleAction, EndFunc, nullptr));
 }
 
@@ -80,6 +79,20 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 
 		ParentScene->OnSquareCompleted(this);
 	}
+}
+
+void GameSquare::Failed()
+{
+	State = ESquareState::Failed;
+	ParentScene->OnSquareFailed(this);
+
+	FailedSprite = Sprite::create("Square3.png");
+	FailedSprite->setPosition(SpritePosition);
+	FailedSprite->setOpacity(0.0f);
+	ParentScene->addChild(FailedSprite, 3);
+
+	auto FadeInAction = FadeIn::create(0.8f);
+	FailedSprite->runAction(FadeInAction);
 }
 
 void GameSquare::SetCoveredByMask(bool argbCoveredByMask)

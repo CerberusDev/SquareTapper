@@ -213,7 +213,11 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 {
 	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), FailedSquare));
+	LevelFailed();
+}
 
+void GameScene::LevelFailed()
+{
 	for (GameSquare* CurrSquare : ActiveSquares)
 		CurrSquare->PauseOnGameOver();
 	

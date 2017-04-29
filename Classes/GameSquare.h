@@ -16,6 +16,7 @@ public:
 
 protected:
 	GameScene* ParentScene;
+	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MySprite;
 	cocos2d::Sprite* MySecondSprite;
 	cocos2d::Sprite* FailedSprite;
@@ -27,6 +28,7 @@ protected:
 // ---------------------------------------------------------------------------------------------------
 public:
 	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	~GameSquare();
 
 	void StartActivation(float ActivationTotalTime);
 	void SetCoveredByMask(bool argbCoveredByMask);

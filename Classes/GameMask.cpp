@@ -25,6 +25,27 @@ MaskSprite(nullptr)
 	auto SequenceAction = Sequence::create(FadeInAction, OnFadingInEndFunction, DelayAction, OnFadingOutStartFunction, FadeOutAction, OnFadingOutEndFunction, nullptr);
 
 	MaskSprite->runAction(RepeatForever::create(SequenceAction));
+
+	EventListener = EventListenerTouchOneByOne::create();
+	EventListener->setSwallowTouches(true);
+	EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
+		if (MaskSprite->getBoundingBox().containsPoint(touch->getLocation()))
+		{
+			OnTouch(touch, event);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 1);
+}
+
+GameMask::~GameMask()
+{
+	Director::getInstance()->getEventDispatcher()->removeEventListener(EventListener);
 }
 
 void GameMask::OnGameOver()
@@ -44,4 +65,9 @@ void GameMask::OnFadingOutEnd()
 {
 	Move();
 	UpdateSpritePosition();
+}
+
+void GameMask::OnTouch(Touch* touch, Event* event)
+{
+	ParentScene->LevelFailed();
 }

@@ -47,6 +47,7 @@ public:
 	void QueueNextSquareActivation(float Delay);
 	void OnSquareCompleted(GameSquare* CompletedSquare);
 	void OnSquareFailed(GameSquare* FailedSquare);
+	void LevelFailed();
 
 	GameSquare* (&GetSquares())[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y] { return Squares; }
 

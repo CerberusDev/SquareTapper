@@ -13,12 +13,14 @@ class GameMask
 {
 protected:
 	GameScene* ParentScene;
+	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MaskSprite;
 	std::vector<GameSquare*> CoveredSquares;
 
 // ---------------------------------------------------------------------------------------------------
 public:
 	GameMask(GameScene* argScene, std::string SpriteFilePath);
+	~GameMask();
 
 	void OnGameOver();
 
@@ -28,4 +30,5 @@ protected:
 	virtual void CoverSquares() = 0;
 	void UncoverSquares();
 	void OnFadingOutEnd();
+	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 };

@@ -11,6 +11,7 @@ GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int a
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
+EventListener(nullptr),
 MySprite(nullptr),
 MySecondSprite(nullptr), 
 FailedSprite(nullptr),
@@ -23,9 +24,9 @@ bPausedOnGameOver(false)
 	MySprite->setPosition(SpritePosition);
 	ParentScene->addChild(MySprite, 1);
 
-	auto listener1 = EventListenerTouchOneByOne::create();
-	listener1->setSwallowTouches(true);
-	listener1->onTouchBegan = [&](Touch* touch, Event* event) {
+	EventListener = EventListenerTouchOneByOne::create();
+	EventListener->setSwallowTouches(true);
+	EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
 		Vec2 p = touch->getLocation();
 		Rect rect = MySprite->getBoundingBox();
 
@@ -40,16 +41,17 @@ bPausedOnGameOver(false)
 		}
 	};
 
-	//listener1->onTouchEnded = [=](Touch* touch, Event* event) {
-	//	OnTouch(touch, event);
-	//};
-
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener1, ParentScene);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 2);
 
 	MySecondSprite = Sprite::create("Square2.png");
 	MySecondSprite->setPosition(SpritePosition);
 	MySecondSprite->setScale(0.0f);
 	ParentScene->addChild(MySecondSprite, 2);
+}
+
+GameSquare::~GameSquare()
+{
+	Director::getInstance()->getEventDispatcher()->removeEventListener(EventListener);
 }
 
 void GameSquare::StartActivation(float ActivationTotalTime)

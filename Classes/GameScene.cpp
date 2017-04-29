@@ -102,7 +102,7 @@ bool GameScene::init()
 	if (bSpawnGameMask)
 		Mask = new HorizontalGameMask(this);
 
-	auto StartDelayAction = DelayTime::create(StartDelay);
+	auto StartDelayAction = DelayTime::create(bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
 	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
 

@@ -9,7 +9,7 @@
 USING_NS_CC;
 
 VerticalGameMask::VerticalGameMask(GameScene* argScene, bool bKillingMask) :
-GameMask(argScene, "Mask1.png", bKillingMask),
+GameMask(argScene, bKillingMask ? "Mask1.png" : "Mask3.png", bKillingMask),
 CurrentColumnIndex(0)
 {
 	UpdateSpritePosition();

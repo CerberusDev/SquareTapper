@@ -9,7 +9,7 @@
 USING_NS_CC;
 
 HorizontalGameMask::HorizontalGameMask(GameScene* argScene, bool bKillingMask) :
-GameMask(argScene, "Mask2.png", bKillingMask),
+GameMask(argScene, bKillingMask ? "Mask2.png" : "Mask4.png", bKillingMask),
 CurrentRowIndex(0)
 {
 	UpdateSpritePosition();

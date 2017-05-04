@@ -29,17 +29,19 @@ protected:
 	cocos2d::Size VisibleSize;
 	int UnactivatedSquaresNumber;
 	bool bSpawnGameMask;
+	bool bVerticalMask;
+	bool bKillingMask;
 	bool bLevelFinished;
 
 // ---------------------------------------------------------------------------------------------------
 
 public:
-	GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask);
+	GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask, bool argbVerticalMask, bool argbKillingMask);
 
     virtual bool init();
 	virtual void onExit();
     
-	static GameScene* create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask);
+	static GameScene* create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask = false, bool argbVerticalMask = false, bool argbKillingMask = false);
 
 	float GetScreenPositionX(int SquareIndexX) const;
 	float GetScreenPositionY(int SquareIndexY) const;

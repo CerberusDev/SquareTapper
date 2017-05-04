@@ -11,7 +11,7 @@
 
 USING_NS_CC;
 
-GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask):
+GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask, bool argbVerticalMask, bool argbKillingMask):
 Mask(nullptr),
 LevelNumber(argLevelNumber),
 StartDelay(0.5f),
@@ -22,14 +22,16 @@ SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
 bSpawnGameMask(argbSpawnGameMask),
+bVerticalMask(argbVerticalMask),
+bKillingMask(argbKillingMask),
 bLevelFinished(false)
 {
 
 }
 
-GameScene* GameScene::create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask)
+GameScene* GameScene::create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask, bool argbVerticalMask, bool argbKillingMask)
 {
-	GameScene *pRet = new(std::nothrow) GameScene(argLevelNumber, argTimeBetweenSquaresActivation, argSquareActivationTotalTime, argbSpawnGameMask);
+	GameScene *pRet = new(std::nothrow) GameScene(argLevelNumber, argTimeBetweenSquaresActivation, argSquareActivationTotalTime, argbSpawnGameMask, argbVerticalMask, argbKillingMask);
 
 	if (pRet && pRet->init())
 	{
@@ -64,7 +66,7 @@ bool GameScene::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime, bSpawnGameMask));
+		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime, bSpawnGameMask, bVerticalMask, bKillingMask));
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
@@ -101,7 +103,12 @@ bool GameScene::init()
 	}
 
 	if (bSpawnGameMask)
-		Mask = new HorizontalGameMask(this, true);
+	{
+		if (bVerticalMask)
+			Mask = new VerticalGameMask(this, bKillingMask);
+		else
+			Mask = new HorizontalGameMask(this, bKillingMask);
+	}
 
 	auto StartDelayAction = DelayTime::create(bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });

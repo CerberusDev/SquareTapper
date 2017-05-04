@@ -138,6 +138,7 @@ float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float Squ
 	float PosMod = SquarePositionMargin + (float)SquareIndex / (SquaresNumber - 1) * (1.0f - 2.0f * SquarePositionMargin);
 	return ScreenSize * PosMod;
 }
+
 GameSquare* GameScene::GetSquareForActivation() const
 {
 	std::vector<GameSquare*> AvailableSquares;

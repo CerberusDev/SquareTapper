@@ -29,6 +29,7 @@ protected:
 	cocos2d::Size VisibleSize;
 	int UnactivatedSquaresNumber;
 	bool bSpawnGameMask;
+	bool bLevelFinished;
 
 // ---------------------------------------------------------------------------------------------------
 

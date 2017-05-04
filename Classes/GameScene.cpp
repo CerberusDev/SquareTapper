@@ -21,7 +21,8 @@ SquareActivationTotalTime(argSquareActivationTotalTime),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
-bSpawnGameMask(argbSpawnGameMask)
+bSpawnGameMask(argbSpawnGameMask),
+bLevelFinished(false)
 {
 
 }
@@ -199,6 +200,8 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 		}
 		else
 		{
+			bLevelFinished = true;
+
 			auto sprite = Sprite::create("SmallFrame.png");
 			sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 			this->addChild(sprite, 4);
@@ -219,20 +222,25 @@ void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 
 void GameScene::LevelFailed()
 {
-	for (GameSquare* CurrSquare : ActiveSquares)
-		CurrSquare->PauseOnGameOver();
+	if (!bLevelFinished)
+	{
+		bLevelFinished = true;
+
+		for (GameSquare* CurrSquare : ActiveSquares)
+			CurrSquare->PauseOnGameOver();
 	
-	if (Mask)
-		Mask->OnGameOver();
+		if (Mask)
+			Mask->OnGameOver();
 
-	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
+		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
-	auto sprite = Sprite::create("SmallFrame.png");
-	sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-	this->addChild(sprite, 4);
+		auto sprite = Sprite::create("SmallFrame.png");
+		sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+		this->addChild(sprite, 4);
 
-	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-	auto label = Label::createWithTTF("You lost!", "fonts/Marker Felt.ttf", FontSize);
-	label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-	this->addChild(label, 5);
+		float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
+		auto label = Label::createWithTTF("You lost!", "fonts/Marker Felt.ttf", FontSize);
+		label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+		this->addChild(label, 5);
+	}
 }

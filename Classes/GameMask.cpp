@@ -8,9 +8,10 @@
 
 USING_NS_CC;
 
-GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath) :
+GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillingMask) :
 ParentScene(argScene),
-MaskSprite(nullptr)
+MaskSprite(nullptr),
+bKillOnTouch(bKillingMask)
 {
 	MaskSprite = Sprite::create(SpriteFilePath);
 	MaskSprite->setOpacity(0.0f);
@@ -26,21 +27,24 @@ MaskSprite(nullptr)
 
 	MaskSprite->runAction(RepeatForever::create(SequenceAction));
 
-	EventListener = EventListenerTouchOneByOne::create();
-	EventListener->setSwallowTouches(true);
-	EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
-		if (MaskSprite->getBoundingBox().containsPoint(touch->getLocation()))
-		{
-			OnTouch(touch, event);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	};
+	if (bKillOnTouch)
+	{
+		EventListener = EventListenerTouchOneByOne::create();
+		EventListener->setSwallowTouches(true);
+		EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
+			if (MaskSprite->getBoundingBox().containsPoint(touch->getLocation()))
+			{
+				OnTouch(touch, event);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		};
 
-	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 1);
+		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 1);
+	}
 }
 
 GameMask::~GameMask()

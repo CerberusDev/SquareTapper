@@ -16,10 +16,11 @@ protected:
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MaskSprite;
 	std::vector<GameSquare*> CoveredSquares;
+	bool bKillOnTouch;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameMask(GameScene* argScene, std::string SpriteFilePath);
+	GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillingMask);
 	~GameMask();
 
 	void OnGameOver();

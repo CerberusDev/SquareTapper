@@ -14,7 +14,7 @@ protected:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	HorizontalGameMask(GameScene* argScene);
+	HorizontalGameMask(GameScene* argScene, bool bKillingMask);
 
 protected:
 	virtual void UpdateSpritePosition();

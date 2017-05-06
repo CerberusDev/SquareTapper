@@ -20,6 +20,7 @@ protected:
 	cocos2d::Sprite* MySprite;
 	cocos2d::Sprite* MySecondSprite;
 	cocos2d::Sprite* FailedSprite;
+	cocos2d::Sprite* CompletedSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
 	bool bCoveredByMask;

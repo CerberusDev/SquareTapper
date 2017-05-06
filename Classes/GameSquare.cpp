@@ -20,7 +20,7 @@ State(ESquareState::Inactive),
 bCoveredByMask(false),
 bPausedOnGameOver(false)
 {
-	MySprite = Sprite::create("Square1.png");
+	MySprite = Sprite::create("SquareInactive.png");
 	MySprite->setPosition(SpritePosition);
 	ParentScene->addChild(MySprite, 1);
 
@@ -43,7 +43,7 @@ bPausedOnGameOver(false)
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 2);
 
-	MySecondSprite = Sprite::create("Square2.png");
+	MySecondSprite = Sprite::create("SquareActive.png");
 	MySecondSprite->setPosition(SpritePosition);
 	MySecondSprite->setScale(0.0f);
 	ParentScene->addChild(MySecondSprite, 2);
@@ -70,12 +70,22 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 	{
 		State = ESquareState::Completed;
 
+		CompletedSprite = Sprite::create("SquareCompleted.png");
+		CompletedSprite->setPosition(SpritePosition);
+		CompletedSprite->setOpacity(0.0f);
+		CompletedSprite->setScale(MySecondSprite->getScale());
+		ParentScene->addChild(CompletedSprite, 3);
+
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MySecondSprite);
 
 		auto ScaleAction1 = ScaleTo::create(0.075f, 1.0f);
 		auto ScaleAction2 = ScaleTo::create(0.075f, 1.1f);
 		auto ScaleAction3 = ScaleTo::create(0.15f, 1.0f);
-		MySecondSprite->runAction(Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr));
+		auto ScaleSequence = Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr);
+		MySecondSprite->runAction(ScaleSequence);
+
+		auto FadeInAction = FadeIn::create(0.3f);
+		CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleSequence->clone()));
 
 		ParentScene->OnSquareCompleted(this);
 	}
@@ -86,7 +96,7 @@ void GameSquare::Failed()
 	State = ESquareState::Failed;
 	ParentScene->OnSquareFailed(this);
 
-	FailedSprite = Sprite::create("Square3.png");
+	FailedSprite = Sprite::create("SquareFailed.png");
 	FailedSprite->setPosition(SpritePosition);
 	FailedSprite->setOpacity(0.0f);
 	ParentScene->addChild(FailedSprite, 3);

@@ -13,6 +13,7 @@ GameMask(argScene, bKillingMask ? "Mask2.png" : "Mask4.png", bKillingMask),
 CurrentRowIndex(0)
 {
 	UpdateSpritePosition();
+	FrozeSquareActivation();
 }
 
 void HorizontalGameMask::UpdateSpritePosition()
@@ -26,13 +27,13 @@ void HorizontalGameMask::Move()
 	CurrentRowIndex = (++CurrentRowIndex % SQUARE_AMOUNT_Y);
 }
 
-void HorizontalGameMask::CoverSquares()
+void HorizontalGameMask::FrozeSquareActivation()
 {
 	auto Squares = ParentScene->GetSquares();
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{
-		CoveredSquares.push_back(Squares[x][CurrentRowIndex]);
-		Squares[x][CurrentRowIndex]->SetCoveredByMask(true);
+		FrozenSquares.push_back(Squares[x][CurrentRowIndex]);
+		Squares[x][CurrentRowIndex]->SetActivationFreeze(true);
 	}
 }

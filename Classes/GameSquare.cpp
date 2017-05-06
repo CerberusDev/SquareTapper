@@ -17,7 +17,8 @@ MySecondSprite(nullptr),
 FailedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
-bCoveredByMask(false),
+bActivationFrozen(false),
+bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
 	MySprite = Sprite::create("SquareInactive.png");
@@ -66,7 +67,7 @@ void GameSquare::StartActivation(float ActivationTotalTime)
 
 void GameSquare::OnTouch(Touch* touch, Event* event)
 {
-	if (State == ESquareState::DuringActivation && !bCoveredByMask && !bPausedOnGameOver)
+	if (State == ESquareState::DuringActivation && !bBlockTouchEvents && !bPausedOnGameOver)
 	{
 		State = ESquareState::Completed;
 
@@ -105,17 +106,22 @@ void GameSquare::Failed()
 	FailedSprite->runAction(FadeInAction);
 }
 
-void GameSquare::SetCoveredByMask(bool argbCoveredByMask)
+void GameSquare::SetActivationFreeze(bool argbActivationFrozen)
 {
-	bCoveredByMask = argbCoveredByMask;
+	bActivationFrozen = argbActivationFrozen;
 
 	if (State == ESquareState::DuringActivation)
 	{
-		if (bCoveredByMask)
+		if (bActivationFrozen)
 			Director::getInstance()->getActionManager()->pauseTarget(MySecondSprite);
 		else
 			Director::getInstance()->getActionManager()->resumeTarget(MySecondSprite);
 	}
+}
+
+void GameSquare::SetBlockTouchEvents(bool argbBlockTouchEvents)
+{
+	bBlockTouchEvents = argbBlockTouchEvents;
 }
 
 void GameSquare::PauseOnGameOver()

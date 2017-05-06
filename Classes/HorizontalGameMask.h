@@ -19,5 +19,5 @@ public:
 protected:
 	virtual void UpdateSpritePosition();
 	virtual void Move();
-	virtual void CoverSquares();
+	virtual void FrozeSquareActivation();
 };

@@ -155,7 +155,7 @@ GameSquare* GameScene::GetSquareForActivation() const
 	{
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
-			if (Squares[x][y]->GetState() == ESquareState::Inactive && Squares[x][y]->GetCoveredByMask() == false)
+			if (Squares[x][y]->CanBeActivated())
 				AvailableSquares.push_back(Squares[x][y]);
 		}
 	}

@@ -15,8 +15,9 @@ protected:
 	GameScene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MaskSprite;
-	std::vector<GameSquare*> CoveredSquares;
+	std::vector<GameSquare*> FrozenSquares;
 	bool bKillOnTouch;
+	bool bMaskFullyVisible;
 
 // ---------------------------------------------------------------------------------------------------
 public:
@@ -28,8 +29,10 @@ public:
 protected:
 	virtual void UpdateSpritePosition() = 0;
 	virtual void Move() = 0;
-	virtual void CoverSquares() = 0;
-	void UncoverSquares();
+	virtual void FrozeSquareActivation() = 0;
+	void UnfrozeSquareActivation();
+	void OnFadingInEnd();
+	void OnFadingOutStart();
 	void OnFadingOutEnd();
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 };

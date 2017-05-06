@@ -23,7 +23,8 @@ protected:
 	cocos2d::Sprite* CompletedSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
-	bool bCoveredByMask;
+	bool bActivationFrozen;
+	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------
@@ -32,11 +33,12 @@ public:
 	~GameSquare();
 
 	void StartActivation(float ActivationTotalTime);
-	void SetCoveredByMask(bool argbCoveredByMask);
+	void SetActivationFreeze(bool argbActivationFrozen);
+	void SetBlockTouchEvents(bool argbBlockTouchEvents);
+
 	void PauseOnGameOver();
 
-	ESquareState GetState() const { return State; }
-	bool GetCoveredByMask() const { return bCoveredByMask; }
+	bool CanBeActivated() const { return State == ESquareState::Inactive && !bActivationFrozen; }
 
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);

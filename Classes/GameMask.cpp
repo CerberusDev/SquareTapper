@@ -11,17 +11,18 @@ USING_NS_CC;
 GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillingMask) :
 ParentScene(argScene),
 MaskSprite(nullptr),
-bKillOnTouch(bKillingMask)
+bKillOnTouch(bKillingMask),
+bMaskFullyVisible(false)
 {
 	MaskSprite = Sprite::create(SpriteFilePath);
 	MaskSprite->setOpacity(0.0f);
 	ParentScene->addChild(MaskSprite, 3);
 
-	auto FadeInAction = FadeIn::create(0.15f);
-	auto OnFadingInEndFunction = CallFunc::create([&]() { CoverSquares(); });
+	auto FadeInAction = FadeIn::create(0.25f);
+	auto OnFadingInEndFunction = CallFunc::create([&]() { OnFadingInEnd(); });
 	auto DelayAction = DelayTime::create(0.6f);
-	auto OnFadingOutStartFunction = CallFunc::create([&]() { UncoverSquares(); });
-	auto FadeOutAction = FadeOut::create(0.15f);
+	auto OnFadingOutStartFunction = CallFunc::create([&]() { OnFadingOutStart(); });
+	auto FadeOutAction = FadeOut::create(0.25f);
 	auto OnFadingOutEndFunction = CallFunc::create([&]() { OnFadingOutEnd(); });
 	auto SequenceAction = Sequence::create(FadeInAction, OnFadingInEndFunction, DelayAction, OnFadingOutStartFunction, FadeOutAction, OnFadingOutEndFunction, nullptr);
 
@@ -30,17 +31,11 @@ bKillOnTouch(bKillingMask)
 	if (bKillOnTouch)
 	{
 		EventListener = EventListenerTouchOneByOne::create();
-		EventListener->setSwallowTouches(true);
 		EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
 			if (MaskSprite->getBoundingBox().containsPoint(touch->getLocation()))
-			{
 				OnTouch(touch, event);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+
+			return false;
 		};
 
 		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 1);
@@ -57,21 +52,40 @@ void GameMask::OnGameOver()
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MaskSprite);
 }
 
-void GameMask::UncoverSquares()
+void GameMask::UnfrozeSquareActivation()
 {
-	for (auto CurrSquare : CoveredSquares)
-		CurrSquare->SetCoveredByMask(false);
+	for (auto CurrSquare : FrozenSquares)
+		CurrSquare->SetActivationFreeze(false);
 
-	CoveredSquares.clear();
+	FrozenSquares.clear();
+}
+
+void GameMask::OnFadingInEnd()
+{
+	for (auto CurrSquare : FrozenSquares)
+		CurrSquare->SetBlockTouchEvents(true);
+
+	bMaskFullyVisible = true;
+}
+
+void GameMask::OnFadingOutStart()
+{
+	for (auto CurrSquare : FrozenSquares)
+		CurrSquare->SetBlockTouchEvents(false);
+
+	bMaskFullyVisible = false;
 }
 
 void GameMask::OnFadingOutEnd()
 {
+	UnfrozeSquareActivation();
 	Move();
 	UpdateSpritePosition();
+	FrozeSquareActivation();
 }
 
 void GameMask::OnTouch(Touch* touch, Event* event)
 {
-	ParentScene->LevelFailed();
+	if (bMaskFullyVisible)
+		ParentScene->LevelFailed();
 }

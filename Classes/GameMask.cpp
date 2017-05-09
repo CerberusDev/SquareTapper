@@ -18,11 +18,11 @@ bMaskFullyVisible(false)
 	MaskSprite->setOpacity(0.0f);
 	ParentScene->addChild(MaskSprite, 3);
 
-	auto FadeInAction = FadeIn::create(0.25f);
+	auto FadeInAction = FadeIn::create(0.15f);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { OnFadingInEnd(); });
 	auto DelayAction = DelayTime::create(0.6f);
 	auto OnFadingOutStartFunction = CallFunc::create([&]() { OnFadingOutStart(); });
-	auto FadeOutAction = FadeOut::create(0.25f);
+	auto FadeOutAction = FadeOut::create(0.15f);
 	auto OnFadingOutEndFunction = CallFunc::create([&]() { OnFadingOutEnd(); });
 	auto SequenceAction = Sequence::create(FadeInAction, OnFadingInEndFunction, DelayAction, OnFadingOutStartFunction, FadeOutAction, OnFadingOutEndFunction, nullptr);
 

@@ -19,29 +19,24 @@ protected:
 	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];	
 	GameMask* Mask;
 	std::vector<GameSquare*> ActiveSquares;
-	const int LevelNumber;
+	LevelParams LevelParamsStruct;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;
-	const float TimeBetweenSquaresActivation;
-	const float SquareActivationTotalTime;
 	const float SquarePositionMarginX;
 	const float SquarePositionMarginY;
 	cocos2d::Size VisibleSize;
 	int UnactivatedSquaresNumber;
-	bool bSpawnGameMask;
-	bool bVerticalMask;
-	bool bKillingMask;
 	bool bLevelFinished;
 
 // ---------------------------------------------------------------------------------------------------
 
 public:
-	GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask, bool argbVerticalMask, bool argbKillingMask);
+	GameScene(LevelParams argLevelParamsStruct);
 
     virtual bool init();
 	virtual void onExit();
     
-	static GameScene* create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask = false, bool argbVerticalMask = false, bool argbKillingMask = false);
+	static GameScene* create(LevelParams argLevelParamsStruct);
 
 	float GetScreenPositionX(int SquareIndexX) const;
 	float GetScreenPositionY(int SquareIndexY) const;

@@ -60,21 +60,21 @@ bool LevelSelectScene::init()
 
 	auto Level1Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 	[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(1, 0.5f, 1.4f, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[0]));
 	});
 	Level1Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.75f));
 	MenuItems.pushBack(Level1Button);
 
 	auto Level2Button = MenuItemImage::create("Level2_idle.png", "Level2_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(2, 0.35f, 1.4f, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[1]));
 	});
 	Level2Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.75f));
 	MenuItems.pushBack(Level2Button);
 
 	auto Level3Button = MenuItemImage::create("Level3_idle.png", "Level3_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(3, 0.25f, 1.4f, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[2]));
 	});
 	Level3Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.75f));
 	MenuItems.pushBack(Level3Button);
@@ -83,21 +83,21 @@ bool LevelSelectScene::init()
 
 	auto Level4Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(4, 0.55f, 1.4f, true, false, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[3]));
 	});
 	Level4Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.6f));
 	MenuItems.pushBack(Level4Button);
 
 	auto Level5Button = MenuItemImage::create("Level2_idle.png", "Level2_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(5, 0.45f, 1.4f, true, false, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[4]));
 	});
 	Level5Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.6f));
 	MenuItems.pushBack(Level5Button);
 
 	auto Level6Button = MenuItemImage::create("Level3_idle.png", "Level3_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(6, 0.35f, 1.4f, true, false, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[5]));
 	});
 	Level6Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.6f));
 	MenuItems.pushBack(Level6Button);
@@ -106,21 +106,21 @@ bool LevelSelectScene::init()
 
 	auto Level7Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(7, 0.55f, 1.4f, true, true, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[6]));
 	});
 	Level7Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.45f));
 	MenuItems.pushBack(Level7Button);
 
 	auto Level8Button = MenuItemImage::create("Level2_idle.png", "Level2_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(8, 0.45f, 1.4f, true, true, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[7]));
 	});
 	Level8Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.45f));
 	MenuItems.pushBack(Level8Button);
 
 	auto Level9Button = MenuItemImage::create("Level3_idle.png", "Level3_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(9, 0.35f, 1.4f, true, true, false));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[8]));
 	});
 	Level9Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.45f));
 	MenuItems.pushBack(Level9Button);
@@ -129,21 +129,21 @@ bool LevelSelectScene::init()
 
 	auto Level10Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(10, 0.7f, 1.4f, true, false, true));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[9]));
 	});
 	Level10Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.3f));
 	MenuItems.pushBack(Level10Button);
 
 	auto Level11Button = MenuItemImage::create("Level2_idle.png", "Level2_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(11, 0.6f, 1.4f, true, false, true));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[10]));
 	});
 	Level11Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.3f));
 	MenuItems.pushBack(Level11Button);
 
 	auto Level12Button = MenuItemImage::create("Level3_idle.png", "Level3_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(12, 0.5f, 1.4f, true, false, true));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[11]));
 	});
 	Level12Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.3f));
 	MenuItems.pushBack(Level12Button);
@@ -152,21 +152,21 @@ bool LevelSelectScene::init()
 
 	auto Level13Button = MenuItemImage::create("Level1_idle.png", "Level1_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(13, 0.7f, 1.4f, true, true, true));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[12]));
 	});
 	Level13Button->setPosition(Vec2(origin.x + visibleSize.width * 0.25f, origin.y + visibleSize.height * 0.15f));
 	MenuItems.pushBack(Level13Button);
 
 	auto Level14Button = MenuItemImage::create("Level2_idle.png", "Level2_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(14, 0.6f, 1.4f, true, true, true));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[13]));
 	});
 	Level14Button->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.15f));
 	MenuItems.pushBack(Level14Button);
 
 	auto Level15Button = MenuItemImage::create("Level3_idle.png", "Level3_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(15, 0.5f, 1.4f, true, true, true));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[14]));
 	});
 	Level15Button->setPosition(Vec2(origin.x + visibleSize.width * 0.75f, origin.y + visibleSize.height * 0.15f));
 	MenuItems.pushBack(Level15Button);

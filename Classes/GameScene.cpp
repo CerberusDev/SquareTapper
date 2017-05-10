@@ -11,27 +11,22 @@
 
 USING_NS_CC;
 
-GameScene::GameScene(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask, bool argbVerticalMask, bool argbKillingMask):
+GameScene::GameScene(LevelParams argLevelParamsStruct):
 Mask(nullptr),
-LevelNumber(argLevelNumber),
+LevelParamsStruct(argLevelParamsStruct),
 StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
-TimeBetweenSquaresActivation(argTimeBetweenSquaresActivation),
-SquareActivationTotalTime(argSquareActivationTotalTime),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
-bSpawnGameMask(argbSpawnGameMask),
-bVerticalMask(argbVerticalMask),
-bKillingMask(argbKillingMask),
 bLevelFinished(false)
 {
 
 }
 
-GameScene* GameScene::create(int argLevelNumber, float argTimeBetweenSquaresActivation, float argSquareActivationTotalTime, bool argbSpawnGameMask, bool argbVerticalMask, bool argbKillingMask)
+GameScene* GameScene::create(LevelParams argLevelParamsStruct)
 {
-	GameScene *pRet = new(std::nothrow) GameScene(argLevelNumber, argTimeBetweenSquaresActivation, argSquareActivationTotalTime, argbSpawnGameMask, argbVerticalMask, argbKillingMask);
+	GameScene *pRet = new(std::nothrow) GameScene(argLevelParamsStruct);
 
 	if (pRet && pRet->init())
 	{
@@ -66,7 +61,7 @@ bool GameScene::init()
 
 	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(GameScene::create(LevelNumber, TimeBetweenSquaresActivation, SquareActivationTotalTime, bSpawnGameMask, bVerticalMask, bKillingMask));
+		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
@@ -83,7 +78,7 @@ bool GameScene::init()
 
 	FontSize = 36.0f / Director::getInstance()->getContentScaleFactor();
 	std::stringstream Stream;
-	Stream << "Level " << LevelNumber;
+	Stream << "Level " << LevelParamsStruct.LevelNumber;
 	label = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", FontSize);
 	label->setPosition(Vec2(origin.x + VisibleSize.width / 2.0f, origin.y + VisibleSize.height * 0.9f));
 	this->addChild(label, 1);
@@ -102,15 +97,15 @@ bool GameScene::init()
 		}
 	}
 
-	if (bSpawnGameMask)
+	if (LevelParamsStruct.bSpawnGameMask)
 	{
-		if (bVerticalMask)
-			Mask = new VerticalGameMask(this, bKillingMask);
+		if (LevelParamsStruct.bVerticalMask)
+			Mask = new VerticalGameMask(this, LevelParamsStruct.bKillingMask);
 		else
-			Mask = new HorizontalGameMask(this, bKillingMask);
+			Mask = new HorizontalGameMask(this, LevelParamsStruct.bKillingMask);
 	}
 
-	auto StartDelayAction = DelayTime::create(bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
+	auto StartDelayAction = DelayTime::create(LevelParamsStruct.bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
 	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
 
@@ -168,13 +163,13 @@ void GameScene::ActivateNextSquare()
 {
 	if (GameSquare* NextSquare = GetSquareForActivation())
 	{
-		NextSquare->StartActivation(SquareActivationTotalTime);
+		NextSquare->StartActivation(LevelParamsStruct.TotalSquareActivationTime);
 		ActiveSquares.push_back(NextSquare);
 		--UnactivatedSquaresNumber;
 	}
 
 	if (UnactivatedSquaresNumber > 0)
-		QueueNextSquareActivation(TimeBetweenSquaresActivation);
+		QueueNextSquareActivation(LevelParamsStruct.SquaresActivationTimeInterval);
 }
 
 void GameScene::QueueNextSquareActivation(float Delay)

@@ -21,17 +21,112 @@
 # ----------------------------------------------------------------------
 
 1
-0.55 <- Interval between two square activations
+0.5 <- Interval between two square activations
+1.4 <- Total square activation time
+No mask
+
+2
+0.35 <- Interval between two square activations
+1.4 <- Total square activation time
+No mask
+
+3
+0.25 <- Interval between two square activations
 1.4 <- Total square activation time
 No mask
 
 # ----------------------------------------------------------------------
 
-2
-0.8 <- Interval between two square activations
-1.8 <- Total square activation time
+4
+0.55 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Horizontal
+Standard
+
+5
+0.45 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Horizontal
+Standard
+
+6
+0.35 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Horizontal
+Standard
+
+# ----------------------------------------------------------------------
+
+7
+0.55 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Vertical
+Standard
+
+8
+0.45 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Vertical
+Standard
+
+9
+0.35 <- Interval between two square activations
+1.4 <- Total square activation time
 Spawn mask
 Vertical
 Standard
 
 # ----------------------------------------------------------------------
+
+10
+0.7 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Horizontal
+Killing
+
+11
+0.6 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Horizontal
+Killing
+
+12
+0.5 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Horizontal
+Killing
+
+# ----------------------------------------------------------------------
+
+13
+0.7 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Vertical
+Killing
+
+14
+0.6 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Vertical
+Killing
+
+15
+0.5 <- Interval between two square activations
+1.4 <- Total square activation time
+Spawn mask
+Vertical
+Killing
+
+
+
+

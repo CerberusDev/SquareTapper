@@ -1,0 +1,37 @@
+# Level definition template:
+#
+# Level Nr
+# XX.XX <- Interval between two square activations 
+# XX.XX <- Total square activation time
+# Is game mask present? ("No mask" / "Spawn mask")
+# Optional: Game mask alignment ("Vertical" / "Horizontal")
+# Optional: Is it a killing mask? ("Standard" / "Killing")
+#
+#
+# Example: 
+#
+# 23
+# 0.55 <- Interval between two square activations
+# 1.4 <- Total square activation time
+# Spawn mask
+# Vertical
+# Killing
+#
+
+# ----------------------------------------------------------------------
+
+1
+0.55 <- Interval between two square activations
+1.4 <- Total square activation time
+No mask
+
+# ----------------------------------------------------------------------
+
+2
+0.8 <- Interval between two square activations
+1.8 <- Total square activation time
+Spawn mask
+Vertical
+Standard
+
+# ----------------------------------------------------------------------

@@ -8,6 +8,9 @@
 
 class LevelSelectScene : public cocos2d::Scene
 {
+protected:
+	std::vector<LevelParams> LevelParamsContainer;
+
 public:
 	virtual bool init();
 

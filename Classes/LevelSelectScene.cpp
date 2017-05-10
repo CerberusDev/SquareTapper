@@ -9,6 +9,42 @@ USING_NS_CC;
 
 bool LevelSelectScene::init()
 {
+	std::string FileName = "_Levels.txt";
+	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(FileName);
+	std::string FileContents = FileUtils::getInstance()->getStringFromFile(FilePath);
+	std::istringstream InputStream(FileContents);
+
+	for (std::string Line; std::getline(InputStream, Line); )
+	{
+		if (Line.size() > 1 && Line[0] != '#')
+		{
+			LevelParams NewLevelParams;
+
+			std::stringstream(Line) >> NewLevelParams.LevelNumber;
+			std::getline(InputStream, Line);
+			std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
+			std::getline(InputStream, Line);
+			std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
+			std::getline(InputStream, Line);
+
+			if (Line.find("Spawn mask") != std::string::npos)
+			{
+				NewLevelParams.bSpawnGameMask = true;
+				std::getline(InputStream, Line);
+
+				if (Line.find("Vertical") != std::string::npos)
+					NewLevelParams.bVerticalMask = true;
+
+				std::getline(InputStream, Line);
+
+				if (Line.find("Killing") != std::string::npos)
+					NewLevelParams.bKillingMask = true;
+			}
+
+			LevelParamsContainer.push_back(NewLevelParams);
+		}
+	}
+
 	if (!Scene::init())
 		return false;
 

@@ -9,6 +9,9 @@ USING_NS_CC;
 
 bool LevelSelectScene::init()
 {
+	if (!Scene::init())
+		return false;
+
 	std::string FileName = "_Levels.txt";
 	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(FileName);
 	std::string FileContents = FileUtils::getInstance()->getStringFromFile(FilePath);
@@ -44,9 +47,6 @@ bool LevelSelectScene::init()
 			LevelParamsContainer.push_back(NewLevelParams);
 		}
 	}
-
-	if (!Scene::init())
-		return false;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();

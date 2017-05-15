@@ -61,7 +61,7 @@ bool LevelSelectScene::init()
 
 	Vector<MenuItem*> MenuItems;
 
-	for (int i = 0; i < LevelParamsContainer.size(); ++i)
+	for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
 	{
 		std::stringstream StringStreamIdle;
 		StringStreamIdle << "img/ui/level_buttons/Level" << LevelParamsContainer[i].LevelNumber << "_idle.png";

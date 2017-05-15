@@ -22,7 +22,7 @@ protected:
 // ---------------------------------------------------------------------------------------------------
 public:
 	GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillingMask);
-	~GameMask();
+	virtual ~GameMask();
 
 	void OnGameOver();
 

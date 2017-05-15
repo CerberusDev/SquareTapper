@@ -51,7 +51,7 @@ bool GameScene::init()
 
 	Vector<MenuItem*> MenuItems;
 
-    auto BackItem = MenuItemImage::create("Back_idle.png", "Back_pressed.png",
+    auto BackItem = MenuItemImage::create("img/ui/Back_idle.png", "img/ui/Back_pressed.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(LevelSelectScene::create());
 	});
@@ -59,7 +59,7 @@ bool GameScene::init()
 	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
 	MenuItems.pushBack(BackItem);
 
-	auto RestartItem = MenuItemImage::create("Restart_idle.png", "Restart_pressed.png",
+	auto RestartItem = MenuItemImage::create("img/ui/Restart_idle.png", "img/ui/Restart_pressed.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
@@ -83,7 +83,7 @@ bool GameScene::init()
 	label->setPosition(Vec2(origin.x + VisibleSize.width / 2.0f, origin.y + VisibleSize.height * 0.9f));
 	this->addChild(label, 1);
 
-    auto sprite = Sprite::create("HelloWorld.png");
+    auto sprite = Sprite::create("img/ui/HelloWorld.png");
     sprite->setPosition(Vec2(VisibleSize.width/2 + origin.x, VisibleSize.height/2 + origin.y));
 	this->addChild(sprite, 0);
 
@@ -204,7 +204,7 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 		{
 			bLevelFinished = true;
 
-			auto sprite = Sprite::create("SmallFrame.png");
+			auto sprite = Sprite::create("img/ui/SmallFrame.png");
 			sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 			this->addChild(sprite, 4);
 
@@ -236,7 +236,7 @@ void GameScene::LevelFailed()
 
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
-		auto sprite = Sprite::create("SmallFrame.png");
+		auto sprite = Sprite::create("img/ui/SmallFrame.png");
 		sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 		this->addChild(sprite, 4);
 

@@ -21,7 +21,7 @@ bActivationFrozen(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
-	MySprite = Sprite::create("SquareInactive.png");
+	MySprite = Sprite::create("img/squares/SquareInactive.png");
 	MySprite->setPosition(SpritePosition);
 	ParentScene->addChild(MySprite, 1);
 
@@ -44,7 +44,7 @@ bPausedOnGameOver(false)
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 2);
 
-	MySecondSprite = Sprite::create("SquareActive.png");
+	MySecondSprite = Sprite::create("img/squares/SquareActive.png");
 	MySecondSprite->setPosition(SpritePosition);
 	MySecondSprite->setScale(0.0f);
 	ParentScene->addChild(MySecondSprite, 2);
@@ -71,7 +71,7 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 	{
 		State = ESquareState::Completed;
 
-		CompletedSprite = Sprite::create("SquareCompleted.png");
+		CompletedSprite = Sprite::create("img/squares/SquareCompleted.png");
 		CompletedSprite->setPosition(SpritePosition);
 		CompletedSprite->setOpacity(0.0f);
 		CompletedSprite->setScale(MySecondSprite->getScale());
@@ -97,7 +97,7 @@ void GameSquare::Failed()
 	State = ESquareState::Failed;
 	ParentScene->OnSquareFailed(this);
 
-	FailedSprite = Sprite::create("SquareFailed.png");
+	FailedSprite = Sprite::create("img/squares/SquareFailed.png");
 	FailedSprite->setPosition(SpritePosition);
 	FailedSprite->setOpacity(0.0f);
 	ParentScene->addChild(FailedSprite, 3);

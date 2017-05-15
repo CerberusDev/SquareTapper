@@ -7,8 +7,8 @@
 
 USING_NS_CC;
 
-const std::string LevelSelectScene::UnknownLevelImageFilePath_Idle = "LevelUnknown_idle.png";
-const std::string LevelSelectScene::UnknownLevelImageFilePath_Pressed = "LevelUnknown_pressed.png";
+const std::string LevelSelectScene::UnknownLevelImageFilePath_Idle = "img/ui/level_buttons/LevelUnknown_idle.png";
+const std::string LevelSelectScene::UnknownLevelImageFilePath_Pressed = "img/ui/level_buttons/LevelUnknown_pressed.png";
 
 bool LevelSelectScene::init()
 {
@@ -64,12 +64,12 @@ bool LevelSelectScene::init()
 	for (int i = 0; i < LevelParamsContainer.size(); ++i)
 	{
 		std::stringstream StringStreamIdle;
-		StringStreamIdle << "Level" << LevelParamsContainer[i].LevelNumber << "_idle.png";
+		StringStreamIdle << "img/ui/level_buttons/Level" << LevelParamsContainer[i].LevelNumber << "_idle.png";
 		const bool bIdleImageExists = FileUtils::getInstance()->isFileExist(StringStreamIdle.str());
 		const std::string IdleButtonFileName = bIdleImageExists ? StringStreamIdle.str() : UnknownLevelImageFilePath_Idle;
 
 		std::stringstream StringStreamPressed;
-		StringStreamPressed << "Level" << LevelParamsContainer[i].LevelNumber << "_pressed.png";
+		StringStreamPressed << "img/ui/level_buttons/Level" << LevelParamsContainer[i].LevelNumber << "_pressed.png";
 		const bool bPressedImageExists = FileUtils::getInstance()->isFileExist(StringStreamPressed.str());
 		const std::string PressedButtonFileName = bPressedImageExists ? StringStreamPressed.str() : UnknownLevelImageFilePath_Pressed;
 

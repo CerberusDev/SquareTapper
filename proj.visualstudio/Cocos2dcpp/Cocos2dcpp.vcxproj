@@ -180,6 +180,7 @@
     <ClInclude Include="..\..\Classes\HorizontalGameMask.h" />
     <ClInclude Include="..\..\Classes\LevelSelectScene.h" />
     <ClInclude Include="..\..\Classes\SquareTapper.h" />
+    <ClInclude Include="..\..\Classes\StarImage.h" />
     <ClInclude Include="..\..\Classes\VerticalGameMask.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCAction.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCActionCamera.h" />
@@ -940,6 +941,7 @@
     <ClCompile Include="..\..\Classes\GameSquare.cpp" />
     <ClCompile Include="..\..\Classes\HorizontalGameMask.cpp" />
     <ClCompile Include="..\..\Classes\LevelSelectScene.cpp" />
+    <ClCompile Include="..\..\Classes\StarImage.cpp" />
     <ClCompile Include="..\..\Classes\VerticalGameMask.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCAction.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCActionCamera.cpp" />

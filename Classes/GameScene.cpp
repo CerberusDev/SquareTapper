@@ -8,6 +8,7 @@
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
 #include "HorizontalGameMask.h"
+#include "StarImage.h"
 
 USING_NS_CC;
 
@@ -19,6 +20,7 @@ MaxTimeWithoutActiveSquare(0.5f),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
+StarsNumber(MAX_STARS_NUMBER),
 bLevelFinished(false)
 {
 
@@ -70,22 +72,20 @@ bool GameScene::init()
     auto menu = Menu::createWithArray(MenuItems);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
-    
-	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-    auto label = Label::createWithTTF("Tap the squares!", "fonts/Marker Felt.ttf", FontSize);
-	label->setPosition(Vec2(origin.x + VisibleSize.width / 2.0f, origin.y + VisibleSize.height * 0.955f));
-	this->addChild(label, 1);
 
-	FontSize = 36.0f / Director::getInstance()->getContentScaleFactor();
+	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
 	std::stringstream Stream;
 	Stream << "Level " << LevelParamsStruct.LevelNumber;
-	label = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", FontSize);
-	label->setPosition(Vec2(origin.x + VisibleSize.width / 2.0f, origin.y + VisibleSize.height * 0.9f));
+	auto label = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", FontSize);
+	label->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
 	this->addChild(label, 1);
 
     auto sprite = Sprite::create("img/ui/HelloWorld.png");
     sprite->setPosition(Vec2(VisibleSize.width/2 + origin.x, VisibleSize.height/2 + origin.y));
 	this->addChild(sprite, 0);
+
+	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
+		StarImages[i] = new StarImage(this, Vec2(VisibleSize.width * (0.6f + 0.15f * i), VisibleSize.height * 0.93f));
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{
@@ -124,6 +124,9 @@ void GameScene::onExit()
 
 	if (Mask)
 		delete Mask;
+
+	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
+		delete StarImages[i];
 }
 
 float GameScene::GetScreenPositionX(int SquareIndexX) const
@@ -210,7 +213,20 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 {
 	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), FailedSquare));
-	LevelFailed();
+
+	DecreaseStarNumber();
+
+	if (!bLevelFinished && ActiveSquares.empty() && UnactivatedSquaresNumber == 0)
+		LevelCompleted();
+}
+
+void GameScene::DecreaseStarNumber()
+{
+	StarImages[MAX_STARS_NUMBER - StarsNumber]->Inactivate();
+	--StarsNumber;
+
+	if (StarsNumber == 0)
+		LevelFailed();
 }
 
 void GameScene::LevelFailed()

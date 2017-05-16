@@ -91,5 +91,5 @@ void GameMask::OnFadingOutEnd()
 void GameMask::OnTouch(Touch* touch, Event* event)
 {
 	if (bMaskFullyVisible)
-		ParentScene->LevelFailed();
+		ParentScene->DecreaseStarNumber();
 }

@@ -9,9 +9,11 @@
 #define ACTIVATION_SEQUENCE_ACTION_TAG 1000
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
+#define MAX_STARS_NUMBER 3
 
 class GameSquare;
 class GameMask;
+class StarImage;
 
 class GameScene : public cocos2d::Scene
 {
@@ -19,6 +21,7 @@ protected:
 	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];	
 	GameMask* Mask;
 	std::vector<GameSquare*> ActiveSquares;
+	StarImage* StarImages[MAX_STARS_NUMBER];
 	LevelParams LevelParamsStruct;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;
@@ -26,6 +29,7 @@ protected:
 	const float SquarePositionMarginY;
 	cocos2d::Size VisibleSize;
 	int UnactivatedSquaresNumber;
+	int StarsNumber;
 	bool bLevelFinished;
 
 // ---------------------------------------------------------------------------------------------------
@@ -45,6 +49,7 @@ public:
 	void QueueNextSquareActivation(float Delay);
 	void OnSquareCompleted(GameSquare* CompletedSquare);
 	void OnSquareFailed(GameSquare* FailedSquare);
+	void DecreaseStarNumber();
 	void LevelFailed();
 	void LevelCompleted();
 	void ShowLevelCompletedMessage();

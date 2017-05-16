@@ -2278,6 +2278,9 @@
     <ClInclude Include="..\..\Classes\HorizontalGameMask.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\StarImage.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4254,6 +4257,9 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\HorizontalGameMask.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\StarImage.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

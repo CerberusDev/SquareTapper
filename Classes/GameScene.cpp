@@ -202,19 +202,7 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 		}
 		else
 		{
-			bLevelFinished = true;
-
-			if (Mask)
-				Mask->SetLevelCompleted();
-
-			auto sprite = Sprite::create("img/ui/SmallFrame.png");
-			sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-			this->addChild(sprite, 4);
-
-			float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-			auto label = Label::createWithTTF("You win!", "fonts/Marker Felt.ttf", FontSize);
-			label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-			this->addChild(label, 5);
+			LevelCompleted();
 		}
 	}
 }
@@ -248,4 +236,28 @@ void GameScene::LevelFailed()
 		label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 		this->addChild(label, 5);
 	}
+}
+
+void GameScene::LevelCompleted()
+{
+	bLevelFinished = true;
+
+	if (Mask)
+		Mask->SetLevelCompleted();
+
+	auto DelayAction = DelayTime::create(0.4f);
+	auto ShowMessageAction = CallFunc::create([&]() {ShowLevelCompletedMessage(); });
+	runAction(Sequence::create(DelayAction, ShowMessageAction, nullptr));
+}
+
+void GameScene::ShowLevelCompletedMessage()
+{
+	auto sprite = Sprite::create("img/ui/SmallFrame.png");
+	sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+	this->addChild(sprite, 4);
+
+	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
+	auto label = Label::createWithTTF("You win!", "fonts/Marker Felt.ttf", FontSize);
+	label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
+	this->addChild(label, 5);
 }

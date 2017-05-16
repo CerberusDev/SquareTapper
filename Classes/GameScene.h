@@ -46,6 +46,8 @@ public:
 	void OnSquareCompleted(GameSquare* CompletedSquare);
 	void OnSquareFailed(GameSquare* FailedSquare);
 	void LevelFailed();
+	void LevelCompleted();
+	void ShowLevelCompletedMessage();
 
 	GameSquare* (&GetSquares())[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y] { return Squares; }
 

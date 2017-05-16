@@ -18,6 +18,7 @@ protected:
 	std::vector<GameSquare*> FrozenSquares;
 	bool bKillOnTouch;
 	bool bMaskFullyVisible;
+	bool bLevelCompleted;
 
 // ---------------------------------------------------------------------------------------------------
 public:
@@ -25,6 +26,7 @@ public:
 	virtual ~GameMask();
 
 	void OnGameOver();
+	void SetLevelCompleted() { bLevelCompleted = true; }
 
 protected:
 	virtual void UpdateSpritePosition() = 0;

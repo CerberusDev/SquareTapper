@@ -12,7 +12,8 @@ GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillin
 ParentScene(argScene),
 MaskSprite(nullptr),
 bKillOnTouch(bKillingMask),
-bMaskFullyVisible(false)
+bMaskFullyVisible(false),
+bLevelCompleted(false)
 {
 	MaskSprite = Sprite::create(SpriteFilePath);
 	MaskSprite->setOpacity(0.0f);
@@ -66,6 +67,9 @@ void GameMask::OnFadingInEnd()
 		CurrSquare->SetBlockTouchEvents(true);
 
 	bMaskFullyVisible = true;
+
+	if (bLevelCompleted)
+		OnGameOver();
 }
 
 void GameMask::OnFadingOutStart()

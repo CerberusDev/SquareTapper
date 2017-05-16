@@ -204,6 +204,9 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 		{
 			bLevelFinished = true;
 
+			if (Mask)
+				Mask->SetLevelCompleted();
+
 			auto sprite = Sprite::create("img/ui/SmallFrame.png");
 			sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 			this->addChild(sprite, 4);

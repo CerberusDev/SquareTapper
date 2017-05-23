@@ -19,20 +19,20 @@ protected:
 	std::string BlinkSpriteFilePath;
 	bool bKillOnTouch;
 	bool bMaskFullyVisible;
-	bool bLevelCompleted;
+	bool bShouldFinishAnimation;
 
 // ---------------------------------------------------------------------------------------------------
 public:
 	GameMask(GameScene* argScene, std::string SpriteFilePath, std::string argBlinkSpriteFilePath, bool bKillingMask);
 	virtual ~GameMask();
 
-	void OnGameOver();
-	void SetLevelCompleted() { bLevelCompleted = true; }
+	void RequestFinishAnimation() { bShouldFinishAnimation = true; }
 
 protected:
 	virtual void UpdateSpritePosition() = 0;
 	virtual void Move() = 0;
 	virtual void FrozeSquareActivation() = 0;
+	void FinishAnimation();
 	void UnfrozeSquareActivation();
 	void OnFadingInEnd();
 	void OnFadingOutStart();

@@ -54,6 +54,8 @@ public:
 	void LevelCompleted();
 	void ShowLevelCompletedMessage();
 
+	bool IsLevelFinished() { return bLevelFinished; };
+
 	GameSquare* (&GetSquares())[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y] { return Squares; }
 
 protected:

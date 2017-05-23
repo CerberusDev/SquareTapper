@@ -14,7 +14,7 @@ MaskSprite(nullptr),
 BlinkSpriteFilePath(argBlinkSpriteFilePath),
 bKillOnTouch(bKillingMask),
 bMaskFullyVisible(false),
-bLevelCompleted(false)
+bShouldFinishAnimation(false)
 {
 	MaskSprite = Sprite::create(SpriteFilePath);
 	MaskSprite->setOpacity(0.0f);
@@ -49,7 +49,7 @@ GameMask::~GameMask()
 	Director::getInstance()->getEventDispatcher()->removeEventListener(EventListener);
 }
 
-void GameMask::OnGameOver()
+void GameMask::FinishAnimation()
 {
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(MaskSprite);
 }
@@ -69,8 +69,8 @@ void GameMask::OnFadingInEnd()
 
 	bMaskFullyVisible = true;
 
-	if (bLevelCompleted)
-		OnGameOver();
+	if (bShouldFinishAnimation)
+		FinishAnimation();
 }
 
 void GameMask::OnFadingOutStart()
@@ -79,6 +79,9 @@ void GameMask::OnFadingOutStart()
 		CurrSquare->SetBlockTouchEvents(false);
 
 	bMaskFullyVisible = false;
+
+	if (bShouldFinishAnimation)
+		FinishAnimation();
 }
 
 void GameMask::OnFadingOutEnd()
@@ -91,7 +94,7 @@ void GameMask::OnFadingOutEnd()
 
 void GameMask::OnTouch(Touch* touch, Event* event)
 {
-	if (bMaskFullyVisible)
+	if (bMaskFullyVisible && !ParentScene->IsLevelFinished())
 	{
 		ParentScene->DecreaseStarNumber();
 

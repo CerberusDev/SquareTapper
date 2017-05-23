@@ -239,7 +239,7 @@ void GameScene::LevelFailed()
 			CurrSquare->PauseOnGameOver();
 	
 		if (Mask)
-			Mask->OnGameOver();
+			Mask->RequestFinishAnimation();
 
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
@@ -259,7 +259,7 @@ void GameScene::LevelCompleted()
 	bLevelFinished = true;
 
 	if (Mask)
-		Mask->SetLevelCompleted();
+		Mask->RequestFinishAnimation();
 
 	auto DelayAction = DelayTime::create(0.4f);
 	auto ShowMessageAction = CallFunc::create([&]() {ShowLevelCompletedMessage(); });

@@ -8,9 +8,10 @@
 
 USING_NS_CC;
 
-GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillingMask) :
+GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath, std::string argBlinkSpriteFilePath, bool bKillingMask) :
 ParentScene(argScene),
 MaskSprite(nullptr),
+BlinkSpriteFilePath(argBlinkSpriteFilePath),
 bKillOnTouch(bKillingMask),
 bMaskFullyVisible(false),
 bLevelCompleted(false)
@@ -91,5 +92,16 @@ void GameMask::OnFadingOutEnd()
 void GameMask::OnTouch(Touch* touch, Event* event)
 {
 	if (bMaskFullyVisible)
+	{
 		ParentScene->DecreaseStarNumber();
+
+		Sprite* BlinkSprite = Sprite::create(BlinkSpriteFilePath);
+		BlinkSprite->setPosition(MaskSprite->getPosition());
+		BlinkSprite->setOpacity(0.0f);
+		ParentScene->addChild(BlinkSprite, 4);
+
+		auto FadeInAction = FadeIn::create(0.07f);
+		auto FadeOutAction = FadeOut::create(0.15f);
+		BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, nullptr));
+	}
 }

@@ -16,13 +16,14 @@ protected:
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MaskSprite;
 	std::vector<GameSquare*> FrozenSquares;
+	std::string BlinkSpriteFilePath;
 	bool bKillOnTouch;
 	bool bMaskFullyVisible;
 	bool bLevelCompleted;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameMask(GameScene* argScene, std::string SpriteFilePath, bool bKillingMask);
+	GameMask(GameScene* argScene, std::string SpriteFilePath, std::string argBlinkSpriteFilePath, bool bKillingMask);
 	virtual ~GameMask();
 
 	void OnGameOver();

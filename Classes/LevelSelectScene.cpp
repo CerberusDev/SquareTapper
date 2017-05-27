@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------
 
 #include "LevelSelectScene.h"
+#include "ui/CocosGUI.h"
 #include "GameScene.h"
 
 USING_NS_CC;
@@ -24,68 +25,84 @@ bool LevelSelectScene::init()
 	{
 		if (Line.size() > 1 && Line[0] != '#')
 		{
-			LevelParams NewLevelParams;
-
-			std::stringstream(Line) >> NewLevelParams.LevelNumber;
-			std::getline(InputStream, Line);
-			std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
-			std::getline(InputStream, Line);
-			std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
-			std::getline(InputStream, Line);
-
-			if (Line.find("Spawn mask") != std::string::npos)
+			if (Line[0] == '=')
 			{
-				NewLevelParams.bSpawnGameMask = true;
-				std::getline(InputStream, Line);
-
-				if (Line.find("Vertical") != std::string::npos)
-					NewLevelParams.bVerticalMask = true;
-
-				std::getline(InputStream, Line);
-
-				if (Line.find("Killing") != std::string::npos)
-					NewLevelParams.bKillingMask = true;
+				LevelParamsContainer.push_back(std::vector<LevelParams>());
 			}
+			else
+			{
+				LevelParams NewLevelParams;
 
-			LevelParamsContainer.push_back(NewLevelParams);
+				std::stringstream(Line) >> NewLevelParams.LevelNumber;
+				std::getline(InputStream, Line);
+				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
+				std::getline(InputStream, Line);
+				std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
+				std::getline(InputStream, Line);
+
+				if (Line.find("Spawn mask") != std::string::npos)
+				{
+					NewLevelParams.bSpawnGameMask = true;
+					std::getline(InputStream, Line);
+
+					if (Line.find("Vertical") != std::string::npos)
+						NewLevelParams.bVerticalMask = true;
+
+					std::getline(InputStream, Line);
+
+					if (Line.find("Killing") != std::string::npos)
+						NewLevelParams.bKillingMask = true;
+				}
+
+				LevelParamsContainer.back().push_back(NewLevelParams);
+			}
 		}
 	}
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-	auto label = Label::createWithTTF("Choose level", "fonts/Marker Felt.ttf", FontSize);
-	label->setPosition(Vec2(origin.x + visibleSize.width * 0.5f, origin.y + visibleSize.height * 0.9f));
-	this->addChild(label, 1);
-
-	Vector<MenuItem*> MenuItems;
+	auto PageViewMenu = ui::PageView::create();
+	PageViewMenu->setContentSize(Size(visibleSize.width, visibleSize.height));
+	PageViewMenu->setBounceEnabled(true);
 
 	for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
 	{
-		std::stringstream StringStreamIdle;
-		StringStreamIdle << "img/ui/level_buttons/Level" << LevelParamsContainer[i].LevelNumber << "_idle.png";
-		const bool bIdleImageExists = FileUtils::getInstance()->isFileExist(StringStreamIdle.str());
-		const std::string IdleButtonFileName = bIdleImageExists ? StringStreamIdle.str() : UnknownLevelImageFilePath_Idle;
+		auto PageLayout = ui::Layout::create();
+		PageLayout->setContentSize(Size(visibleSize.width, visibleSize.height));
+		PageViewMenu->addPage(PageLayout);
 
-		std::stringstream StringStreamPressed;
-		StringStreamPressed << "img/ui/level_buttons/Level" << LevelParamsContainer[i].LevelNumber << "_pressed.png";
-		const bool bPressedImageExists = FileUtils::getInstance()->isFileExist(StringStreamPressed.str());
-		const std::string PressedButtonFileName = bPressedImageExists ? StringStreamPressed.str() : UnknownLevelImageFilePath_Pressed;
+		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
+		{
+			std::stringstream StringStreamIdle;
+			StringStreamIdle << "img/ui/level_buttons/Level" << LevelParamsContainer[i][j].LevelNumber << "_idle.png";
+			const bool bIdleImageExists = FileUtils::getInstance()->isFileExist(StringStreamIdle.str());
+			const std::string IdleButtonFileName = bIdleImageExists ? StringStreamIdle.str() : UnknownLevelImageFilePath_Idle;
 
-		auto LevelButton = MenuItemImage::create(IdleButtonFileName, PressedButtonFileName,
-		[&](Ref* sender) {
-			int LevelNumber = dynamic_cast<MenuItemImage*>(sender)->getTag();
-			Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[LevelNumber]));
-		});
-		LevelButton->setPosition(Vec2(visibleSize.width * 0.25f * (i % 3 + 1), visibleSize.height * (0.75 - 0.15f * (i / 3))));
-		LevelButton->setTag(i);
-		MenuItems.pushBack(LevelButton);
+			std::stringstream StringStreamPressed;
+			StringStreamPressed << "img/ui/level_buttons/Level" << LevelParamsContainer[i][j].LevelNumber << "_pressed.png";
+			const bool bPressedImageExists = FileUtils::getInstance()->isFileExist(StringStreamPressed.str());
+			const std::string PressedButtonFileName = bPressedImageExists ? StringStreamPressed.str() : UnknownLevelImageFilePath_Pressed;;
+
+			auto LevelButton = ui::Button::create(IdleButtonFileName, PressedButtonFileName, IdleButtonFileName);
+			LevelButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+				if (type == ui::Widget::TouchEventType::ENDED)
+				{
+					const int LevelID = dynamic_cast<ui::Button*>(sender)->getTag();
+					const int WorldNumber = LevelID / 1000;
+					const int LevelNumber = LevelID - WorldNumber * 1000;
+
+					Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
+				}
+			});
+			LevelButton->setPosition(Vec2(visibleSize.width * 0.25f * (j % 3 + 1), visibleSize.height * (0.75 - 0.15f * (j / 3))));
+			LevelButton->setTag(1000 * i + j);
+
+			PageLayout->addChild(LevelButton);
+		}
 	}
 
-	auto LevelMenu = Menu::createWithArray(MenuItems);
-	LevelMenu->setPosition(Vec2::ZERO);
-	this->addChild(LevelMenu, 1);
+	this->addChild(PageViewMenu, 0);
 
 	return true;
 }

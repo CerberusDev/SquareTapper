@@ -18,7 +18,7 @@
 # Killing
 #
 
-# ----------------------------------------------------------------------
+=============================== New World ===============================
 
 1
 0.5 <- Interval between two square activations
@@ -58,7 +58,7 @@ Spawn mask
 Horizontal
 Standard
 
-# ----------------------------------------------------------------------
+=============================== New World ===============================
 
 7
 0.55 <- Interval between two square activations
@@ -104,7 +104,7 @@ Spawn mask
 Horizontal
 Killing
 
-# ----------------------------------------------------------------------
+=============================== New World ===============================
 
 13
 0.7 <- Interval between two square activations
@@ -126,6 +126,7 @@ Killing
 Spawn mask
 Vertical
 Killing
+
 
 
 

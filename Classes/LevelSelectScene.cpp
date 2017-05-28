@@ -11,6 +11,29 @@ USING_NS_CC;
 const std::string LevelSelectScene::UnknownLevelImageFilePath_Idle = "img/ui/level_buttons/LevelUnknown_idle.png";
 const std::string LevelSelectScene::UnknownLevelImageFilePath_Pressed = "img/ui/level_buttons/LevelUnknown_pressed.png";
 
+LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
+	StartWorldNumber(argStartWorldNumber)
+{
+
+}
+
+LevelSelectScene* LevelSelectScene::create(int argStartWorldNumber)
+{
+	LevelSelectScene *pRet = new(std::nothrow) LevelSelectScene(argStartWorldNumber);
+
+	if (pRet && pRet->init())
+	{
+		pRet->autorelease();
+		return pRet;
+	}
+	else
+	{
+		delete pRet;
+		pRet = nullptr;
+		return nullptr;
+	}
+}
+
 bool LevelSelectScene::init()
 {
 	if (!Scene::init())
@@ -33,6 +56,7 @@ bool LevelSelectScene::init()
 			{
 				LevelParams NewLevelParams;
 
+				NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
 				std::stringstream(Line) >> NewLevelParams.LevelNumber;
 				std::getline(InputStream, Line);
 				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
@@ -103,6 +127,7 @@ bool LevelSelectScene::init()
 	}
 
 	this->addChild(PageViewMenu, 0);
+	PageViewMenu->setCurrentPageIndex(StartWorldNumber);
 
 	return true;
 }

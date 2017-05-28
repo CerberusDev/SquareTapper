@@ -13,6 +13,7 @@ enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 struct LevelParams
 {
 	int LevelNumber;
+	int WorldNumber;
 	float SquaresActivationTimeInterval;
 	float TotalSquareActivationTime;
 	bool bSpawnGameMask;
@@ -21,6 +22,7 @@ struct LevelParams
 
 	LevelParams():
 	LevelNumber(-1), 
+	WorldNumber(-1),
 	SquaresActivationTimeInterval(-1.0f), 
 	TotalSquareActivationTime(-1.0f),
 	bSpawnGameMask(false),

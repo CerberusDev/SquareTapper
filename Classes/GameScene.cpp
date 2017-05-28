@@ -55,7 +55,7 @@ bool GameScene::init()
 
     auto BackItem = MenuItemImage::create("img/ui/Back_idle.png", "img/ui/Back_pressed.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(LevelSelectScene::create());
+		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
     
 	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));

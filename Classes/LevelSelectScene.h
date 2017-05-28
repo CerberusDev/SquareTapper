@@ -12,9 +12,14 @@ protected:
 	std::vector<std::vector<LevelParams> > LevelParamsContainer;
 	static const std::string UnknownLevelImageFilePath_Idle;
 	static const std::string UnknownLevelImageFilePath_Pressed;
+	int StartWorldNumber;
+
+// ---------------------------------------------------------------------------------------------------
 
 public:
+	LevelSelectScene(int argStartWorldNumber);
+
 	virtual bool init();
 
-	CREATE_FUNC(LevelSelectScene);
+	static LevelSelectScene* create(int argStartWorldNumber);
 };

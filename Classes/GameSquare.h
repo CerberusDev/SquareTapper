@@ -29,8 +29,8 @@ protected:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
-	~GameSquare();
+	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename);
+	virtual ~GameSquare();
 
 	void StartActivation(float ActivationTotalTime);
 	void SetActivationFreeze(bool argbActivationFrozen);
@@ -42,5 +42,6 @@ public:
 
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
+	virtual void SquareCorrectlyTapped();
 	void Failed();
 };

@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY):
+GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -21,7 +21,7 @@ bActivationFrozen(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
-	InactiveSprite = Sprite::create("img/squares/SquareInactive.png");
+	InactiveSprite = Sprite::create(InactiveSpriteFilename);
 	InactiveSprite->setPosition(SpritePosition);
 	ParentScene->addChild(InactiveSprite, 1);
 
@@ -68,28 +68,31 @@ void GameSquare::StartActivation(float ActivationTotalTime)
 void GameSquare::OnTouch(Touch* touch, Event* event)
 {
 	if (State == ESquareState::DuringActivation && !bBlockTouchEvents && !bPausedOnGameOver)
-	{
-		State = ESquareState::Completed;
+		SquareCorrectlyTapped();
+}
 
-		CompletedSprite = Sprite::create("img/squares/SquareCompleted.png");
-		CompletedSprite->setPosition(SpritePosition);
-		CompletedSprite->setOpacity(0.0f);
-		CompletedSprite->setScale(ActivationSprite->getScale());
-		ParentScene->addChild(CompletedSprite, 3);
+void GameSquare::SquareCorrectlyTapped()
+{
+	State = ESquareState::Completed;
 
-		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+	CompletedSprite = Sprite::create("img/squares/SquareCompleted.png");
+	CompletedSprite->setPosition(SpritePosition);
+	CompletedSprite->setOpacity(0.0f);
+	CompletedSprite->setScale(ActivationSprite->getScale());
+	ParentScene->addChild(CompletedSprite, 3);
 
-		auto ScaleAction1 = ScaleTo::create(0.075f, 1.0f);
-		auto ScaleAction2 = ScaleTo::create(0.075f, 1.1f);
-		auto ScaleAction3 = ScaleTo::create(0.15f, 1.0f);
-		auto ScaleSequence = Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr);
-		ActivationSprite->runAction(ScaleSequence);
+	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 
-		auto FadeInAction = FadeIn::create(0.3f);
-		CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleSequence->clone()));
+	auto ScaleAction1 = ScaleTo::create(0.075f, 1.0f);
+	auto ScaleAction2 = ScaleTo::create(0.075f, 1.1f);
+	auto ScaleAction3 = ScaleTo::create(0.15f, 1.0f);
+	auto ScaleSequence = Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr);
+	ActivationSprite->runAction(ScaleSequence);
 
-		ParentScene->OnSquareCompleted(this);
-	}
+	auto FadeInAction = FadeIn::create(0.3f);
+	CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleSequence->clone()));
+
+	ParentScene->OnSquareCompleted(this);
 }
 
 void GameSquare::Failed()

@@ -4,7 +4,7 @@
 
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
-#include "GameSquare.h"
+#include "GameSquareStandard.h"
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
 #include "HorizontalGameMask.h"
@@ -92,7 +92,7 @@ bool GameScene::init()
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
 			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
-			GameSquare* NewSquare = new GameSquare(this, Pos, x, y);
+			GameSquare* NewSquare = new GameSquareStandard(this, Pos, x, y);
 			Squares[x][y] = NewSquare;
 		}
 	}

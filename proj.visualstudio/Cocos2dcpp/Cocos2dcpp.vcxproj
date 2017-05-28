@@ -177,6 +177,8 @@
     <ClInclude Include="..\..\Classes\GameMask.h" />
     <ClInclude Include="..\..\Classes\GameScene.h" />
     <ClInclude Include="..\..\Classes\GameSquare.h" />
+    <ClInclude Include="..\..\Classes\GameSquareDoubleTap.h" />
+    <ClInclude Include="..\..\Classes\GameSquareStandard.h" />
     <ClInclude Include="..\..\Classes\HorizontalGameMask.h" />
     <ClInclude Include="..\..\Classes\LevelSelectScene.h" />
     <ClInclude Include="..\..\Classes\SquareTapper.h" />
@@ -939,6 +941,8 @@
     <ClCompile Include="..\..\Classes\GameMask.cpp" />
     <ClCompile Include="..\..\Classes\GameScene.cpp" />
     <ClCompile Include="..\..\Classes\GameSquare.cpp" />
+    <ClCompile Include="..\..\Classes\GameSquareDoubleTap.cpp" />
+    <ClCompile Include="..\..\Classes\GameSquareStandard.cpp" />
     <ClCompile Include="..\..\Classes\HorizontalGameMask.cpp" />
     <ClCompile Include="..\..\Classes\LevelSelectScene.cpp" />
     <ClCompile Include="..\..\Classes\StarImage.cpp" />

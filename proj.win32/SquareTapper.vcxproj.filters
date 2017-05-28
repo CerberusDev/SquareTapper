@@ -37,6 +37,8 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\StarImage.cpp" />
+    <ClCompile Include="..\Classes\GameSquareDoubleTap.cpp" />
+    <ClCompile Include="..\Classes\GameSquareStandard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -67,6 +69,8 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\StarImage.h" />
+    <ClInclude Include="..\Classes\GameSquareDoubleTap.h" />
+    <ClInclude Include="..\Classes\GameSquareStandard.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

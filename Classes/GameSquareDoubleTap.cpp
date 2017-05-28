@@ -23,5 +23,14 @@ void GameSquareDoubleTap::SquareCorrectlyTapped()
 	{
 		InactiveSprite->setTexture("img/squares/SquareInactive.png");
 		bAlreadyTapped = true;
+
+		SetActivationFreeze(true);
+
+		auto DelayAction = DelayTime::create(0.23f);
+		auto UnfreezeFunc = CallFunc::create([&]() { 
+			SetActivationFreeze(false);
+		});
+
+		InactiveSprite->runAction(Sequence::create(DelayAction, UnfreezeFunc, nullptr));
 	}
 }

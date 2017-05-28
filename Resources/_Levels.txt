@@ -1,10 +1,10 @@
 # Square indices:
 #
-#  12  13  14
-#  9   10  11
-#  6   7   8
-#  3   4   5
-#  0   1   2
+#  13  14  15
+#  10  11  12
+#  7   8   9
+#  4   5   6
+#  1   2   3
 #
 #
 # Level definition template:
@@ -23,7 +23,7 @@
 # 23
 # 0.55 <- Interval between two square activations
 # 1.4 <- Total square activation time
-# 0 2 12 14 <- DoubleTap squares indices
+# 1 3 13 15 <- DoubleTap squares indices
 # Spawn mask
 # Vertical
 # Killing
@@ -108,73 +108,73 @@ No mask
 13
 0.7 <- Interval between two square activations
 1.5 <- Total square activation time
-6 8 <- DoubleTap squares indices
+7 9 <- DoubleTap squares indices
 No mask
 
 14
 0.6 <- Interval between two square activations
 1.45 <- Total square activation time
-10 4 <- DoubleTap squares indices
+5 11 <- DoubleTap squares indices
 No mask
 
 15
 0.575 <- Interval between two square activations
 1.425 <- Total square activation time
-6 7 8 <- DoubleTap squares indices
+7 8 9 <- DoubleTap squares indices
 No mask
 
 16
 0.55 <- Interval between two square activations
 1.4 <- Total square activation time
-0 1 2 <- DoubleTap squares indices
+1 2 3 <- DoubleTap squares indices
 No mask
 
 17
 0.525 <- Interval between two square activations
 1.375 <- Total square activation time
-12 13 14 <- DoubleTap squares indices
+13 14 15 <- DoubleTap squares indices
 No mask
 
 18
 0.5 <- Interval between two square activations
 1.35 <- Total square activation time
-3 5 9 11 <- DoubleTap squares indices
+4 6 10 12 <- DoubleTap squares indices
 No mask
 
 19
 0.47 <- Interval between two square activations
 1.325 <- Total square activation time
-0 2 12 14 <- DoubleTap squares indices
+1 3 13 15 <- DoubleTap squares indices
 No mask
 
 20
 0.44 <- Interval between two square activations
 1.3 <- Total square activation time
-12 10 8 4 0 <- DoubleTap squares indices
+13 11 9 5 1 <- DoubleTap squares indices
 No mask
 
 21
 0.41 <- Interval between two square activations
 1.275 <- Total square activation time
-1 4 7 10 13 <- DoubleTap squares indices
+2 5 8 11 14 <- DoubleTap squares indices
 No mask
 
 22
 0.38 <- Interval between two square activations
 1.25 <- Total square activation time
-3 6 9 5 8 11 <- DoubleTap squares indices
+4 7 10 6 9 12 <- DoubleTap squares indices
 No mask
 
 23
 0.35 <- Interval between two square activations
 1.225 <- Total square activation time
-0 1 2 12 13 14 <- DoubleTap squares indices
+1 2 3 13 14 15 <- DoubleTap squares indices
 No mask
 
 24
 0.32 <- Interval between two square activations
 1.2 <- Total square activation time
-0 2 4 6 8 10 12 14 <- DoubleTap squares indices
+1 3 5 7 9 11 13 15 <- DoubleTap squares indices
 No mask
 
 =============================== New World ===============================

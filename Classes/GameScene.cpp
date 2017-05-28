@@ -94,7 +94,7 @@ bool GameScene::init()
 		{
 			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 
-			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x;
+			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x + 1;
 			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), CurrentSquareIndex);
 
 			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end())

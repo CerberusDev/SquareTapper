@@ -65,13 +65,13 @@ bool LevelSelectScene::init()
 
 				std::getline(InputStream, Line);
 				std::stringstream DoubleTapSquaresSS(Line);
-				int NextDoubleSquareIndex = -1;
+				int NextDoubleSquareIndex = 0;
 				DoubleTapSquaresSS >> NextDoubleSquareIndex;
 
-				while (NextDoubleSquareIndex != -1)
+				while (NextDoubleSquareIndex != 0)
 				{
 					NewLevelParams.DoubleTapSquareIndices.push_back(NextDoubleSquareIndex);
-					NextDoubleSquareIndex = -1;
+					NextDoubleSquareIndex = 0;
 					DoubleTapSquaresSS >> NextDoubleSquareIndex;
 				}
 

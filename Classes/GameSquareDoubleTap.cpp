@@ -22,11 +22,6 @@ void GameSquareDoubleTap::SquareCorrectlyTapped()
 	else
 	{
 		InactiveSprite->setTexture("img/squares/SquareInactive.png");
-
-		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
-		ActivationSprite->setScale(0.0f);
-		StartActivation(SavedActivationTotalTime);
-
 		bAlreadyTapped = true;
 	}
 }

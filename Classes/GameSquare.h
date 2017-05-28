@@ -24,7 +24,7 @@ protected:
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
 	float SavedActivationTotalTime;
-	bool bActivationFrozen;
+	int ActivationFreezeRequestsCounter;
 	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
 
@@ -39,7 +39,7 @@ public:
 
 	void PauseOnGameOver();
 
-	bool CanBeActivated() const { return State == ESquareState::Inactive && !bActivationFrozen; }
+	bool CanBeActivated() const { return State == ESquareState::Inactive && ActivationFreezeRequestsCounter == 0; }
 
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);

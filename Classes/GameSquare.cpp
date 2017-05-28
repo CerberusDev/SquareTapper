@@ -18,7 +18,7 @@ FailedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
 SavedActivationTotalTime(-1.0f),
-bActivationFrozen(false),
+ActivationFreezeRequestsCounter(0),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
@@ -113,14 +113,22 @@ void GameSquare::Failed()
 
 void GameSquare::SetActivationFreeze(bool argbActivationFrozen)
 {
-	bActivationFrozen = argbActivationFrozen;
+	int LastActivationFreezeRequestsCounter = ActivationFreezeRequestsCounter;
+	int CounterMod = argbActivationFrozen ? 1 : -1;
+	ActivationFreezeRequestsCounter += CounterMod;
+
+	if (ActivationFreezeRequestsCounter < 0)
+	{
+		CCLOG("Oh, well, that's not good: ActivationFreezeRequestsCounter is smaller than 0!");
+		ActivationFreezeRequestsCounter = 0;
+	}
 
 	if (State == ESquareState::DuringActivation)
 	{
-		if (bActivationFrozen)
-			Director::getInstance()->getActionManager()->pauseTarget(ActivationSprite);
-		else
+		if (ActivationFreezeRequestsCounter == 0)
 			Director::getInstance()->getActionManager()->resumeTarget(ActivationSprite);
+		else if (LastActivationFreezeRequestsCounter == 0)
+			Director::getInstance()->getActionManager()->pauseTarget(ActivationSprite);
 	}
 }
 

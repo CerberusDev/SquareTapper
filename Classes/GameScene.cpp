@@ -5,6 +5,7 @@
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
 #include "GameSquareStandard.h"
+#include "GameSquareDoubleTap.h"
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
 #include "HorizontalGameMask.h"
@@ -92,8 +93,14 @@ bool GameScene::init()
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
 			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
-			GameSquare* NewSquare = new GameSquareStandard(this, Pos, x, y);
-			Squares[x][y] = NewSquare;
+
+			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x;
+			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), CurrentSquareIndex);
+
+			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end())
+				Squares[x][y] = new GameSquareStandard(this, Pos, x, y);
+			else
+				Squares[x][y] = new GameSquareDoubleTap(this, Pos, x, y);
 		}
 	}
 

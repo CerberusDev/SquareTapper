@@ -62,6 +62,19 @@ bool LevelSelectScene::init()
 				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
 				std::getline(InputStream, Line);
 				std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
+
+				std::getline(InputStream, Line);
+				std::stringstream DoubleTapSquaresSS(Line);
+				int NextDoubleSquareIndex = -1;
+				DoubleTapSquaresSS >> NextDoubleSquareIndex;
+
+				while (NextDoubleSquareIndex != -1)
+				{
+					NewLevelParams.DoubleTapSquareIndices.push_back(NextDoubleSquareIndex);
+					NextDoubleSquareIndex = -1;
+					DoubleTapSquaresSS >> NextDoubleSquareIndex;
+				}
+
 				std::getline(InputStream, Line);
 
 				if (Line.find("Spawn mask") != std::string::npos)

@@ -1,8 +1,18 @@
+# Square indices:
+#
+#  12  13  14
+#  9   10  11
+#  6   7   8
+#  3   4   5
+#  0   1   2
+#
+#
 # Level definition template:
 #
 # Level Nr
 # XX.XX <- Interval between two square activations 
 # XX.XX <- Total square activation time
+# X X X <- DoubleTap squares indices (leave list empty if you don't want any DoubleTap squares, just like: "<- DoubleTap squares indices")
 # Is game mask present? ("No mask" / "Spawn mask")
 # Optional: Game mask alignment ("Vertical" / "Horizontal")
 # Optional: Is it a killing mask? ("Standard" / "Killing")
@@ -13,6 +23,7 @@
 # 23
 # 0.55 <- Interval between two square activations
 # 1.4 <- Total square activation time
+# 0 2 12 14 <- DoubleTap squares indices
 # Spawn mask
 # Vertical
 # Killing
@@ -23,16 +34,19 @@
 1
 0.5 <- Interval between two square activations
 1.4 <- Total square activation time
+0 2 12 14 <- DoubleTap squares indices
 No mask
 
 2
 0.35 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 No mask
 
 3
 0.25 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 No mask
 
 # ----------------------------------------------------------------------
@@ -40,6 +54,7 @@ No mask
 4
 0.55 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Horizontal
 Standard
@@ -47,6 +62,7 @@ Standard
 5
 0.45 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Horizontal
 Standard
@@ -54,6 +70,7 @@ Standard
 6
 0.35 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Horizontal
 Standard
@@ -63,6 +80,7 @@ Standard
 7
 0.55 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Vertical
 Standard
@@ -70,6 +88,7 @@ Standard
 8
 0.45 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Vertical
 Standard
@@ -77,6 +96,7 @@ Standard
 9
 0.35 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Vertical
 Standard
@@ -86,6 +106,7 @@ Standard
 10
 0.7 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Horizontal
 Killing
@@ -93,6 +114,7 @@ Killing
 11
 0.6 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Horizontal
 Killing
@@ -100,6 +122,7 @@ Killing
 12
 0.5 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Horizontal
 Killing
@@ -109,6 +132,7 @@ Killing
 13
 0.7 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Vertical
 Killing
@@ -116,6 +140,7 @@ Killing
 14
 0.6 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Vertical
 Killing
@@ -123,6 +148,7 @@ Killing
 15
 0.5 <- Interval between two square activations
 1.4 <- Total square activation time
+<- DoubleTap squares indices
 Spawn mask
 Vertical
 Killing

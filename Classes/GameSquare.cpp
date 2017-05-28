@@ -83,13 +83,13 @@ void GameSquare::SquareCorrectlyTapped()
 
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 
-	auto ScaleAction1 = ScaleTo::create(0.075f, 1.0f);
-	auto ScaleAction2 = ScaleTo::create(0.075f, 1.1f);
-	auto ScaleAction3 = ScaleTo::create(0.15f, 1.0f);
+	auto ScaleAction1 = ScaleTo::create(0.04f, 1.0f);
+	auto ScaleAction2 = ScaleTo::create(0.04f, 1.1f);
+	auto ScaleAction3 = ScaleTo::create(0.07f, 1.0f);
 	auto ScaleSequence = Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr);
 	ActivationSprite->runAction(ScaleSequence);
 
-	auto FadeInAction = FadeIn::create(0.3f);
+	auto FadeInAction = FadeIn::create(0.15f);
 	CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleSequence->clone()));
 
 	ParentScene->OnSquareCompleted(this);

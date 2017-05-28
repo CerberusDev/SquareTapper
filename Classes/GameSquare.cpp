@@ -17,7 +17,7 @@ ActivationSprite(nullptr),
 FailedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
-SavedActivationTotalTime(-1),
+SavedActivationTotalTime(-1.0f),
 bActivationFrozen(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)

@@ -23,6 +23,7 @@ protected:
 	cocos2d::Sprite* CompletedSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
+	float SavedActivationTotalTime;
 	bool bActivationFrozen;
 	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;

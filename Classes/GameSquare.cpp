@@ -17,6 +17,7 @@ ActivationSprite(nullptr),
 FailedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
+SavedActivationTotalTime(-1),
 bActivationFrozen(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
@@ -57,6 +58,7 @@ GameSquare::~GameSquare()
 
 void GameSquare::StartActivation(float ActivationTotalTime)
 {
+	SavedActivationTotalTime = ActivationTotalTime;
 	State = ESquareState::DuringActivation;
 
 	auto ScaleAction = ScaleTo::create(ActivationTotalTime, 1.0f);

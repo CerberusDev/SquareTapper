@@ -105,7 +105,7 @@ No mask
 
 =============================== New World ===============================
 
-12
+13
 0.7 <- Interval between two square activations
 1.5 <- Total square activation time
 6 8 <- DoubleTap squares indices

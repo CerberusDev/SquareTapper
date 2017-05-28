@@ -32,42 +32,170 @@
 =============================== New World ===============================
 
 1
-0.5 <- Interval between two square activations
-1.4 <- Total square activation time
-0 2 12 14 <- DoubleTap squares indices
+1.0 <- Interval between two square activations
+1.5 <- Total square activation time
+<- DoubleTap squares indices
 No mask
 
 2
-0.35 <- Interval between two square activations
+0.7 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
 No mask
 
 3
-0.25 <- Interval between two square activations
+0.6 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
 No mask
 
-# ----------------------------------------------------------------------
-
 4
-0.55 <- Interval between two square activations
+0.5 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
-Spawn mask
-Horizontal
-Standard
+No mask
 
 5
 0.45 <- Interval between two square activations
+1.375 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+6
+0.42 <- Interval between two square activations
+1.35 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+7
+0.38 <- Interval between two square activations
+1.325 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+8
+0.34 <- Interval between two square activations
+1.3 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+9
+0.31 <- Interval between two square activations
+1.275 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+10
+0.28 <- Interval between two square activations
+1.25 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+11
+0.25 <- Interval between two square activations
+1.225 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+12
+0.22 <- Interval between two square activations
+1.2 <- Total square activation time
+<- DoubleTap squares indices
+No mask
+
+=============================== New World ===============================
+
+12
+0.7 <- Interval between two square activations
+1.5 <- Total square activation time
+6 8 <- DoubleTap squares indices
+No mask
+
+14
+0.6 <- Interval between two square activations
+1.45 <- Total square activation time
+10 4 <- DoubleTap squares indices
+No mask
+
+15
+0.575 <- Interval between two square activations
+1.425 <- Total square activation time
+6 7 8 <- DoubleTap squares indices
+No mask
+
+16
+0.55 <- Interval between two square activations
+1.4 <- Total square activation time
+0 1 2 <- DoubleTap squares indices
+No mask
+
+17
+0.525 <- Interval between two square activations
+1.375 <- Total square activation time
+12 13 14 <- DoubleTap squares indices
+No mask
+
+18
+0.5 <- Interval between two square activations
+1.35 <- Total square activation time
+3 5 9 11 <- DoubleTap squares indices
+No mask
+
+19
+0.47 <- Interval between two square activations
+1.325 <- Total square activation time
+0 2 12 14 <- DoubleTap squares indices
+No mask
+
+20
+0.44 <- Interval between two square activations
+1.3 <- Total square activation time
+12 10 8 4 0 <- DoubleTap squares indices
+No mask
+
+21
+0.41 <- Interval between two square activations
+1.275 <- Total square activation time
+1 4 7 10 13 <- DoubleTap squares indices
+No mask
+
+22
+0.38 <- Interval between two square activations
+1.25 <- Total square activation time
+3 6 9 5 8 11 <- DoubleTap squares indices
+No mask
+
+23
+0.35 <- Interval between two square activations
+1.225 <- Total square activation time
+0 1 2 12 13 14 <- DoubleTap squares indices
+No mask
+
+24
+0.32 <- Interval between two square activations
+1.2 <- Total square activation time
+0 2 4 6 8 10 12 14 <- DoubleTap squares indices
+No mask
+
+=============================== New World ===============================
+
+25
+0.55 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
 Spawn mask
 Horizontal
 Standard
 
-6
+26
+0.45 <- Interval between two square activations
+1.4 <- Total square activation time
+<- DoubleTap squares indices
+Spawn mask
+Horizontal
+Standard
+
+27
 0.35 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -75,9 +203,7 @@ Spawn mask
 Horizontal
 Standard
 
-=============================== New World ===============================
-
-7
+28
 0.55 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -85,7 +211,7 @@ Spawn mask
 Vertical
 Standard
 
-8
+29
 0.45 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -93,7 +219,7 @@ Spawn mask
 Vertical
 Standard
 
-9
+30
 0.35 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -101,9 +227,7 @@ Spawn mask
 Vertical
 Standard
 
-# ----------------------------------------------------------------------
-
-10
+31
 0.7 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -111,7 +235,7 @@ Spawn mask
 Horizontal
 Killing
 
-11
+32
 0.6 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -119,7 +243,7 @@ Spawn mask
 Horizontal
 Killing
 
-12
+33
 0.5 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -127,9 +251,7 @@ Spawn mask
 Horizontal
 Killing
 
-=============================== New World ===============================
-
-13
+34
 0.7 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -137,7 +259,7 @@ Spawn mask
 Vertical
 Killing
 
-14
+35
 0.6 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices
@@ -145,7 +267,7 @@ Spawn mask
 Vertical
 Killing
 
-15
+36
 0.5 <- Interval between two square activations
 1.4 <- Total square activation time
 <- DoubleTap squares indices

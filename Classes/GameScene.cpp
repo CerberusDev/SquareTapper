@@ -77,7 +77,7 @@ bool GameScene::init()
 	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
 	std::stringstream Stream;
 	Stream << "Level " << LevelParamsStruct.LevelNumber;
-	auto label = Label::createWithTTF(Stream.str(), "fonts/Marker Felt.ttf", FontSize);
+	auto label = Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", FontSize);
 	label->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
 	this->addChild(label, 1);
 
@@ -255,7 +255,7 @@ void GameScene::LevelFailed()
 		this->addChild(sprite, 4);
 
 		float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-		auto label = Label::createWithTTF("You lost!", "fonts/Marker Felt.ttf", FontSize);
+		auto label = Label::createWithTTF("You lost!", "fonts/ADAM.CGPRO.ttf", FontSize);
 		label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 		this->addChild(label, 5);
 	}
@@ -280,7 +280,7 @@ void GameScene::ShowLevelCompletedMessage()
 	this->addChild(sprite, 4);
 
 	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-	auto label = Label::createWithTTF("You win!", "fonts/Marker Felt.ttf", FontSize);
+	auto label = Label::createWithTTF("You win!", "fonts/ADAM.CGPRO.ttf", FontSize);
 	label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
 	this->addChild(label, 5);
 }

@@ -8,9 +8,6 @@
 
 USING_NS_CC;
 
-const std::string LevelSelectScene::UnknownLevelImageFilePath_Idle = "img/ui/level_buttons/LevelUnknown_idle.png";
-const std::string LevelSelectScene::UnknownLevelImageFilePath_Pressed = "img/ui/level_buttons/LevelUnknown_pressed.png";
-
 LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
 	StartWorldNumber(argStartWorldNumber)
 {
@@ -111,17 +108,7 @@ bool LevelSelectScene::init()
 
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 		{
-			std::stringstream StringStreamIdle;
-			StringStreamIdle << "img/ui/level_buttons/Level" << LevelParamsContainer[i][j].LevelNumber << "_idle.png";
-			const bool bIdleImageExists = FileUtils::getInstance()->isFileExist(StringStreamIdle.str());
-			const std::string IdleButtonFileName = bIdleImageExists ? StringStreamIdle.str() : UnknownLevelImageFilePath_Idle;
-
-			std::stringstream StringStreamPressed;
-			StringStreamPressed << "img/ui/level_buttons/Level" << LevelParamsContainer[i][j].LevelNumber << "_pressed.png";
-			const bool bPressedImageExists = FileUtils::getInstance()->isFileExist(StringStreamPressed.str());
-			const std::string PressedButtonFileName = bPressedImageExists ? StringStreamPressed.str() : UnknownLevelImageFilePath_Pressed;;
-
-			auto LevelButton = ui::Button::create(IdleButtonFileName, PressedButtonFileName, IdleButtonFileName);
+			auto LevelButton = ui::Button::create("img/ui/LevelButton_idle.png", "img/ui/LevelButton_pressed.png", "img/ui/LevelButton_pressed.png");
 			LevelButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 				if (type == ui::Widget::TouchEventType::ENDED)
 				{
@@ -134,6 +121,11 @@ bool LevelSelectScene::init()
 			});
 			LevelButton->setPosition(Vec2(visibleSize.width * 0.25f * (j % 3 + 1), visibleSize.height * (0.75 - 0.15f * (j / 3))));
 			LevelButton->setTag(1000 * i + j);
+
+			std::stringstream Stream;
+			Stream << LevelParamsContainer[i][j].LevelNumber;
+			float FontSize = 56.0f / Director::getInstance()->getContentScaleFactor();
+			LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", FontSize));
 
 			PageLayout->addChild(LevelButton);
 		}

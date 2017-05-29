@@ -10,8 +10,6 @@ class LevelSelectScene : public cocos2d::Scene
 {
 protected:
 	std::vector<std::vector<LevelParams> > LevelParamsContainer;
-	static const std::string UnknownLevelImageFilePath_Idle;
-	static const std::string UnknownLevelImageFilePath_Pressed;
 	int StartWorldNumber;
 
 // ---------------------------------------------------------------------------------------------------

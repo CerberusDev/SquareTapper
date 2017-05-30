@@ -121,7 +121,7 @@ bool LevelSelectScene::init()
 			std::stringstream StringStreamPressed;
 			StringStreamPressed << "img/ui/LevelButton" << StarsNumber << "_pressed.png";
 
-			auto LevelButton = ui::Button::create(StringStreamIdle.str(), StringStreamPressed.str(), StringStreamPressed.str());
+			auto LevelButton = ui::Button::create(StringStreamIdle.str(), StringStreamPressed.str());
 			LevelButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 				if (type == ui::Widget::TouchEventType::ENDED)
 				{
@@ -147,7 +147,7 @@ bool LevelSelectScene::init()
 	this->addChild(PageViewMenu, 0);
 	PageViewMenu->setCurrentPageIndex(StartWorldNumber);
 
-	auto ResetProgressButton = ui::Button::create("img/ui/ResetProgress_idle.png", "img/ui/ResetProgress_pressed.png", "img/ui/ResetProgress_pressed.png");
+	auto ResetProgressButton = ui::Button::create("img/ui/ResetProgress_idle.png", "img/ui/ResetProgress_pressed.png");
 	ResetProgressButton->setPosition(Vec2(visibleSize.width * 0.88f, visibleSize.height * 0.07));
 	ResetProgressButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)

@@ -147,5 +147,29 @@ bool LevelSelectScene::init()
 	this->addChild(PageViewMenu, 0);
 	PageViewMenu->setCurrentPageIndex(StartWorldNumber);
 
+	auto ResetProgressButton = ui::Button::create("img/ui/ResetProgress_idle.png", "img/ui/ResetProgress_pressed.png", "img/ui/ResetProgress_pressed.png");
+	ResetProgressButton->setPosition(Vec2(visibleSize.width * 0.88f, visibleSize.height * 0.07));
+	ResetProgressButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		if (type == ui::Widget::TouchEventType::ENDED)
+		{
+			UserDefault* UserDefaultData = UserDefault::getInstance();
+
+			for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
+			{
+				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
+				{
+					std::stringstream StringStreamLevelKey;
+					StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelNumber;
+					UserDefaultData->setIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
+				}
+			}
+
+			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+		}
+
+	});
+
+	this->addChild(ResetProgressButton, 1);
+
 	return true;
 }

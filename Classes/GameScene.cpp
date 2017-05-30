@@ -59,7 +59,7 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
     
-	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
+	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.66f, origin.y + VisibleSize.height * 0.07f));
 	MenuItems.pushBack(BackItem);
 
 	auto RestartItem = MenuItemImage::create("img/ui/Restart_idle.png", "img/ui/Restart_pressed.png",
@@ -67,8 +67,16 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 
-	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
+	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
 	MenuItems.pushBack(RestartItem);
+
+	auto NextItem = MenuItemImage::create("img/ui/Next_idle.png", "img/ui/Next_pressed.png",
+		[&](Ref* sender) {
+		;
+	});
+
+	NextItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
+	MenuItems.pushBack(NextItem);
 
     auto menu = Menu::createWithArray(MenuItems);
     menu->setPosition(Vec2::ZERO);

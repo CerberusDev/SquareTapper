@@ -271,6 +271,18 @@ void GameScene::LevelCompleted()
 	auto DelayAction = DelayTime::create(0.4f);
 	auto ShowMessageAction = CallFunc::create([&]() {ShowLevelCompletedMessage(); });
 	runAction(Sequence::create(DelayAction, ShowMessageAction, nullptr));
+
+	std::stringstream StringStreamLevelKey;
+	StringStreamLevelKey << "Level" << LevelParamsStruct.LevelNumber;
+
+	UserDefault* UserDefaultData = UserDefault::getInstance();
+	int LastBestStarsNumber = UserDefaultData->getIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
+
+	if (StarsNumber > LastBestStarsNumber)
+	{
+		UserDefaultData->setIntegerForKey(StringStreamLevelKey.str().c_str(), StarsNumber);
+		UserDefaultData->flush();
+	}
 }
 
 void GameScene::ShowLevelCompletedMessage()

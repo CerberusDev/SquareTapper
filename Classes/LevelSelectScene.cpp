@@ -100,6 +100,8 @@ bool LevelSelectScene::init()
 	PageViewMenu->setContentSize(Size(visibleSize.width, visibleSize.height));
 	PageViewMenu->setBounceEnabled(true);
 
+	UserDefault* UserDefaultData = UserDefault::getInstance();
+
 	for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
 	{
 		auto PageLayout = ui::Layout::create();
@@ -108,7 +110,18 @@ bool LevelSelectScene::init()
 
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 		{
-			auto LevelButton = ui::Button::create("img/ui/LevelButton_idle.png", "img/ui/LevelButton_pressed.png", "img/ui/LevelButton_pressed.png");
+			std::stringstream StringStreamLevelKey;
+			StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelNumber;
+
+			int StarsNumber = UserDefaultData->getIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
+
+			std::stringstream StringStreamIdle;
+			StringStreamIdle << "img/ui/LevelButton" << StarsNumber << "_idle.png";
+
+			std::stringstream StringStreamPressed;
+			StringStreamPressed << "img/ui/LevelButton" << StarsNumber << "_pressed.png";
+
+			auto LevelButton = ui::Button::create(StringStreamIdle.str(), StringStreamPressed.str(), StringStreamPressed.str());
 			LevelButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 				if (type == ui::Widget::TouchEventType::ENDED)
 				{

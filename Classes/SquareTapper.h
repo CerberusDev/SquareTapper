@@ -14,6 +14,7 @@ struct LevelParams
 {
 	int LevelDisplayNumber;
 	int WorldNumber;
+	int LevelNumber;
 	float SquaresActivationTimeInterval;
 	float TotalSquareActivationTime;
 	std::vector<int> DoubleTapSquareIndices;
@@ -24,6 +25,7 @@ struct LevelParams
 	LevelParams():
 	LevelDisplayNumber(-1),
 	WorldNumber(-1),
+	LevelNumber(-1),
 	SquaresActivationTimeInterval(-1.0f), 
 	TotalSquareActivationTime(-1.0f),
 	bSpawnGameMask(false),

@@ -53,6 +53,7 @@ void LevelSelectScene::InitializeLevelParams()
 				LevelParams NewLevelParams;
 
 				NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
+				NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
 				std::stringstream(Line) >> NewLevelParams.LevelDisplayNumber;
 				std::getline(InputStream, Line);
 				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;

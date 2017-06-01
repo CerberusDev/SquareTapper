@@ -76,7 +76,10 @@ bool GameScene::init()
 	{
 		auto NextItem = MenuItemImage::create("img/ui/Next_idle.png", "img/ui/Next_pressed.png",
 			[&](Ref* sender) {
-			;
+			if (LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
+				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
+			else
+				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
 		});
 
 		NextItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));

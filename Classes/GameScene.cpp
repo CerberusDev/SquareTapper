@@ -70,17 +70,22 @@ bool GameScene::init()
 	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
 	MenuItems.pushBack(RestartItem);
 
-	auto NextItem = MenuItemImage::create("img/ui/Next_idle.png", "img/ui/Next_pressed.png",
-		[&](Ref* sender) {
-		;
-	});
+	auto const& LevelData = LevelSelectScene::GetLevelData();
 
-	NextItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
-	MenuItems.pushBack(NextItem);
+	if (LevelData.back().back().LevelDisplayNumber != LevelParamsStruct.LevelDisplayNumber)
+	{
+		auto NextItem = MenuItemImage::create("img/ui/Next_idle.png", "img/ui/Next_pressed.png",
+			[&](Ref* sender) {
+			;
+		});
 
-    auto menu = Menu::createWithArray(MenuItems);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+		NextItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
+		MenuItems.pushBack(NextItem);
+	}
+
+	auto menu = Menu::createWithArray(MenuItems);
+	menu->setPosition(Vec2::ZERO);
+	this->addChild(menu, 1);
 
 	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
 	std::stringstream Stream;

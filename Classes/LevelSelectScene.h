@@ -20,5 +20,6 @@ public:
 	virtual bool init();
 
 	static void InitializeLevelParams();
+	static const std::vector<std::vector<LevelParams>>& GetLevelData() { return LevelParamsContainer; };
 	static LevelSelectScene* create(int argStartWorldNumber);
 };

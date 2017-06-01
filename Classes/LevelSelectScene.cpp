@@ -8,6 +8,8 @@
 
 USING_NS_CC;
 
+std::vector<std::vector<LevelParams> > LevelSelectScene::LevelParamsContainer;
+
 LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
 	StartWorldNumber(argStartWorldNumber)
 {
@@ -31,11 +33,8 @@ LevelSelectScene* LevelSelectScene::create(int argStartWorldNumber)
 	}
 }
 
-bool LevelSelectScene::init()
+void LevelSelectScene::InitializeLevelParams()
 {
-	if (!Scene::init())
-		return false;
-
 	std::string FileName = "_Levels.txt";
 	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(FileName);
 	std::string FileContents = FileUtils::getInstance()->getStringFromFile(FilePath);
@@ -92,6 +91,14 @@ bool LevelSelectScene::init()
 			}
 		}
 	}
+
+	CCLOG("Level data initialization from file finished");
+}
+
+bool LevelSelectScene::init()
+{
+	if (!Scene::init())
+		return false;
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();

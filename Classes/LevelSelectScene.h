@@ -9,7 +9,7 @@
 class LevelSelectScene : public cocos2d::Scene
 {
 protected:
-	std::vector<std::vector<LevelParams> > LevelParamsContainer;
+	static std::vector<std::vector<LevelParams> > LevelParamsContainer;
 	int StartWorldNumber;
 
 // ---------------------------------------------------------------------------------------------------
@@ -19,5 +19,6 @@ public:
 
 	virtual bool init();
 
+	static void InitializeLevelParams();
 	static LevelSelectScene* create(int argStartWorldNumber);
 };

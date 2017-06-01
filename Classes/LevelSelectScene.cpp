@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-std::vector<std::vector<LevelParams> > LevelSelectScene::LevelParamsContainer;
+std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 
 LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
 	StartWorldNumber(argStartWorldNumber)

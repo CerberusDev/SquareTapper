@@ -53,7 +53,7 @@ void LevelSelectScene::InitializeLevelParams()
 				LevelParams NewLevelParams;
 
 				NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
-				std::stringstream(Line) >> NewLevelParams.LevelNumber;
+				std::stringstream(Line) >> NewLevelParams.LevelDisplayNumber;
 				std::getline(InputStream, Line);
 				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
 				std::getline(InputStream, Line);
@@ -118,7 +118,7 @@ bool LevelSelectScene::init()
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 		{
 			std::stringstream StringStreamLevelKey;
-			StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelNumber;
+			StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelDisplayNumber;
 
 			int StarsNumber = UserDefaultData->getIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
 
@@ -143,7 +143,7 @@ bool LevelSelectScene::init()
 			LevelButton->setTag(1000 * i + j);
 
 			std::stringstream Stream;
-			Stream << LevelParamsContainer[i][j].LevelNumber;
+			Stream << LevelParamsContainer[i][j].LevelDisplayNumber;
 			float FontSize = 56.0f / Director::getInstance()->getContentScaleFactor();
 			LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", FontSize));
 
@@ -166,7 +166,7 @@ bool LevelSelectScene::init()
 				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 				{
 					std::stringstream StringStreamLevelKey;
-					StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelNumber;
+					StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelDisplayNumber;
 					UserDefaultData->setIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
 				}
 			}

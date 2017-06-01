@@ -84,7 +84,7 @@ bool GameScene::init()
 
 	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
 	std::stringstream Stream;
-	Stream << "Level " << LevelParamsStruct.LevelNumber;
+	Stream << "Level " << LevelParamsStruct.LevelDisplayNumber;
 	auto label = Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", FontSize);
 	label->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
 	this->addChild(label, 1);
@@ -281,7 +281,7 @@ void GameScene::LevelCompleted()
 	runAction(Sequence::create(DelayAction, ShowMessageAction, nullptr));
 
 	std::stringstream StringStreamLevelKey;
-	StringStreamLevelKey << "Level" << LevelParamsStruct.LevelNumber;
+	StringStreamLevelKey << "Level" << LevelParamsStruct.LevelDisplayNumber;
 
 	UserDefault* UserDefaultData = UserDefault::getInstance();
 	int LastBestStarsNumber = UserDefaultData->getIntegerForKey(StringStreamLevelKey.str().c_str(), 0);

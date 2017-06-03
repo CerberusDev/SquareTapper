@@ -105,6 +105,22 @@ bool GameScene::init()
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
 		StarImages[i] = new StarImage(this, Vec2(VisibleSize.width * (0.6f + 0.15f * i), VisibleSize.height * 0.93f));
 
+	std::vector<int> DangerousSquareIndices;
+
+	if (LevelParamsStruct.DangerousSquaresNumber > 0)
+	{
+		for (int i = 1; i <= SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y; ++i)
+		{
+			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), i);
+		
+			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end())
+				DangerousSquareIndices.push_back(i);
+		}
+
+		std::random_shuffle(DangerousSquareIndices.begin(), DangerousSquareIndices.end());
+		DangerousSquareIndices.resize(LevelParamsStruct.DangerousSquaresNumber);
+	}
+
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
@@ -113,11 +129,11 @@ bool GameScene::init()
 
 			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x + 1;
 			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), CurrentSquareIndex);
-			auto DangerousIndexIt = std::find(LevelParamsStruct.DangerousSquareIndices.begin(), LevelParamsStruct.DangerousSquareIndices.end(), CurrentSquareIndex);
+			auto DangerousIndexIt = std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), CurrentSquareIndex);
 
 			if (DoubleTapIndexIt != LevelParamsStruct.DoubleTapSquareIndices.end())
 				Squares[x][y] = new GameSquareDoubleTap(this, Pos, x, y);
-			else if (DangerousIndexIt != LevelParamsStruct.DangerousSquareIndices.end())
+			else if (DangerousIndexIt != DangerousSquareIndices.end())
 				Squares[x][y] = new GameSquareDangerous(this, Pos, x, y);
 			else
 				Squares[x][y] = new GameSquareStandard(this, Pos, x, y);

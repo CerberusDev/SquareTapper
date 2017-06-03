@@ -59,6 +59,8 @@ void LevelSelectScene::InitializeLevelParams()
 				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
 				std::getline(InputStream, Line);
 				std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
+				std::getline(InputStream, Line);
+				std::stringstream(Line) >> NewLevelParams.DangerousSquaresNumber;
 
 				std::getline(InputStream, Line);
 				std::stringstream DoubleTapSquaresSS(Line);
@@ -70,18 +72,6 @@ void LevelSelectScene::InitializeLevelParams()
 					NewLevelParams.DoubleTapSquareIndices.push_back(NextDoubleSquareIndex);
 					NextDoubleSquareIndex = 0;
 					DoubleTapSquaresSS >> NextDoubleSquareIndex;
-				}
-
-				std::getline(InputStream, Line);
-				std::stringstream DangerousSquaresSS(Line);
-				int NextDangerousSquareIndex = 0;
-				DangerousSquaresSS >> NextDangerousSquareIndex;
-
-				while (NextDangerousSquareIndex != 0)
-				{
-					NewLevelParams.DangerousSquareIndices.push_back(NextDangerousSquareIndex);
-					NextDangerousSquareIndex = 0;
-					DangerousSquaresSS >> NextDangerousSquareIndex;
 				}
 
 				std::getline(InputStream, Line);

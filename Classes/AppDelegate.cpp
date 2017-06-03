@@ -61,6 +61,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
+	srand(time(0));
+
 	LevelSelectScene::InitializeLevelParams();
 	director->runWithScene(LevelSelectScene::create(0));
 

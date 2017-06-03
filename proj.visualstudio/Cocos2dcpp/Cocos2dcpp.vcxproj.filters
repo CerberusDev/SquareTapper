@@ -2287,6 +2287,9 @@
     <ClInclude Include="..\..\Classes\GameSquareStandard.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\GameSquareDangerous.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4272,6 +4275,9 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\GameSquareStandard.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\GameSquareDangerous.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

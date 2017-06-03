@@ -7,7 +7,7 @@
 USING_NS_CC;
 
 GameSquareStandard::GameSquareStandard(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
-GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/SquareInactive.png")
+GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/SquareInactive.png", "img/squares/SquareActive.png")
 {
 
 }

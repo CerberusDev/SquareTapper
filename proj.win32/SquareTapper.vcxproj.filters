@@ -39,6 +39,7 @@
     <ClCompile Include="..\Classes\StarImage.cpp" />
     <ClCompile Include="..\Classes\GameSquareDoubleTap.cpp" />
     <ClCompile Include="..\Classes\GameSquareStandard.cpp" />
+    <ClCompile Include="..\Classes\GameSquareDangerous.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -71,6 +72,7 @@
     <ClInclude Include="..\Classes\StarImage.h" />
     <ClInclude Include="..\Classes\GameSquareDoubleTap.h" />
     <ClInclude Include="..\Classes\GameSquareStandard.h" />
+    <ClInclude Include="..\Classes\GameSquareDangerous.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

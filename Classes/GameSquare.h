@@ -24,13 +24,14 @@ protected:
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
 	float SavedActivationTotalTime;
+	const float CompletedSpriteFadeInTime;
 	int ActivationFreezeRequestsCounter;
 	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename);
+	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
 	virtual ~GameSquare();
 
 	void StartActivation(float ActivationTotalTime);
@@ -44,5 +45,7 @@ public:
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void SquareCorrectlyTapped();
+	virtual void ActivationEnded();
+	cocos2d::Sequence* ScaleUpActivationSquare();
 	void Failed();
 };

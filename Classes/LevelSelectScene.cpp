@@ -73,6 +73,18 @@ void LevelSelectScene::InitializeLevelParams()
 				}
 
 				std::getline(InputStream, Line);
+				std::stringstream DangerousSquaresSS(Line);
+				int NextDangerousSquareIndex = 0;
+				DangerousSquaresSS >> NextDangerousSquareIndex;
+
+				while (NextDangerousSquareIndex != 0)
+				{
+					NewLevelParams.DangerousSquareIndices.push_back(NextDangerousSquareIndex);
+					NextDangerousSquareIndex = 0;
+					DangerousSquaresSS >> NextDangerousSquareIndex;
+				}
+
+				std::getline(InputStream, Line);
 
 				if (Line.find("Spawn mask") != std::string::npos)
 				{

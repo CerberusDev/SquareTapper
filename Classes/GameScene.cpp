@@ -6,6 +6,7 @@
 #include "SimpleAudioEngine.h"
 #include "GameSquareStandard.h"
 #include "GameSquareDoubleTap.h"
+#include "GameSquareDangerous.h"
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
 #include "HorizontalGameMask.h"
@@ -112,11 +113,14 @@ bool GameScene::init()
 
 			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x + 1;
 			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), CurrentSquareIndex);
+			auto DangerousIndexIt = std::find(LevelParamsStruct.DangerousSquareIndices.begin(), LevelParamsStruct.DangerousSquareIndices.end(), CurrentSquareIndex);
 
-			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end())
-				Squares[x][y] = new GameSquareStandard(this, Pos, x, y);
-			else
+			if (DoubleTapIndexIt != LevelParamsStruct.DoubleTapSquareIndices.end())
 				Squares[x][y] = new GameSquareDoubleTap(this, Pos, x, y);
+			else if (DangerousIndexIt != LevelParamsStruct.DangerousSquareIndices.end())
+				Squares[x][y] = new GameSquareDangerous(this, Pos, x, y);
+			else
+				Squares[x][y] = new GameSquareStandard(this, Pos, x, y);
 		}
 	}
 

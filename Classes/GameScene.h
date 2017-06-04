@@ -14,6 +14,7 @@
 class GameSquare;
 class GameMask;
 class StarImage;
+class GameSquareSequence;
 
 class GameScene : public cocos2d::Scene
 {
@@ -22,9 +23,11 @@ protected:
 	GameMask* Mask;
 	std::vector<GameSquare*> ActiveSquares;
 	StarImage* StarImages[MAX_STARS_NUMBER];
-	LevelParams LevelParamsStruct;
+	GameSquareSequence* NextSequenceSquareToActivate;
+	const LevelParams LevelParamsStruct;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;
+	const float SequenceSquaresActivationTimeInterval;
 	const float SquarePositionMarginX;
 	const float SquarePositionMarginY;
 	cocos2d::Size VisibleSize;
@@ -44,7 +47,7 @@ public:
 
 	float GetScreenPositionX(int SquareIndexX) const;
 	float GetScreenPositionY(int SquareIndexY) const;
-	GameSquare* GetSquareForActivation() const;
+	GameSquare* GetSquareForActivation();
 	void ActivateNextSquare();
 	void QueueNextSquareActivation(float Delay);
 	void OnSquareCompleted(GameSquare* CompletedSquare);
@@ -53,6 +56,7 @@ public:
 	void LevelFailed();
 	void LevelCompleted();
 	void ShowLevelCompletedMessage();
+	void SetNextSequenceSquareToActivate(int SquareIndex);
 
 	bool IsLevelFinished() { return bLevelFinished; };
 
@@ -60,4 +64,5 @@ public:
 
 protected:
 	float GetScreenPosition(int SquareIndex, int SquareMax, float SquarePositionMargin, float ScreenSize) const;
+	GameSquare* GetSquareByIndex(int Index) const;
 };

@@ -6,6 +6,7 @@
 #include "SimpleAudioEngine.h"
 #include "GameSquareStandard.h"
 #include "GameSquareDoubleTap.h"
+#include "GameSquareSequence.h"
 #include "GameSquareDangerous.h"
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
@@ -16,9 +17,11 @@ USING_NS_CC;
 
 GameScene::GameScene(LevelParams argLevelParamsStruct):
 Mask(nullptr),
+NextSequenceSquareToActivate(nullptr),
 LevelParamsStruct(argLevelParamsStruct),
 StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
+SequenceSquaresActivationTimeInterval(0.15f),
 SquarePositionMarginX(0.23f),
 SquarePositionMarginY(0.2f),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
@@ -112,8 +115,9 @@ bool GameScene::init()
 		for (int i = 1; i <= SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y; ++i)
 		{
 			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), i);
+			auto SequenceIndexIt = std::find(LevelParamsStruct.SequenceSquareIndices.begin(), LevelParamsStruct.SequenceSquareIndices.end(), i);
 		
-			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end())
+			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end() && SequenceIndexIt == LevelParamsStruct.SequenceSquareIndices.end())
 				DangerousSquareIndices.push_back(i);
 		}
 
@@ -129,14 +133,26 @@ bool GameScene::init()
 
 			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x + 1;
 			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), CurrentSquareIndex);
+			auto SequenceIndexIt = std::find(LevelParamsStruct.SequenceSquareIndices.begin(), LevelParamsStruct.SequenceSquareIndices.end(), CurrentSquareIndex);
 			auto DangerousIndexIt = std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), CurrentSquareIndex);
 
 			if (DoubleTapIndexIt != LevelParamsStruct.DoubleTapSquareIndices.end())
 				Squares[x][y] = new GameSquareDoubleTap(this, Pos, x, y);
+			else if (SequenceIndexIt != LevelParamsStruct.SequenceSquareIndices.end())
+				Squares[x][y] = new GameSquareSequence(this, Pos, x, y, CurrentSquareIndex == LevelParamsStruct.SequenceSquareIndices[0]);
 			else if (DangerousIndexIt != DangerousSquareIndices.end())
 				Squares[x][y] = new GameSquareDangerous(this, Pos, x, y);
 			else
 				Squares[x][y] = new GameSquareStandard(this, Pos, x, y);
+		}
+	}
+
+	if (LevelParamsStruct.SequenceSquareIndices.size() > 0)
+	{
+		for (int i = 0; i < LevelParamsStruct.SequenceSquareIndices.size() - 1; ++i)
+		{
+			GameSquareSequence* SequenceSquare = dynamic_cast<GameSquareSequence*>(GetSquareByIndex(LevelParamsStruct.SequenceSquareIndices[i]));
+			SequenceSquare->NextSquareInSequenceIndex = LevelParamsStruct.SequenceSquareIndices[i + 1];
 		}
 	}
 
@@ -188,16 +204,40 @@ float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float Squ
 	return ScreenSize * PosMod;
 }
 
-GameSquare* GameScene::GetSquareForActivation() const
+GameSquare* GameScene::GetSquareByIndex(int Index) const
+{
+	int x = (Index - 1) % SQUARE_AMOUNT_X;
+	int y = (Index - 1) / SQUARE_AMOUNT_X;
+	return Squares[x][y];
+}
+
+void GameScene::SetNextSequenceSquareToActivate(int SquareIndex)
+{
+	NextSequenceSquareToActivate = dynamic_cast<GameSquareSequence*>(GetSquareByIndex(SquareIndex));
+	NextSequenceSquareToActivate->SetAsNextToActivate();
+}
+
+GameSquare* GameScene::GetSquareForActivation()
 {
 	std::vector<GameSquare*> AvailableSquares;
 
-	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
+	if (NextSequenceSquareToActivate != nullptr)
 	{
-		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
+		if (NextSequenceSquareToActivate->CanBeActivated())
 		{
-			if (Squares[x][y]->CanBeActivated())
-				AvailableSquares.push_back(Squares[x][y]);
+			AvailableSquares.push_back(NextSequenceSquareToActivate);
+			NextSequenceSquareToActivate = nullptr;
+		}
+	}
+	else
+	{
+		for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
+		{
+			for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
+			{
+				if (Squares[x][y]->CanBeActivated())
+					AvailableSquares.push_back(Squares[x][y]);
+			}
 		}
 	}
 
@@ -215,7 +255,16 @@ void GameScene::ActivateNextSquare()
 	}
 
 	if (UnactivatedSquaresNumber > 0)
-		QueueNextSquareActivation(LevelParamsStruct.SquaresActivationTimeInterval);
+	{
+		float NextActivationDelay;
+
+		if (NextSequenceSquareToActivate != nullptr)
+			NextActivationDelay = SequenceSquaresActivationTimeInterval;
+		else
+			NextActivationDelay = LevelParamsStruct.SquaresActivationTimeInterval;
+
+		QueueNextSquareActivation(NextActivationDelay);
+	}
 }
 
 void GameScene::QueueNextSquareActivation(float Delay)

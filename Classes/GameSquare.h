@@ -34,13 +34,13 @@ public:
 	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
 	virtual ~GameSquare();
 
-	void StartActivation(float ActivationTotalTime);
+	virtual void StartActivation(float ActivationTotalTime);
 	void SetActivationFreeze(bool argbActivationFrozen);
 	void SetBlockTouchEvents(bool argbBlockTouchEvents);
 
 	void PauseOnGameOver();
 
-	bool CanBeActivated() const { return State == ESquareState::Inactive && ActivationFreezeRequestsCounter == 0; }
+	virtual bool CanBeActivated() const { return State == ESquareState::Inactive && ActivationFreezeRequestsCounter == 0; }
 
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);

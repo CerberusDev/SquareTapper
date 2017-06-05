@@ -123,6 +123,7 @@ bool LevelSelectScene::init()
 	PageViewMenu->setBounceEnabled(true);
 
 	UserDefault* UserDefaultData = UserDefault::getInstance();
+	const float LevelButtonFontSize = 56.0f / Director::getInstance()->getContentScaleFactor();
 
 	for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
 	{
@@ -159,8 +160,7 @@ bool LevelSelectScene::init()
 
 			std::stringstream Stream;
 			Stream << LevelParamsContainer[i][j].LevelDisplayNumber;
-			float FontSize = 56.0f / Director::getInstance()->getContentScaleFactor();
-			LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", FontSize));
+			LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", LevelButtonFontSize));
 
 			PageLayout->addChild(LevelButton);
 		}

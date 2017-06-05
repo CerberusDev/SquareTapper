@@ -75,6 +75,18 @@ void LevelSelectScene::InitializeLevelParams()
 				}
 
 				std::getline(InputStream, Line);
+				std::stringstream SequenceSquaresSS(Line);
+				int NextSequenceSquareIndex = 0;
+				SequenceSquaresSS >> NextSequenceSquareIndex;
+
+				while (NextSequenceSquareIndex != 0)
+				{
+					NewLevelParams.SequenceSquareIndices.push_back(NextSequenceSquareIndex);
+					NextSequenceSquareIndex = 0;
+					SequenceSquaresSS >> NextSequenceSquareIndex;
+				}
+
+				std::getline(InputStream, Line);
 
 				if (Line.find("Spawn mask") != std::string::npos)
 				{

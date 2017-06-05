@@ -14,6 +14,7 @@
 # XX.XX <- Total square activation time
 # X <- Number of Dangerous squares
 # X X X <- DoubleTap squares indices (leave list empty if you don't want any DoubleTap squares, just like: "<- DoubleTap squares indices")
+# X X X <- Sequence squares indices (leave list empty if you don't want any Sequence squares, just like: "<- Sequence squares indices")
 # Is game mask present? ("No mask" / "Spawn mask")
 # Optional: Game mask alignment ("Vertical" / "Horizontal")
 # Optional: Is it a killing mask? ("Standard" / "Killing")
@@ -26,6 +27,7 @@
 # 1.4 <- Total square activation time
 # 0 <- Number of Dangerous squares
 # 1 3 13 15 <- DoubleTap squares indices
+# 2 5 8 <- Sequence squares indices
 # Spawn mask
 # Vertical
 # Killing
@@ -38,6 +40,7 @@
 1.5 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 2
@@ -45,6 +48,7 @@ No mask
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 3
@@ -52,6 +56,7 @@ No mask
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 4
@@ -59,6 +64,7 @@ No mask
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 5
@@ -66,6 +72,7 @@ No mask
 1.375 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 6
@@ -73,6 +80,7 @@ No mask
 1.35 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 7
@@ -80,6 +88,7 @@ No mask
 1.325 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 8
@@ -87,6 +96,7 @@ No mask
 1.3 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 9
@@ -94,6 +104,7 @@ No mask
 1.275 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 10
@@ -101,6 +112,7 @@ No mask
 1.25 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 11
@@ -108,6 +120,7 @@ No mask
 1.225 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 12
@@ -115,6 +128,7 @@ No mask
 1.2 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 =============================== New World ===============================
@@ -124,6 +138,7 @@ No mask
 1.5 <- Total square activation time
 0 <- Number of Dangerous squares
 7 9 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 14
@@ -131,6 +146,7 @@ No mask
 1.45 <- Total square activation time
 0 <- Number of Dangerous squares
 5 11 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 15
@@ -138,6 +154,7 @@ No mask
 1.425 <- Total square activation time
 0 <- Number of Dangerous squares
 7 8 9 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 16
@@ -145,6 +162,7 @@ No mask
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 1 2 3 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 17
@@ -152,6 +170,7 @@ No mask
 1.375 <- Total square activation time
 0 <- Number of Dangerous squares
 13 14 15 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 18
@@ -159,6 +178,7 @@ No mask
 1.35 <- Total square activation time
 0 <- Number of Dangerous squares
 4 6 10 12 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 19
@@ -166,6 +186,7 @@ No mask
 1.325 <- Total square activation time
 0 <- Number of Dangerous squares
 1 3 13 15 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 20
@@ -173,6 +194,7 @@ No mask
 1.3 <- Total square activation time
 0 <- Number of Dangerous squares
 13 11 9 5 1 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 21
@@ -180,6 +202,7 @@ No mask
 1.275 <- Total square activation time
 0 <- Number of Dangerous squares
 2 5 8 11 14 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 22
@@ -187,6 +210,7 @@ No mask
 1.25 <- Total square activation time
 0 <- Number of Dangerous squares
 4 7 10 6 9 12 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 23
@@ -194,6 +218,7 @@ No mask
 1.225 <- Total square activation time
 0 <- Number of Dangerous squares
 1 2 3 13 14 15 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 24
@@ -201,6 +226,7 @@ No mask
 1.2 <- Total square activation time
 0 <- Number of Dangerous squares
 1 3 5 7 9 11 13 15 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 =============================== New World ===============================
@@ -210,6 +236,7 @@ No mask
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Horizontal
 Standard
@@ -219,6 +246,7 @@ Standard
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Horizontal
 Standard
@@ -228,6 +256,7 @@ Standard
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Horizontal
 Standard
@@ -237,6 +266,7 @@ Standard
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Vertical
 Standard
@@ -246,6 +276,7 @@ Standard
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Vertical
 Standard
@@ -255,6 +286,7 @@ Standard
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Vertical
 Standard
@@ -264,6 +296,7 @@ Standard
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Horizontal
 Killing
@@ -273,6 +306,7 @@ Killing
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Horizontal
 Killing
@@ -282,6 +316,7 @@ Killing
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Horizontal
 Killing
@@ -291,6 +326,7 @@ Killing
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Vertical
 Killing
@@ -300,6 +336,7 @@ Killing
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Vertical
 Killing
@@ -309,6 +346,7 @@ Killing
 1.4 <- Total square activation time
 0 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 Spawn mask
 Vertical
 Killing
@@ -320,6 +358,7 @@ Killing
 1.3 <- Total square activation time
 3 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 38
@@ -327,6 +366,7 @@ No mask
 1.275 <- Total square activation time
 5 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 39
@@ -334,6 +374,7 @@ No mask
 1.25 <- Total square activation time
 7 <- Number of Dangerous squares
 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 40
@@ -341,6 +382,7 @@ No mask
 1.325 <- Total square activation time
 2 <- Number of Dangerous squares
 1 3 13 15 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 41
@@ -348,6 +390,7 @@ No mask
 1.3 <- Total square activation time
 3 <- Number of Dangerous squares
 13 11 9 5 1 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
 
 42
@@ -355,5 +398,31 @@ No mask
 1.275 <- Total square activation time
 4 <- Number of Dangerous squares
 2 5 8 11 14 <- DoubleTap squares indices
+<- Sequence squares indices
 No mask
+
+43
+0.4 <- Interval between two square activations
+1.3 <- Total square activation time
+0 <- Number of Dangerous squares
+<- DoubleTap squares indices
+1 2 3 <- Sequence squares indices
+No mask
+
+44
+0.4 <- Interval between two square activations
+1.275 <- Total square activation time
+0 <- Number of Dangerous squares
+<- DoubleTap squares indices
+13 10 7 4 1 <- Sequence squares indices
+No mask
+
+45
+0.4 <- Interval between two square activations
+1.25 <- Total square activation time
+0 <- Number of Dangerous squares
+<- DoubleTap squares indices
+4 5 6 3 2 1 <- Sequence squares indices
+No mask
+
 

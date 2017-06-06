@@ -15,7 +15,7 @@ public:
 	const int PosY;
 
 protected:
-	GameScene* ParentScene;
+	cocos2d::Scene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* InactiveSprite;
 	cocos2d::Sprite* ActivationSprite;
@@ -31,13 +31,13 @@ protected:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
+	GameSquare(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
 	virtual ~GameSquare();
 
 	virtual void StartActivation(float ActivationTotalTime);
 	void SetActivationFreeze(bool argbActivationFrozen);
 	void SetBlockTouchEvents(bool argbBlockTouchEvents);
-
+	void SimulateCorrectTap();
 	void PauseOnGameOver();
 
 	virtual bool CanBeActivated() const { return State == ESquareState::Inactive && ActivationFreezeRequestsCounter == 0; }

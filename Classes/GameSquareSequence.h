@@ -15,7 +15,7 @@ public:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquareSequence(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate);
+	GameSquareSequence(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate);
 
 	virtual void StartActivation(float ActivationTotalTime);
 	virtual bool CanBeActivated() const { return GameSquare::CanBeActivated() && bMyTurnToActivate; };

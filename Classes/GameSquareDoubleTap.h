@@ -14,7 +14,7 @@ protected:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquareDoubleTap(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	GameSquareDoubleTap(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 
 protected:
 	virtual void SquareCorrectlyTapped();

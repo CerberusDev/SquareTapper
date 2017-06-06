@@ -12,7 +12,7 @@ class GameSquareDangerous : public GameSquare
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquareDangerous(GameScene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	GameSquareDangerous(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 
 protected:
 	virtual void SquareCorrectlyTapped();

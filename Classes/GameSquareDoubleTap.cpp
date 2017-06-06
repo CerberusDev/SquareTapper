@@ -6,7 +6,7 @@
 
 USING_NS_CC;
 
-GameSquareDoubleTap::GameSquareDoubleTap(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
+GameSquareDoubleTap::GameSquareDoubleTap(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
 GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/SquareDoubleTap.png", "img/squares/SquareActive.png"),
 bAlreadyTapped(false)
 {

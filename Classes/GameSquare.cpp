@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-GameSquare::GameSquare(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
+GameSquare::GameSquare(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -15,6 +15,7 @@ EventListener(nullptr),
 InactiveSprite(nullptr),
 ActivationSprite(nullptr),
 FailedSprite(nullptr),
+CompletedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
 SavedActivationTotalTime(-1.0f),
@@ -55,6 +56,15 @@ bPausedOnGameOver(false)
 GameSquare::~GameSquare()
 {
 	Director::getInstance()->getEventDispatcher()->removeEventListener(EventListener);
+
+	InactiveSprite->removeFromParent();
+	ActivationSprite->removeFromParent();
+
+	if (FailedSprite)
+		FailedSprite->removeFromParent();
+
+	if (CompletedSprite)
+		CompletedSprite->removeFromParent();
 }
 
 void GameSquare::StartActivation(float ActivationTotalTime)
@@ -74,6 +84,11 @@ void GameSquare::OnTouch(Touch* touch, Event* event)
 		SquareCorrectlyTapped();
 }
 
+void GameSquare::SimulateCorrectTap()
+{
+	SquareCorrectlyTapped();
+}
+
 void GameSquare::SquareCorrectlyTapped()
 {
 	State = ESquareState::Completed;
@@ -91,7 +106,8 @@ void GameSquare::SquareCorrectlyTapped()
 	auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
 	CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleSequence->clone()));
 
-	ParentScene->OnSquareCompleted(this);
+	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+		ParentGameScene->OnSquareCompleted(this);
 }
 
 Sequence* GameSquare::ScaleUpActivationSquare()
@@ -113,7 +129,9 @@ void GameSquare::ActivationEnded()
 void GameSquare::Failed()
 {
 	State = ESquareState::Failed;
-	ParentScene->OnSquareFailed(this);
+
+	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+		ParentGameScene->OnSquareFailed(this);
 
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 

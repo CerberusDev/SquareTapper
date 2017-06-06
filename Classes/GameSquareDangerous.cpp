@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-GameSquareDangerous::GameSquareDangerous(GameScene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
+GameSquareDangerous::GameSquareDangerous(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
 GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/SquareInactive.png", "img/squares/SquareDangerous.png")
 {
 
@@ -31,5 +31,6 @@ void GameSquareDangerous::ActivationEnded()
 	auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
 	CompletedSprite->runAction(FadeInAction);
 
-	ParentScene->OnSquareCompleted(this);
+	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+		ParentGameScene->OnSquareCompleted(this);
 }

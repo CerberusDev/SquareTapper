@@ -3,8 +3,9 @@
 // ---------------------------------------------------------------------------------------------------
 
 #include "LevelSelectScene.h"
-#include "ui/CocosGUI.h"
 #include "GameScene.h"
+#include "TutorialScene.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -152,7 +153,10 @@ bool LevelSelectScene::init()
 					const int WorldNumber = LevelID / 1000;
 					const int LevelNumber = LevelID - WorldNumber * 1000;
 
-					Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
+					if (WorldNumber == 0 && LevelNumber == 0)
+						Director::getInstance()->replaceScene(TutorialScene::create());
+					else
+						Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
 				}
 			});
 			LevelButton->setPosition(Vec2(visibleSize.width * 0.25f * (j % 3 + 1), visibleSize.height * (0.75 - 0.15f * (j / 3))));

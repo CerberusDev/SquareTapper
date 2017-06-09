@@ -7,7 +7,7 @@
 USING_NS_CC;
 
 GameSquareDoubleTap::GameSquareDoubleTap(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
-GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/SquareDoubleTap.png", "img/squares/SquareActive.png"),
+GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/bgsqr_8_inactive_512.png", "img/squares/square_active_512.png"),
 bAlreadyTapped(false)
 {
 
@@ -21,7 +21,7 @@ void GameSquareDoubleTap::SquareCorrectlyTapped()
 	}
 	else
 	{
-		InactiveSprite->setTexture("img/squares/SquareInactive.png");
+		InactiveSprite->setTexture("img/squares/bgsqr_0_inactive_512.png");
 		bAlreadyTapped = true;
 
 		SetActivationFreeze(true);

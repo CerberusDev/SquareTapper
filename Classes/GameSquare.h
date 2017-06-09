@@ -25,6 +25,7 @@ protected:
 	ESquareState State;
 	float SavedActivationTotalTime;
 	const float CompletedSpriteFadeInTime;
+	const float SpritesScale;
 	int ActivationFreezeRequestsCounter;
 	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
@@ -46,6 +47,7 @@ protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 	virtual void SquareCorrectlyTapped();
 	virtual void ActivationEnded();
+	void ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence = nullptr);
 	cocos2d::Sequence* ScaleUpActivationSquare();
 	void Failed();
 };

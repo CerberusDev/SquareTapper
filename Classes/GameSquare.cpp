@@ -7,6 +7,10 @@
 
 USING_NS_CC;
 
+#define SPRITE_SIZE 160.0f
+#define FAILED_SPRITE_SIZE 46.0f
+#define TEXTURES_SIZE 512.0f
+
 GameSquare::GameSquare(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
@@ -20,12 +24,14 @@ SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
 SavedActivationTotalTime(-1.0f),
 CompletedSpriteFadeInTime(0.15f),
+SpritesScale(SPRITE_SIZE / TEXTURES_SIZE),
 ActivationFreezeRequestsCounter(0),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
 	InactiveSprite = Sprite::create(InactiveSpriteFilename);
 	InactiveSprite->setPosition(SpritePosition);
+	InactiveSprite->setScale(SpritesScale);
 	ParentScene->addChild(InactiveSprite, 1);
 
 	EventListener = EventListenerTouchOneByOne::create();
@@ -72,7 +78,7 @@ void GameSquare::StartActivation(float ActivationTotalTime)
 	SavedActivationTotalTime = ActivationTotalTime;
 	State = ESquareState::DuringActivation;
 
-	auto ScaleAction = ScaleTo::create(ActivationTotalTime, 1.0f);
+	auto ScaleAction = ScaleTo::create(ActivationTotalTime, SpritesScale);
 	auto EndFunc = CallFunc::create([&]() { ActivationEnded(); });
 
 	ActivationSprite->runAction(Sequence::create(ScaleAction, EndFunc, nullptr));
@@ -93,32 +99,13 @@ void GameSquare::SquareCorrectlyTapped()
 {
 	State = ESquareState::Completed;
 
-	CompletedSprite = Sprite::create("img/squares/SquareCompleted.png");
-	CompletedSprite->setPosition(SpritePosition);
-	CompletedSprite->setOpacity(0.0f);
-	CompletedSprite->setScale(ActivationSprite->getScale());
-	ParentScene->addChild(CompletedSprite, 3);
-
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 
 	auto ScaleSequence = ScaleUpActivationSquare();
-
-	auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
-	CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleSequence->clone()));
+	ShowFinalSprites(false, ScaleSequence);
 
 	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
 		ParentGameScene->OnSquareCompleted(this);
-}
-
-Sequence* GameSquare::ScaleUpActivationSquare()
-{
-	auto ScaleAction1 = ScaleTo::create(0.04f, 1.0f);
-	auto ScaleAction2 = ScaleTo::create(0.04f, 1.1f);
-	auto ScaleAction3 = ScaleTo::create(0.07f, 1.0f);
-	auto ScaleSequence = Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr);
-	ActivationSprite->runAction(ScaleSequence);
-
-	return ScaleSequence;
 }
 
 void GameSquare::ActivationEnded()
@@ -130,18 +117,51 @@ void GameSquare::Failed()
 {
 	State = ESquareState::Failed;
 
-	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-		ParentGameScene->OnSquareFailed(this);
-
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 
-	FailedSprite = Sprite::create("img/squares/SquareFailed.png");
-	FailedSprite->setPosition(SpritePosition);
-	FailedSprite->setOpacity(0.0f);
-	ParentScene->addChild(FailedSprite, 3);
+	ShowFinalSprites(true);
 
-	auto FadeInAction = FadeIn::create(0.8f);
-	FailedSprite->runAction(FadeInAction);
+	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+		ParentGameScene->OnSquareFailed(this);
+}
+
+void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence)
+{
+	CompletedSprite = Sprite::create("img/squares/square_inactive_512.png");
+	CompletedSprite->setPosition(SpritePosition);
+	CompletedSprite->setOpacity(0.0f);
+	CompletedSprite->setScale(ActivationSprite->getScale());
+	ParentScene->addChild(CompletedSprite, 3);
+
+	auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
+
+	if (ScaleUpSequence)
+		CompletedSprite->runAction(Spawn::createWithTwoActions(FadeInAction, ScaleUpSequence->clone()));
+	else
+		CompletedSprite->runAction(FadeInAction);
+
+	if (bShowFailedSprite)
+	{
+		FailedSprite = Sprite::create("img/squares/square_star_512.png");
+		FailedSprite->setPosition(SpritePosition);
+		FailedSprite->setScale(FAILED_SPRITE_SIZE / TEXTURES_SIZE);
+		FailedSprite->setOpacity(0.0f);
+		ParentScene->addChild(FailedSprite, 3);
+
+		auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
+		FailedSprite->runAction(FadeInAction);
+	}
+}
+
+Sequence* GameSquare::ScaleUpActivationSquare()
+{
+	auto ScaleAction1 = ScaleTo::create(0.04f, SpritesScale);
+	auto ScaleAction2 = ScaleTo::create(0.04f, SpritesScale * 1.07f);
+	auto ScaleAction3 = ScaleTo::create(0.07f, SpritesScale);
+	auto ScaleSequence = Sequence::create(ScaleAction1, ScaleAction2, ScaleAction3, nullptr);
+	ActivationSprite->runAction(ScaleSequence);
+
+	return ScaleSequence;
 }
 
 void GameSquare::SetActivationFreeze(bool argbActivationFrozen)

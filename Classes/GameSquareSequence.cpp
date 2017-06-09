@@ -8,7 +8,7 @@
 USING_NS_CC;
 
 GameSquareSequence::GameSquareSequence(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate) :
-GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/SquareSequence.png", "img/squares/SquareActive.png"),
+GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/bgsqr_9_inactive_512.png", "img/squares/square_active_512.png"),
 NextSquareInSequenceIndex(-1),
 bMyTurnToActivate(argbMyTurnToActivate)
 {

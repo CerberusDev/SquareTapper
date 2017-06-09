@@ -101,10 +101,6 @@ bool GameScene::init()
 	label->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
 	this->addChild(label, 1);
 
-    auto sprite = Sprite::create("img/ui/HelloWorld.png");
-    sprite->setPosition(Vec2(VisibleSize.width/2 + origin.x, VisibleSize.height/2 + origin.y));
-	this->addChild(sprite, 0);
-
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
 		StarImages[i] = new StarImage(this, Vec2(VisibleSize.width * (0.6f + 0.15f * i), VisibleSize.height * 0.93f));
 

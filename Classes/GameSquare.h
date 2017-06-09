@@ -49,5 +49,5 @@ protected:
 	virtual void ActivationEnded();
 	void ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence = nullptr);
 	cocos2d::Sequence* ScaleUpActivationSquare();
-	void Failed();
+	void Failed(cocos2d::Sequence* ScaleUpSequence = nullptr);
 };

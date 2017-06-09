@@ -113,13 +113,11 @@ void GameSquare::ActivationEnded()
 	Failed();
 }
 
-void GameSquare::Failed()
+void GameSquare::Failed(cocos2d::Sequence* ScaleUpSequence)
 {
 	State = ESquareState::Failed;
 
-	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
-
-	ShowFinalSprites(true);
+	ShowFinalSprites(true, ScaleUpSequence);
 
 	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
 		ParentGameScene->OnSquareFailed(this);

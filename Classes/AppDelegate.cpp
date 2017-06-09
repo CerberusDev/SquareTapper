@@ -39,25 +39,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if (!glview) 
 	{
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("CocosTest3", cocos2d::Rect(0, 0, desktopResolutionSize.width, desktopResolutionSize.height));
+		glview = GLViewImpl::createWithRect("CocosTest3", cocos2d::Rect(0, 0, desktopResolutionSize.width, desktopResolutionSize.height));
 #else
         glview = GLViewImpl::create("CocosTest3");
 #endif
         director->setOpenGLView(glview);
     }
 
+	glview->setDesignResolutionSize(mobileResolutionSize.width, mobileResolutionSize.height, ResolutionPolicy::SHOW_ALL);
+
     // turn on display FPS
     director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-	glview->setDesignResolutionSize(desktopResolutionSize.width, desktopResolutionSize.height, ResolutionPolicy::NO_BORDER);
-	director->setContentScaleFactor(mobileResolutionSize.width / desktopResolutionSize.width);
-#else
-    glview->setDesignResolutionSize(mobileResolutionSize.width, mobileResolutionSize.height, ResolutionPolicy::NO_BORDER);
-#endif
 
     register_all_packages();
 

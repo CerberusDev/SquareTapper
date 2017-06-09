@@ -48,20 +48,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	glview->setDesignResolutionSize(mobileResolutionSize.width, mobileResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+	director->setDisplayStats(true);
+	director->setAnimationInterval(1.0f / 60);
+	director->setClearColor(Color4F(Color3B(19, 13, 25)));
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0f / 60);
-
-    register_all_packages();
+	register_all_packages();
 
 	srand(time(0));
 
 	LevelSelectScene::InitializeLevelParams();
 	director->runWithScene(LevelSelectScene::create(0));
-
-    return true;
+	
+	return true;
 }
 
 // This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.

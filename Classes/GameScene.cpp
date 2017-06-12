@@ -101,8 +101,12 @@ bool GameScene::init()
 	label->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
 	this->addChild(label, 1);
 
+	std::stringstream StringStreamLevelKey;
+	StringStreamLevelKey << "Level" << LevelParamsStruct.LevelDisplayNumber;
+	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
+
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
-		StarImages[i] = new StarImage(this, Vec2(VisibleSize.width * (0.6f + 0.15f * i), VisibleSize.height * 0.93f));
+		StarImages[i] = new StarImage(this, Vec2(VisibleSize.width * (0.6f + 0.15f * i), VisibleSize.height * 0.93f), i >= MAX_STARS_NUMBER - RecordStarsNumber);
 
 	std::vector<int> DangerousSquareIndices;
 

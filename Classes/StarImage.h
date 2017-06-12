@@ -11,12 +11,14 @@ class GameScene;
 class StarImage
 {
 protected:
-	cocos2d::Sprite* ActiveSprite;
-	cocos2d::Sprite* InactiveSprite;
+	static const std::string StarImageFilePath_Active;
+	static const std::string StarImageFilePath_Inactive;
+	GameScene* ParentScene;
+	cocos2d::Vec2 Position;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	StarImage(GameScene* ParentScene, const cocos2d::Vec2& Position);
+	StarImage(GameScene* ParentScene, const cocos2d::Vec2& argPosition, const bool RecordSpriteActive);
 
 	void Inactivate();
 };

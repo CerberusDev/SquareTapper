@@ -15,6 +15,9 @@
 
 USING_NS_CC;
 
+#define TEXTURES_SIZE 512.0f
+#define BUTTON_SPRITE_SIZE 46.0f
+
 GameScene::GameScene(LevelParams argLevelParamsStruct):
 Mask(nullptr),
 NextSequenceSquareToActivate(nullptr),
@@ -50,35 +53,37 @@ GameScene* GameScene::create(LevelParams argLevelParamsStruct)
 
 bool GameScene::init()
 {
-    if (!Scene::init())
-        return false;
-    
-    VisibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	if (!Scene::init())
+		return false;
+
+	VisibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	Vector<MenuItem*> MenuItems;
 
-    auto BackItem = MenuItemImage::create("img/ui/Back_idle.png", "img/ui/Back_pressed.png",
+	auto BackItem = MenuItemImage::create("img/ui/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
-    
+
 	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.66f, origin.y + VisibleSize.height * 0.07f));
+	BackItem->setScale(BUTTON_SPRITE_SIZE / TEXTURES_SIZE);
 	MenuItems.pushBack(BackItem);
 
-	auto RestartItem = MenuItemImage::create("img/ui/Restart_idle.png", "img/ui/Restart_pressed.png",
+	auto RestartItem = MenuItemImage::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 
 	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
+	RestartItem->setScale(BUTTON_SPRITE_SIZE / TEXTURES_SIZE);
 	MenuItems.pushBack(RestartItem);
 
 	auto const& LevelData = LevelSelectScene::GetLevelData();
 
 	if (LevelData.back().back().LevelDisplayNumber != LevelParamsStruct.LevelDisplayNumber)
 	{
-		auto NextItem = MenuItemImage::create("img/ui/Next_idle.png", "img/ui/Next_pressed.png",
+		auto NextItem = MenuItemImage::create("img/ui/icon_arrow_active_512.png", "img/ui/icon_arrow_active_512.png",
 			[&](Ref* sender) {
 			if (LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
@@ -87,6 +92,7 @@ bool GameScene::init()
 		});
 
 		NextItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
+		NextItem->setScale(BUTTON_SPRITE_SIZE / TEXTURES_SIZE);
 		MenuItems.pushBack(NextItem);
 	}
 

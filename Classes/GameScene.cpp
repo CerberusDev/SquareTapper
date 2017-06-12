@@ -100,12 +100,22 @@ bool GameScene::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
-	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-	std::stringstream Stream;
-	Stream << "Level " << LevelParamsStruct.LevelDisplayNumber;
-	auto label = Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", FontSize);
-	label->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
-	this->addChild(label, 1);
+	float LevelLabelFontSize = 50.0f;
+	std::stringstream LevelLabelStream;
+	LevelLabelStream << "Lv " << LevelParamsStruct.LevelDisplayNumber;
+	auto LevelLabel = Label::createWithTTF(LevelLabelStream.str(), "fonts/ADAM.CGPRO.ttf", LevelLabelFontSize);
+	LevelLabel->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
+	LevelLabel->setColor(Color3B(120, 115, 109));
+	this->addChild(LevelLabel, 1);
+
+	float AttemptsNrLabelFontSize = 30.0f;
+	const int AttemtsNumber = 123;
+	std::stringstream AttemptsNrLabelStream;
+	AttemptsNrLabelStream << "." << AttemtsNumber;
+	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), "fonts/ADAM.CGPRO.ttf", AttemptsNrLabelFontSize);
+	AttemptsNrLabel->setPosition(Vec2(VisibleSize.width * 0.23f, VisibleSize.height * 0.88f));
+	AttemptsNrLabel->setColor(Color3B(120, 115, 109));
+	this->addChild(AttemptsNrLabel, 1);
 
 	std::string LevelKey = GetLevelKey(LevelParamsStruct.LevelDisplayNumber);
 	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);

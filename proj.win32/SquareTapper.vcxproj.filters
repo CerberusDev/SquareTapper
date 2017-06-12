@@ -42,6 +42,7 @@
     <ClCompile Include="..\Classes\GameSquareDangerous.cpp" />
     <ClCompile Include="..\Classes\GameSquareSequence.cpp" />
     <ClCompile Include="..\Classes\TutorialScene.cpp" />
+    <ClCompile Include="..\Classes\SquareTapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

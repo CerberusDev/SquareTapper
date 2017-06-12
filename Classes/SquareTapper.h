@@ -36,3 +36,5 @@ struct LevelParams
 	bKillingMask(false)
 	{};
 };
+
+std::string GetLevelKey(const int LevelDisplayName);

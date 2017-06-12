@@ -950,6 +950,7 @@
     <ClCompile Include="..\..\Classes\GameSquareStandard.cpp" />
     <ClCompile Include="..\..\Classes\HorizontalGameMask.cpp" />
     <ClCompile Include="..\..\Classes\LevelSelectScene.cpp" />
+    <ClCompile Include="..\..\Classes\SquareTapper.cpp" />
     <ClCompile Include="..\..\Classes\StarImage.cpp" />
     <ClCompile Include="..\..\Classes\TutorialScene.cpp" />
     <ClCompile Include="..\..\Classes\VerticalGameMask.cpp" />

@@ -4292,6 +4292,9 @@
     <ClCompile Include="..\..\Classes\TutorialScene.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Classes\SquareTapper.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\cocos2d\cocos\3d\CCAnimationCurve.inl">

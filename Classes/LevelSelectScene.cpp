@@ -134,10 +134,9 @@ bool LevelSelectScene::init()
 
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 		{
-			std::stringstream StringStreamLevelKey;
-			StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelDisplayNumber;
+			std::string LevelKey = GetLevelKey(LevelParamsContainer[i][j].LevelDisplayNumber);
 
-			int StarsNumber = UserDefaultData->getIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
+			int StarsNumber = UserDefaultData->getIntegerForKey(LevelKey.c_str(), 0);
 
 			std::stringstream StringStreamIdle;
 			StringStreamIdle << "img/ui/LevelButton" << StarsNumber << "_idle.png";
@@ -184,9 +183,8 @@ bool LevelSelectScene::init()
 			{
 				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 				{
-					std::stringstream StringStreamLevelKey;
-					StringStreamLevelKey << "Level" << LevelParamsContainer[i][j].LevelDisplayNumber;
-					UserDefaultData->setIntegerForKey(StringStreamLevelKey.str().c_str(), 0);
+					std::string LevelKey = GetLevelKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					UserDefaultData->setIntegerForKey(LevelKey.c_str(), 0);
 				}
 			}
 

@@ -154,6 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\HorizontalGameMask.cpp" />
     <ClCompile Include="..\Classes\LevelSelectScene.cpp" />
     <ClCompile Include="..\Classes\GameSquare.cpp" />
+    <ClCompile Include="..\Classes\SquareTapper.cpp" />
     <ClCompile Include="..\Classes\StarImage.cpp" />
     <ClCompile Include="..\Classes\TutorialScene.cpp" />
     <ClCompile Include="..\Classes\VerticalGameMask.cpp" />

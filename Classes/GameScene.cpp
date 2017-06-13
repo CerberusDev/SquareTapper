@@ -15,8 +15,14 @@
 
 USING_NS_CC;
 
-#define TEXTURES_SIZE 512.0f
+#define BUTTON_TEXTURES_SIZE 512.0f
 #define BUTTON_SPRITE_SIZE 46.0f
+
+#define LABELS_POS_Y 1195.0f
+#define BUTTONS_POS_Y 72.0f
+#define STARS_POS_Y 1125.0f
+#define BOTTOM_SQUARES_POS_Y 220.0f
+#define DIST_BETWEEN_SQUARES 190.0f
 
 GameScene::GameScene(LevelParams argLevelParamsStruct):
 Mask(nullptr),
@@ -25,8 +31,6 @@ LevelParamsStruct(argLevelParamsStruct),
 StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
 SequenceSquaresActivationTimeInterval(0.15f),
-SquarePositionMarginX(0.23f),
-SquarePositionMarginY(0.2f),
 UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
 StarsNumber(MAX_STARS_NUMBER),
 bLevelFinished(false)
@@ -66,8 +70,8 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
 
-	BackItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.66f, origin.y + VisibleSize.height * 0.07f));
-	BackItem->setScale(BUTTON_SPRITE_SIZE / TEXTURES_SIZE);
+	BackItem->setPosition(Vec2(GetScreenPositionX(0), BUTTONS_POS_Y));
+	BackItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 	MenuItems.pushBack(BackItem);
 
 	auto RestartItem = MenuItemImage::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
@@ -75,8 +79,8 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 
-	RestartItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.77f, origin.y + VisibleSize.height * 0.07f));
-	RestartItem->setScale(BUTTON_SPRITE_SIZE / TEXTURES_SIZE);
+	RestartItem->setPosition(Vec2(GetScreenPositionX(2), BUTTONS_POS_Y));
+	RestartItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 	MenuItems.pushBack(RestartItem);
 
 	auto const& LevelData = LevelSelectScene::GetLevelData();
@@ -91,8 +95,8 @@ bool GameScene::init()
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
 		});
 
-		NextItem->setPosition(Vec2(origin.x + VisibleSize.width * 0.88f, origin.y + VisibleSize.height * 0.07f));
-		NextItem->setScale(BUTTON_SPRITE_SIZE / TEXTURES_SIZE);
+		NextItem->setPosition(Vec2(GetScreenPositionX(1), BUTTONS_POS_Y));
+		NextItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 		MenuItems.pushBack(NextItem);
 	}
 
@@ -104,16 +108,16 @@ bool GameScene::init()
 	std::stringstream LevelLabelStream;
 	LevelLabelStream << "Lv " << LevelParamsStruct.LevelDisplayNumber;
 	auto LevelLabel = Label::createWithTTF(LevelLabelStream.str(), "fonts/ADAM.CGPRO.ttf", LevelLabelFontSize);
-	LevelLabel->setPosition(Vec2(VisibleSize.width * 0.23f,  VisibleSize.height * 0.92f));
+	LevelLabel->setPosition(Vec2(GetScreenPositionX(1), LABELS_POS_Y));
 	LevelLabel->setColor(Color3B(120, 115, 109));
 	this->addChild(LevelLabel, 1);
 
 	float AttemptsNrLabelFontSize = 30.0f;
-	const int AttemtsNumber = 123;
+	const int AttemtsNumber = 1234;
 	std::stringstream AttemptsNrLabelStream;
 	AttemptsNrLabelStream << "." << AttemtsNumber;
 	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), "fonts/ADAM.CGPRO.ttf", AttemptsNrLabelFontSize);
-	AttemptsNrLabel->setPosition(Vec2(VisibleSize.width * 0.23f, VisibleSize.height * 0.88f));
+	AttemptsNrLabel->setPosition(Vec2(GetScreenPositionX(2), LABELS_POS_Y));
 	AttemptsNrLabel->setColor(Color3B(120, 115, 109));
 	this->addChild(AttemptsNrLabel, 1);
 
@@ -121,7 +125,7 @@ bool GameScene::init()
 	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);
 
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
-		StarImages[i] = new StarImage(this, Vec2(VisibleSize.width * (0.6f + 0.15f * i), VisibleSize.height * 0.93f), i >= MAX_STARS_NUMBER - RecordStarsNumber);
+		StarImages[i] = new StarImage(this, Vec2(GetScreenPositionX(i), STARS_POS_Y), i >= MAX_STARS_NUMBER - RecordStarsNumber);
 
 	std::vector<int> DangerousSquareIndices;
 
@@ -205,18 +209,19 @@ void GameScene::onExit()
 
 float GameScene::GetScreenPositionX(int SquareIndexX) const
 {
-	return GetScreenPosition(SquareIndexX, SQUARE_AMOUNT_X, SquarePositionMarginX, VisibleSize.width);
+	float Margin = (VisibleSize.width - DIST_BETWEEN_SQUARES * (SQUARE_AMOUNT_X - 1)) / 2.0f;
+	return Margin + DIST_BETWEEN_SQUARES * SquareIndexX;
 }
 
 float GameScene::GetScreenPositionY(int SquareIndexY) const
 {
-	return GetScreenPosition(SquareIndexY, SQUARE_AMOUNT_Y, SquarePositionMarginY, VisibleSize.height);
+	return BOTTOM_SQUARES_POS_Y + DIST_BETWEEN_SQUARES * SquareIndexY;
 }
 
-float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float SquarePositionMargin, float ScreenSize) const
+float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float ScreenSize) const
 {
-	float PosMod = SquarePositionMargin + (float)SquareIndex / (SquaresNumber - 1) * (1.0f - 2.0f * SquarePositionMargin);
-	return ScreenSize * PosMod;
+	float Margin = (ScreenSize - DIST_BETWEEN_SQUARES * (SquaresNumber - 1)) / 2.0f;
+	return Margin + DIST_BETWEEN_SQUARES * SquareIndex;
 }
 
 GameSquare* GameScene::GetSquareByIndex(int Index) const

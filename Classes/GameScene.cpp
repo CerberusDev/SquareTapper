@@ -63,9 +63,6 @@ bool GameScene::init()
 	if (!Scene::init())
 		return false;
 
-	VisibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
 	Vector<MenuItem*> MenuItems;
 
 	BackMenuItem = MenuItemImage::create("img/ui/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png",
@@ -212,7 +209,7 @@ void GameScene::onExit()
 
 float GameScene::GetScreenPositionX(int SquareIndexX) const
 {
-	float Margin = (VisibleSize.width - DIST_BETWEEN_SQUARES * (SQUARE_AMOUNT_X - 1)) / 2.0f;
+	const float Margin = (DESIGN_RES_X - DIST_BETWEEN_SQUARES * (SQUARE_AMOUNT_X - 1)) / 2.0f;
 	return Margin + DIST_BETWEEN_SQUARES * SquareIndexX;
 }
 

@@ -31,7 +31,6 @@ protected:
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;
 	const float SequenceSquaresActivationTimeInterval;
-	cocos2d::Size VisibleSize;
 	int UnactivatedSquaresNumber;
 	int StarsNumber;
 	bool bLevelFinished;

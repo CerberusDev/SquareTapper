@@ -4,7 +4,7 @@
 USING_NS_CC;
 
 static cocos2d::Size desktopResolutionSize = cocos2d::Size(432, 768);
-static cocos2d::Size mobileResolutionSize = cocos2d::Size(720, 1280);
+static cocos2d::Size mobileResolutionSize = cocos2d::Size(DESIGN_RES_X, DESIGN_RES_Y);
 
 AppDelegate::AppDelegate()
 {

@@ -8,6 +8,9 @@
 
 #include "cocos2d.h"
 
+#define DESIGN_RES_X 720
+#define DESIGN_RES_Y 1280
+
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 
 struct LevelParams

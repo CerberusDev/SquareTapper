@@ -48,7 +48,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 	glview->setDesignResolutionSize(mobileResolutionSize.width, mobileResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 
-	director->setDisplayStats(true);
 	director->setAnimationInterval(1.0f / 60);
 	director->setClearColor(Color4F(Color3B(19, 13, 25)));
 

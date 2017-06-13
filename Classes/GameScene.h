@@ -19,6 +19,9 @@ class GameSquareSequence;
 class GameScene : public cocos2d::Scene
 {
 protected:
+	cocos2d::MenuItemImage* BackMenuItem;
+	cocos2d::MenuItemImage* RestartMenuItem;
+	cocos2d::MenuItemImage* NextMenuItem;
 	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];	
 	GameMask* Mask;
 	std::vector<GameSquare*> ActiveSquares;
@@ -53,7 +56,6 @@ public:
 	void DecreaseStarNumber();
 	void LevelFailed();
 	void LevelCompleted();
-	void ShowLevelCompletedMessage();
 	void SetNextSequenceSquareToActivate(int SquareIndex);
 
 	bool IsLevelFinished() { return bLevelFinished; };

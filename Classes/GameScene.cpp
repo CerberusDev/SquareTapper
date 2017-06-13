@@ -25,6 +25,9 @@ USING_NS_CC;
 #define DIST_BETWEEN_SQUARES 190.0f
 
 GameScene::GameScene(LevelParams argLevelParamsStruct):
+BackMenuItem(nullptr),
+RestartMenuItem(nullptr),
+NextMenuItem(nullptr),
 Mask(nullptr),
 NextSequenceSquareToActivate(nullptr),
 LevelParamsStruct(argLevelParamsStruct),
@@ -65,29 +68,29 @@ bool GameScene::init()
 
 	Vector<MenuItem*> MenuItems;
 
-	auto BackItem = MenuItemImage::create("img/ui/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png",
+	BackMenuItem = MenuItemImage::create("img/ui/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
 
-	BackItem->setPosition(Vec2(GetScreenPositionX(0), BUTTONS_POS_Y));
-	BackItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
-	MenuItems.pushBack(BackItem);
+	BackMenuItem->setPosition(Vec2(GetScreenPositionX(0), BUTTONS_POS_Y));
+	BackMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
+	MenuItems.pushBack(BackMenuItem);
 
-	auto RestartItem = MenuItemImage::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
+	RestartMenuItem = MenuItemImage::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 
-	RestartItem->setPosition(Vec2(GetScreenPositionX(2), BUTTONS_POS_Y));
-	RestartItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
-	MenuItems.pushBack(RestartItem);
+	RestartMenuItem->setPosition(Vec2(GetScreenPositionX(2), BUTTONS_POS_Y));
+	RestartMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
+	MenuItems.pushBack(RestartMenuItem);
 
 	auto const& LevelData = LevelSelectScene::GetLevelData();
 
 	if (LevelData.back().back().LevelDisplayNumber != LevelParamsStruct.LevelDisplayNumber)
 	{
-		auto NextItem = MenuItemImage::create("img/ui/icon_arrow_active_512.png", "img/ui/icon_arrow_active_512.png",
+		NextMenuItem = MenuItemImage::create("img/ui/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
 			[&](Ref* sender) {
 			if (LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
@@ -95,9 +98,9 @@ bool GameScene::init()
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
 		});
 
-		NextItem->setPosition(Vec2(GetScreenPositionX(1), BUTTONS_POS_Y));
-		NextItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
-		MenuItems.pushBack(NextItem);
+		NextMenuItem->setPosition(Vec2(GetScreenPositionX(1), BUTTONS_POS_Y));
+		NextMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
+		MenuItems.pushBack(NextMenuItem);
 	}
 
 	auto menu = Menu::createWithArray(MenuItems);
@@ -355,14 +358,7 @@ void GameScene::LevelFailed()
 
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
-		auto sprite = Sprite::create("img/ui/SmallFrame.png");
-		sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-		this->addChild(sprite, 4);
-
-		float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-		auto label = Label::createWithTTF("You lost!", "fonts/ADAM.CGPRO.ttf", FontSize);
-		label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-		this->addChild(label, 5);
+		RestartMenuItem->setNormalImage(Sprite::create("img/ui/icon_replay_active_512.png"));
 	}
 }
 
@@ -372,10 +368,6 @@ void GameScene::LevelCompleted()
 
 	if (Mask)
 		Mask->RequestFinishAnimation();
-
-	auto DelayAction = DelayTime::create(0.4f);
-	auto ShowMessageAction = CallFunc::create([&]() {ShowLevelCompletedMessage(); });
-	runAction(Sequence::create(DelayAction, ShowMessageAction, nullptr));
 
 	std::string LevelKey = GetLevelKey(LevelParamsStruct.LevelDisplayNumber);
 
@@ -387,16 +379,7 @@ void GameScene::LevelCompleted()
 		UserDefaultData->setIntegerForKey(LevelKey.c_str(), StarsNumber);
 		UserDefaultData->flush();
 	}
-}
 
-void GameScene::ShowLevelCompletedMessage()
-{
-	auto sprite = Sprite::create("img/ui/SmallFrame.png");
-	sprite->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-	this->addChild(sprite, 4);
-
-	float FontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-	auto label = Label::createWithTTF("You win!", "fonts/ADAM.CGPRO.ttf", FontSize);
-	label->setPosition(Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.55f));
-	this->addChild(label, 5);
+	if (NextMenuItem)
+		NextMenuItem->setNormalImage(Sprite::create("img/ui/icon_arrow_active_512.png"));
 }

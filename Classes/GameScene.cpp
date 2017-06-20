@@ -15,6 +15,7 @@
 
 USING_NS_CC;
 
+#define BLINK_TEXTURES_SIZE 512.0f
 #define BUTTON_TEXTURES_SIZE 512.0f
 #define BUTTON_SPRITE_SIZE 100.0f
 
@@ -336,6 +337,7 @@ void GameScene::DecreaseStarNumber()
 {
 	StarImages[MAX_STARS_NUMBER - StarsNumber]->Inactivate();
 	--StarsNumber;
+	Blink("img/squares/square_star_512.png");
 
 	if (StarsNumber == 0)
 		LevelFailed();
@@ -362,6 +364,7 @@ void GameScene::LevelFailed()
 void GameScene::LevelCompleted()
 {
 	bLevelFinished = true;
+	Blink("img/squares/square_active_512.png");
 
 	if (Mask)
 		Mask->RequestFinishAnimation();
@@ -379,4 +382,21 @@ void GameScene::LevelCompleted()
 
 	if (NextMenuItem)
 		NextMenuItem->setNormalImage(Sprite::create("img/ui/icon_arrow_active_512.png"));
+}
+
+void GameScene::Blink(const std::string& SpriteFilePath)
+{
+	auto BlinkSprite = Sprite::create(SpriteFilePath);
+	BlinkSprite->setOpacity(0.0f);
+	BlinkSprite->setPosition(DESIGN_RES_X / 2.0f, DESIGN_RES_Y / 2.0f);
+	BlinkSprite->setScale(DESIGN_RES_X / BLINK_TEXTURES_SIZE, DESIGN_RES_Y / BLINK_TEXTURES_SIZE);
+	addChild(BlinkSprite, 30);
+
+	auto FadeInAction = FadeTo::create(0.08f, 160);
+	auto FadeOutAction = FadeTo::create(0.12f, 0);
+	auto RemoveMyself = CallFunc::create([BlinkSprite]() {
+		BlinkSprite->removeFromParent();
+	});
+
+	BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, RemoveMyself, nullptr));
 }

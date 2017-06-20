@@ -64,4 +64,5 @@ public:
 protected:
 	float GetScreenPosition(int SquareIndex, int SquareMax, float ScreenSize) const;
 	GameSquare* GetSquareByIndex(int Index) const;
+	void Blink(const std::string& SpriteFilePath);
 };

@@ -134,7 +134,7 @@ bool LevelSelectScene::init()
 
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 		{
-			std::string LevelKey = GetLevelKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+			std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[i][j].LevelDisplayNumber);
 
 			int StarsNumber = UserDefaultData->getIntegerForKey(LevelKey.c_str(), 0);
 
@@ -183,8 +183,10 @@ bool LevelSelectScene::init()
 			{
 				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 				{
-					std::string LevelKey = GetLevelKey(LevelParamsContainer[i][j].LevelDisplayNumber);
-					UserDefaultData->setIntegerForKey(LevelKey.c_str(), 0);
+					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 0);
+					const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					UserDefaultData->setIntegerForKey(LevelAttemptsKey.c_str(), 0);
 				}
 			}
 

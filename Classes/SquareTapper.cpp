@@ -4,9 +4,16 @@
 
 #include "SquareTapper.h"
 
-std::string GetLevelKey(const int LevelDisplayName)
+std::string GetLevelRecordKey(const int LevelDisplayName)
 {
 	std::stringstream StringStreamLevelKey;
-	StringStreamLevelKey << "Level" << LevelDisplayName;
+	StringStreamLevelKey << "LevelRecord" << LevelDisplayName;
+	return StringStreamLevelKey.str();
+}
+
+std::string GetLevelAttemptsKey(const int LevelDisplayName)
+{
+	std::stringstream StringStreamLevelKey;
+	StringStreamLevelKey << "LevelAttempts" << LevelDisplayName;
 	return StringStreamLevelKey.str();
 }

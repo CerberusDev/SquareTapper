@@ -40,4 +40,5 @@ struct LevelParams
 	{};
 };
 
-std::string GetLevelKey(const int LevelDisplayName);
+std::string GetLevelRecordKey(const int LevelDisplayName);
+std::string GetLevelAttemptsKey(const int LevelDisplayName);

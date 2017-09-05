@@ -113,17 +113,21 @@ bool GameScene::init()
 	LevelLabel->setColor(Color3B(120, 115, 109));
 	this->addChild(LevelLabel, 1);
 
+	const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsStruct.LevelDisplayNumber);
+	int AttemptsNumber = UserDefault::getInstance()->getIntegerForKey(LevelAttemptsKey.c_str(), 0);
+	++AttemptsNumber;
+	UserDefault::getInstance()->setIntegerForKey(LevelAttemptsKey.c_str(), AttemptsNumber);
+
 	float AttemptsNrLabelFontSize = 30.0f;
-	const int AttemtsNumber = 1234;
 	std::stringstream AttemptsNrLabelStream;
-	AttemptsNrLabelStream << "." << AttemtsNumber;
+	AttemptsNrLabelStream << "." << AttemptsNumber;
 	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), "fonts/ADAM.CGPRO.ttf", AttemptsNrLabelFontSize);
 	AttemptsNrLabel->setPosition(Vec2(GetScreenPositionX(2), LABELS_POS_Y));
 	AttemptsNrLabel->setColor(Color3B(120, 115, 109));
 	this->addChild(AttemptsNrLabel, 1);
 
-	std::string LevelKey = GetLevelKey(LevelParamsStruct.LevelDisplayNumber);
-	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);
+	const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
+	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelRecordKey.c_str(), 0);
 
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
 		StarImages[i] = new StarImage(this, Vec2(GetScreenPositionX(i), STARS_POS_Y), i >= MAX_STARS_NUMBER - RecordStarsNumber);
@@ -369,7 +373,7 @@ void GameScene::LevelCompleted()
 	if (Mask)
 		Mask->RequestFinishAnimation();
 
-	std::string LevelKey = GetLevelKey(LevelParamsStruct.LevelDisplayNumber);
+	std::string LevelKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
 
 	UserDefault* UserDefaultData = UserDefault::getInstance();
 	int LastBestStarsNumber = UserDefaultData->getIntegerForKey(LevelKey.c_str(), 0);

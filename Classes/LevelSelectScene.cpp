@@ -40,6 +40,7 @@ void LevelSelectScene::InitializeLevelParams()
 	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(FileName);
 	std::string FileContents = FileUtils::getInstance()->getStringFromFile(FilePath);
 	std::istringstream InputStream(FileContents);
+	int TotalLevelNumber = 0;
 
 	for (std::string Line; std::getline(InputStream, Line); )
 	{
@@ -55,8 +56,8 @@ void LevelSelectScene::InitializeLevelParams()
 
 				NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
 				NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
-				std::stringstream(Line) >> NewLevelParams.LevelDisplayNumber;
-				std::getline(InputStream, Line);
+				NewLevelParams.LevelDisplayNumber = ++TotalLevelNumber;
+
 				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
 				std::getline(InputStream, Line);
 				std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;

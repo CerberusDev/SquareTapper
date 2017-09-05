@@ -36,80 +36,87 @@ LevelSelectScene* LevelSelectScene::create(int argStartWorldNumber)
 
 void LevelSelectScene::InitializeLevelParams()
 {
-	std::string FileName = "_Levels.txt";
-	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(FileName);
+	int TotalLevelNumber = 0;
+	std::string FilePath = FileUtils::getInstance()->fullPathForFilename("World_0.txt");
+
+	while (!FilePath.empty())
+	{
+		LevelParamsContainer.push_back(std::vector<LevelParams>());
+
+		InitializeLevelParamsForSingleWorld(FilePath, TotalLevelNumber);
+
+		std::stringstream FileNameStream;
+		FileNameStream << "World_" << LevelParamsContainer.size() << ".txt";
+		FilePath = FileUtils::getInstance()->fullPathForFilename(FileNameStream.str());
+	}
+
+	CCLOG("Level data initialization from file finished");
+}
+
+void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& FilePath, int& TotalLevelNumber)
+{
 	std::string FileContents = FileUtils::getInstance()->getStringFromFile(FilePath);
 	std::istringstream InputStream(FileContents);
-	int TotalLevelNumber = 0;
 
 	for (std::string Line; std::getline(InputStream, Line); )
 	{
 		if (Line.size() > 1 && Line[0] != '#')
 		{
-			if (Line[0] == '=')
+			LevelParams NewLevelParams;
+
+			NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
+			NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
+			NewLevelParams.LevelDisplayNumber = ++TotalLevelNumber;
+
+			std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
+			std::getline(InputStream, Line);
+			std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
+			std::getline(InputStream, Line);
+			std::stringstream(Line) >> NewLevelParams.DangerousSquaresNumber;
+
+			std::getline(InputStream, Line);
+			std::stringstream DoubleTapSquaresSS(Line);
+			int NextDoubleSquareIndex = 0;
+			DoubleTapSquaresSS >> NextDoubleSquareIndex;
+
+			while (NextDoubleSquareIndex != 0)
 			{
-				LevelParamsContainer.push_back(std::vector<LevelParams>());
-			}
-			else
-			{
-				LevelParams NewLevelParams;
-
-				NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
-				NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
-				NewLevelParams.LevelDisplayNumber = ++TotalLevelNumber;
-
-				std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
-				std::getline(InputStream, Line);
-				std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
-				std::getline(InputStream, Line);
-				std::stringstream(Line) >> NewLevelParams.DangerousSquaresNumber;
-
-				std::getline(InputStream, Line);
-				std::stringstream DoubleTapSquaresSS(Line);
-				int NextDoubleSquareIndex = 0;
+				NewLevelParams.DoubleTapSquareIndices.push_back(NextDoubleSquareIndex);
+				NextDoubleSquareIndex = 0;
 				DoubleTapSquaresSS >> NextDoubleSquareIndex;
-
-				while (NextDoubleSquareIndex != 0)
-				{
-					NewLevelParams.DoubleTapSquareIndices.push_back(NextDoubleSquareIndex);
-					NextDoubleSquareIndex = 0;
-					DoubleTapSquaresSS >> NextDoubleSquareIndex;
-				}
-
-				std::getline(InputStream, Line);
-				std::stringstream SequenceSquaresSS(Line);
-				int NextSequenceSquareIndex = 0;
-				SequenceSquaresSS >> NextSequenceSquareIndex;
-
-				while (NextSequenceSquareIndex != 0)
-				{
-					NewLevelParams.SequenceSquareIndices.push_back(NextSequenceSquareIndex);
-					NextSequenceSquareIndex = 0;
-					SequenceSquaresSS >> NextSequenceSquareIndex;
-				}
-
-				std::getline(InputStream, Line);
-
-				if (Line.find("Spawn mask") != std::string::npos)
-				{
-					NewLevelParams.bSpawnGameMask = true;
-					std::getline(InputStream, Line);
-
-					if (Line.find("Vertical") != std::string::npos)
-						NewLevelParams.bVerticalMask = true;
-
-					std::getline(InputStream, Line);
-
-					if (Line.find("Killing") != std::string::npos)
-						NewLevelParams.bKillingMask = true;
-				}
-
-				LevelParamsContainer.back().push_back(NewLevelParams);
 			}
+
+			std::getline(InputStream, Line);
+			std::stringstream SequenceSquaresSS(Line);
+			int NextSequenceSquareIndex = 0;
+			SequenceSquaresSS >> NextSequenceSquareIndex;
+
+			while (NextSequenceSquareIndex != 0)
+			{
+				NewLevelParams.SequenceSquareIndices.push_back(NextSequenceSquareIndex);
+				NextSequenceSquareIndex = 0;
+				SequenceSquaresSS >> NextSequenceSquareIndex;
+			}
+
+			std::getline(InputStream, Line);
+
+			if (Line.find("Spawn mask") != std::string::npos)
+			{
+				NewLevelParams.bSpawnGameMask = true;
+				std::getline(InputStream, Line);
+
+				if (Line.find("Vertical") != std::string::npos)
+					NewLevelParams.bVerticalMask = true;
+
+				std::getline(InputStream, Line);
+
+				if (Line.find("Killing") != std::string::npos)
+					NewLevelParams.bKillingMask = true;
+			}
+
+			LevelParamsContainer.back().push_back(NewLevelParams);
 		}
 	}
-
-	CCLOG("Level data initialization from file finished");
 }
 
 bool LevelSelectScene::init()

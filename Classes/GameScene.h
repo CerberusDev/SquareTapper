@@ -7,8 +7,6 @@
 #include "SquareTapper.h"
 
 #define ACTIVATION_SEQUENCE_ACTION_TAG 1000
-#define SQUARE_AMOUNT_X 3
-#define SQUARE_AMOUNT_Y 5
 #define MAX_STARS_NUMBER 3
 
 class GameSquare;

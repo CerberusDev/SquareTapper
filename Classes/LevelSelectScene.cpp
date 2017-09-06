@@ -68,50 +68,41 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
 			NewLevelParams.LevelDisplayNumber = ++TotalLevelNumber;
 
-			std::stringstream(Line) >> NewLevelParams.SquaresActivationTimeInterval;
-			std::getline(InputStream, Line);
-			std::stringstream(Line) >> NewLevelParams.TotalSquareActivationTime;
-			std::getline(InputStream, Line);
-			std::stringstream(Line) >> NewLevelParams.DangerousSquaresNumber;
+			std::stringstream ParamsStringStream(Line);
 
-			std::getline(InputStream, Line);
-			std::stringstream DoubleTapSquaresSS(Line);
-			int NextDoubleSquareIndex = 0;
-			DoubleTapSquaresSS >> NextDoubleSquareIndex;
+			ParamsStringStream >> NewLevelParams.SquaresActivationTimeInterval;
+			ParamsStringStream >> NewLevelParams.TotalSquareActivationTime;
+			ParamsStringStream >> NewLevelParams.DangerousSquaresNumber;
 
-			while (NextDoubleSquareIndex != 0)
-			{
-				NewLevelParams.DoubleTapSquareIndices.push_back(NextDoubleSquareIndex);
-				NextDoubleSquareIndex = 0;
-				DoubleTapSquaresSS >> NextDoubleSquareIndex;
-			}
-
-			std::getline(InputStream, Line);
-			std::stringstream SequenceSquaresSS(Line);
-			int NextSequenceSquareIndex = 0;
-			SequenceSquaresSS >> NextSequenceSquareIndex;
-
-			while (NextSequenceSquareIndex != 0)
-			{
-				NewLevelParams.SequenceSquareIndices.push_back(NextSequenceSquareIndex);
-				NextSequenceSquareIndex = 0;
-				SequenceSquaresSS >> NextSequenceSquareIndex;
-			}
-
-			std::getline(InputStream, Line);
-
-			if (Line.find("Spawn mask") != std::string::npos)
+			if (Line.find("SpawnMask") != std::string::npos)
 			{
 				NewLevelParams.bSpawnGameMask = true;
-				std::getline(InputStream, Line);
 
 				if (Line.find("Vertical") != std::string::npos)
 					NewLevelParams.bVerticalMask = true;
 
-				std::getline(InputStream, Line);
-
 				if (Line.find("Killing") != std::string::npos)
 					NewLevelParams.bKillingMask = true;
+			}
+
+			std::getline(InputStream, Line);
+
+			for (int i = SQUARE_AMOUNT_Y - 1; i >= 0; --i)
+			{
+				std::getline(InputStream, Line);
+				std::stringstream TilesStringStream(Line);
+
+				for (int j = 1; j <= SQUARE_AMOUNT_X; ++j)
+				{
+					int TileIndex = i * SQUARE_AMOUNT_X + j;
+					std::string TileType;
+					TilesStringStream >> TileType;
+
+					if (TileType == "DB")
+						NewLevelParams.DoubleTapSquareIndices.push_back(TileIndex);
+					else if (TileType == "SQ")
+						NewLevelParams.SequenceSquareIndices.push_back(TileIndex);
+				}
 			}
 
 			LevelParamsContainer.back().push_back(NewLevelParams);

@@ -171,16 +171,16 @@ bool GameScene::init()
 
 	for (int DoubleTapIndex : LevelParamsStruct.DoubleTapSquareIndices)
 	{
-		int y = (DoubleTapIndex - 1) / 3;
-		int x = (DoubleTapIndex - 1) % 3;
+		int y = (DoubleTapIndex - 1) / SQUARE_AMOUNT_X;
+		int x = (DoubleTapIndex - 1) % SQUARE_AMOUNT_X;
 		Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 		Squares[x][y] = new GameSquareDoubleTap(this, ScreenPos, x, y);
 	}
 
 	for (int DangerousIndex : DangerousSquareIndices)
 	{
-		int y = (DangerousIndex - 1) / 3;
-		int x = (DangerousIndex - 1) % 3;
+		int y = (DangerousIndex - 1) / SQUARE_AMOUNT_X;
+		int x = (DangerousIndex - 1) % SQUARE_AMOUNT_X;
 		Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 		Squares[x][y] = new GameSquareDangerous(this, ScreenPos, x, y);
 	}
@@ -192,8 +192,8 @@ bool GameScene::init()
 		for (int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
 		{
 			int SequenceIndex = LevelParamsStruct.SequencesSquareIndices[SeqID][i];
-			int y = (SequenceIndex - 1) / 3;
-			int x = (SequenceIndex - 1) % 3;
+			int y = (SequenceIndex - 1) / SQUARE_AMOUNT_X;
+			int x = (SequenceIndex - 1) % SQUARE_AMOUNT_X;
 			Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 			GameSquareSequence* NewSequenceSquare = new GameSquareSequence(this, ScreenPos, x, y, i == 0);
 			Squares[x][y] = NewSequenceSquare;

@@ -25,7 +25,7 @@ struct LevelParams
 	float SquaresActivationTimeInterval;
 	float TotalSquareActivationTime;
 	std::vector<int> DoubleTapSquareIndices;
-	std::vector<int> SequenceSquareIndices;
+	std::vector<std::vector<int> > SequencesSquareIndices;
 	bool bSpawnGameMask;
 	bool bVerticalMask;
 	bool bKillingMask;

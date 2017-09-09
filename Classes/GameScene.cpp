@@ -138,10 +138,26 @@ bool GameScene::init()
 	{
 		for (int i = 1; i <= SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y; ++i)
 		{
-			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), i);
-			auto SequenceIndexIt = std::find(LevelParamsStruct.SequenceSquareIndices.begin(), LevelParamsStruct.SequenceSquareIndices.end(), i);
-		
-			if (DoubleTapIndexIt == LevelParamsStruct.DoubleTapSquareIndices.end() && SequenceIndexIt == LevelParamsStruct.SequenceSquareIndices.end())
+			bool bIndexFound = false;
+
+			for (int j = 0; j < LevelParamsStruct.SequencesSquareIndices.size(); ++j)
+			{
+				auto SequenceIndexIt = std::find(LevelParamsStruct.SequencesSquareIndices[i].begin(), LevelParamsStruct.SequencesSquareIndices[i].end(), i);
+
+				if (SequenceIndexIt != LevelParamsStruct.SequencesSquareIndices[i].end())
+				{
+					bIndexFound = true;
+					break;
+				}
+			}
+
+			if (!bIndexFound)
+			{
+				auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), i);
+				bIndexFound = DoubleTapIndexIt != LevelParamsStruct.DoubleTapSquareIndices.end();
+			}
+
+			if (!bIndexFound)
 				DangerousSquareIndices.push_back(i);
 		}
 
@@ -150,33 +166,54 @@ bool GameScene::init()
 	}
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
-	{
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
+			Squares[x][y] = nullptr;
+
+	for (int DoubleTapIndex : LevelParamsStruct.DoubleTapSquareIndices)
+	{
+		int y = (DoubleTapIndex - 1) / 3;
+		int x = (DoubleTapIndex - 1) % 3;
+		Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
+		Squares[x][y] = new GameSquareDoubleTap(this, ScreenPos, x, y);
+	}
+
+	for (int DangerousIndex : DangerousSquareIndices)
+	{
+		int y = (DangerousIndex - 1) / 3;
+		int x = (DangerousIndex - 1) % 3;
+		Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
+		Squares[x][y] = new GameSquareDangerous(this, ScreenPos, x, y);
+	}
+
+	for (int SeqID = 0; SeqID < LevelParamsStruct.SequencesSquareIndices.size(); ++SeqID)
+	{
+		GameSquareSequence* LastSequenceSquare;
+
+		for (int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
 		{
-			Vec2 Pos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
+			int SequenceIndex = LevelParamsStruct.SequencesSquareIndices[SeqID][i];
+			int y = (SequenceIndex - 1) / 3;
+			int x = (SequenceIndex - 1) % 3;
+			Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
+			GameSquareSequence* NewSequenceSquare = new GameSquareSequence(this, ScreenPos, x, y, i == 0);
+			Squares[x][y] = NewSequenceSquare;
 
-			int CurrentSquareIndex = y * SQUARE_AMOUNT_X + x + 1;
-			auto DoubleTapIndexIt = std::find(LevelParamsStruct.DoubleTapSquareIndices.begin(), LevelParamsStruct.DoubleTapSquareIndices.end(), CurrentSquareIndex);
-			auto SequenceIndexIt = std::find(LevelParamsStruct.SequenceSquareIndices.begin(), LevelParamsStruct.SequenceSquareIndices.end(), CurrentSquareIndex);
-			auto DangerousIndexIt = std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), CurrentSquareIndex);
+			if (i > 0)
+				LastSequenceSquare->NextSquareInSequenceIndex = SequenceIndex;
 
-			if (DoubleTapIndexIt != LevelParamsStruct.DoubleTapSquareIndices.end())
-				Squares[x][y] = new GameSquareDoubleTap(this, Pos, x, y);
-			else if (SequenceIndexIt != LevelParamsStruct.SequenceSquareIndices.end())
-				Squares[x][y] = new GameSquareSequence(this, Pos, x, y, CurrentSquareIndex == LevelParamsStruct.SequenceSquareIndices[0]);
-			else if (DangerousIndexIt != DangerousSquareIndices.end())
-				Squares[x][y] = new GameSquareDangerous(this, Pos, x, y);
-			else
-				Squares[x][y] = new GameSquareStandard(this, Pos, x, y);
+			LastSequenceSquare = NewSequenceSquare;
 		}
 	}
 
-	if (LevelParamsStruct.SequenceSquareIndices.size() > 0)
+	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 	{
-		for (int i = 0; i < LevelParamsStruct.SequenceSquareIndices.size() - 1; ++i)
+		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 		{
-			GameSquareSequence* SequenceSquare = dynamic_cast<GameSquareSequence*>(GetSquareByIndex(LevelParamsStruct.SequenceSquareIndices[i]));
-			SequenceSquare->NextSquareInSequenceIndex = LevelParamsStruct.SequenceSquareIndices[i + 1];
+			if (Squares[x][y] == nullptr)
+			{
+				Vec2 ScreepPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
+				Squares[x][y] = new GameSquareStandard(this, ScreepPos, x, y);
+			}
 		}
 	}
 

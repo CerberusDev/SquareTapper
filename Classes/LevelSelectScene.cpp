@@ -90,24 +90,44 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			for (int i = SQUARE_AMOUNT_Y - 1; i >= 0; --i)
 			{
 				std::getline(InputStream, Line);
-				std::stringstream TilesStringStream(Line);
+				std::stringstream SquaresStringStream(Line);
 
 				for (int j = 1; j <= SQUARE_AMOUNT_X; ++j)
 				{
-					int TileIndex = i * SQUARE_AMOUNT_X + j;
-					std::string TileType;
-					TilesStringStream >> TileType;
+					int SquareIndex = i * SQUARE_AMOUNT_X + j;
+					std::string SquareType;
+					SquaresStringStream >> SquareType;
 
-					if (TileType == "DB")
-						NewLevelParams.DoubleTapSquareIndices.push_back(TileIndex);
-					else if (TileType == "SQ")
-						NewLevelParams.SequenceSquareIndices.push_back(TileIndex);
+					if (SquareType == "DB")
+						NewLevelParams.DoubleTapSquareIndices.push_back(SquareIndex);
+					else if (SquareType.find("SQ") != std::string::npos)
+						AddSequenceSquareToLevelParams(NewLevelParams, SquareType, SquareIndex);
 				}
 			}
 
 			LevelParamsContainer.back().push_back(NewLevelParams);
 		}
 	}
+}
+
+void LevelSelectScene::AddSequenceSquareToLevelParams(LevelParams& CurrLevelParamsStruct, const std::string& SquareType, int SquareIndex)
+{
+	std::string Tail = SquareType.substr(SquareType.size() - 3);
+	std::replace(Tail.begin(), Tail.end(), '.', ' ');
+	std::stringstream TailStringStream(Tail);
+
+	int SequenceID, SquareIndexInSequence;
+	
+	TailStringStream >> SequenceID;
+	TailStringStream >> SquareIndexInSequence;
+
+	while (CurrLevelParamsStruct.SequencesSquareIndices.size() <= SequenceID)
+		CurrLevelParamsStruct.SequencesSquareIndices.push_back(std::vector<int>());
+
+	while (CurrLevelParamsStruct.SequencesSquareIndices[SequenceID].size() <= SquareIndexInSequence)
+		CurrLevelParamsStruct.SequencesSquareIndices[SequenceID].push_back(-1);
+	
+	CurrLevelParamsStruct.SequencesSquareIndices[SequenceID][SquareIndexInSequence] = SquareIndex;
 }
 
 bool LevelSelectScene::init()

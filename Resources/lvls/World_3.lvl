@@ -100,3 +100,19 @@ SQ(ST).0.4	DB			SQ(ST).0.0
 ST			ST			ST
 ST			ST			ST
 DB			ST			DB
+
+0.5		1.275	0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+SQ(ST).0.0	SQ(DB).0.1	SQ(ST).0.2
+
+0.5		1.275	0
+
+SQ(ST).0.0	ST			ST
+SQ(DB).0.1	ST			DB
+SQ(ST).0.2	ST			ST
+SQ(DB).0.3	ST			DB
+SQ(ST).0.4	ST			ST

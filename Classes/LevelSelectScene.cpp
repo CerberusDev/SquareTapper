@@ -37,7 +37,7 @@ LevelSelectScene* LevelSelectScene::create(int argStartWorldNumber)
 void LevelSelectScene::InitializeLevelParams()
 {
 	int TotalLevelNumber = 0;
-	std::string FilePath = FileUtils::getInstance()->fullPathForFilename("World_0.txt");
+	std::string FilePath = FileUtils::getInstance()->fullPathForFilename("World_0.lvl");
 
 	while (!FilePath.empty())
 	{

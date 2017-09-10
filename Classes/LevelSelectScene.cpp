@@ -128,6 +128,9 @@ void LevelSelectScene::AddSequenceSquareToLevelParams(LevelParams& CurrLevelPara
 		CurrLevelParamsStruct.SequencesSquareIndices[SequenceID].push_back(-1);
 	
 	CurrLevelParamsStruct.SequencesSquareIndices[SequenceID][SquareIndexInSequence] = SquareIndex;
+
+	if (SquareType.find("DB") != std::string::npos)
+		CurrLevelParamsStruct.SequenceDoubleTapSquareIndices.push_back(SquareIndex);
 }
 
 bool LevelSelectScene::init()

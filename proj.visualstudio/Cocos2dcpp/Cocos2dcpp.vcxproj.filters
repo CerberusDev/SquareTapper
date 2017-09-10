@@ -2296,6 +2296,9 @@
     <ClInclude Include="..\..\Classes\TutorialScene.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\GameSquareDoubleTapSequence.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4293,6 +4296,9 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\SquareTapper.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\GameSquareDoubleTapSequence.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

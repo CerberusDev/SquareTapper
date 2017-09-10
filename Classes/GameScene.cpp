@@ -7,6 +7,7 @@
 #include "GameSquareStandard.h"
 #include "GameSquareDoubleTap.h"
 #include "GameSquareSequence.h"
+#include "GameSquareDoubleTapSequence.h"
 #include "GameSquareDangerous.h"
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
@@ -187,7 +188,7 @@ bool GameScene::init()
 
 	for (int SeqID = 0; SeqID < LevelParamsStruct.SequencesSquareIndices.size(); ++SeqID)
 	{
-		GameSquareSequence* LastSequenceSquare;
+		GameSquare* LastSequenceSquare;
 
 		for (int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
 		{
@@ -195,13 +196,28 @@ bool GameScene::init()
 			int y = (SequenceIndex - 1) / SQUARE_AMOUNT_X;
 			int x = (SequenceIndex - 1) % SQUARE_AMOUNT_X;
 			Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
-			GameSquareSequence* NewSequenceSquare = new GameSquareSequence(this, ScreenPos, x, y, i == 0);
-			Squares[x][y] = NewSequenceSquare;
+
+			auto DoubleTapSequenceSquareIt = std::find(LevelParamsStruct.SequenceDoubleTapSquareIndices.begin(), LevelParamsStruct.SequenceDoubleTapSquareIndices.end(), SequenceIndex);
+
+			if (DoubleTapSequenceSquareIt != LevelParamsStruct.SequenceDoubleTapSquareIndices.end())
+			{
+				Squares[x][y] = new GameSquareDoubleTapSequence(this, ScreenPos, x, y, i == 0);
+			}
+			else
+			{
+				Squares[x][y] = new GameSquareSequence(this, ScreenPos, x, y, i == 0);
+			}
+
 
 			if (i > 0)
-				LastSequenceSquare->NextSquareInSequenceIndex = SequenceIndex;
+			{
+				if (GameSquareSequence* SequenceSquare = dynamic_cast<GameSquareSequence*>(LastSequenceSquare))
+					SequenceSquare->NextSquareInSequenceIndex = SequenceIndex;
+				else if (GameSquareDoubleTapSequence* SequenceDoubleTapSquare = dynamic_cast<GameSquareDoubleTapSequence*>(LastSequenceSquare))
+					SequenceDoubleTapSquare->NextSquareInSequenceIndex = SequenceIndex;
+			}
 
-			LastSequenceSquare = NewSequenceSquare;
+			LastSequenceSquare = Squares[x][y];
 		}
 	}
 
@@ -275,8 +291,16 @@ GameSquare* GameScene::GetSquareByIndex(int Index) const
 
 void GameScene::SetNextSequenceSquareToActivate(int SquareIndex)
 {
-	NextSequenceSquareToActivate = dynamic_cast<GameSquareSequence*>(GetSquareByIndex(SquareIndex));
-	NextSequenceSquareToActivate->SetAsNextToActivate();
+	if (GameSquareSequence* SequenceSquare = dynamic_cast<GameSquareSequence*>(GetSquareByIndex(SquareIndex)))
+	{
+		SequenceSquare->SetAsNextToActivate();
+		NextSequenceSquareToActivate = SequenceSquare;
+	}
+	else if (GameSquareDoubleTapSequence* SequenceDoubleTapSquare = dynamic_cast<GameSquareDoubleTapSequence*>(GetSquareByIndex(SquareIndex)))
+	{
+		SequenceDoubleTapSquare->SetAsNextToActivate();
+		NextSequenceSquareToActivate = SequenceDoubleTapSquare;
+	}
 }
 
 GameSquare* GameScene::GetSquareForActivation()

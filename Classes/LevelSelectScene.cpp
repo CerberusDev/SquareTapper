@@ -36,6 +36,8 @@ LevelSelectScene* LevelSelectScene::create(int argStartWorldNumber)
 
 void LevelSelectScene::InitializeLevelParams()
 {
+	LevelParamsContainer.clear();
+
 	int TotalLevelNumber = 0;
 	std::string FilePath = FileUtils::getInstance()->fullPathForFilename("lvls/World_0.lvl");
 
@@ -218,6 +220,19 @@ bool LevelSelectScene::init()
 	});
 
 	this->addChild(ResetProgressButton, 1);
+
+	auto ReloadScriptsButton = ui::Button::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_active_512.png");
+	ReloadScriptsButton->setPosition(Vec2(visibleSize.width * 0.12f, visibleSize.height * 0.07));
+	ReloadScriptsButton->setScale(100.0f / 512.0f);
+	ReloadScriptsButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		if (type == ui::Widget::TouchEventType::ENDED)
+		{
+			LevelSelectScene::InitializeLevelParams();
+			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+		}
+	});
+
+	this->addChild(ReloadScriptsButton, 1);
 
 	return true;
 }

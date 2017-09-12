@@ -17,8 +17,10 @@
 #	Z - Square's index in sequence (0 means first)	
 #
 
-# ============= 1 - 3 =============
-0.34	1.3		3
+# T Standard + Niebezpieczne kwadraty
+
+# ============= 46 - 48 =============
+0.41		1.15		6
 
 ST			ST			ST
 ST			ST			ST
@@ -26,7 +28,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.31	1.275	5
+0.36		0.9		4
 
 ST			ST			ST
 ST			ST			ST
@@ -34,7 +36,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.28	1.25	7
+0.31	0.85	2
 
 ST			ST			ST
 ST			ST			ST
@@ -42,77 +44,102 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-# ============= 4 - 6 =============
-0.47	1.325	2
-
-DB			ST			DB
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-DB			ST			DB
-
-0.44	1.3		3
-
-DB			ST			ST
-ST			DB			ST
-ST			ST			DB
-ST			DB			ST
-DB			ST			ST
-
-0.41	1.275	4
-
-ST			DB			ST
-ST			DB			ST
-ST			DB			ST
-ST			DB			ST
-ST			DB			ST
-
-# ============= 7 - 9 =============
-0.4		1.3		0
+# ============= 49 - 51 =============
+0.26		1.05	7
 
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
-SQ(ST).0.0	SQ(ST).0.1	SQ(ST).0.2
-
-0.4		1.275	0
-
-SQ(ST).0.0	ST			ST
-SQ(ST).0.1	ST			ST
-SQ(ST).0.2	ST			ST
-SQ(ST).0.3	ST			ST
-SQ(ST).0.4	ST			ST
-
-0.4		1.25	0
-
-SQ(ST).1.0	ST			SQ(ST).2.0
-SQ(ST).1.1	ST			SQ(ST).2.1
-SQ(ST).1.2	ST			SQ(ST).2.2
 ST			ST			ST
-SQ(ST).0.0	SQ(ST).0.1	SQ(ST).0.2
 
-# ============= 10 - 12 =============
-0.4		1.3		0
-
-SQ(ST).0.3	SQ(ST).0.2	SQ(ST).0.1
-SQ(ST).0.4	DB			SQ(ST).0.0
-ST			ST			ST
-ST			ST			ST
-DB			ST			DB
-
-0.5		1.275	0
+0.235	0.9		6
 
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
-SQ(ST).0.0	SQ(DB).0.1	SQ(ST).0.2
+ST			ST			ST
 
-0.5		1.275	0
+0.21	0.9		3
 
-SQ(ST).0.0	ST			ST
-SQ(DB).0.1	ST			DB
-SQ(ST).0.2	ST			ST
-SQ(DB).0.3	ST			DB
-SQ(ST).0.4	ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+# ============= 52 - 54 =============
+0.185	0.85				8
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.31		0.65		4
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.16		0.75			6
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+# ============= 55 - 57 =============
+0.16		0.85		8
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.19		0.815		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.175	0.75		3
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+# ============= 58 - 60 =============
+0.2		0.535		15
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+5	0.51		6
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.2		0.53		12
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST

@@ -16,103 +16,131 @@
 #	Y - Sequence ID (please start counting from 0)
 #	Z - Square's index in sequence (0 means first)	
 #
+#	Standard + Double tap 2 + Bezpieczne kwadraty
 
-# ============= 1 - 3 =============
-0.55	1.4		0	SpawnMask Horizontal
-
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-
-0.45	1.4		0	SpawnMask Horizontal
+# ============= 16 - 18 =============
+0.5		1.2		0
 
 ST			ST			ST
 ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-
-0.35	1.4		0	SpawnMask Horizontal
-
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+DB			ST			DB
 ST			ST			ST
 ST			ST			ST
 
-# ============= 4 - 6 =============
-0.55	1.4		0	SpawnMask Vertical
+0.475		1.1		0
+
+ST			DB			ST
+ST			ST			ST
+ST			DB			ST
+ST			ST			ST
+ST			DB			ST
+
+0.45		1.05		0
+
+ST			DB			ST
+ST			ST			ST
+DB			ST			DB
+ST			ST			ST
+ST			DB			ST
+
+# ============= 19 - 21 =============
+0.425		1.0		0
+
+DB			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+DB			ST			DB
+
+0.19			2.4		0
 
 ST			ST			ST
+DB			ST			DB
 ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-
-0.45	1.4		0	SpawnMask Vertical
-
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+DB			ST			DB
 ST			ST			ST
 
-0.35	1.4		0	SpawnMask Vertical
+0.375		1.1	0
+
+DB			DB			DB
+ST			ST			ST
+ST			ST			ST
+ST			DB			ST
+ST			DB			ST
+
+# ============= 22 - 24 =============
+0.345	1.1	0
+
+ST			DB			ST
+ST			DB			ST
+ST			DB			ST
+ST			DB			ST
+ST			DB			ST
+
+0.325	1.1		0
+
+DB			ST			DB
+ST			ST			ST
+DB			ST			DB
+ST			ST			ST
+DB			ST			DB
+
+0.3		1.0		0
+
+DB			ST			ST
+ST			DB			ST
+ST			ST			DB
+ST			DB			ST
+DB			ST			ST
+
+# ============= 25 - 27 =============
+0.285		1.05		0
 
 ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-
-# ============= 7 - 9 =============
-0.7		1.4		0	SpawnMask Horizontal Killing
-
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+DB			ST			DB
+DB			ST			DB
+DB			ST			DB
 ST			ST			ST
 
-0.6		1.4		0	SpawnMask Horizontal Killing
+1.25		0.501		0
 
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+ST			DB			ST
+DB			ST			DB
+ST			DB			ST
+DB			ST			DB
+ST			DB			ST
 
-0.5		1.4		0	SpawnMask Horizontal Killing
+0.27		1.1		0
 
+DB			DB			DB
 ST			ST			ST
+DB			ST			DB
 ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+DB			DB			DB
 
-# ============= 10 - 12 =============
-0.7		1.4		0	SpawnMask Vertical Killing
+# ============= 28 - 30 =============
+0.31	1.225	0
 
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+DB			DB			DB
+DB			DB			DB
+DB			DB			DB
+DB			DB			DB
+DB			DB			DB
 
-0.6		1.4		0	SpawnMask Vertical Killing
 
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+0.175	2.5		0
 
-0.55	1.4		0	SpawnMask Vertical Killing
+DB			DB			DB
+DB			DB			ST
+ST			ST			ST
+ST			DB			DB
+DB			DB			DB
 
+0.59		0.53		0
+
+DB			ST			DB
+ST			DB			ST
 ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
+DB			DB			DB
+ST			DB			ST
+

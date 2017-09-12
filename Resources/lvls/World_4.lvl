@@ -1,0 +1,145 @@
+
+#
+# Parameters in first line of level definition:
+#
+# 1. Interval between square's activations
+# 2. Total activation time of one square
+# 3. Number of dangerous squares on level
+# 4. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
+#
+# Square codes:
+# 
+# ST - Standard square
+# DB - Double-tap square
+# SQ(XX).Y.Z ( e.g. SQ(ST).0.0 )- Sequence square, requires more specified definition:
+#	XX - Square type (ST or DB)
+#	Y - Sequence ID (please start counting from 0)
+#	Z - Square's index in sequence (0 means first)	
+#
+
+# T Standard + Niebezpieczne kwadraty + DT
+
+# ============= 61 - 63 =============
+0.41		1.13		1
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.36		0.88		6
+
+ST			ST			ST
+ST			DB			ST
+ST			DB			ST
+ST			DB			ST
+ST			ST			ST
+
+0.31	0.83		6
+
+ST			DB			ST
+DB			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+# ============= 64 - 66 =============
+0.26		1.03	0
+
+ST			ST			DB
+ST			DB			ST
+DB			ST			DB
+ST			DB			ST
+ST			ST			DB
+
+0.235		0.88	6
+
+DB			ST			ST
+DB			DB			ST
+ST			ST			DB
+DB			DB			ST
+DB			ST			ST
+
+0.21		0.88	3
+	
+ST			DB			ST
+ST			ST			ST
+DB			ST			DB
+ST			DB			ST
+ST			DB			ST
+
+# ============= 67 - 69 =============
+0.185	0.78		8
+
+ST			ST			ST
+DB			DB			DB
+ST			ST			ST
+ST			ST			ST
+DB			DB			DB
+
+0.42		0.6		4
+
+ST			ST			ST
+ST			ST			ST
+ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+
+0.22		0.78	6
+
+DB			ST			DB
+ST			DB			ST
+ST			ST			ST
+ST			DB			ST
+DB			ST			DB
+
+# ============= 70 - 72 =============
+0.20		0.83		2
+
+DB			ST			DB
+DB			ST			DB
+DB			ST			DB
+DB			ST			DB
+DB			ST			DB
+
+0.19		0.795		1
+
+ST			ST			ST
+ST			ST			ST
+ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+
+0.175	0.63		5
+
+ST			DB			ST
+ST			DB			ST
+DB			ST			DB
+ST			DB			ST
+ST			DB			ST
+
+# ============= 73 - 75 =============
+0.2		0.535		15
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+5	0.51		6
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.2		0.53		12
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST

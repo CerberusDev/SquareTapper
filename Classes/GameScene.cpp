@@ -67,7 +67,7 @@ bool GameScene::init()
 
 	Vector<MenuItem*> MenuItems;
 
-	BackMenuItem = MenuItemImage::create("img/ui/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png",
+	BackMenuItem = MenuItemImage::create("gui/icons/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png",
 		[&](Ref* sender) {
 		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
@@ -76,7 +76,7 @@ bool GameScene::init()
 	BackMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 	MenuItems.pushBack(BackMenuItem);
 
-	RestartMenuItem = MenuItemImage::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
+	RestartMenuItem = MenuItemImage::create("gui/icons/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
 		[&](Ref* sender) {
 		LevelSelectScene::InitializeLevelParams();
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
@@ -90,7 +90,7 @@ bool GameScene::init()
 
 	if (LevelData.back().back().LevelDisplayNumber != LevelParamsStruct.LevelDisplayNumber)
 	{
-		NextMenuItem = MenuItemImage::create("img/ui/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
+		NextMenuItem = MenuItemImage::create("gui/icons/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
 			[&](Ref* sender) {
 			if (LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
@@ -403,7 +403,7 @@ void GameScene::DecreaseStarNumber()
 {
 	StarImages[MAX_STARS_NUMBER - StarsNumber]->Inactivate();
 	--StarsNumber;
-	Blink("img/squares/square_star_512.png");
+	Blink("gui/squares/square_star_512.png");
 
 	if (StarsNumber == 0)
 		LevelFailed();
@@ -423,14 +423,14 @@ void GameScene::LevelFailed()
 
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
-		RestartMenuItem->setNormalImage(Sprite::create("img/ui/icon_replay_active_512.png"));
+		RestartMenuItem->setNormalImage(Sprite::create("gui/icons/icon_replay_active_512.png"));
 	}
 }
 
 void GameScene::LevelCompleted()
 {
 	bLevelFinished = true;
-	Blink("img/squares/square_active_512.png");
+	Blink("gui/squares/square_active_512.png");
 
 	if (Mask)
 		Mask->RequestFinishAnimation();
@@ -447,7 +447,7 @@ void GameScene::LevelCompleted()
 	}
 
 	if (NextMenuItem)
-		NextMenuItem->setNormalImage(Sprite::create("img/ui/icon_arrow_active_512.png"));
+		NextMenuItem->setNormalImage(Sprite::create("gui/icons/icon_arrow_active_512.png"));
 }
 
 void GameScene::Blink(const std::string& SpriteFilePath)

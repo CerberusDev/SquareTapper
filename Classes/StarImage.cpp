@@ -11,8 +11,8 @@ USING_NS_CC;
 #define RECORD_SPRITE_SIZE 46.0f
 #define TEXTURES_SIZE 512.0f
 
-const std::string StarImage::StarImageFilePath_Active = "img/squares/square_star_512.png";
-const std::string StarImage::StarImageFilePath_Inactive = "img/squares/square_inactive_512.png";
+const std::string StarImage::StarImageFilePath_Active = "gui/squares/square_star_512.png";
+const std::string StarImage::StarImageFilePath_Inactive = "gui/squares/square_inactive_512.png";
 
 
 StarImage::StarImage(GameScene* argScene, const Vec2& argPosition, const bool RecordSpriteActive):

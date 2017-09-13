@@ -221,7 +221,7 @@ bool LevelSelectScene::init()
 
 	this->addChild(ResetProgressButton, 1);
 
-	auto ReloadScriptsButton = ui::Button::create("img/ui/icon_replay_inactive_512.png", "img/ui/icon_replay_active_512.png");
+	auto ReloadScriptsButton = ui::Button::create("gui/icons/icon_replay_inactive_512.png", "img/ui/icon_replay_active_512.png");
 	ReloadScriptsButton->setPosition(Vec2(visibleSize.width * 0.12f, visibleSize.height * 0.07));
 	ReloadScriptsButton->setScale(100.0f / 512.0f);
 	ReloadScriptsButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {

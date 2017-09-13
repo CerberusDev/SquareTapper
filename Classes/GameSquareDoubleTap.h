@@ -9,13 +9,6 @@
 
 class GameSquareDoubleTap : public GameSquare
 {
-protected:
-	bool bAlreadyTapped;
-
-// ---------------------------------------------------------------------------------------------------
 public:
 	GameSquareDoubleTap(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
-
-protected:
-	virtual void SquareCorrectlyTapped();
 };

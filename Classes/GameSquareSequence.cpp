@@ -7,8 +7,8 @@
 
 USING_NS_CC;
 
-GameSquareSequence::GameSquareSequence(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate) :
-GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/bgsqr_9_inactive_512.png", "img/squares/square_active_512.png"),
+GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, const Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename) :
+GameSquare(argScene, bargDoubleTap, argSpritePosition, argPosX, argPosY, InactiveSpriteFilename, ActivationSpriteFilename),
 NextSquareInSequenceIndex(-1),
 bMyTurnToActivate(argbMyTurnToActivate)
 {

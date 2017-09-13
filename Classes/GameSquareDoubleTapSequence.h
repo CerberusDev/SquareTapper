@@ -5,26 +5,10 @@
 #pragma once
 
 #include "SquareTapper.h"
-#include "GameSquare.h"
+#include "GameSquareSequence.h"
 
-class GameSquareDoubleTapSequence : public GameSquare
+class GameSquareDoubleTapSequence : public GameSquareSequence
 {
 public:
-	int NextSquareInSequenceIndex;
-	bool bMyTurnToActivate;
-
-protected:
-	bool bAlreadyTapped;
-
-// ---------------------------------------------------------------------------------------------------
-public:
 	GameSquareDoubleTapSequence(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate);
-
-	virtual void StartActivation(float ActivationTotalTime);
-	virtual bool CanBeActivated() const { return GameSquare::CanBeActivated() && bMyTurnToActivate; };
-	void SetNextSquareInSequenceIndex(int Index) { NextSquareInSequenceIndex = Index; };
-	void SetAsNextToActivate() { bMyTurnToActivate = true; };
-
-protected:
-	virtual void SquareCorrectlyTapped();
 };

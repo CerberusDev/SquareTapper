@@ -11,7 +11,7 @@ USING_NS_CC;
 #define FAILED_SPRITE_SIZE 46.0f
 #define TEXTURES_SIZE 512.0f
 
-GameSquare::GameSquare(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
+GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -26,6 +26,8 @@ SavedActivationTotalTime(-1.0f),
 CompletedSpriteFadeInTime(0.15f),
 SpritesScale(SPRITE_SIZE / TEXTURES_SIZE),
 ActivationFreezeRequestsCounter(0),
+bDoubleTap(bargDoubleTap),
+bAlreadyTapped(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
@@ -97,15 +99,32 @@ void GameSquare::SimulateCorrectTap()
 
 void GameSquare::SquareCorrectlyTapped()
 {
-	State = ESquareState::Completed;
+	if (bDoubleTap && !bAlreadyTapped)
+	{
+		InactiveSprite->setTexture("img/squares/bgsqr_0_inactive_512.png");
+		bAlreadyTapped = true;
 
-	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+		SetActivationFreeze(true);
 
-	auto ScaleSequence = ScaleUpActivationSquare();
-	ShowFinalSprites(false, ScaleSequence);
+		auto DelayAction = DelayTime::create(0.23f);
+		auto UnfreezeFunc = CallFunc::create([&]() {
+			SetActivationFreeze(false);
+		});
 
-	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-		ParentGameScene->OnSquareCompleted(this);
+		InactiveSprite->runAction(Sequence::create(DelayAction, UnfreezeFunc, nullptr));
+	}
+	else
+	{
+		State = ESquareState::Completed;
+
+		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+
+		auto ScaleSequence = ScaleUpActivationSquare();
+		ShowFinalSprites(false, ScaleSequence);
+
+		if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+			ParentGameScene->OnSquareCompleted(this);
+	}
 }
 
 void GameSquare::ActivationEnded()

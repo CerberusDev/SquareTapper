@@ -2,12 +2,13 @@
 // -------------------------------- SquareTapper by Maciej Pryc, 2017 --------------------------------
 // ---------------------------------------------------------------------------------------------------
 
-#include "GameSquareStandard.h"
+#pragma once
 
-USING_NS_CC;
+#include "SquareTapper.h"
+#include "GameSquareSequence.h"
 
-GameSquareStandard::GameSquareStandard(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
-GameSquare(argScene, false, argSpritePosition, argPosX, argPosY, "img/squares/bgsqr_0_inactive_512.png", "img/squares/square_active_512.png")
+class GameSquareSequenceStandard : public GameSquareSequence
 {
-
-}
+public:
+	GameSquareSequenceStandard(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate);
+};

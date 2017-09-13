@@ -6,7 +6,7 @@
 #include "SimpleAudioEngine.h"
 #include "GameSquareStandard.h"
 #include "GameSquareDoubleTap.h"
-#include "GameSquareSequence.h"
+#include "GameSquareSequenceStandard.h"
 #include "GameSquareDoubleTapSequence.h"
 #include "GameSquareDangerous.h"
 #include "LevelSelectScene.h"
@@ -206,7 +206,7 @@ bool GameScene::init()
 			}
 			else
 			{
-				Squares[x][y] = new GameSquareSequence(this, ScreenPos, x, y, i == 0);
+				Squares[x][y] = new GameSquareSequenceStandard(this, ScreenPos, x, y, i == 0);
 			}
 
 

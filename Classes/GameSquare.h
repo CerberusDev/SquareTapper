@@ -27,12 +27,14 @@ protected:
 	const float CompletedSpriteFadeInTime;
 	const float SpritesScale;
 	int ActivationFreezeRequestsCounter;
+	const bool bDoubleTap;
+	bool bAlreadyTapped;
 	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(cocos2d::Scene* argScene, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
+	GameSquare(cocos2d::Scene* argScene, const bool bargDoubleTap, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
 	virtual ~GameSquare();
 
 	virtual void StartActivation(float ActivationTotalTime);

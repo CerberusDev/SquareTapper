@@ -8,7 +8,7 @@
 USING_NS_CC;
 
 GameSquareDangerous::GameSquareDangerous(Scene* argScene, const Vec2& argSpritePosition, int argPosX, int argPosY) :
-GameSquare(argScene, argSpritePosition, argPosX, argPosY, "img/squares/bgsqr_0_inactive_512.png", "img/squares/square_dangerous_main_512.png")
+GameSquare(argScene, false, argSpritePosition, argPosX, argPosY, "img/squares/bgsqr_0_inactive_512.png", "img/squares/square_dangerous_main_512.png")
 {
 
 }

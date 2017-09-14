@@ -11,7 +11,7 @@ USING_NS_CC;
 #define FAILED_SPRITE_SIZE 46.0f
 #define TEXTURES_SIZE 512.0f
 
-GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
+GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, const bool bargDangerous, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -27,6 +27,7 @@ CompletedSpriteFadeInTime(0.15f),
 SpritesScale(SPRITE_SIZE / TEXTURES_SIZE),
 ActivationFreezeRequestsCounter(0),
 bDoubleTap(bargDoubleTap),
+bDangerous(bargDangerous),
 bAlreadyTapped(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
@@ -55,7 +56,7 @@ bPausedOnGameOver(false)
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 2);
 
-	ActivationSprite = Sprite::create(ActivationSpriteFilename);
+	ActivationSprite = Sprite::create(bDangerous ? "gui/squares/square_dangerous_main_512.png" : ActivationSpriteFilename);
 	ActivationSprite->setPosition(SpritePosition);
 	ActivationSprite->setScale(0.0f);
 	ParentScene->addChild(ActivationSprite, 2);
@@ -99,7 +100,13 @@ void GameSquare::SimulateCorrectTap()
 
 void GameSquare::SquareCorrectlyTapped()
 {
-	if (bDoubleTap && !bAlreadyTapped)
+	if (bDangerous)
+	{
+		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+		auto ScaleSequence = ScaleUpActivationSquare();
+		Failed(ScaleSequence);
+	}
+	else if (bDoubleTap && !bAlreadyTapped)
 	{
 		InactiveSprite->setTexture("gui/bqsqr/bgsqr_0_inactive_512.png");
 		bAlreadyTapped = true;
@@ -129,7 +136,19 @@ void GameSquare::SquareCorrectlyTapped()
 
 void GameSquare::ActivationEnded()
 {
-	Failed();
+	if (bDangerous)
+	{
+		State = ESquareState::Completed;
+
+		ShowFinalSprites(false);
+
+		if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+			ParentGameScene->OnSquareCompleted(this);
+	}
+	else
+	{
+		Failed();
+	}
 }
 
 void GameSquare::Failed(cocos2d::Sequence* ScaleUpSequence)

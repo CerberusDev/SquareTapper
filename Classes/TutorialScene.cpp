@@ -34,7 +34,7 @@ bool TutorialScene::init()
 	this->addChild(LevelButton, 0);
 
 	auto SpawnSquare = CallFunc::create([&]() {
-		Square = new GameSquareStandard(this, Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.5f), 0, 0);
+		Square = new GameSquareStandard(this, false, Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.5f), 0, 0);
 		Square->SetBlockTouchEvents(true);
 	});
 	auto Delay1 = DelayTime::create(0.7f);

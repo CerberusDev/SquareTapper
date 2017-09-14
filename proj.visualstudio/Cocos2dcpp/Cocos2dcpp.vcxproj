@@ -177,7 +177,6 @@
     <ClInclude Include="..\..\Classes\GameMask.h" />
     <ClInclude Include="..\..\Classes\GameScene.h" />
     <ClInclude Include="..\..\Classes\GameSquare.h" />
-    <ClInclude Include="..\..\Classes\GameSquareDangerous.h" />
     <ClInclude Include="..\..\Classes\GameSquareDoubleTap.h" />
     <ClInclude Include="..\..\Classes\GameSquareDoubleTapSequence.h" />
     <ClInclude Include="..\..\Classes\GameSquareSequence.h" />
@@ -946,7 +945,6 @@
     <ClCompile Include="..\..\Classes\GameMask.cpp" />
     <ClCompile Include="..\..\Classes\GameScene.cpp" />
     <ClCompile Include="..\..\Classes\GameSquare.cpp" />
-    <ClCompile Include="..\..\Classes\GameSquareDangerous.cpp" />
     <ClCompile Include="..\..\Classes\GameSquareDoubleTap.cpp" />
     <ClCompile Include="..\..\Classes\GameSquareDoubleTapSequence.cpp" />
     <ClCompile Include="..\..\Classes\GameSquareSequence.cpp" />

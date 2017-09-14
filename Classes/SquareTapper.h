@@ -15,6 +15,7 @@
 #define SQUARE_AMOUNT_Y 5
 
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
+enum class ESquareSafetyType { Safe, Standard, Dangerous };
 
 struct LevelParams
 {
@@ -22,6 +23,7 @@ struct LevelParams
 	int WorldNumber;
 	int LevelNumber;
 	int DangerousSquaresNumber;
+	int SafeSquaresNumber;
 	float SquaresActivationTimeInterval;
 	float TotalSquareActivationTime;
 	std::vector<int> DoubleTapSquareIndices;
@@ -36,6 +38,7 @@ struct LevelParams
 	WorldNumber(-1),
 	LevelNumber(-1),
 	DangerousSquaresNumber(-1),
+	SafeSquaresNumber(-1),
 	SquaresActivationTimeInterval(-1.0f), 
 	TotalSquareActivationTime(-1.0f),
 	bSpawnGameMask(false),

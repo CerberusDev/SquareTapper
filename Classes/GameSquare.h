@@ -23,19 +23,19 @@ protected:
 	cocos2d::Sprite* CompletedSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;
+	ESquareSafetyType SafetyType;
 	float SavedActivationTotalTime;
 	const float CompletedSpriteFadeInTime;
 	const float SpritesScale;
 	int ActivationFreezeRequestsCounter;
 	const bool bDoubleTap;
-	const bool bDangerous;
 	bool bAlreadyTapped;
 	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(cocos2d::Scene* argScene, const bool bargDoubleTap, const bool bargDangerous, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename);
+	GameSquare(cocos2d::Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename);
 	virtual ~GameSquare();
 
 	virtual void StartActivation(float ActivationTotalTime);

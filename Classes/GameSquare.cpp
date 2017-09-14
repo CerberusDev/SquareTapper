@@ -11,7 +11,7 @@ USING_NS_CC;
 #define FAILED_SPRITE_SIZE 46.0f
 #define TEXTURES_SIZE 512.0f
 
-GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, const bool bargDangerous, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename, const std::string& ActivationSpriteFilename):
+GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -22,12 +22,12 @@ FailedSprite(nullptr),
 CompletedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
+SafetyType(argSafetyType),
 SavedActivationTotalTime(-1.0f),
 CompletedSpriteFadeInTime(0.15f),
 SpritesScale(SPRITE_SIZE / TEXTURES_SIZE),
 ActivationFreezeRequestsCounter(0),
 bDoubleTap(bargDoubleTap),
-bDangerous(bargDangerous),
 bAlreadyTapped(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
@@ -56,7 +56,16 @@ bPausedOnGameOver(false)
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 2);
 
-	ActivationSprite = Sprite::create(bDangerous ? "gui/squares/square_dangerous_main_512.png" : ActivationSpriteFilename);
+	std::string ActivationSpriteFilename;
+
+	switch (SafetyType)
+	{
+	case ESquareSafetyType::Dangerous:	ActivationSpriteFilename = "gui/squares/square_dangerous_main_512.png"; break;
+	case ESquareSafetyType::Standard:	ActivationSpriteFilename = "gui/squares/square_active_512.png";			break;
+	case ESquareSafetyType::Safe:		ActivationSpriteFilename = "gui/squares/square_safe_main_512.png";		break;
+	}
+	
+	ActivationSprite = Sprite::create(ActivationSpriteFilename);
 	ActivationSprite->setPosition(SpritePosition);
 	ActivationSprite->setScale(0.0f);
 	ParentScene->addChild(ActivationSprite, 2);
@@ -100,7 +109,7 @@ void GameSquare::SimulateCorrectTap()
 
 void GameSquare::SquareCorrectlyTapped()
 {
-	if (bDangerous)
+	if (SafetyType == ESquareSafetyType::Dangerous)
 	{
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 		auto ScaleSequence = ScaleUpActivationSquare();
@@ -136,7 +145,7 @@ void GameSquare::SquareCorrectlyTapped()
 
 void GameSquare::ActivationEnded()
 {
-	if (bDangerous)
+	if (SafetyType != ESquareSafetyType::Standard)
 	{
 		State = ESquareState::Completed;
 

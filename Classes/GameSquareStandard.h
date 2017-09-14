@@ -12,5 +12,5 @@ class GameSquareStandard : public GameSquare
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquareStandard(cocos2d::Scene* argScene, const bool bargDangerous, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	GameSquareStandard(cocos2d::Scene* argScene, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 };

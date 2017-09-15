@@ -10,5 +10,5 @@
 class GameSquareDoubleTapSequence : public GameSquareSequence
 {
 public:
-	GameSquareDoubleTapSequence(cocos2d::Scene* argScene, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate);
+	GameSquareDoubleTapSequence(cocos2d::Scene* argScene, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 };

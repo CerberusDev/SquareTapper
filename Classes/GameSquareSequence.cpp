@@ -7,10 +7,10 @@
 
 USING_NS_CC;
 
-GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate, const std::string& InactiveSpriteFilename) :
+GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename) :
 GameSquare(argScene, bargDoubleTap, argSafetyType, argSpritePosition, argPosX, argPosY, InactiveSpriteFilename),
 NextSquareInSequenceIndex(-1),
-bMyTurnToActivate(argbMyTurnToActivate)
+bMyTurnToActivate(false)
 {
 
 }

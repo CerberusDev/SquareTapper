@@ -176,42 +176,38 @@ bool GameScene::init()
 
 	for (int SeqID = 0; SeqID < LevelParamsStruct.SequencesSquareIndices.size(); ++SeqID)
 	{
-		GameSquare* LastSequenceSquare;
+		GameSquareSequence* LastSequenceSquare;
 
 		for (int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
 		{
-			int SequenceIndex = LevelParamsStruct.SequencesSquareIndices[SeqID][i];
-			int y = (SequenceIndex - 1) / SQUARE_AMOUNT_X;
-			int x = (SequenceIndex - 1) % SQUARE_AMOUNT_X;
+			int SquareIndex = LevelParamsStruct.SequencesSquareIndices[SeqID][i];
+			int y = (SquareIndex - 1) / SQUARE_AMOUNT_X;
+			int x = (SquareIndex - 1) % SQUARE_AMOUNT_X;
 			Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
 
 			ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
 
-			if (std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), SequenceIndex) != DangerousSquareIndices.end())
+			if (std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), SquareIndex) != DangerousSquareIndices.end())
 				SquareSafetyTape = ESquareSafetyType::Dangerous;
-			else if (std::find(SafeSquareIndices.begin(), SafeSquareIndices.end(), SequenceIndex) != SafeSquareIndices.end())
+			else if (std::find(SafeSquareIndices.begin(), SafeSquareIndices.end(), SquareIndex) != SafeSquareIndices.end())
 				SquareSafetyTape = ESquareSafetyType::Safe;
 
-			auto DoubleTapSequenceSquareIt = std::find(LevelParamsStruct.SequenceDoubleTapSquareIndices.begin(), LevelParamsStruct.SequenceDoubleTapSquareIndices.end(), SequenceIndex);
+			auto DoubleTapSequenceSquareIt = std::find(LevelParamsStruct.SequenceDoubleTapSquareIndices.begin(), LevelParamsStruct.SequenceDoubleTapSquareIndices.end(), SquareIndex);
+
+			GameSquareSequence* NewSequenceSquare;
 
 			if (DoubleTapSequenceSquareIt != LevelParamsStruct.SequenceDoubleTapSquareIndices.end())
-			{
-				Squares[x][y] = new GameSquareDoubleTapSequence(this, SquareSafetyTape, ScreenPos, x, y, i == 0);
-			}
+				NewSequenceSquare = new GameSquareDoubleTapSequence(this, SquareSafetyTape, ScreenPos, x, y);
 			else
-			{
-				Squares[x][y] = new GameSquareSequenceStandard(this, SquareSafetyTape, ScreenPos, x, y, i == 0);
-			}
+				NewSequenceSquare = new GameSquareSequenceStandard(this, SquareSafetyTape, ScreenPos, x, y);
 
-			if (i > 0)
-			{
-				if (GameSquareSequence* SequenceSquare = dynamic_cast<GameSquareSequence*>(LastSequenceSquare))
-					SequenceSquare->SetNextSquareInSequenceIndex(SequenceIndex);
-				else if (GameSquareDoubleTapSequence* SequenceDoubleTapSquare = dynamic_cast<GameSquareDoubleTapSequence*>(LastSequenceSquare))
-					SequenceDoubleTapSquare->SetNextSquareInSequenceIndex(SequenceIndex);
-			}
+			if (i == 0)
+				NewSequenceSquare->SetAsNextToActivate();
+			else
+				LastSequenceSquare->SetNextSquareInSequenceIndex(SquareIndex);
 
-			LastSequenceSquare = Squares[x][y];
+			Squares[x][y] = NewSequenceSquare;
+			LastSequenceSquare = NewSequenceSquare;
 		}
 	}
 

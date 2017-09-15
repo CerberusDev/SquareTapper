@@ -10,5 +10,5 @@
 class GameSquareSequenceStandard : public GameSquareSequence
 {
 public:
-	GameSquareSequenceStandard(cocos2d::Scene* argScene, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, bool argbMyTurnToActivate);
+	GameSquareSequenceStandard(cocos2d::Scene* argScene, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 };

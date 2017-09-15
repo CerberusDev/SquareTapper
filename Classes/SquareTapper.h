@@ -22,8 +22,9 @@ struct LevelParams
 	int LevelDisplayNumber;
 	int WorldNumber;
 	int LevelNumber;
-	int DangerousSquaresNumber;
 	int SafeSquaresNumber;
+	int DangerousSquaresNumber;
+	int DangerousSecondTapSquaresNumber;
 	float SquaresActivationTimeInterval;
 	float TotalSquareActivationTime;
 	std::vector<int> DoubleTapSquareIndices;
@@ -37,8 +38,9 @@ struct LevelParams
 	LevelDisplayNumber(-1),
 	WorldNumber(-1),
 	LevelNumber(-1),
-	DangerousSquaresNumber(-1),
 	SafeSquaresNumber(-1),
+	DangerousSquaresNumber(-1),
+	DangerousSecondTapSquaresNumber(-1),
 	SquaresActivationTimeInterval(-1.0f), 
 	TotalSquareActivationTime(-1.0f),
 	bSpawnGameMask(false),
@@ -49,3 +51,9 @@ struct LevelParams
 
 std::string GetLevelRecordKey(const int LevelDisplayName);
 std::string GetLevelAttemptsKey(const int LevelDisplayName);
+
+template<typename T>
+bool VectorContains(const std::vector<T>& Vector, const T& ElementToCheck)
+{
+	return std::find(Vector.begin(), Vector.end(), ElementToCheck) != Vector.end();
+}

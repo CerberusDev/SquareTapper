@@ -133,13 +133,22 @@ bool GameScene::init()
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
 		StarImages[i] = new StarImage(this, Vec2(GetScreenPositionX(i), STARS_POS_Y), i >= MAX_STARS_NUMBER - RecordStarsNumber);
 
-	std::vector<int> DangerousSquareIndices;
 	std::vector<int> SafeSquareIndices;
+	std::vector<int> DangerousSquareIndices;
+	std::vector<int> DangerousSecondTapSquareIndices;
+
+	if (LevelParamsStruct.DangerousSecondTapSquaresNumber > 0)
+	{
+		DangerousSecondTapSquareIndices = LevelParamsStruct.DoubleTapSquareIndices;
+		std::random_shuffle(DangerousSecondTapSquareIndices.begin(), DangerousSecondTapSquareIndices.end());
+		DangerousSecondTapSquareIndices.resize(LevelParamsStruct.DangerousSecondTapSquaresNumber);
+	}
 
 	if (LevelParamsStruct.DangerousSquaresNumber > 0)
 	{
 		for (int i = 1; i <= SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y; ++i)
-			DangerousSquareIndices.push_back(i);
+			if (!VectorContains(DangerousSecondTapSquareIndices, i))
+				DangerousSquareIndices.push_back(i);
 
 		std::random_shuffle(DangerousSquareIndices.begin(), DangerousSquareIndices.end());
 		DangerousSquareIndices.resize(LevelParamsStruct.DangerousSquaresNumber);
@@ -148,7 +157,7 @@ bool GameScene::init()
 	if (LevelParamsStruct.SafeSquaresNumber > 0)
 	{
 		for (int i = 1; i <= SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y; ++i)
-			if (std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), i) == DangerousSquareIndices.end())
+			if (!VectorContains(DangerousSecondTapSquareIndices, i) && !VectorContains(DangerousSquareIndices, i))
 				SafeSquareIndices.push_back(i);
 
 		std::random_shuffle(SafeSquareIndices.begin(), SafeSquareIndices.end());
@@ -163,10 +172,12 @@ bool GameScene::init()
 	{
 		ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
 
-		if (std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), DoubleTapIndex) != DangerousSquareIndices.end())
+		if (VectorContains(DangerousSquareIndices, DoubleTapIndex))
 			SquareSafetyTape = ESquareSafetyType::Dangerous;
-		else if (std::find(SafeSquareIndices.begin(), SafeSquareIndices.end(), DoubleTapIndex) != SafeSquareIndices.end())
+		else if (VectorContains(SafeSquareIndices, DoubleTapIndex))
 			SquareSafetyTape = ESquareSafetyType::Safe;
+		else if (VectorContains(DangerousSecondTapSquareIndices, DoubleTapIndex))
+			SquareSafetyTape = ESquareSafetyType::DangerousSecondTap;
 
 		int y = (DoubleTapIndex - 1) / SQUARE_AMOUNT_X;
 		int x = (DoubleTapIndex - 1) % SQUARE_AMOUNT_X;
@@ -187,16 +198,14 @@ bool GameScene::init()
 
 			ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
 
-			if (std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), SquareIndex) != DangerousSquareIndices.end())
+			if (VectorContains(DangerousSquareIndices, SquareIndex))
 				SquareSafetyTape = ESquareSafetyType::Dangerous;
-			else if (std::find(SafeSquareIndices.begin(), SafeSquareIndices.end(), SquareIndex) != SafeSquareIndices.end())
+			else if (VectorContains(SafeSquareIndices, SquareIndex))
 				SquareSafetyTape = ESquareSafetyType::Safe;
-
-			auto DoubleTapSequenceSquareIt = std::find(LevelParamsStruct.SequenceDoubleTapSquareIndices.begin(), LevelParamsStruct.SequenceDoubleTapSquareIndices.end(), SquareIndex);
 
 			GameSquareSequence* NewSequenceSquare;
 
-			if (DoubleTapSequenceSquareIt != LevelParamsStruct.SequenceDoubleTapSquareIndices.end())
+			if (VectorContains(LevelParamsStruct.SequenceDoubleTapSquareIndices, SquareIndex))
 				NewSequenceSquare = new GameSquareDoubleTapSequence(this, SquareSafetyTape, ScreenPos, x, y);
 			else
 				NewSequenceSquare = new GameSquareSequenceStandard(this, SquareSafetyTape, ScreenPos, x, y);
@@ -218,10 +227,11 @@ bool GameScene::init()
 			if (Squares[x][y] == nullptr)
 			{
 				ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
+				const int SquareIndex = y * SQUARE_AMOUNT_X + x + 1;
 
-				if (std::find(DangerousSquareIndices.begin(), DangerousSquareIndices.end(), y * SQUARE_AMOUNT_X + x + 1) != DangerousSquareIndices.end())
+				if (VectorContains(DangerousSquareIndices, SquareIndex))
 					SquareSafetyTape = ESquareSafetyType::Dangerous;
-				else if (std::find(SafeSquareIndices.begin(), SafeSquareIndices.end(), y * SQUARE_AMOUNT_X + x + 1) != SafeSquareIndices.end())
+				else if (VectorContains(SafeSquareIndices, SquareIndex))
 					SquareSafetyTape = ESquareSafetyType::Safe;
 
 				Vec2 ScreepPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));

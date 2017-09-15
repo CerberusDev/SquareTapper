@@ -74,8 +74,9 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 
 			ParamsStringStream >> NewLevelParams.SquaresActivationTimeInterval;
 			ParamsStringStream >> NewLevelParams.TotalSquareActivationTime;
-			ParamsStringStream >> NewLevelParams.DangerousSquaresNumber;
 			ParamsStringStream >> NewLevelParams.SafeSquaresNumber;
+			ParamsStringStream >> NewLevelParams.DangerousSquaresNumber;
+			ParamsStringStream >> NewLevelParams.DangerousSecondTapSquaresNumber;
 
 			if (Line.find("SpawnMask") != std::string::npos)
 			{

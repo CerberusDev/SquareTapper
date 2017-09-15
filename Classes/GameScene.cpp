@@ -206,9 +206,9 @@ bool GameScene::init()
 			if (i > 0)
 			{
 				if (GameSquareSequence* SequenceSquare = dynamic_cast<GameSquareSequence*>(LastSequenceSquare))
-					SequenceSquare->NextSquareInSequenceIndex = SequenceIndex;
+					SequenceSquare->SetNextSquareInSequenceIndex(SequenceIndex);
 				else if (GameSquareDoubleTapSequence* SequenceDoubleTapSquare = dynamic_cast<GameSquareDoubleTapSequence*>(LastSequenceSquare))
-					SequenceDoubleTapSquare->NextSquareInSequenceIndex = SequenceIndex;
+					SequenceDoubleTapSquare->SetNextSquareInSequenceIndex(SequenceIndex);
 			}
 
 			LastSequenceSquare = Squares[x][y];

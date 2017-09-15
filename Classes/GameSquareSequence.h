@@ -9,7 +9,7 @@
 
 class GameSquareSequence : public GameSquare
 {
-public:
+protected:
 	int NextSquareInSequenceIndex;
 	bool bMyTurnToActivate;
 

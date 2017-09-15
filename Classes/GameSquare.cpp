@@ -11,6 +11,11 @@ USING_NS_CC;
 #define FAILED_SPRITE_SIZE 46.0f
 #define TEXTURES_SIZE 512.0f
 
+const std::string GameSquare::ActivationSpriteFilename_Safe = "gui/squares/square_safe_main_512.png";
+const std::string GameSquare::ActivationSpriteFilename_Standard = "gui/squares/square_active_512.png";
+const std::string GameSquare::ActivationSpriteFilename_Dangerous = "gui/squares/square_dangerous_main_512.png";
+const std::string GameSquare::ActivationSpriteFilename_DangerousSecondTap = "gui/squares/square_active_512.png";
+
 GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename):
 PosX(argPosX),
 PosY(argPosY),
@@ -56,16 +61,7 @@ bPausedOnGameOver(false)
 
 	Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 2);
 
-	std::string ActivationSpriteFilename;
-
-	switch (SafetyType)
-	{
-	case ESquareSafetyType::Dangerous:	ActivationSpriteFilename = "gui/squares/square_dangerous_main_512.png"; break;
-	case ESquareSafetyType::Standard:	ActivationSpriteFilename = "gui/squares/square_active_512.png";			break;
-	case ESquareSafetyType::Safe:		ActivationSpriteFilename = "gui/squares/square_safe_main_512.png";		break;
-	}
-	
-	ActivationSprite = Sprite::create(ActivationSpriteFilename);
+	ActivationSprite = Sprite::create(GetActivationSpriteFilename(SafetyType));
 	ActivationSprite->setPosition(SpritePosition);
 	ActivationSprite->setScale(0.0f);
 	ParentScene->addChild(ActivationSprite, 2);
@@ -109,7 +105,7 @@ void GameSquare::SimulateCorrectTap()
 
 void GameSquare::SquareCorrectlyTapped()
 {
-	if (SafetyType == ESquareSafetyType::Dangerous)
+	if (SafetyType == ESquareSafetyType::Dangerous || (SafetyType == ESquareSafetyType::DangerousSecondTap && bDoubleTap && bAlreadyTapped))
 	{
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
 		auto ScaleSequence = ScaleUpActivationSquare();
@@ -117,6 +113,9 @@ void GameSquare::SquareCorrectlyTapped()
 	}
 	else if (bDoubleTap && !bAlreadyTapped)
 	{
+		if (SafetyType == ESquareSafetyType::DangerousSecondTap)
+			ActivationSprite->setTexture(GetActivationSpriteFilename(ESquareSafetyType::Dangerous));
+
 		InactiveSprite->setTexture("gui/bqsqr/bgsqr_0_inactive_512.png");
 		bAlreadyTapped = true;
 
@@ -239,4 +238,15 @@ void GameSquare::PauseOnGameOver()
 {
 	bPausedOnGameOver = true;
 	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+}
+
+const std::string& GameSquare::GetActivationSpriteFilename(ESquareSafetyType argSafetyType)
+{
+	switch (argSafetyType)
+	{
+	case ESquareSafetyType::Safe:				return ActivationSpriteFilename_Safe;
+	case ESquareSafetyType::Standard:			return ActivationSpriteFilename_Standard;
+	case ESquareSafetyType::Dangerous:			return ActivationSpriteFilename_Dangerous;
+	case ESquareSafetyType::DangerousSecondTap:	return ActivationSpriteFilename_DangerousSecondTap;
+	}
 }

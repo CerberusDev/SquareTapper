@@ -15,7 +15,7 @@
 #define SQUARE_AMOUNT_Y 5
 
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
-enum class ESquareSafetyType { Safe, Standard, Dangerous };
+enum class ESquareSafetyType { Safe, Standard, Dangerous, DangerousSecondTap };
 
 struct LevelParams
 {

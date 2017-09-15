@@ -15,6 +15,11 @@ public:
 	const int PosY;
 
 protected:
+	static const std::string ActivationSpriteFilename_Safe;
+	static const std::string ActivationSpriteFilename_Standard;
+	static const std::string ActivationSpriteFilename_Dangerous;
+	static const std::string ActivationSpriteFilename_DangerousSecondTap;
+
 	cocos2d::Scene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* InactiveSprite;
@@ -53,4 +58,5 @@ protected:
 	void ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence = nullptr);
 	cocos2d::Sequence* ScaleUpActivationSquare();
 	void Failed(cocos2d::Sequence* ScaleUpSequence = nullptr);
+	const std::string& GetActivationSpriteFilename(ESquareSafetyType argSafetyType);
 };

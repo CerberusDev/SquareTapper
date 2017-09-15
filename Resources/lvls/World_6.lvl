@@ -19,7 +19,7 @@
 #
 # Standard + Bezpieczne maski + Double tap
 
-# ============= 91 - 93 =============
+# ============= 1 - 3 =============
 0.55	1.4		0		0	SpawnMask Horizontal
 
 ST			ST			ST
@@ -44,7 +44,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-# ============= 94 - 96 =============
+# ============= 4 - 6 =============
 0.5		1.325	0		0	SpawnMask Vertical
 
 ST			ST			ST
@@ -69,7 +69,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-# ============= 97 - 99 =============
+# ============= 7 - 9 =============
 0.345	1.35	0		0
 
 DB			DB			ST
@@ -94,8 +94,7 @@ ST			ST			DB
 ST			DB			ST
 DB			ST			ST
 
-# ============= 100 - 102 =============
-
+# ============= 10 - 12 =============
 0.55	0.7		0		0
 
 DB			DB			DB
@@ -120,7 +119,7 @@ DB			ST			DB
 ST			ST			ST
 DB			ST			DB
 
-# ============= 103 - 105 =============
+# ============= 13 - 15 =============
 0.36	1.5		0		0	SpawnMask Vertical
 
 DB			DB			DB
@@ -128,7 +127,6 @@ DB			DB			DB
 DB			DB			DB
 DB			DB			DB
 DB			DB			DB
-
 
 0.175	2.5		0		0	SpawnMask Vertical
 

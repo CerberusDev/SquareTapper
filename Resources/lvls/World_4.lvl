@@ -5,7 +5,8 @@
 # 1. Interval between square's activations
 # 2. Total activation time of one square
 # 3. Number of dangerous squares on level
-# 4. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
+# 4. Number of safe squares on level
+# 5. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
 #
 # Square codes:
 # 
@@ -20,7 +21,7 @@
 # T Standard + Niebezpieczne kwadraty + DT
 
 # ============= 61 - 63 =============
-0.36		1.38		4
+0.36	1.38	4		0
 
 ST			ST			ST
 ST			ST			ST
@@ -28,7 +29,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.34		1.03		6
+0.34	1.03	6		0
 
 ST			ST			ST
 ST			DB			ST
@@ -36,7 +37,7 @@ ST			DB			ST
 ST			DB			ST
 ST			ST			ST
 
-0.335	1.02		6
+0.335	1.02	6		0
 
 ST			DB			ST
 DB			ST			DB
@@ -45,7 +46,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 64 - 66 =============
-0.33		1.18	0
+0.33	1.18	0		0
 
 ST			ST			ST
 ST			DB			ST
@@ -53,7 +54,7 @@ DB			ST			DB
 ST			DB			ST
 ST			ST			ST
 
-0.32		1.0		5
+0.32	1.0		5		0
 
 DB			ST			ST
 DB			DB			ST
@@ -61,7 +62,7 @@ ST			ST			DB
 DB			DB			ST
 DB			ST			ST
 
-0.28	0.88		6
+0.28	0.88	6		0
 
 ST			ST			ST
 DB			DB			DB
@@ -70,7 +71,7 @@ ST			ST			ST
 DB			DB			DB
 
 # ============= 67 - 69 =============
-0.24		1.02		6
+0.24	1.02	6		0
 
 ST			DB			ST
 ST			DB			ST
@@ -78,7 +79,7 @@ DB			DB			DB
 ST			ST			ST
 ST			ST			ST
 
-0.202		1.1		5
+0.202	1.1		5		0
 
 ST			ST			ST
 ST			ST			ST
@@ -86,7 +87,7 @@ ST			DB			ST
 ST			ST			ST
 ST			ST			ST
 
-0.295		1.08	3
+0.295	1.08	3		0
 	
 ST			DB			ST
 ST			ST			ST
@@ -95,8 +96,7 @@ ST			DB			ST
 ST			DB			ST 
 
 # ============= 70 - 72 =============
-
-0.19		1.18	6
+0.19	1.18	6		0
 
 DB			ST			DB
 ST			DB			ST
@@ -104,7 +104,7 @@ ST			ST			ST
 ST			DB			ST
 DB			ST			DB
 
-0.21		1.05		6
+0.21	1.05	6		0
 
 ST			DB			ST
 ST			DB			ST
@@ -112,7 +112,7 @@ DB			ST			DB
 ST			DB			ST
 ST			DB			ST
 
-0.2		1.43		4
+0.2		1.43	4		0
 
 DB			ST			DB
 DB			ST			DB
@@ -121,7 +121,7 @@ DB			ST			DB
 DB			ST			DB
 
 # ============= 73 - 75 =============
-0.37		0.6		3
+0.37	0.6		3		0
 
 DB			ST			DB
 ST			ST			ST
@@ -129,7 +129,7 @@ DB			DB			DB
 ST			ST			DB
 ST			DB			ST
 
-0.21		0.81		5
+0.21	0.81	5		0
 
 ST			ST			DB
 DB			ST			ST
@@ -137,10 +137,13 @@ ST			ST			ST
 ST			DB			ST
 DB			ST			DB
 
-0.31		0.78		3
+0.31	0.78	3		0
 
 ST			ST			DB
 DB			DB			ST
 ST			ST			DB
 ST			DB			ST
 ST			ST			DB
+
+
+

@@ -5,7 +5,8 @@
 # 1. Interval between square's activations
 # 2. Total activation time of one square
 # 3. Number of dangerous squares on level
-# 4. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
+# 4. Number of safe squares on level
+# 5. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
 #
 # Square codes:
 # 
@@ -18,7 +19,7 @@
 #
 
 # ============= 7 - 9 =============
-0.7		1.4		0	SpawnMask Horizontal Killing
+0.7		1.4		0		0	SpawnMask Horizontal Killing
 
 ST			ST			ST
 ST			ST			ST
@@ -26,7 +27,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.6		1.4		0	SpawnMask Horizontal Killing
+0.6		1.4		0		0	SpawnMask Horizontal Killing
 
 ST			ST			ST
 ST			ST			ST
@@ -34,7 +35,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.5		1.4		0	SpawnMask Horizontal Killing
+0.5		1.4		0		0	SpawnMask Horizontal Killing
 
 ST			ST			ST
 ST			ST			ST
@@ -43,7 +44,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 10 - 12 =============
-0.7		1.4		0	SpawnMask Vertical Killing
+0.7		1.4		0		0	SpawnMask Vertical Killing
 
 ST			ST			ST
 ST			ST			ST
@@ -51,7 +52,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.6		1.4		0	SpawnMask Vertical Killing
+0.6		1.4		0		0	SpawnMask Vertical Killing
 
 ST			ST			ST
 ST			ST			ST
@@ -59,7 +60,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.55	1.4		0	SpawnMask Vertical Killing
+0.55	1.4		0		0	SpawnMask Vertical Killing
 
 ST			ST			ST
 ST			ST			ST

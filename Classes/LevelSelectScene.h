@@ -5,6 +5,7 @@
 #pragma once
 
 #include "SquareTapper.h"
+#include "ui/CocosGUI.h"
 
 class LevelSelectScene : public cocos2d::Scene
 {
@@ -24,4 +25,8 @@ public:
 	static void AddSequenceSquareToLevelParams(LevelParams& CurrLevelParamsStruct, const std::string& SquareType, int SquareIndex);
 	static const std::vector<std::vector<LevelParams>>& GetLevelData() { return LevelParamsContainer; };
 	static LevelSelectScene* create(int argStartWorldNumber);
+
+	void CreateLevelButton(int WorldNumber, int LevelNumber, cocos2d::ui::Layout* PageLayout);
+	void CreateResetProgressButton();
+	void CreateReloadScriptsButton();
 };

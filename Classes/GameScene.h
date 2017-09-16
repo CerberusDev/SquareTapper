@@ -60,7 +60,6 @@ public:
 	GameSquare* (&GetSquares())[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y] { return Squares; }
 
 protected:
-	float GetScreenPosition(int SquareIndex, int SquareMax, float ScreenSize) const;
 	GameSquare* GetSquareByIndex(int Index) const;
 	void Blink(const std::string& SpriteFilePath);
 };

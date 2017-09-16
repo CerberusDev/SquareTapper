@@ -280,12 +280,6 @@ float GameScene::GetScreenPositionY(int SquareIndexY) const
 	return BOTTOM_SQUARES_POS_Y + DIST_BETWEEN_SQUARES * SquareIndexY;
 }
 
-float GameScene::GetScreenPosition(int SquareIndex, int SquaresNumber, float ScreenSize) const
-{
-	float Margin = (ScreenSize - DIST_BETWEEN_SQUARES * (SquaresNumber - 1)) / 2.0f;
-	return Margin + DIST_BETWEEN_SQUARES * SquareIndex;
-}
-
 GameSquare* GameScene::GetSquareByIndex(int Index) const
 {
 	int x = (Index - 1) % SQUARE_AMOUNT_X;

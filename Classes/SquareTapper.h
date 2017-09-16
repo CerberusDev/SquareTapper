@@ -14,8 +14,12 @@
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
 
+#define WORLD_NUMBER_ON_TUTORIAL_STANDARD 0
+#define WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP 1
+
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 enum class ESquareSafetyType { Safe, Standard, Dangerous, DangerousSecondTap };
+enum class ETutorialType { StandardSquare, DoubleTapSquare };
 
 struct LevelParams
 {

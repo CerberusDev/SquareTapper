@@ -11,15 +11,24 @@ class GameSquare;
 class TutorialScene : public cocos2d::Scene
 {
 protected:
+	static const std::string InstructionString_Standard;
+	static const std::string InstructionString_DoubleTap;
+	
 	GameSquare* Square;
-	cocos2d::Size VisibleSize;
+	ETutorialType TutorialType;
 
 // ---------------------------------------------------------------------------------------------------
 
 public:
+	TutorialScene(ETutorialType argTutorialType);
 	~TutorialScene();
 
-	CREATE_FUNC(TutorialScene);
-
 	virtual bool init();
+
+	static TutorialScene* create(ETutorialType argTutorialType);
+
+	void InitTutorialStandard();
+	void InitTutorialDoubleTap();
+	void CreateInstructionLabel(const std::string& InstructionString, float PosX, float PosY);
+	void CreateConfirationButton(float PosX, float PosY, int WorldNumberToTravelTo);
 };

@@ -180,8 +180,10 @@ bool LevelSelectScene::init()
 					const int WorldNumber = LevelID / 1000;
 					const int LevelNumber = LevelID - WorldNumber * 1000;
 
-					if (WorldNumber == 0 && LevelNumber == 0)
-						Director::getInstance()->replaceScene(TutorialScene::create());
+					if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
+						Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
+					else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
+						Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::DoubleTapSquare));
 					else
 						Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
 				}

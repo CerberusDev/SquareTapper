@@ -23,6 +23,9 @@ protected:
 	static const std::string InactiveSpriteFilename_Standard;
 	static const std::string InactiveSpriteFilename_DoubleTap;
 
+	static const std::string FailedSpriteFilename;
+	static const std::string CompletedSpriteFilename;
+
 	cocos2d::Scene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* InactiveSprite;

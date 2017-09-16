@@ -19,6 +19,9 @@ const std::string GameSquare::ActivationSpriteFilename_DangerousSecondTap = "gui
 const std::string GameSquare::InactiveSpriteFilename_Standard = "gui/bqsqr/bgsqr_0_inactive_512.png";
 const std::string GameSquare::InactiveSpriteFilename_DoubleTap = "gui/bqsqr/bgsqr_8_inactive_512.png";
 
+const std::string GameSquare::FailedSpriteFilename = "gui/squares/square_star_512.png";
+const std::string GameSquare::CompletedSpriteFilename = "gui/squares/square_inactive_512.png";
+
 GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX),
 PosY(argPosY),
@@ -172,7 +175,7 @@ void GameSquare::Failed(cocos2d::Sequence* ScaleUpSequence)
 
 void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence)
 {
-	CompletedSprite = Sprite::create("gui/squares/square_inactive_512.png");
+	CompletedSprite = Sprite::create(CompletedSpriteFilename);
 	CompletedSprite->setPosition(SpritePosition);
 	CompletedSprite->setOpacity(0.0f);
 	CompletedSprite->setScale(ActivationSprite->getScale());
@@ -187,7 +190,7 @@ void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* Sca
 
 	if (bShowFailedSprite)
 	{
-		FailedSprite = Sprite::create("gui/squares/square_star_512.png");
+		FailedSprite = Sprite::create(FailedSpriteFilename);
 		FailedSprite->setPosition(SpritePosition);
 		FailedSprite->setScale(FAILED_SPRITE_SIZE / TEXTURES_SIZE);
 		FailedSprite->setOpacity(0.0f);

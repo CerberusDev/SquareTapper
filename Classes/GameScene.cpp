@@ -74,7 +74,9 @@ bool GameScene::init()
 
 	RestartMenuItem = MenuItemImage::create("gui/icons/icon_replay_inactive_512.png", "img/ui/icon_replay_inactive_512.png",
 		[&](Ref* sender) {
+#ifdef _WINDOWS
 		LevelSelectScene::InitializeLevelParams();
+#endif
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 

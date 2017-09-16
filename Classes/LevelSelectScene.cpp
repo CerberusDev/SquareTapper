@@ -225,6 +225,7 @@ bool LevelSelectScene::init()
 
 	this->addChild(ResetProgressButton, 1);
 
+#ifdef _WINDOWS
 	auto ReloadScriptsButton = ui::Button::create("gui/icons/icon_replay_inactive_512.png", "img/ui/icon_replay_active_512.png");
 	ReloadScriptsButton->setPosition(Vec2(visibleSize.width * 0.12f, visibleSize.height * 0.07));
 	ReloadScriptsButton->setScale(100.0f / 512.0f);
@@ -237,6 +238,7 @@ bool LevelSelectScene::init()
 	});
 
 	this->addChild(ReloadScriptsButton, 1);
+#endif
 
 	return true;
 }

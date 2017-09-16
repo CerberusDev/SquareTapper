@@ -13,6 +13,8 @@ USING_NS_CC;
 
 #define INVISIBLE_MARGIN_SIZE 12.0f
 
+#define PAUSE_DURATION_AFTER_FIRST_TAP 0.23f
+
 const std::string GameSquare::ActivationSpriteFilename_Safe = "gui/squares/square_safe_main_512.png";
 const std::string GameSquare::ActivationSpriteFilename_Standard = "gui/squares/square_active_512.png";
 const std::string GameSquare::ActivationSpriteFilename_Dangerous = "gui/squares/square_dangerous_main_512.png";
@@ -134,7 +136,7 @@ void GameSquare::SquareCorrectlyTapped()
 
 		SetActivationFreeze(true);
 
-		auto DelayAction = DelayTime::create(0.23f);
+		auto DelayAction = DelayTime::create(PAUSE_DURATION_AFTER_FIRST_TAP);
 		auto UnfreezeFunc = CallFunc::create([&]() {
 			SetActivationFreeze(false);
 		});

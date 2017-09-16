@@ -21,15 +21,15 @@
 #	Standard + Double tap 2 + Bezpieczne kwadraty
 
 # ============= 1 - 3 =============
-0.5		1.2		0		0		0
+0.32	1.3		5		0		0
 
 ST			ST			ST
 ST			ST			ST
-DB			ST			DB
+ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.475	1.1		0		0		0
+0.4		1.2		6		0		0
 
 ST			DB			ST
 ST			ST			ST
@@ -37,7 +37,7 @@ ST			DB			ST
 ST			ST			ST
 ST			DB			ST
 
-0.45	1.05	0		0		0
+0.375	1.1		4		0		0
 
 ST			DB			ST
 ST			ST			ST
@@ -46,7 +46,7 @@ ST			ST			ST
 ST			DB			ST
 
 # ============= 4 - 6 =============
-0.425	1.0		0		0		0
+0.35	1.0		5		0		0
 
 DB			ST			DB
 ST			ST			ST
@@ -54,7 +54,7 @@ ST			ST			ST
 ST			ST			ST
 DB			ST			DB
 
-0.19	2.4		0		0		0
+0.325	1.0		3		0		0
 
 ST			ST			ST
 DB			ST			DB
@@ -62,7 +62,7 @@ ST			ST			ST
 DB			ST			DB
 ST			ST			ST
 
-0.375	1.1		0		0		0
+0.3		1.1		7		0		0
 
 DB			DB			DB
 ST			ST			ST
@@ -71,7 +71,7 @@ ST			DB			ST
 ST			DB			ST
 
 # ============= 7 - 9 =============
-0.345	1.1		0		0		0
+0.3		1.1		8		0		0
 
 ST			DB			ST
 ST			DB			ST
@@ -79,7 +79,7 @@ ST			DB			ST
 ST			DB			ST
 ST			DB			ST
 
-0.325	1.1		0		0		0
+0.3		1.1		5		0		0
 
 DB			ST			DB
 ST			ST			ST
@@ -87,7 +87,7 @@ DB			ST			DB
 ST			ST			ST
 DB			ST			DB
 
-0.3		1.0		0		0		0
+0.3		1.0		4		0		0
 
 DB			ST			ST
 ST			DB			ST
@@ -96,7 +96,7 @@ ST			DB			ST
 DB			ST			ST
 
 # ============= 10 - 12 =============
-0.285	1.05	0		0		0
+0.285	1.05	6		0		0
 
 ST			ST			ST
 DB			ST			DB
@@ -104,7 +104,7 @@ DB			ST			DB
 DB			ST			DB
 ST			ST			ST
 
-1.25	0.501	0		0		0
+0.27	1.05	5		0		0
 
 ST			DB			ST
 DB			ST			DB
@@ -112,7 +112,7 @@ ST			DB			ST
 DB			ST			DB
 ST			DB			ST
 
-0.27	1.1		0		0		0
+0.25	1.2		5		0		0
 
 DB			DB			DB
 ST			ST			ST
@@ -121,29 +121,28 @@ ST			ST			ST
 DB			DB			DB
 
 # ============= 13 - 15 =============
-0.31	1.225	0		0		0
+0.15	0.8		15		0		0
 
-DB			DB			DB
-DB			DB			DB
-DB			DB			DB
-DB			DB			DB
-DB			DB			DB
-
-
-0.175	2.5		0		0		0
-
-DB			DB			DB
-DB			DB			ST
 ST			ST			ST
-ST			DB			DB
-DB			DB			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.59	0.53	0		0		0
+0.175	2.0		5		0		0
 
+ST			ST			ST
 DB			ST			DB
+DB			ST			DB
+DB			ST			DB
+ST			ST			ST
+
+0.25	0.9		5		3		0
+
 ST			DB			ST
 ST			ST			ST
-DB			DB			DB
+DB			ST			DB
+ST			ST			ST
 ST			DB			ST
 
 

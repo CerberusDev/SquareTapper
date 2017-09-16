@@ -252,5 +252,9 @@ const std::string& GameSquare::GetActivationSpriteFilename(ESquareSafetyType arg
 	case ESquareSafetyType::Standard:			return ActivationSpriteFilename_Standard;
 	case ESquareSafetyType::Dangerous:			return ActivationSpriteFilename_Dangerous;
 	case ESquareSafetyType::DangerousSecondTap:	return ActivationSpriteFilename_DangerousSecondTap;
+
+	default:									return ActivationSpriteFilename_Standard;
 	}
+
+
 }

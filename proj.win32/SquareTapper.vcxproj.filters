@@ -37,13 +37,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\StarImage.cpp" />
-    <ClCompile Include="..\Classes\GameSquareDoubleTap.cpp" />
-    <ClCompile Include="..\Classes\GameSquareStandard.cpp" />
     <ClCompile Include="..\Classes\GameSquareSequence.cpp" />
     <ClCompile Include="..\Classes\TutorialScene.cpp" />
     <ClCompile Include="..\Classes\SquareTapper.cpp" />
-    <ClCompile Include="..\Classes\GameSquareDoubleTapSequence.cpp" />
-    <ClCompile Include="..\Classes\GameSquareSequenceStandard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -74,12 +70,8 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\StarImage.h" />
-    <ClInclude Include="..\Classes\GameSquareDoubleTap.h" />
-    <ClInclude Include="..\Classes\GameSquareStandard.h" />
     <ClInclude Include="..\Classes\GameSquareSequence.h" />
     <ClInclude Include="..\Classes\TutorialScene.h" />
-    <ClInclude Include="..\Classes\GameSquareDoubleTapSequence.h" />
-    <ClInclude Include="..\Classes\GameSquareSequenceStandard.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

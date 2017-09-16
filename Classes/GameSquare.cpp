@@ -16,7 +16,10 @@ const std::string GameSquare::ActivationSpriteFilename_Standard = "gui/squares/s
 const std::string GameSquare::ActivationSpriteFilename_Dangerous = "gui/squares/square_dangerous_main_512.png";
 const std::string GameSquare::ActivationSpriteFilename_DangerousSecondTap = "gui/squares/square_active_512.png";
 
-GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename):
+const std::string GameSquare::InactiveSpriteFilename_Standard = "gui/bqsqr/bgsqr_0_inactive_512.png";
+const std::string GameSquare::InactiveSpriteFilename_DoubleTap = "gui/bqsqr/bgsqr_8_inactive_512.png";
+
+GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -37,7 +40,7 @@ bAlreadyTapped(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
-	InactiveSprite = Sprite::create(InactiveSpriteFilename);
+	InactiveSprite = Sprite::create(bDoubleTap ? InactiveSpriteFilename_DoubleTap : InactiveSpriteFilename_Standard);
 	InactiveSprite->setPosition(SpritePosition);
 	InactiveSprite->setScale(SpritesScale);
 	ParentScene->addChild(InactiveSprite, 1);
@@ -116,7 +119,7 @@ void GameSquare::SquareCorrectlyTapped()
 		if (SafetyType == ESquareSafetyType::DangerousSecondTap)
 			ActivationSprite->setTexture(GetActivationSpriteFilename(ESquareSafetyType::Dangerous));
 
-		InactiveSprite->setTexture("gui/bqsqr/bgsqr_0_inactive_512.png");
+		InactiveSprite->setTexture(InactiveSpriteFilename_Standard);
 		bAlreadyTapped = true;
 
 		SetActivationFreeze(true);

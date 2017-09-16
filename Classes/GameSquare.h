@@ -20,6 +20,9 @@ protected:
 	static const std::string ActivationSpriteFilename_Dangerous;
 	static const std::string ActivationSpriteFilename_DangerousSecondTap;
 
+	static const std::string InactiveSpriteFilename_Standard;
+	static const std::string InactiveSpriteFilename_DoubleTap;
+
 	cocos2d::Scene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* InactiveSprite;
@@ -40,7 +43,7 @@ protected:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(cocos2d::Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename);
+	GameSquare(cocos2d::Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 	virtual ~GameSquare();
 
 	virtual void StartActivation(float ActivationTotalTime);

@@ -4,7 +4,7 @@
 
 #include "TutorialScene.h"
 #include "LevelSelectScene.h"
-#include "GameSquareStandard.h"
+#include "GameSquare.h"
 #include "GameScene.h"
 #include "ui/CocosGUI.h"
 
@@ -34,7 +34,7 @@ bool TutorialScene::init()
 	this->addChild(LevelButton, 0);
 
 	auto SpawnSquare = CallFunc::create([&]() {
-		Square = new GameSquareStandard(this, ESquareSafetyType::Standard, Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.5f), 0, 0);
+		Square = new GameSquare(this, false, ESquareSafetyType::Standard, Vec2(VisibleSize.width * 0.5f, VisibleSize.height * 0.5f), 0, 0);
 		Square->SetBlockTouchEvents(true);
 	});
 	auto Delay1 = DelayTime::create(0.7f);

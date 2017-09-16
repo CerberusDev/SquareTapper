@@ -24,7 +24,7 @@ protected:
 	GameMask* Mask;
 	std::vector<GameSquare*> ActiveSquares;
 	StarImage* StarImages[MAX_STARS_NUMBER];
-	GameSquare* NextSequenceSquareToActivate;
+	GameSquareSequence* NextSequenceSquareToActivate;
 	const LevelParams LevelParamsStruct;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;

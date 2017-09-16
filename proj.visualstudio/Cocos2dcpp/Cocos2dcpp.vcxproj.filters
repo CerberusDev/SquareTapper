@@ -2281,22 +2281,10 @@
     <ClInclude Include="..\..\Classes\StarImage.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Classes\GameSquareDoubleTap.h">
-      <Filter>jni</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Classes\GameSquareStandard.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Classes\GameSquareSequence.h">
       <Filter>jni</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classes\TutorialScene.h">
-      <Filter>jni</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Classes\GameSquareDoubleTapSequence.h">
-      <Filter>jni</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Classes\GameSquareSequenceStandard.h">
       <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>
@@ -4280,12 +4268,6 @@
     <ClCompile Include="..\..\Classes\StarImage.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Classes\GameSquareDoubleTap.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Classes\GameSquareStandard.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Classes\GameSquareSequence.cpp">
       <Filter>jni</Filter>
     </ClCompile>
@@ -4293,12 +4275,6 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\SquareTapper.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Classes\GameSquareDoubleTapSequence.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Classes\GameSquareSequenceStandard.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

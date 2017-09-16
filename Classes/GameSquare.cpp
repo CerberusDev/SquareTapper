@@ -130,15 +130,7 @@ void GameSquare::SquareCorrectlyTapped()
 	}
 	else
 	{
-		State = ESquareState::Completed;
-
-		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
-
-		auto ScaleSequence = ScaleUpActivationSquare();
-		ShowFinalSprites(false, ScaleSequence);
-
-		if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-			ParentGameScene->OnSquareCompleted(this);
+		Completed(true);
 	}
 }
 
@@ -150,13 +142,19 @@ void GameSquare::ActivationEnded()
 	}
 	else
 	{
-		State = ESquareState::Completed;
-
-		ShowFinalSprites(false);
-
-		if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-			ParentGameScene->OnSquareCompleted(this);
+		Completed(false);
 	}
+}
+
+void GameSquare::Completed(bool bUpscaleActivationSquare)
+{
+	State = ESquareState::Completed;
+	Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+
+	ShowFinalSprites(false, bUpscaleActivationSquare ? ScaleUpActivationSquare() : nullptr);
+
+	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+		ParentGameScene->OnSquareCompleted(this);
 }
 
 void GameSquare::Failed(cocos2d::Sequence* ScaleUpSequence)

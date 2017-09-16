@@ -57,6 +57,7 @@ protected:
 	virtual void ActivationEnded();
 	void ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence = nullptr);
 	cocos2d::Sequence* ScaleUpActivationSquare();
+	void Completed(bool bUpscaleActivationSquare);
 	void Failed(cocos2d::Sequence* ScaleUpSequence = nullptr);
 	const std::string& GetActivationSpriteFilename(ESquareSafetyType argSafetyType);
 };

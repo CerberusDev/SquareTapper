@@ -132,6 +132,19 @@ bool GameScene::init()
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
 		StarImages[i] = new StarImage(this, Vec2(GetScreenPositionX(i), STARS_POS_Y), i >= MAX_STARS_NUMBER - RecordStarsNumber);
 
+	SpawnGameObjects();
+
+	auto StartDelayAction = DelayTime::create(LevelParamsStruct.bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
+	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
+	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
+
+	CCLOG("Initialization end");
+
+	return true;
+}
+
+void GameScene::SpawnGameObjects()
+{
 	std::vector<int> SafeSquareIndices;
 	std::vector<int> DangerousSquareIndices;
 	std::vector<int> DangerousSecondTapSquareIndices;
@@ -165,79 +178,7 @@ bool GameScene::init()
 
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
-			Squares[x][y] = nullptr;
-
-	for (int DoubleTapIndex : LevelParamsStruct.DoubleTapSquareIndices)
-	{
-		ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
-
-		if (VectorContains(DangerousSquareIndices, DoubleTapIndex))
-			SquareSafetyTape = ESquareSafetyType::Dangerous;
-		else if (VectorContains(SafeSquareIndices, DoubleTapIndex))
-			SquareSafetyTape = ESquareSafetyType::Safe;
-		else if (VectorContains(DangerousSecondTapSquareIndices, DoubleTapIndex))
-			SquareSafetyTape = ESquareSafetyType::DangerousSecondTap;
-
-		int y = (DoubleTapIndex - 1) / SQUARE_AMOUNT_X;
-		int x = (DoubleTapIndex - 1) % SQUARE_AMOUNT_X;
-		Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
-		Squares[x][y] = new GameSquare(this, true, SquareSafetyTape, ScreenPos, x, y);
-	}
-
-	for (unsigned int SeqID = 0; SeqID < LevelParamsStruct.SequencesSquareIndices.size(); ++SeqID)
-	{
-		GameSquareSequence* LastSequenceSquare;
-
-		for (unsigned int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
-		{
-			int SquareIndex = LevelParamsStruct.SequencesSquareIndices[SeqID][i];
-			int y = (SquareIndex - 1) / SQUARE_AMOUNT_X;
-			int x = (SquareIndex - 1) % SQUARE_AMOUNT_X;
-			Vec2 ScreenPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
-
-			ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
-
-			if (VectorContains(DangerousSquareIndices, SquareIndex))
-				SquareSafetyTape = ESquareSafetyType::Dangerous;
-			else if (VectorContains(SafeSquareIndices, SquareIndex))
-				SquareSafetyTape = ESquareSafetyType::Safe;
-
-			GameSquareSequence* NewSequenceSquare;
-
-			if (VectorContains(LevelParamsStruct.SequenceDoubleTapSquareIndices, SquareIndex))
-				NewSequenceSquare = new GameSquareSequence(this, true, SquareSafetyTape, ScreenPos, x, y);
-			else
-				NewSequenceSquare = new GameSquareSequence(this, false, SquareSafetyTape, ScreenPos, x, y);
-
-			if (i == 0)
-				NewSequenceSquare->SetAsNextToActivate();
-			else
-				LastSequenceSquare->SetNextSquareInSequenceIndex(SquareIndex);
-
-			Squares[x][y] = NewSequenceSquare;
-			LastSequenceSquare = NewSequenceSquare;
-		}
-	}
-
-	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
-	{
-		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
-		{
-			if (Squares[x][y] == nullptr)
-			{
-				ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
-				const int SquareIndex = y * SQUARE_AMOUNT_X + x + 1;
-
-				if (VectorContains(DangerousSquareIndices, SquareIndex))
-					SquareSafetyTape = ESquareSafetyType::Dangerous;
-				else if (VectorContains(SafeSquareIndices, SquareIndex))
-					SquareSafetyTape = ESquareSafetyType::Safe;
-
-				Vec2 ScreepPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
-				Squares[x][y] = new GameSquare(this, false, SquareSafetyTape, ScreepPos, x, y);
-			}
-		}
-	}
+			SpawnSingleGameSquare(x, y, SafeSquareIndices, DangerousSquareIndices, DangerousSecondTapSquareIndices);
 
 	if (LevelParamsStruct.bSpawnGameMask)
 	{
@@ -246,14 +187,58 @@ bool GameScene::init()
 		else
 			Mask = new HorizontalGameMask(this, LevelParamsStruct.bKillingMask);
 	}
+}
 
-	auto StartDelayAction = DelayTime::create(LevelParamsStruct.bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
-	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
-	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
+void GameScene::SpawnSingleGameSquare(int x, int y, const std::vector<int>& SafeSquareIndices, const std::vector<int>& DangerousSquareIndices, const std::vector<int>& DangerousSecondTapSquareIndices)
+{
+	const int SquareIndex = y * SQUARE_AMOUNT_X + x + 1;
+	const Vec2 ScreepPos = Vec2(GetScreenPositionX(x), GetScreenPositionY(y));
+	const bool bDoubleTapSquare = VectorContains(LevelParamsStruct.DoubleTapSquareIndices, SquareIndex) || VectorContains(LevelParamsStruct.SequenceDoubleTapSquareIndices, SquareIndex);
+	bool bSequenceSquare = false;
+	bool bFirstInSequecne = false;
+	int NextSquareInSequenceIndex = -1;
 
-	CCLOG("Initialization end");
+	for (const std::vector<int>& CurrSequenceIndices : LevelParamsStruct.SequencesSquareIndices)
+	{
+		for (unsigned int i = 0; i < CurrSequenceIndices.size(); ++i)
+		{
+			if (CurrSequenceIndices[i] == SquareIndex)
+			{
+				bSequenceSquare = true;
 
-    return true;
+				if (i == 0)
+					bFirstInSequecne = true;
+
+				if (i + 1 < CurrSequenceIndices.size())
+					NextSquareInSequenceIndex = CurrSequenceIndices[i + 1];
+			}
+		}
+	}
+
+	ESquareSafetyType SquareSafetyTape = ESquareSafetyType::Standard;
+
+	if (VectorContains(DangerousSquareIndices, SquareIndex))
+		SquareSafetyTape = ESquareSafetyType::Dangerous;
+	else if (VectorContains(SafeSquareIndices, SquareIndex))
+		SquareSafetyTape = ESquareSafetyType::Safe;
+	else if (bDoubleTapSquare && VectorContains(DangerousSecondTapSquareIndices, SquareIndex))
+		SquareSafetyTape = ESquareSafetyType::DangerousSecondTap;
+
+	if (bSequenceSquare)
+	{
+		GameSquareSequence* NewSequenceSquare = new GameSquareSequence(this, bDoubleTapSquare, SquareSafetyTape, ScreepPos, x, y);
+		Squares[x][y] = NewSequenceSquare;
+
+		if (bFirstInSequecne)
+			NewSequenceSquare->SetAsNextToActivate();
+		
+		if (NextSquareInSequenceIndex != -1)
+			NewSequenceSquare->SetNextSquareInSequenceIndex(NextSquareInSequenceIndex);
+	}
+	else
+	{
+		Squares[x][y] = new GameSquare(this, bDoubleTapSquare, SquareSafetyTape, ScreepPos, x, y);
+	}
 }
 
 void GameScene::onExit()

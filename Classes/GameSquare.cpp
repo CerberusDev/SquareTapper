@@ -144,7 +144,11 @@ void GameSquare::SquareCorrectlyTapped()
 
 void GameSquare::ActivationEnded()
 {
-	if (SafetyType != ESquareSafetyType::Standard)
+	if (SafetyType == ESquareSafetyType::Standard)
+	{
+		Failed();
+	}
+	else
 	{
 		State = ESquareState::Completed;
 
@@ -152,10 +156,6 @@ void GameSquare::ActivationEnded()
 
 		if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
 			ParentGameScene->OnSquareCompleted(this);
-	}
-	else
-	{
-		Failed();
 	}
 }
 

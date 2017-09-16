@@ -156,7 +156,7 @@ void TutorialScene::InitTutorialDoubleTap()
 		auto HideTapLabel = CallFunc::create([TapLabel]() {
 			TapLabel->removeFromParent();
 		});
-		auto TapDelay = DelayTime::create(0.43f);
+		auto TapDelay = DelayTime::create(TapLabel2HideDelay);
 
 		TapLabel->runAction(Sequence::create(TapDelay, HideTapLabel, nullptr));
 	});

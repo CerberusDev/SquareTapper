@@ -25,6 +25,7 @@ protected:
 	std::vector<GameSquare*> ActiveSquares;
 	StarImage* StarImages[MAX_STARS_NUMBER];
 	GameSquareSequence* NextSequenceSquareToActivate;
+	std::vector<std::vector<int> > ModifiedSequencesSquareIndices;
 	const LevelParams LevelParamsStruct;
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;

@@ -176,6 +176,12 @@ void GameScene::SpawnGameObjects()
 		SafeSquareIndices.resize(LevelParamsStruct.SafeSquaresNumber);
 	}
 
+	ModifiedSequencesSquareIndices = LevelParamsStruct.SequencesSquareIndices;
+
+	for (std::vector<int>& CurrSequenceIndices : ModifiedSequencesSquareIndices)
+		if (rand() % 2 == 0)
+			std::reverse(CurrSequenceIndices.begin(), CurrSequenceIndices.end());
+
 	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			SpawnSingleGameSquare(x, y, SafeSquareIndices, DangerousSquareIndices, DangerousSecondTapSquareIndices);
@@ -198,7 +204,7 @@ void GameScene::SpawnSingleGameSquare(int x, int y, const std::vector<int>& Safe
 	bool bFirstInSequecne = false;
 	int NextSquareInSequenceIndex = -1;
 
-	for (const std::vector<int>& CurrSequenceIndices : LevelParamsStruct.SequencesSquareIndices)
+	for (const std::vector<int>& CurrSequenceIndices : ModifiedSequencesSquareIndices)
 	{
 		for (unsigned int i = 0; i < CurrSequenceIndices.size(); ++i)
 		{

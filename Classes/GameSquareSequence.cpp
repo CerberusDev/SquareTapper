@@ -7,12 +7,23 @@
 
 USING_NS_CC;
 
+const std::string GameSquareSequence::LineSpriteFilename = "gui/bqsqr/bgsqr_straight_inactive_512.png";
+
 GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY, const std::string& InactiveSpriteFilename) :
 GameSquare(argScene, bargDoubleTap, argSafetyType, argSpritePosition, argPosX, argPosY, InactiveSpriteFilename),
 NextSquareInSequenceIndex(-1),
 bMyTurnToActivate(false)
 {
+	auto LineSprite = Sprite::create(LineSpriteFilename);
+	LineSprite->setPosition(SpritePosition);
+	LineSprite->setScale(SpritesScale);
+	ParentScene->addChild(LineSprite, 1);
 
+	auto LineSprite2 = Sprite::create(LineSpriteFilename);
+	LineSprite2->setPosition(SpritePosition);
+	LineSprite2->setScale(SpritesScale);
+	LineSprite2->setRotation(90.0f);
+	ParentScene->addChild(LineSprite2, 1);
 }
 
 void GameSquareSequence::StartActivation(float ActivationTotalTime)

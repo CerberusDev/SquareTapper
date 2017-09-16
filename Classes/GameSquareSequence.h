@@ -10,6 +10,8 @@
 class GameSquareSequence : public GameSquare
 {
 protected:
+	static const std::string LineSpriteFilename;
+
 	int NextSquareInSequenceIndex;
 	bool bMyTurnToActivate;
 

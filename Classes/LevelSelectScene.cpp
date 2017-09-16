@@ -109,6 +109,8 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 				}
 			}
 
+			NewLevelParams.DangerousSecondTapSquaresNumber = std::min(NewLevelParams.DangerousSecondTapSquaresNumber, (int)NewLevelParams.DoubleTapSquareIndices.size());
+
 			LevelParamsContainer.back().push_back(NewLevelParams);
 		}
 	}

@@ -108,7 +108,7 @@ bool GameScene::init()
 	float LevelLabelFontSize = 50.0f;
 	std::stringstream LevelLabelStream;
 	LevelLabelStream << "Lv " << LevelParamsStruct.LevelDisplayNumber;
-	auto LevelLabel = Label::createWithTTF(LevelLabelStream.str(), "fonts/ADAM.CGPRO.ttf", LevelLabelFontSize);
+	auto LevelLabel = Label::createWithTTF(LevelLabelStream.str(), FONT_FILE_PATH_STANDARD, LevelLabelFontSize);
 	LevelLabel->setPosition(Vec2(GetScreenPositionX(1), LABELS_POS_Y));
 	LevelLabel->setColor(Color3B(120, 115, 109));
 	this->addChild(LevelLabel, 1);
@@ -121,7 +121,7 @@ bool GameScene::init()
 	float AttemptsNrLabelFontSize = 30.0f;
 	std::stringstream AttemptsNrLabelStream;
 	AttemptsNrLabelStream << "." << AttemptsNumber;
-	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), "fonts/ADAM.CGPRO.ttf", AttemptsNrLabelFontSize);
+	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), FONT_FILE_PATH_STANDARD, AttemptsNrLabelFontSize);
 	AttemptsNrLabel->setPosition(Vec2(GetScreenPositionX(2), LABELS_POS_Y));
 	AttemptsNrLabel->setColor(Color3B(120, 115, 109));
 	this->addChild(AttemptsNrLabel, 1);

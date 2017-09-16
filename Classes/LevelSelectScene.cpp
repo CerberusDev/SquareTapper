@@ -193,7 +193,7 @@ bool LevelSelectScene::init()
 
 			std::stringstream Stream;
 			Stream << LevelParamsContainer[i][j].LevelDisplayNumber;
-			LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), "fonts/ADAM.CGPRO.ttf", LevelButtonFontSize));
+			LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LevelButtonFontSize));
 
 			PageLayout->addChild(LevelButton);
 		}

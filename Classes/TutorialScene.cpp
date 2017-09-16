@@ -84,7 +84,7 @@ void TutorialScene::InitTutorialStandard()
 		Square->SimulateCorrectTap();
 
 		const float TapLabelFontSize = 30.0f;
-		auto TapLabel = Label::createWithTTF("*Tap!*", "fonts/ADAM.CGPRO.ttf", TapLabelFontSize);
+		auto TapLabel = Label::createWithTTF("*Tap!*", FONT_FILE_PATH_STANDARD, TapLabelFontSize);
 		TapLabel->setPosition(TapLabelPosition);
 		this->addChild(TapLabel, 1);
 
@@ -133,7 +133,7 @@ void TutorialScene::InitTutorialDoubleTap()
 		Square->SimulateCorrectTap();
 
 		const float TapLabelFontSize = 30.0f;
-		auto TapLabel = Label::createWithTTF("*Tap!*", "fonts/ADAM.CGPRO.ttf", TapLabelFontSize);
+		auto TapLabel = Label::createWithTTF("*Tap!*", FONT_FILE_PATH_STANDARD, TapLabelFontSize);
 		TapLabel->setPosition(TapLabelPosition);
 		this->addChild(TapLabel, 1);
 
@@ -149,7 +149,7 @@ void TutorialScene::InitTutorialDoubleTap()
 		Square->SimulateCorrectTap();
 
 		const float TapLabelFontSize = 30.0f;
-		auto TapLabel = Label::createWithTTF("*Tap!*", "fonts/ADAM.CGPRO.ttf", TapLabelFontSize);
+		auto TapLabel = Label::createWithTTF("*Tap!*", FONT_FILE_PATH_STANDARD, TapLabelFontSize);
 		TapLabel->setPosition(TapLabel2Position);
 		this->addChild(TapLabel, 1);
 
@@ -175,7 +175,7 @@ void TutorialScene::InitTutorialDoubleTap()
 void TutorialScene::CreateInstructionLabel(const std::string& InstructionString, float PosX, float PosY)
 {
 	const float InstructionLabelFontSize = 35.0f;
-	auto InstructionLabel = Label::createWithTTF(InstructionString, "fonts/ADAM.CGPRO.ttf", InstructionLabelFontSize);
+	auto InstructionLabel = Label::createWithTTF(InstructionString, FONT_FILE_PATH_STANDARD, InstructionLabelFontSize);
 	InstructionLabel->setPosition(Vec2(PosX, PosY));
 	InstructionLabel->setDimensions(INSTRUCTION_LABEL_WIDTH, 0);
 	this->addChild(InstructionLabel, 0);
@@ -190,6 +190,6 @@ void TutorialScene::CreateConfirationButton(float PosX, float PosY, int WorldNum
 	});
 	LevelButton->setPosition(Vec2(PosX, PosY));
 	const float LevelButtonFontSize = 50.0f / Director::getInstance()->getContentScaleFactor();
-	LevelButton->setTitleLabel(Label::createWithTTF("Got it!", "fonts/ADAM.CGPRO.ttf", LevelButtonFontSize));
+	LevelButton->setTitleLabel(Label::createWithTTF("Got it!", FONT_FILE_PATH_STANDARD, LevelButtonFontSize));
 	this->addChild(LevelButton, 0);
 }

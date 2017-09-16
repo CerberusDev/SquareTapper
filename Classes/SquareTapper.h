@@ -17,6 +17,8 @@
 #define WORLD_NUMBER_ON_TUTORIAL_STANDARD 0
 #define WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP 1
 
+#define FONT_FILE_PATH_STANDARD "fonts/ADAM.CGPRO.ttf"
+
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 enum class ESquareSafetyType { Safe, Standard, Dangerous, DangerousSecondTap };
 enum class ETutorialType { StandardSquare, DoubleTapSquare };

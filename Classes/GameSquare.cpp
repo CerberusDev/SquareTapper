@@ -255,6 +255,4 @@ const std::string& GameSquare::GetActivationSpriteFilename(ESquareSafetyType arg
 
 	default:									return ActivationSpriteFilename_Standard;
 	}
-
-
 }

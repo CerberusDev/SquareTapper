@@ -11,6 +11,8 @@ USING_NS_CC;
 #define FAILED_SPRITE_SIZE 46.0f
 #define TEXTURES_SIZE 512.0f
 
+#define INVISIBLE_MARGIN_SIZE 12.0f
+
 const std::string GameSquare::ActivationSpriteFilename_Safe = "gui/squares/square_safe_main_512.png";
 const std::string GameSquare::ActivationSpriteFilename_Standard = "gui/squares/square_active_512.png";
 const std::string GameSquare::ActivationSpriteFilename_Dangerous = "gui/squares/square_dangerous_main_512.png";
@@ -53,6 +55,11 @@ bPausedOnGameOver(false)
 	EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
 		Vec2 p = touch->getLocation();
 		Rect rect = InactiveSprite->getBoundingBox();
+
+		rect.size.width += INVISIBLE_MARGIN_SIZE * 2.0f;
+		rect.size.height += INVISIBLE_MARGIN_SIZE * 2.0f;
+		rect.origin.x -= INVISIBLE_MARGIN_SIZE;
+		rect.origin.y -= INVISIBLE_MARGIN_SIZE;
 
 		if (rect.containsPoint(p))
 		{

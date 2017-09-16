@@ -127,10 +127,10 @@ void LevelSelectScene::AddSequenceSquareToLevelParams(LevelParams& CurrLevelPara
 	TailStringStream >> SequenceID;
 	TailStringStream >> SquareIndexInSequence;
 
-	while (CurrLevelParamsStruct.SequencesSquareIndices.size() <= SequenceID)
+	while ((int)CurrLevelParamsStruct.SequencesSquareIndices.size() <= SequenceID)
 		CurrLevelParamsStruct.SequencesSquareIndices.push_back(std::vector<int>());
 
-	while (CurrLevelParamsStruct.SequencesSquareIndices[SequenceID].size() <= SquareIndexInSequence)
+	while ((int)CurrLevelParamsStruct.SequencesSquareIndices[SequenceID].size() <= SquareIndexInSequence)
 		CurrLevelParamsStruct.SequencesSquareIndices[SequenceID].push_back(-1);
 	
 	CurrLevelParamsStruct.SequencesSquareIndices[SequenceID][SquareIndexInSequence] = SquareIndex;

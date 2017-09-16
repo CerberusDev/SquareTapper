@@ -88,7 +88,7 @@ bool GameScene::init()
 	{
 		NextMenuItem = MenuItemImage::create("gui/icons/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
 			[&](Ref* sender) {
-			if (LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
+			if ((int)LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
 			else
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
@@ -182,11 +182,11 @@ bool GameScene::init()
 		Squares[x][y] = new GameSquare(this, true, SquareSafetyTape, ScreenPos, x, y);
 	}
 
-	for (int SeqID = 0; SeqID < LevelParamsStruct.SequencesSquareIndices.size(); ++SeqID)
+	for (unsigned int SeqID = 0; SeqID < LevelParamsStruct.SequencesSquareIndices.size(); ++SeqID)
 	{
 		GameSquareSequence* LastSequenceSquare;
 
-		for (int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
+		for (unsigned int i = 0; i < LevelParamsStruct.SequencesSquareIndices[SeqID].size(); ++i)
 		{
 			int SquareIndex = LevelParamsStruct.SequencesSquareIndices[SeqID][i];
 			int y = (SquareIndex - 1) / SQUARE_AMOUNT_X;

@@ -31,36 +31,36 @@ ST			ST			ST
 
 0.4		1.2		6		0		0
 
-ST			DB			ST
 ST			ST			ST
-ST			DB			ST
 ST			ST			ST
-ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 0.375	1.1		4		0		0
 
-ST			DB			ST
 ST			ST			ST
-DB			ST			DB
 ST			ST			ST
-ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 4 - 6 =============
 0.35	1.0		5		0		0
 
-DB			ST			DB
+ST			DB			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
-DB			ST			DB
+ST			DB			ST
 
 0.325	1.0		3		0		0
 
-ST			ST			ST
 DB			ST			DB
 ST			ST			ST
-DB			ST			DB
 ST			ST			ST
+ST			ST			ST
+DB			ST			DB
 
 0.3		1.1		7		0		0
 
@@ -89,11 +89,11 @@ DB			ST			DB
 
 0.3		1.0		4		0		0
 
-DB			ST			ST
 ST			DB			ST
-ST			ST			DB
 ST			DB			ST
-DB			ST			ST
+ST			ST			ST
+DB			DB			DB
+ST			ST			ST
 
 # ============= 10 - 12 =============
 0.285	1.05	6		0		0
@@ -108,7 +108,7 @@ ST			ST			ST
 
 ST			DB			ST
 DB			ST			DB
-ST			DB			ST
+ST			ST			ST
 DB			ST			DB
 ST			DB			ST
 

@@ -158,9 +158,12 @@ bool LevelSelectScene::init()
 	PageViewMenu->setContentSize(Size(visibleSize.width, visibleSize.height));
 	PageViewMenu->setBounceEnabled(true);
 
+	std::vector<ui::Layout*> PageLayouts;
+
 	for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
 	{
 		auto PageLayout = ui::Layout::create();
+		PageLayouts.push_back(PageLayout);
 		PageLayout->setContentSize(Size(visibleSize.width, visibleSize.height));
 		PageViewMenu->addPage(PageLayout);
 
@@ -169,8 +172,10 @@ bool LevelSelectScene::init()
 
 		CreateWorldIcon(i, PageLayout);
 		CreateTopArrowsIcons(i, PageLayout);
-		CreateStarsLabel(PageLayout);
 	}
+
+	for (ui::Layout* PageLayout : PageLayouts)
+		CreateStarsLabel(PageLayout);
 
 	this->addChild(PageViewMenu, 0);
 	PageViewMenu->setCurrentPageIndex(StartWorldNumber);

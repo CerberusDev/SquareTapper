@@ -7,8 +7,7 @@
 
 USING_NS_CC;
 
-#define CURRENT_SPRITE_SIZE 34.0f
-#define RECORD_SPRITE_SIZE 46.0f
+#define CURRENT_SPRITE_SIZE SMALL_SQUARE_SIZE * 0.74f
 
 const std::string StarImage::StarImageFilePath_Active = "gui/squares/square_star_512.png";
 const std::string StarImage::StarImageFilePath_Inactive = "gui/squares/square_inactive_512.png";
@@ -25,7 +24,7 @@ Position(argPosition)
 
 	auto RecordSprite = RecordSpriteActive ? Sprite::create(StarImageFilePath_Active) : Sprite::create(StarImageFilePath_Inactive);
 	RecordSprite->setPosition(Position);
-	RecordSprite->setScale(RECORD_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
+	RecordSprite->setScale(SMALL_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
 	ParentScene->addChild(RecordSprite, 1);
 }
 

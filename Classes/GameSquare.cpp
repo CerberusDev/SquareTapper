@@ -7,8 +7,6 @@
 
 USING_NS_CC;
 
-#define FAILED_SPRITE_SIZE 46.0f
-
 #define INVISIBLE_MARGIN_SIZE 12.0f
 
 #define PAUSE_DURATION_AFTER_FIRST_TAP 0.23f
@@ -199,7 +197,7 @@ void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* Sca
 	{
 		FailedSprite = Sprite::create(FailedSpriteFilename);
 		FailedSprite->setPosition(SpritePosition);
-		FailedSprite->setScale(FAILED_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
+		FailedSprite->setScale(SMALL_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
 		FailedSprite->setOpacity(0.0f);
 		ParentScene->addChild(FailedSprite, 3);
 

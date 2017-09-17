@@ -14,9 +14,9 @@ USING_NS_CC;
 
 #define BOTTOM_SQUARES_POS_Y 200.0f
 #define DIST_BETWEEN_SQUARES 190.0f
-#define LABELS_POS_Y 1195.0f
+#define LABELS_POS_Y 1190.0f
 #define BUTTONS_POS_Y (BOTTOM_SQUARES_POS_Y - SQUARE_SPRITE_SIZE * 0.5f) * 0.5f
-#define STARS_POS_Y 1125.0f
+#define STARS_POS_Y 1110.0f
 
 GameScene::GameScene(LevelParams argLevelParamsStruct):
 BackMenuItem(nullptr),

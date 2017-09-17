@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-#define ARROW_ICON_SIZE 100.0f
+#define ARROW_ICON_SIZE 120.0f
 
 const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_inactive_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/percent/percent_33_inactive_star_512.png";

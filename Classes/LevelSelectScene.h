@@ -34,6 +34,7 @@ public:
 	void CreateLevelButton(int WorldNumber, int LevelNumber, cocos2d::ui::Layout* PageLayout);
 	const std::string& GetLevelButtonSpriteFilename(int StarsNumber);
 	void CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout);
+	void CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateResetProgressButton();
 	void CreateReloadScriptsButton();
 };

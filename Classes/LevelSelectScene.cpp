@@ -8,6 +8,8 @@
 
 USING_NS_CC;
 
+#define ARROW_ICON_SIZE 100.0f
+
 const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_inactive_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/percent/percent_33_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_2Stars = "gui/percent/percent_66_inactive_star_512.png";
@@ -165,6 +167,7 @@ bool LevelSelectScene::init()
 			CreateLevelButton(i, j, PageLayout);
 
 		CreateWorldIcon(i, PageLayout);
+		CreateTopArrowsIcons(i, PageLayout);
 	}
 
 	this->addChild(PageViewMenu, 0);
@@ -234,6 +237,32 @@ void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* Pag
 	WorldIcon->setPosition(Vec2(DESIGN_RES_X / 2.0f, GameScene::GetScreenPositionY(SQUARE_AMOUNT_Y)));
 	WorldIcon->setScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
 	PageLayout->addChild(WorldIcon);
+}
+
+void LevelSelectScene::CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout* PageLayout)
+{
+	auto LeftArrowIcon = Sprite::create();
+
+	if (WorldNumber == 0)
+		LeftArrowIcon->setTexture("gui/icons/icon_arrow_inactive_512.png");
+	else
+		LeftArrowIcon->setTexture("gui/icons/icon_arrow_active_512.png");
+
+	LeftArrowIcon->setFlippedX(true);
+	LeftArrowIcon->setScale(ARROW_ICON_SIZE / BUTTON_TEXTURES_SIZE);
+	LeftArrowIcon->setPosition(Vec2(GameScene::GetScreenPositionX(0), GameScene::GetStarPositionY()));
+	PageLayout->addChild(LeftArrowIcon);
+
+	auto RightArrowIcon = Sprite::create();
+
+	if (WorldNumber == LevelParamsContainer.size() - 1)
+		RightArrowIcon->setTexture("gui/icons/icon_arrow_inactive_512.png");
+	else
+		RightArrowIcon->setTexture("gui/icons/icon_arrow_active_512.png");
+
+	RightArrowIcon->setScale(ARROW_ICON_SIZE / BUTTON_TEXTURES_SIZE);
+	RightArrowIcon->setPosition(Vec2(GameScene::GetScreenPositionX(MAX_STARS_NUMBER - 1), GameScene::GetStarPositionY()));
+	PageLayout->addChild(RightArrowIcon);
 }
 
 void LevelSelectScene::CreateResetProgressButton()

@@ -12,10 +12,6 @@
 
 USING_NS_CC;
 
-#define BLINK_TEXTURES_SIZE 512.0f
-#define BUTTON_TEXTURES_SIZE 512.0f
-#define BUTTON_SPRITE_SIZE 100.0f
-
 #define BOTTOM_SQUARES_POS_Y 200.0f
 #define DIST_BETWEEN_SQUARES 190.0f
 #define LABELS_POS_Y 1195.0f
@@ -130,7 +126,7 @@ bool GameScene::init()
 	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelRecordKey.c_str(), 0);
 
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
-		StarImages[i] = new StarImage(this, Vec2(GetScreenPositionX(i), STARS_POS_Y), i >= MAX_STARS_NUMBER - RecordStarsNumber);
+		StarImages[i] = new StarImage(this, Vec2(GetScreenPositionX(i), GetStarPositionY()), i >= MAX_STARS_NUMBER - RecordStarsNumber);
 
 	SpawnGameObjects();
 
@@ -271,6 +267,11 @@ float GameScene::GetScreenPositionX(int SquareIndexX)
 float GameScene::GetScreenPositionY(int SquareIndexY)
 {
 	return BOTTOM_SQUARES_POS_Y + DIST_BETWEEN_SQUARES * SquareIndexY;
+}
+
+float GameScene::GetStarPositionY()
+{
+	return STARS_POS_Y;
 }
 
 GameSquare* GameScene::GetSquareByIndex(int Index) const
@@ -437,7 +438,7 @@ void GameScene::Blink(const std::string& SpriteFilePath)
 	auto BlinkSprite = Sprite::create(SpriteFilePath);
 	BlinkSprite->setOpacity(0.0f);
 	BlinkSprite->setPosition(DESIGN_RES_X / 2.0f, DESIGN_RES_Y / 2.0f);
-	BlinkSprite->setScale(DESIGN_RES_X / BLINK_TEXTURES_SIZE, DESIGN_RES_Y / BLINK_TEXTURES_SIZE);
+	BlinkSprite->setScale(DESIGN_RES_X / SQUARE_TEXTURES_SIZE, DESIGN_RES_Y / SQUARE_TEXTURES_SIZE);
 	addChild(BlinkSprite, 30);
 
 	auto FadeInAction = FadeTo::create(0.08f, 160);

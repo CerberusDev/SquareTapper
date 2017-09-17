@@ -22,7 +22,9 @@
 #define FONT_FILE_PATH_STANDARD "fonts/ADAM.CGPRO.ttf"
 
 #define SQUARE_TEXTURES_SIZE 512.0f
+#define BUTTON_TEXTURES_SIZE 512.0f
 #define SQUARE_SPRITE_SIZE 160.0f
+#define BUTTON_SPRITE_SIZE 100.0f
 
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 enum class ESquareSafetyType { Safe, Standard, Dangerous, DangerousSecondTap };

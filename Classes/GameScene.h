@@ -45,6 +45,7 @@ public:
 	static GameScene* create(LevelParams argLevelParamsStruct);
 	static float GetScreenPositionX(int SquareIndexX);
 	static float GetScreenPositionY(int SquareIndexY);
+	static float GetStarPositionY();
 
 	void SpawnGameObjects();
 	void SpawnSingleGameSquare(int x, int y, const std::vector<int>& SafeSquareIndices, const std::vector<int>& DangerousSquareIndices, const std::vector<int>& DangerousSecondTapSquareIndices);

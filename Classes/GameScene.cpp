@@ -101,12 +101,12 @@ bool GameScene::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
-	float LevelLabelFontSize = 50.0f;
+	float LevelLabelFontSize = 60.0f;
 	std::stringstream LevelLabelStream;
 	LevelLabelStream << "Lv " << LevelParamsStruct.LevelDisplayNumber;
 	auto LevelLabel = Label::createWithTTF(LevelLabelStream.str(), FONT_FILE_PATH_STANDARD, LevelLabelFontSize);
-	LevelLabel->setPosition(Vec2(GetScreenPositionX(1), LABELS_POS_Y));
-	LevelLabel->setColor(Color3B(120, 115, 109));
+	LevelLabel->setPosition(Vec2(GetScreenPositionX(1), GetLabelsPositionY()));
+	LevelLabel->setColor(GREY_COLOR);
 	this->addChild(LevelLabel, 1);
 
 	const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsStruct.LevelDisplayNumber);
@@ -114,12 +114,12 @@ bool GameScene::init()
 	++AttemptsNumber;
 	UserDefault::getInstance()->setIntegerForKey(LevelAttemptsKey.c_str(), AttemptsNumber);
 
-	float AttemptsNrLabelFontSize = 30.0f;
+	float AttemptsNrLabelFontSize = 40.0f;
 	std::stringstream AttemptsNrLabelStream;
 	AttemptsNrLabelStream << "." << AttemptsNumber;
 	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), FONT_FILE_PATH_STANDARD, AttemptsNrLabelFontSize);
-	AttemptsNrLabel->setPosition(Vec2(GetScreenPositionX(2), LABELS_POS_Y));
-	AttemptsNrLabel->setColor(Color3B(120, 115, 109));
+	AttemptsNrLabel->setPosition(Vec2(GetScreenPositionX(MAX_STARS_NUMBER - 1), GetLabelsPositionY()));
+	AttemptsNrLabel->setColor(GREY_COLOR);
 	this->addChild(AttemptsNrLabel, 1);
 
 	const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
@@ -272,6 +272,11 @@ float GameScene::GetScreenPositionY(int SquareIndexY)
 float GameScene::GetStarPositionY()
 {
 	return STARS_POS_Y;
+}
+
+float GameScene::GetLabelsPositionY()
+{
+	return LABELS_POS_Y;
 }
 
 GameSquare* GameScene::GetSquareByIndex(int Index) const

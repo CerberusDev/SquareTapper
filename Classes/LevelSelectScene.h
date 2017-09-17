@@ -17,6 +17,7 @@ protected:
 
 	static std::vector<std::vector<LevelParams>> LevelParamsContainer;
 	int StartWorldNumber;
+	int TotalNumberOfStars;
 
 // ---------------------------------------------------------------------------------------------------
 
@@ -35,6 +36,7 @@ public:
 	const std::string& GetLevelButtonSpriteFilename(int StarsNumber);
 	void CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout* PageLayout);
+	void CreateStarsLabel(cocos2d::ui::Layout* PageLayout);
 	void CreateResetProgressButton();
 	void CreateReloadScriptsButton();
 };

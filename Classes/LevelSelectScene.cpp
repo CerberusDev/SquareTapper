@@ -18,7 +18,8 @@ const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/squa
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 
 LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
-StartWorldNumber(argStartWorldNumber)
+StartWorldNumber(argStartWorldNumber),
+TotalNumberOfStars(0)
 {
 
 }
@@ -168,6 +169,7 @@ bool LevelSelectScene::init()
 
 		CreateWorldIcon(i, PageLayout);
 		CreateTopArrowsIcons(i, PageLayout);
+		CreateStarsLabel(PageLayout);
 	}
 
 	this->addChild(PageViewMenu, 0);
@@ -188,6 +190,8 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 
 	std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber);
 	int StarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);
+	TotalNumberOfStars += StarsNumber;
+
 	const std::string& LevelButtonSpriteFilename = GetLevelButtonSpriteFilename(StarsNumber);
 
 	auto LevelButton = ui::Button::create(LevelButtonSpriteFilename, LevelButtonSpriteFilename);
@@ -263,6 +267,17 @@ void LevelSelectScene::CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout
 	RightArrowIcon->setScale(ARROW_ICON_SIZE / BUTTON_TEXTURES_SIZE);
 	RightArrowIcon->setPosition(Vec2(GameScene::GetScreenPositionX(MAX_STARS_NUMBER - 1), GameScene::GetStarPositionY()));
 	PageLayout->addChild(RightArrowIcon);
+}
+
+void LevelSelectScene::CreateStarsLabel(cocos2d::ui::Layout* PageLayout)
+{
+	float LabelFontSize = 40.0f;
+	std::stringstream Stream;
+	Stream << "." << TotalNumberOfStars;
+	auto StarsLabel = Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LabelFontSize);
+	StarsLabel->setPosition(Vec2(GameScene::GetScreenPositionX(MAX_STARS_NUMBER - 1), GameScene::GetLabelsPositionY()));
+	StarsLabel->setColor(GOLD_COLOR);
+	PageLayout->addChild(StarsLabel);
 }
 
 void LevelSelectScene::CreateResetProgressButton()

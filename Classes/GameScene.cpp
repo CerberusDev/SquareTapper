@@ -262,13 +262,13 @@ void GameScene::onExit()
 		delete StarImages[i];
 }
 
-float GameScene::GetScreenPositionX(int SquareIndexX) const
+float GameScene::GetScreenPositionX(int SquareIndexX)
 {
 	const float Margin = (DESIGN_RES_X - DIST_BETWEEN_SQUARES * (SQUARE_AMOUNT_X - 1)) / 2.0f;
 	return Margin + DIST_BETWEEN_SQUARES * SquareIndexX;
 }
 
-float GameScene::GetScreenPositionY(int SquareIndexY) const
+float GameScene::GetScreenPositionY(int SquareIndexY)
 {
 	return BOTTOM_SQUARES_POS_Y + DIST_BETWEEN_SQUARES * SquareIndexY;
 }

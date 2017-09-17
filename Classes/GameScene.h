@@ -43,11 +43,11 @@ public:
 	virtual void onExit();
     
 	static GameScene* create(LevelParams argLevelParamsStruct);
+	static float GetScreenPositionX(int SquareIndexX);
+	static float GetScreenPositionY(int SquareIndexY);
 
 	void SpawnGameObjects();
 	void SpawnSingleGameSquare(int x, int y, const std::vector<int>& SafeSquareIndices, const std::vector<int>& DangerousSquareIndices, const std::vector<int>& DangerousSecondTapSquareIndices);
-	float GetScreenPositionX(int SquareIndexX) const;
-	float GetScreenPositionY(int SquareIndexY) const;
 	GameSquare* GetSquareForActivation();
 	void ActivateNextSquare();
 	void QueueNextSquareActivation(float Delay);

@@ -10,6 +10,11 @@
 class LevelSelectScene : public cocos2d::Scene
 {
 protected:
+	static const std::string LevelButtonSpriteFilename_0Stars;
+	static const std::string LevelButtonSpriteFilename_1Star;
+	static const std::string LevelButtonSpriteFilename_2Stars;
+	static const std::string LevelButtonSpriteFilename_3Stars;
+
 	static std::vector<std::vector<LevelParams>> LevelParamsContainer;
 	int StartWorldNumber;
 
@@ -27,6 +32,7 @@ public:
 	static LevelSelectScene* create(int argStartWorldNumber);
 
 	void CreateLevelButton(int WorldNumber, int LevelNumber, cocos2d::ui::Layout* PageLayout);
+	const std::string& GetLevelButtonSpriteFilename(int StarsNumber);
 	void CreateResetProgressButton();
 	void CreateReloadScriptsButton();
 };

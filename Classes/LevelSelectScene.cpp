@@ -8,6 +8,11 @@
 
 USING_NS_CC;
 
+const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_inactive_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/percent/percent_33_inactive_star_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_2Stars = "gui/percent/percent_66_inactive_star_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/squares/square_star_512.png";
+
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 
 LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
@@ -174,19 +179,14 @@ bool LevelSelectScene::init()
 
 void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos2d::ui::Layout* PageLayout)
 {
-	static const float LevelButtonFontSize = 56.0f;
+	static const float LevelButtonFontSize = 180.0f;
 
 	std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber);
-
 	int StarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);
+	const std::string& LevelButtonSpriteFilename = GetLevelButtonSpriteFilename(StarsNumber);
 
-	std::stringstream StringStreamIdle;
-	StringStreamIdle << "img/ui/LevelButton" << StarsNumber << "_idle.png";
-
-	std::stringstream StringStreamPressed;
-	StringStreamPressed << "img/ui/LevelButton" << StarsNumber << "_pressed.png";
-
-	auto LevelButton = ui::Button::create(StringStreamIdle.str(), StringStreamPressed.str());
+	auto LevelButton = ui::Button::create(LevelButtonSpriteFilename, LevelButtonSpriteFilename);
+	LevelButton->setScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
 	LevelButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
@@ -198,13 +198,29 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 				Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
 		}
 	});
-	LevelButton->setPosition(Vec2(180.0f * (LevelNumber % 3 + 1), 1280.0f * (0.8 - 0.15f * (LevelNumber / 3))));
+	Vec2 LevelButtonPostion;
+	LevelButtonPostion.x = GameScene::GetScreenPositionX(LevelNumber % SQUARE_AMOUNT_X);
+	LevelButtonPostion.y = GameScene::GetScreenPositionY((SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y - 1 - LevelNumber) / SQUARE_AMOUNT_X);
+	LevelButton->setPosition(LevelButtonPostion);
 
 	std::stringstream Stream;
 	Stream << LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber;
 	LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LevelButtonFontSize));
+	LevelButton->setTitleColor(BACKGROUND_COLOR);
 
 	PageLayout->addChild(LevelButton);
+}
+
+const std::string& LevelSelectScene::GetLevelButtonSpriteFilename(int StarsNumber)
+{
+	switch (StarsNumber)
+	{
+	case 3:		return LevelButtonSpriteFilename_3Stars;
+	case 2:		return LevelButtonSpriteFilename_2Stars;
+	case 1:		return LevelButtonSpriteFilename_1Star;
+										
+	default:	return LevelButtonSpriteFilename_0Stars;
+	}
 }
 
 void LevelSelectScene::CreateResetProgressButton()

@@ -163,6 +163,8 @@ bool LevelSelectScene::init()
 
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 			CreateLevelButton(i, j, PageLayout);
+
+		CreateWorldIcon(i, PageLayout);
 	}
 
 	this->addChild(PageViewMenu, 0);
@@ -221,6 +223,17 @@ const std::string& LevelSelectScene::GetLevelButtonSpriteFilename(int StarsNumbe
 										
 	default:	return LevelButtonSpriteFilename_0Stars;
 	}
+}
+
+void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout)
+{
+	std::stringstream Stream;
+	Stream << "gui/signs/sign_00" << WorldNumber + 1 << "_inactive_512.png";
+
+	auto WorldIcon = Sprite::create(Stream.str());
+	WorldIcon->setPosition(Vec2(DESIGN_RES_X / 2.0f, GameScene::GetScreenPositionY(SQUARE_AMOUNT_Y)));
+	WorldIcon->setScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
+	PageLayout->addChild(WorldIcon);
 }
 
 void LevelSelectScene::CreateResetProgressButton()

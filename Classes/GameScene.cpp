@@ -64,7 +64,7 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
 	});
 
-	BackMenuItem->setPosition(Vec2(GetScreenPositionX(0), BUTTONS_POS_Y));
+	BackMenuItem->setPosition(Vec2(GetScreenPositionX(0), GetButtonsPositionY()));
 	BackMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 	MenuItems.pushBack(BackMenuItem);
 
@@ -76,7 +76,7 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(GameScene::create(LevelParamsStruct));
 	});
 
-	RestartMenuItem->setPosition(Vec2(GetScreenPositionX(2), BUTTONS_POS_Y));
+	RestartMenuItem->setPosition(Vec2(GetScreenPositionX(2), GetButtonsPositionY()));
 	RestartMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 	MenuItems.pushBack(RestartMenuItem);
 
@@ -92,7 +92,7 @@ bool GameScene::init()
 				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
 		});
 
-		NextMenuItem->setPosition(Vec2(GetScreenPositionX(1), BUTTONS_POS_Y));
+		NextMenuItem->setPosition(Vec2(GetScreenPositionX(1), GetButtonsPositionY()));
 		NextMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 		MenuItems.pushBack(NextMenuItem);
 	}
@@ -277,6 +277,11 @@ float GameScene::GetStarPositionY()
 float GameScene::GetLabelsPositionY()
 {
 	return LABELS_POS_Y;
+}
+
+float GameScene::GetButtonsPositionY()
+{
+	return BUTTONS_POS_Y;
 }
 
 GameSquare* GameScene::GetSquareByIndex(int Index) const

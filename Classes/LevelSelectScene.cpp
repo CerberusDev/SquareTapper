@@ -282,8 +282,9 @@ void LevelSelectScene::CreateStarsLabel(cocos2d::ui::Layout* PageLayout)
 
 void LevelSelectScene::CreateResetProgressButton()
 {
-	auto ResetProgressButton = ui::Button::create("img/ui/ResetProgress_idle.png", "img/ui/ResetProgress_pressed.png");
-	ResetProgressButton->setPosition(Vec2(634.0f, 90.0f));
+	auto ResetProgressButton = ui::Button::create("img/ui/ResetProgress_new.png", "img/ui/ResetProgress_new.png");
+	ResetProgressButton->setScale(0.3f);
+	ResetProgressButton->setPosition(Vec2(GameScene::GetScreenPositionX(2), GameScene::GetButtonsPositionY()));
 	ResetProgressButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
@@ -310,7 +311,7 @@ void LevelSelectScene::CreateResetProgressButton()
 void LevelSelectScene::CreateReloadScriptsButton()
 {
 	auto ReloadScriptsButton = ui::Button::create("gui/icons/icon_replay_inactive_512.png", "img/ui/icon_replay_active_512.png");
-	ReloadScriptsButton->setPosition(Vec2(86.0f, 90.0f));
+	ReloadScriptsButton->setPosition(Vec2(GameScene::GetScreenPositionX(1), GameScene::GetButtonsPositionY()));
 	ReloadScriptsButton->setScale(100.0f / 512.0f);
 	ReloadScriptsButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)

@@ -241,7 +241,7 @@ const std::string& LevelSelectScene::GetLevelButtonSpriteFilename(int StarsNumbe
 void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout)
 {
 	std::stringstream Stream;
-	Stream << "gui/signs/sign_00" << WorldNumber + 1 << "_inactive_512.png";
+	Stream << "gui/signs/sign_" << WorldNumber << "_inactive_512.png";
 
 	auto WorldIcon = Sprite::create(Stream.str());
 	WorldIcon->setPosition(Vec2(DESIGN_RES_X / 2.0f, GameScene::GetScreenPositionY(SQUARE_AMOUNT_Y)));

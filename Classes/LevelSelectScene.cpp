@@ -176,6 +176,7 @@ bool LevelSelectScene::init()
 	PageViewMenu->setCurrentPageIndex(StartWorldNumber);
 
 	CreateResetProgressButton();
+	CreateBackToMenuButton();
 
 #ifdef _WINDOWS
 	CreateReloadScriptsButton();
@@ -322,4 +323,20 @@ void LevelSelectScene::CreateReloadScriptsButton()
 	});
 
 	this->addChild(ReloadScriptsButton, 1);
+}
+
+void LevelSelectScene::CreateBackToMenuButton()
+{
+	auto BackToMenuButton = ui::Button::create("gui/icons/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png");
+	BackToMenuButton->setPosition(Vec2(GameScene::GetScreenPositionX(0), GameScene::GetButtonsPositionY()));
+	BackToMenuButton->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
+
+	BackToMenuButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+		if (type == ui::Widget::TouchEventType::ENDED)
+		{
+			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+		}
+	});
+
+	this->addChild(BackToMenuButton, 1);
 }

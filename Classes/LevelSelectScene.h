@@ -39,4 +39,5 @@ public:
 	void CreateStarsLabel(cocos2d::ui::Layout* PageLayout);
 	void CreateResetProgressButton();
 	void CreateReloadScriptsButton();
+	void CreateBackToMenuButton();
 };

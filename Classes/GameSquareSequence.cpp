@@ -7,7 +7,7 @@
 
 USING_NS_CC;
 
-const std::string GameSquareSequence::LineSpriteFilename = "gui/bqsqr/bgsqr_straight_inactive_512.png";
+const std::string GameSquareSequence::PlusSpriteFilename = "gui/bqsqr/bgsqr_straight_inactive_513.png";
 
 GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY) :
 GameSquare(argScene, bargDoubleTap, argSafetyType, argSpritePosition, argPosX, argPosY),
@@ -15,16 +15,15 @@ NextSquareInSequenceIndex(-1),
 bMyTurnToActivate(false),
 bAfterFirstActivation(false)
 {
-	auto LineSprite = Sprite::create(LineSpriteFilename);
-	LineSprite->setPosition(SpritePosition);
-	LineSprite->setScale(SpritesScale);
-	ParentScene->addChild(LineSprite, 1);
+	PlusSprite = Sprite::create(PlusSpriteFilename);
+	PlusSprite->setPosition(SpritePosition);
+	PlusSprite->setScale(SpritesScale);
+	ParentScene->addChild(PlusSprite, 1);
+}
 
-	auto LineSprite2 = Sprite::create(LineSpriteFilename);
-	LineSprite2->setPosition(SpritePosition);
-	LineSprite2->setScale(SpritesScale);
-	LineSprite2->setRotation(90.0f);
-	ParentScene->addChild(LineSprite2, 1);
+GameSquareSequence::~GameSquareSequence()
+{
+	PlusSprite->removeFromParent();
 }
 
 void GameSquareSequence::StartActivation(float ActivationTotalTime)
@@ -41,4 +40,6 @@ void GameSquareSequence::StartActivation(float ActivationTotalTime)
 void GameSquareSequence::SafeActivationEnded()
 {
 	GameSquare::SafeActivationEnded();
+
+	PlusSprite->setVisible(false);
 }

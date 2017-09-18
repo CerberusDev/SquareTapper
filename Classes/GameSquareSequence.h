@@ -10,8 +10,9 @@
 class GameSquareSequence : public GameSquare
 {
 protected:
-	static const std::string LineSpriteFilename;
+	static const std::string PlusSpriteFilename;
 
+	cocos2d::Sprite* PlusSprite;
 	int NextSquareInSequenceIndex;
 	bool bMyTurnToActivate;
 	bool bAfterFirstActivation;
@@ -19,6 +20,7 @@ protected:
 // ---------------------------------------------------------------------------------------------------
 public:
 	GameSquareSequence(cocos2d::Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	virtual ~GameSquareSequence();
 
 	virtual void StartActivation(float ActivationTotalTime) override;
 

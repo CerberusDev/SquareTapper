@@ -8,6 +8,8 @@
 
 USING_NS_CC;
 
+//#define LEVELS_FOR_DEMO
+
 #define ARROW_ICON_SIZE 120.0f
 
 const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_inactive_512.png";
@@ -64,7 +66,13 @@ void LevelSelectScene::InitializeLevelParams()
 std::string LevelSelectScene::GenerateFilenameForWorldConfig(int WorldNumber)
 {
 	std::stringstream Stream;
+
+#ifdef LEVELS_FOR_DEMO
+	std::string LevelsDirectoryName = "lvls_demo";
+#else
 	std::string LevelsDirectoryName = "lvls";
+#endif
+
 	Stream << LevelsDirectoryName << "/World_" << WorldNumber << ".lvl";
 	return Stream.str();
 }

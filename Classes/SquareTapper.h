@@ -14,7 +14,7 @@
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
 
-#define BACKGROUND_COLOR Color3B(19, 13, 25)
+#define BACKGROUND_COLOR Color3B(25, 18, 32)
 #define GREY_COLOR Color3B(100, 96, 90)
 #define GOLD_COLOR Color3B(247, 198, 70)
 

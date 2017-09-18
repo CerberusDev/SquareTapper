@@ -46,7 +46,7 @@ void LevelSelectScene::InitializeLevelParams()
 	LevelParamsContainer.clear();
 
 	int TotalLevelNumber = 0;
-	std::string FilePath = FileUtils::getInstance()->fullPathForFilename("lvls/World_0.lvl");
+	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(GenerateFilenameForWorldConfig(0));
 
 	while (!FilePath.empty())
 	{
@@ -54,12 +54,19 @@ void LevelSelectScene::InitializeLevelParams()
 
 		InitializeLevelParamsForSingleWorld(FilePath, TotalLevelNumber);
 
-		std::stringstream FileNameStream;
-		FileNameStream << "lvls/World_" << LevelParamsContainer.size() << ".lvl";
-		FilePath = FileUtils::getInstance()->fullPathForFilename(FileNameStream.str());
+		int NextWorldNumber = LevelParamsContainer.size();
+		FilePath = FileUtils::getInstance()->fullPathForFilename(GenerateFilenameForWorldConfig(NextWorldNumber));
 	}
 
 	CCLOG("Level data initialization from file finished");
+}
+
+std::string LevelSelectScene::GenerateFilenameForWorldConfig(int WorldNumber)
+{
+	std::stringstream Stream;
+	std::string LevelsDirectoryName = "lvls";
+	Stream << LevelsDirectoryName << "/World_" << WorldNumber << ".lvl";
+	return Stream.str();
 }
 
 void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& FilePath, int& TotalLevelNumber)

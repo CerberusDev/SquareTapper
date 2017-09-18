@@ -13,7 +13,7 @@ USING_NS_CC;
 const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_inactive_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/percent/percent_33_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_2Stars = "gui/percent/percent_66_inactive_star_512.png";
-const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/squares/square_star_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/percent/percent_100_inactive_star_512.png";
 
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 

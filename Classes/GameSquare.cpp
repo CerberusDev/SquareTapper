@@ -151,10 +151,26 @@ void GameSquare::ActivationEnded()
 	{
 		Failed();
 	}
+	else if (SafetyType == ESquareSafetyType::Safe)
+	{
+		SafeActivationEnded();
+	}
 	else
 	{
 		Completed(false);
 	}
+}
+
+void GameSquare::SafeActivationEnded()
+{
+	State = ESquareState::Inactive;
+	SafetyType = ESquareSafetyType::Standard;
+
+	ActivationSprite->setTexture(GetActivationSpriteFilename(SafetyType));
+	ActivationSprite->setScale(0.0f);
+
+	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
+		ParentGameScene->OnSquareCompleted(this, true);
 }
 
 void GameSquare::Completed(bool bUpscaleActivationSquare)

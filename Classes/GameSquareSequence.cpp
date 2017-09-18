@@ -12,7 +12,8 @@ const std::string GameSquareSequence::LineSpriteFilename = "gui/bqsqr/bgsqr_stra
 GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY) :
 GameSquare(argScene, bargDoubleTap, argSafetyType, argSpritePosition, argPosX, argPosY),
 NextSquareInSequenceIndex(-1),
-bMyTurnToActivate(false)
+bMyTurnToActivate(false),
+bAfterFirstActivation(false)
 {
 	auto LineSprite = Sprite::create(LineSpriteFilename);
 	LineSprite->setPosition(SpritePosition);
@@ -28,9 +29,16 @@ bMyTurnToActivate(false)
 
 void GameSquareSequence::StartActivation(float ActivationTotalTime)
 {
-	if (NextSquareInSequenceIndex != -1)
+	if (!bAfterFirstActivation && NextSquareInSequenceIndex != -1)
 		if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
 			ParentGameScene->SetNextSequenceSquareToActivate(NextSquareInSequenceIndex);
 
+	bAfterFirstActivation = true;
+
 	GameSquare::StartActivation(ActivationTotalTime);
+}
+
+void GameSquareSequence::SafeActivationEnded()
+{
+	GameSquare::SafeActivationEnded();
 }

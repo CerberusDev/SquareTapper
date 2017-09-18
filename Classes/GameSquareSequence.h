@@ -14,13 +14,18 @@ protected:
 
 	int NextSquareInSequenceIndex;
 	bool bMyTurnToActivate;
+	bool bAfterFirstActivation;
 
 // ---------------------------------------------------------------------------------------------------
 public:
 	GameSquareSequence(cocos2d::Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 
-	virtual void StartActivation(float ActivationTotalTime);
-	virtual bool CanBeActivated() const { return GameSquare::CanBeActivated() && bMyTurnToActivate; };
-	void SetNextSquareInSequenceIndex(int Index) { NextSquareInSequenceIndex = Index; };
-	void SetAsNextToActivate() { bMyTurnToActivate = true; };
+	virtual void StartActivation(float ActivationTotalTime) override;
+
+	virtual bool CanBeActivated() const override { return GameSquare::CanBeActivated() && (bMyTurnToActivate || bAfterFirstActivation); }
+	void SetNextSquareInSequenceIndex(int Index) { NextSquareInSequenceIndex = Index; }
+	void SetAsNextToActivate() { bMyTurnToActivate = true; }
+
+protected:
+	virtual void SafeActivationEnded() override;
 };

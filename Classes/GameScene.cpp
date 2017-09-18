@@ -28,7 +28,7 @@ LevelParamsStruct(argLevelParamsStruct),
 StartDelay(0.5f),
 MaxTimeWithoutActiveSquare(0.5f),
 SequenceSquaresActivationTimeInterval(0.15f),
-UnactivatedSquaresNumber(SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y),
+NumberOfFinishedSquares(0),
 StarsNumber(MAX_STARS_NUMBER),
 bLevelFinished(false)
 {
@@ -331,20 +331,16 @@ void GameScene::ActivateNextSquare()
 	{
 		NextSquare->StartActivation(LevelParamsStruct.TotalSquareActivationTime);
 		ActiveSquares.push_back(NextSquare);
-		--UnactivatedSquaresNumber;
 	}
 
-	if (UnactivatedSquaresNumber > 0)
-	{
-		float NextActivationDelay;
+	float NextActivationDelay;
 
-		if (NextSequenceSquareToActivate != nullptr)
-			NextActivationDelay = SequenceSquaresActivationTimeInterval;
-		else
-			NextActivationDelay = LevelParamsStruct.SquaresActivationTimeInterval;
+	if (NextSequenceSquareToActivate != nullptr)
+		NextActivationDelay = SequenceSquaresActivationTimeInterval;
+	else
+		NextActivationDelay = LevelParamsStruct.SquaresActivationTimeInterval;
 
-		QueueNextSquareActivation(NextActivationDelay);
-	}
+	QueueNextSquareActivation(NextActivationDelay);
 }
 
 void GameScene::QueueNextSquareActivation(float Delay)
@@ -356,9 +352,12 @@ void GameScene::QueueNextSquareActivation(float Delay)
 	runAction(MySequence);
 }
 
-void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
+void GameScene::OnSquareCompleted(GameSquare* CompletedSquare, bool bWillBeActivatingAgain)
 {
 	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), CompletedSquare));
+
+	if (!bWillBeActivatingAgain)
+		++NumberOfFinishedSquares;
 
 	if (ActiveSquares.empty())
 	{
@@ -375,21 +374,26 @@ void GameScene::OnSquareCompleted(GameSquare* CompletedSquare)
 				QueueNextSquareActivation(MaxTimeWithoutActiveSquare);
 			}
 		}
-		else
-		{
-			LevelCompleted();
-		}
+
+		CheckIfLevelCompleted();
 	}
+}
+
+void GameScene::CheckIfLevelCompleted()
+{
+	if (NumberOfFinishedSquares == SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y)
+		LevelCompleted();
 }
 
 void GameScene::OnSquareFailed(GameSquare* FailedSquare)
 {
 	ActiveSquares.erase(std::remove(ActiveSquares.begin(), ActiveSquares.end(), FailedSquare));
 
+	++NumberOfFinishedSquares;
 	DecreaseStarNumber();
 
-	if (!bLevelFinished && ActiveSquares.empty() && UnactivatedSquaresNumber == 0)
-		LevelCompleted();
+	if (!bLevelFinished)
+		CheckIfLevelCompleted();
 }
 
 void GameScene::DecreaseStarNumber()

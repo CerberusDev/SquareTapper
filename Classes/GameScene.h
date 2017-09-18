@@ -30,7 +30,7 @@ protected:
 	const float StartDelay;
 	const float MaxTimeWithoutActiveSquare;
 	const float SequenceSquaresActivationTimeInterval;
-	int UnactivatedSquaresNumber;
+	int NumberOfFinishedSquares;
 	int StarsNumber;
 	bool bLevelFinished;
 
@@ -54,7 +54,8 @@ public:
 	GameSquare* GetSquareForActivation();
 	void ActivateNextSquare();
 	void QueueNextSquareActivation(float Delay);
-	void OnSquareCompleted(GameSquare* CompletedSquare);
+	void OnSquareCompleted(GameSquare* CompletedSquare, bool bWillBeActivatingAgain = false);
+	void CheckIfLevelCompleted();
 	void OnSquareFailed(GameSquare* FailedSquare);
 	void DecreaseStarNumber();
 	void LevelFailed();

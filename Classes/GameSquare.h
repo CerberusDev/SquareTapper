@@ -59,8 +59,9 @@ public:
 
 protected:
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
-	virtual void SquareCorrectlyTapped();
-	virtual void ActivationEnded();
+	void SquareCorrectlyTapped();
+	void ActivationEnded();
+	virtual void SafeActivationEnded();
 	void ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence = nullptr);
 	cocos2d::Sequence* ScaleUpActivationSquare();
 	void Completed(bool bUpscaleActivationSquare);

@@ -119,5 +119,30 @@ SQ(ST).0.2	ST			ST
 SQ(DB).0.3	ST			DB
 SQ(ST).0.4	ST			ST
 
+# ============= 13 - 15 =============
+0.6		1.5		5		5		0
+
+SQ(ST).0.3	SQ(ST).0.2	SQ(ST).0.1
+SQ(ST).0.4	DB			SQ(ST).0.0
+ST			ST			ST
+ST			ST			ST
+DB			ST			DB
+
+0.6		1.5		10		0		0
+
+SQ(ST).0.0	ST			ST
+SQ(ST).0.1	ST			ST
+SQ(ST).0.2	ST			ST
+SQ(ST).0.3	ST			ST
+SQ(ST).0.4	SQ(ST).0.5	SQ(ST).0.6
+
+0.6		1.5		5		5		0
+
+SQ(ST).0.0	ST			ST
+SQ(DB).0.1	ST			DB
+SQ(ST).0.2	ST			ST
+SQ(DB).0.3	ST			DB
+SQ(ST).0.4	ST			ST
+
 
 

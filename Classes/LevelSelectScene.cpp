@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-//#define LEVELS_FOR_DEMO
+#define DEMO_BUILD
 
 #define ARROW_ICON_SIZE 120.0f
 
@@ -67,7 +67,7 @@ std::string LevelSelectScene::GenerateFilenameForWorldConfig(int WorldNumber)
 {
 	std::stringstream Stream;
 
-#ifdef LEVELS_FOR_DEMO
+#ifdef DEMO_BUILD
 	std::string LevelsDirectoryName = "lvls_demo";
 #else
 	std::string LevelsDirectoryName = "lvls";

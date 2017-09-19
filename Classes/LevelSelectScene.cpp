@@ -235,7 +235,7 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 
 	std::stringstream Stream;
 	Stream << LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber;
-	LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LevelButtonFontSize));
+	LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LevelButtonFontSize, Size(0.0f, 290.0f)));
 	LevelButton->setTitleColor(BACKGROUND_COLOR);
 
 	PageLayout->addChild(LevelButton);

@@ -220,11 +220,13 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 	LevelButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
+#ifndef DEMO_BUILD
 			if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
 				Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
 			else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
 				Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::DoubleTapSquare));
 			else
+#endif
 				Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
 		}
 	});

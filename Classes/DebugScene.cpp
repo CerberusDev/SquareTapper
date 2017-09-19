@@ -46,7 +46,7 @@ bool DebugScene::init()
 
 			std::stringstream Stream;
 			Stream << "DEMO" << LevelKey << j;
-			int AttemptsNumber = UserDefault::getInstance()->getIntegerForKey(Stream.str().c_str(), 0);
+			int AttemptsNumber = UserDefaultData->getIntegerForKey(Stream.str().c_str(), 0);
 
 			std::stringstream Stream2;
 			Stream2 << AttemptsNumber;

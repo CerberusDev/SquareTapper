@@ -40,7 +40,7 @@ ST			DB			ST
 
 
 
-0.19	2.8		0		0		0
+0.4		1.15		0		0		0
 
 ST			ST			ST
 DB			ST			DB
@@ -51,7 +51,7 @@ ST			ST			ST
 
 # 4-6
 
-0.345	1.2		0		0		0
+0.345	1.1		0		0		0
 
 ST			DB			ST
 ST			DB			ST

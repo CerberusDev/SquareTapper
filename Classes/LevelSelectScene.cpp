@@ -334,6 +334,8 @@ void LevelSelectScene::CreateResetProgressButton()
 				}
 			}
 #endif
+			UserDefaultData->flush();
+
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}
 	});

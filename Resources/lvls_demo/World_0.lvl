@@ -23,13 +23,6 @@
 # Testowy świat na same interwały, a czas aktywacji taki sam
 
 # ============= 1 - 3 =============
-0.6		2.0		0		0		0
-
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
 
 0.6		1.6		0		0		0
 
@@ -47,16 +40,8 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-# ============= 4 - 6 =============
-0.45	1.4		0		0		0
 
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-ST			ST			ST
-
-0.4		1.35	0		0		0
+0.4		1.4	0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -106,13 +91,23 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.2		1.025	0		0		0
+0.2		1.05	0		0		0
 
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
+
+
+0.19	0.975	0		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
 
 0.185	0.95	0		0		0
 
@@ -149,5 +144,11 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
+0.15	0.72		0		0		0
 
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 

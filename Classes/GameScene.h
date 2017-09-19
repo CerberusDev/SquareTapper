@@ -48,6 +48,7 @@ public:
 	static float GetStarPositionY();
 	static float GetLabelsPositionY();
 	static float GetButtonsPositionY();
+	static float GetDistBetweenSquares();
 	
 	void SpawnGameObjects();
 	void SpawnSingleGameSquare(int x, int y, const std::vector<int>& SafeSquareIndices, const std::vector<int>& DangerousSquareIndices, const std::vector<int>& DangerousSecondTapSquareIndices);

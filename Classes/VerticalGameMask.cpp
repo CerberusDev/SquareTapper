@@ -9,17 +9,19 @@
 USING_NS_CC;
 
 VerticalGameMask::VerticalGameMask(GameScene* argScene, bool bKillingMask) :
-GameMask(argScene, bKillingMask ? "img/masks/Mask1.png" : "img/masks/Mask3.png", "img/masks/Mask1_blink.png", bKillingMask),
+GameMask(argScene, bKillingMask),
 CurrentColumnIndex(0)
 {
+	MaskSprite->setScaleX((SQUARE_SPRITE_SIZE + 2.0f * MARGIN_SIZE) / SQUARE_TEXTURES_SIZE);
+	MaskSprite->setScaleY(((SQUARE_AMOUNT_Y - 1) * GameScene::GetDistBetweenSquares() + SQUARE_SPRITE_SIZE + 2.0f * MARGIN_SIZE) / SQUARE_TEXTURES_SIZE);
+
 	UpdateSpritePosition();
 	FrozeSquareActivation();
 }
 
 void VerticalGameMask::UpdateSpritePosition()
 {
-	float PosY = Director::getInstance()->getVisibleSize().height * 0.5f;
-	MaskSprite->setPosition(ParentScene->GetScreenPositionX(CurrentColumnIndex), PosY);
+	MaskSprite->setPosition(GameScene::GetScreenPositionX(CurrentColumnIndex), GameScene::GetScreenPositionY(2));
 }
 
 void VerticalGameMask::Move()

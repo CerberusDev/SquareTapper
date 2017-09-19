@@ -8,19 +8,23 @@
 
 USING_NS_CC;
 
-GameMask::GameMask(GameScene* argScene, std::string SpriteFilePath, std::string argBlinkSpriteFilePath, bool bKillingMask) :
+#define MAX_OPACITY 255
+
+const std::string GameMask::StandardMaskSpriteFilename = "gui/squares/square_safe_main_512.png";
+const std::string GameMask::KillingMaskSpriteFilename = "gui/squares/square_dangerous_main_512.png";
+
+GameMask::GameMask(GameScene* argScene, bool bKillingMask) :
 ParentScene(argScene),
 MaskSprite(nullptr),
-BlinkSpriteFilePath(argBlinkSpriteFilePath),
 bKillOnTouch(bKillingMask),
 bMaskFullyVisible(false),
 bShouldFinishAnimation(false)
 {
-	MaskSprite = Sprite::create(SpriteFilePath);
+	MaskSprite = Sprite::create(bKillOnTouch ? KillingMaskSpriteFilename : StandardMaskSpriteFilename);
 	MaskSprite->setOpacity(0.0f);
-	ParentScene->addChild(MaskSprite, 3);
+	ParentScene->addChild(MaskSprite, 0);
 
-	auto FadeInAction = FadeIn::create(0.15f);
+	auto FadeInAction = FadeTo::create(0.15f, MAX_OPACITY);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { OnFadingInEnd(); });
 	auto DelayAction = DelayTime::create(0.6f);
 	auto OnFadingOutStartFunction = CallFunc::create([&]() { OnFadingOutStart(); });
@@ -98,13 +102,14 @@ void GameMask::OnTouch(Touch* touch, Event* event)
 	{
 		ParentScene->DecreaseStarNumber();
 
-		Sprite* BlinkSprite = Sprite::create(BlinkSpriteFilePath);
-		BlinkSprite->setPosition(MaskSprite->getPosition());
-		BlinkSprite->setOpacity(0.0f);
-		ParentScene->addChild(BlinkSprite, 4);
+		// Blinking temporary disabled
+		//Sprite* BlinkSprite = Sprite::create(BlinkSpriteFilePath);
+		//BlinkSprite->setPosition(MaskSprite->getPosition());
+		//BlinkSprite->setOpacity(0.0f);
+		//ParentScene->addChild(BlinkSprite, 6);
 
-		auto FadeInAction = FadeIn::create(0.07f);
-		auto FadeOutAction = FadeOut::create(0.15f);
-		BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, nullptr));
+		//auto FadeInAction = FadeIn::create(0.07f);
+		//auto FadeOutAction = FadeOut::create(0.15f);
+		//BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, nullptr));
 	}
 }

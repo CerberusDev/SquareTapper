@@ -9,21 +9,25 @@
 class GameScene;
 class GameSquare;
 
+#define MARGIN_SIZE 20.0f
+
 class GameMask
 {
 protected:
+	static const std::string StandardMaskSpriteFilename;
+	static const std::string KillingMaskSpriteFilename;
+
 	GameScene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MaskSprite;
 	std::vector<GameSquare*> FrozenSquares;
-	std::string BlinkSpriteFilePath;
 	bool bKillOnTouch;
 	bool bMaskFullyVisible;
 	bool bShouldFinishAnimation;
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameMask(GameScene* argScene, std::string SpriteFilePath, std::string argBlinkSpriteFilePath, bool bKillingMask);
+	GameMask(GameScene* argScene, bool bKillingMask);
 	virtual ~GameMask();
 
 	void RequestFinishAnimation() { bShouldFinishAnimation = true; }

@@ -260,13 +260,13 @@ void GameScene::onExit()
 
 float GameScene::GetScreenPositionX(int SquareIndexX)
 {
-	const float Margin = (DESIGN_RES_X - DIST_BETWEEN_SQUARES * (SQUARE_AMOUNT_X - 1)) / 2.0f;
-	return Margin + DIST_BETWEEN_SQUARES * SquareIndexX;
+	const float Margin = (DESIGN_RES_X - GetDistBetweenSquares() * (SQUARE_AMOUNT_X - 1)) / 2.0f;
+	return Margin + GetDistBetweenSquares() * SquareIndexX;
 }
 
 float GameScene::GetScreenPositionY(int SquareIndexY)
 {
-	return BOTTOM_SQUARES_POS_Y + DIST_BETWEEN_SQUARES * SquareIndexY;
+	return BOTTOM_SQUARES_POS_Y + GetDistBetweenSquares() * SquareIndexY;
 }
 
 float GameScene::GetStarPositionY()
@@ -282,6 +282,11 @@ float GameScene::GetLabelsPositionY()
 float GameScene::GetButtonsPositionY()
 {
 	return BUTTONS_POS_Y;
+}
+
+float GameScene::GetDistBetweenSquares()
+{
+	return DIST_BETWEEN_SQUARES;
 }
 
 GameSquare* GameScene::GetSquareByIndex(int Index) const

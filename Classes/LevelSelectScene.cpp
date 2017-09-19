@@ -5,10 +5,9 @@
 #include "LevelSelectScene.h"
 #include "GameScene.h"
 #include "TutorialScene.h"
+#include "DebugScene.h"
 
 USING_NS_CC;
-
-#define DEMO_BUILD
 
 #define ARROW_ICON_SIZE 120.0f
 
@@ -323,7 +322,18 @@ void LevelSelectScene::CreateResetProgressButton()
 					UserDefaultData->setIntegerForKey(LevelAttemptsKey.c_str(), 0);
 				}
 			}
-
+#ifdef DEMO_BUILD
+			for (int i = 0; i < 15; ++i)
+			{
+				for (int j = 1; j <= 3; ++j)
+				{
+					std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[0][i].LevelDisplayNumber);
+					std::stringstream Stream;
+					Stream << "DEMO" << LevelKey << j;
+					UserDefaultData->setIntegerForKey(Stream.str().c_str(), 0);
+				}
+			}
+#endif
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}
 	});
@@ -356,7 +366,11 @@ void LevelSelectScene::CreateBackToMenuButton()
 	BackToMenuButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
+#ifdef DEMO_BUILD
+			Director::getInstance()->replaceScene(DebugScene::create());
+#else
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+#endif
 		}
 	});
 

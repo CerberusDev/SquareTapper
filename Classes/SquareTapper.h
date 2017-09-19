@@ -8,6 +8,8 @@
 
 #include "cocos2d.h"
 
+#define DEMO_BUILD
+
 #define DESIGN_RES_X 720
 #define DESIGN_RES_Y 1280
 

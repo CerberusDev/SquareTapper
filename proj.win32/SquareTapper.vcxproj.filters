@@ -40,6 +40,7 @@
     <ClCompile Include="..\Classes\GameSquareSequence.cpp" />
     <ClCompile Include="..\Classes\TutorialScene.cpp" />
     <ClCompile Include="..\Classes\SquareTapper.cpp" />
+    <ClCompile Include="..\Classes\DebugScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -72,6 +73,7 @@
     <ClInclude Include="..\Classes\StarImage.h" />
     <ClInclude Include="..\Classes\GameSquareSequence.h" />
     <ClInclude Include="..\Classes\TutorialScene.h" />
+    <ClInclude Include="..\Classes\DebugScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

@@ -16,6 +16,7 @@ const std::string GameMask::KillingMaskSpriteFilename = "gui/squares/square_dang
 GameMask::GameMask(GameScene* argScene, bool bKillingMask) :
 ParentScene(argScene),
 MaskSprite(nullptr),
+FailedIconCounter(0),
 bKillOnTouch(bKillingMask),
 bMaskFullyVisible(false),
 bShouldFinishAnimation(false)
@@ -111,5 +112,11 @@ void GameMask::OnTouch(Touch* touch, Event* event)
 		//auto FadeInAction = FadeIn::create(0.07f);
 		//auto FadeOutAction = FadeOut::create(0.15f);
 		//BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, nullptr));
+
+		auto FailedIcon = Sprite::create("gui/squares/square_star_512.png");
+		FailedIcon->setPosition(Vec2(46.0f, 200.0f + 95.0f * FailedIconCounter));
+		FailedIcon->setScale(SMALL_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
+		ParentScene->addChild(FailedIcon, 0);
+		++FailedIconCounter;
 	}
 }

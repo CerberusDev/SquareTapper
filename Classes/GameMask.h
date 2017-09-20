@@ -21,6 +21,7 @@ protected:
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* MaskSprite;
 	std::vector<GameSquare*> FrozenSquares;
+	int FailedIconCounter;
 	bool bKillOnTouch;
 	bool bMaskFullyVisible;
 	bool bShouldFinishAnimation;

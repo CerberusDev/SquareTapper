@@ -51,6 +51,7 @@ struct LevelParams
 	bool bSpawnGameMask;
 	bool bVerticalMask;
 	bool bKillingMask;
+	bool bLocked;
 
 	LevelParams():
 	LevelDisplayNumber(-1),
@@ -63,7 +64,8 @@ struct LevelParams
 	TotalSquareActivationTime(-1.0f),
 	bSpawnGameMask(false),
 	bVerticalMask(false),
-	bKillingMask(false)
+	bKillingMask(false),
+	bLocked(true)
 	{};
 };
 

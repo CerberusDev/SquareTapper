@@ -82,20 +82,20 @@ bool GameScene::init()
 
 	auto const& LevelData = LevelSelectScene::GetLevelData();
 
-	if (LevelData.back().back().LevelDisplayNumber != LevelParamsStruct.LevelDisplayNumber)
-	{
-		NextMenuItem = MenuItemImage::create("gui/icons/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
-			[&](Ref* sender) {
-			if ((int)LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
-				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
-			else
-				Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
-		});
+	NextMenuItem = MenuItemImage::create("gui/icons/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
+		[&](Ref* sender) {
+		if ((int)LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
+			Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
+		else
+			Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
+	});
 
-		NextMenuItem->setPosition(Vec2(GetScreenPositionX(1), GetButtonsPositionY()));
-		NextMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
-		MenuItems.pushBack(NextMenuItem);
-	}
+	if (LevelSelectScene::IsNextLevelLocked(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))
+		NextMenuItem->setVisible(false);
+
+	NextMenuItem->setPosition(Vec2(GetScreenPositionX(1), GetButtonsPositionY()));
+	NextMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
+	MenuItems.pushBack(NextMenuItem);
 
 	auto menu = Menu::createWithArray(MenuItems);
 	menu->setPosition(Vec2::ZERO);
@@ -458,10 +458,15 @@ void GameScene::LevelCompleted()
 		}
 #endif
 		UserDefaultData->flush();
+	
+		LevelSelectScene::NotifyLevelCompleted(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber, StarsNumber);
 	}
 
-	if (NextMenuItem)
+	if (!LevelSelectScene::IsNextLevelLocked(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))
+	{
+		NextMenuItem->setVisible(true);
 		NextMenuItem->setNormalImage(Sprite::create("gui/icons/icon_arrow_active_512.png"));
+	}
 }
 
 void GameScene::Blink(const std::string& SpriteFilePath)

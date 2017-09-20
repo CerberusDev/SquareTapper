@@ -14,6 +14,7 @@ protected:
 	static const std::string LevelButtonSpriteFilename_1Star;
 	static const std::string LevelButtonSpriteFilename_2Stars;
 	static const std::string LevelButtonSpriteFilename_3Stars;
+	static const std::string LevelButtonSpriteFilename_Locked;
 
 	static std::vector<std::vector<LevelParams>> LevelParamsContainer;
 	int StartWorldNumber;
@@ -32,6 +33,10 @@ public:
 	static void AddSequenceSquareToLevelParams(LevelParams& CurrLevelParamsStruct, const std::string& SquareType, int SquareIndex);
 	static const std::vector<std::vector<LevelParams>>& GetLevelData() { return LevelParamsContainer; };
 	static LevelSelectScene* create(int argStartWorldNumber);
+	static void GetNextLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& NextWorldNumber, int& NextLevelNumber);
+	static void GetPrevLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& PrevWorldNumber, int& PrevLevelNumber);
+	static bool IsNextLevelLocked(int CurrWorldNumber, int CurrLevelNumber);
+	static void NotifyLevelCompleted(int CurrWorldNumber, int CurrLevelNumber, int NumberOfStars);
 
 	void CreateLevelButton(int WorldNumber, int LevelNumber, cocos2d::ui::Layout* PageLayout);
 	const std::string& GetLevelButtonSpriteFilename(int StarsNumber);

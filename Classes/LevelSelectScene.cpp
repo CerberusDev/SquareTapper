@@ -11,10 +11,11 @@ USING_NS_CC;
 
 #define ARROW_ICON_SIZE 120.0f
 
-const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_inactive_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_active_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/percent/percent_33_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_2Stars = "gui/percent/percent_66_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/percent/percent_100_inactive_star_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_Locked = "gui/bqsqr/bgsqr_0_inactive_512.png";
 
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 
@@ -90,6 +91,18 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
 			NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
 			NewLevelParams.LevelDisplayNumber = ++TotalLevelNumber;
+
+			bool bLevelLocked = false;
+			int PrevWorldNumber, PrevLevelNumber;
+			GetPrevLevelIDs(NewLevelParams.WorldNumber, NewLevelParams.LevelNumber, PrevWorldNumber, PrevLevelNumber);
+
+			if (PrevWorldNumber != -1 && PrevLevelNumber != -1)
+			{
+				std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[PrevWorldNumber][PrevLevelNumber].LevelDisplayNumber);
+				bLevelLocked = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0) == 0;
+			}
+
+			NewLevelParams.bLocked = bLevelLocked;
 
 			std::stringstream ParamsStringStream(Line);
 
@@ -212,32 +225,42 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 	int StarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);
 	TotalNumberOfStars += StarsNumber;
 
-	const std::string& LevelButtonSpriteFilename = GetLevelButtonSpriteFilename(StarsNumber);
-
-	auto LevelButton = ui::Button::create(LevelButtonSpriteFilename, LevelButtonSpriteFilename);
+	auto LevelButton = ui::Button::create();
 	LevelButton->setScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
-	LevelButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type) {
-		if (type == ui::Widget::TouchEventType::ENDED)
-		{
-#ifndef DEMO_BUILD
-			if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
-				Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
-			else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
-				Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::DoubleTapSquare));
-			else
-#endif
-				Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
-		}
-	});
 	Vec2 LevelButtonPostion;
 	LevelButtonPostion.x = GameScene::GetScreenPositionX(LevelNumber % SQUARE_AMOUNT_X);
 	LevelButtonPostion.y = GameScene::GetScreenPositionY((SQUARE_AMOUNT_X * SQUARE_AMOUNT_Y - 1 - LevelNumber) / SQUARE_AMOUNT_X);
 	LevelButton->setPosition(LevelButtonPostion);
 
-	std::stringstream Stream;
-	Stream << LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber;
-	LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LevelButtonFontSize, Size(0.0f, 290.0f)));
-	LevelButton->setTitleColor(BACKGROUND_COLOR);
+	if (!LevelParamsContainer[WorldNumber][LevelNumber].bLocked)
+	{
+		LevelButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type) {
+			if (type == ui::Widget::TouchEventType::ENDED)
+			{
+#ifndef DEMO_BUILD
+				if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
+					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
+				else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
+					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::DoubleTapSquare));
+				else
+#endif
+					Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
+			}
+		});
+
+		std::stringstream Stream;
+		Stream << LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber;
+		LevelButton->setTitleLabel(Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LevelButtonFontSize, Size(0.0f, 290.0f)));
+		LevelButton->setTitleColor(BACKGROUND_COLOR);
+
+		const std::string& LevelButtonSpriteFilename = GetLevelButtonSpriteFilename(StarsNumber);
+		LevelButton->loadTextures(LevelButtonSpriteFilename, LevelButtonSpriteFilename);
+	}
+	else
+	{
+		LevelButton->loadTextures(LevelButtonSpriteFilename_Locked, LevelButtonSpriteFilename_Locked);
+	}
+
 
 	PageLayout->addChild(LevelButton);
 }
@@ -336,6 +359,10 @@ void LevelSelectScene::CreateResetProgressButton()
 #endif
 			UserDefaultData->flush();
 
+			for (auto& CurrWorldContainer : LevelParamsContainer)
+				for (auto& CurrLevelStruct : CurrWorldContainer)
+					CurrLevelStruct.bLocked = !(CurrLevelStruct.WorldNumber == 0 && CurrLevelStruct.LevelNumber == 0);
+
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}
 	});
@@ -377,4 +404,60 @@ void LevelSelectScene::CreateBackToMenuButton()
 	});
 
 	this->addChild(BackToMenuButton, 1);
+}
+
+void LevelSelectScene::GetNextLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& NextWorldNumber, int& NextLevelNumber)
+{
+	NextWorldNumber = -1;
+	NextLevelNumber = -1;
+
+	if (CurrLevelNumber + 1 < (int)LevelParamsContainer[CurrWorldNumber].size())
+	{
+		NextWorldNumber = CurrWorldNumber;
+		NextLevelNumber = CurrLevelNumber + 1;
+	}
+	else if (CurrWorldNumber + 1 < (int)LevelParamsContainer.size())
+	{
+		NextWorldNumber = CurrWorldNumber + 1;
+		NextLevelNumber = 0;
+	}
+}
+
+void LevelSelectScene::GetPrevLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& PrevWorldNumber, int& PrevLevelNumber)
+{
+	PrevWorldNumber = -1;
+	PrevLevelNumber = -1;
+
+	if (CurrLevelNumber - 1 >= 0)
+	{
+		PrevWorldNumber = CurrWorldNumber;
+		PrevLevelNumber = CurrLevelNumber - 1;
+	}
+	else if (CurrWorldNumber - 1 >= 0)
+	{
+		PrevWorldNumber = CurrWorldNumber - 1;
+		PrevLevelNumber = LevelParamsContainer[PrevWorldNumber].size() - 1;
+	}
+}
+
+bool LevelSelectScene::IsNextLevelLocked(int CurrWorldNumber, int CurrLevelNumber)
+{
+	bool bResult = true;
+
+	int NextWorldNumber, NextLevelNumber;
+	GetNextLevelIDs(CurrWorldNumber, CurrLevelNumber, NextWorldNumber, NextLevelNumber);
+
+	if (NextWorldNumber != -1 && NextLevelNumber != -1)
+		bResult = LevelParamsContainer[NextWorldNumber][NextLevelNumber].bLocked;
+
+	return bResult;
+}
+
+void LevelSelectScene::NotifyLevelCompleted(int CurrWorldNumber, int CurrLevelNumber, int NumberOfStars)
+{
+	int NextWorldNumber, NextLevelNumber;
+	GetNextLevelIDs(CurrWorldNumber, CurrLevelNumber, NextWorldNumber, NextLevelNumber);
+
+	if (NextWorldNumber != -1 && NextLevelNumber != -1)
+		LevelParamsContainer[NextWorldNumber][NextLevelNumber].bLocked = false;
 }

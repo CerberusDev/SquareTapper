@@ -47,7 +47,7 @@ ST			ST			ST
 ST			DB			ST
 
 
-0.325	1.27	0		3		0	SpawnMask Horizontal
+0.45	1.4	0		3		0	SpawnMask Horizontal
 
 DB			ST			DB
 ST			ST			ST
@@ -56,7 +56,7 @@ ST			ST			ST
 DB			ST			DB
 
 
-0.31		1.30	0 		4		0	SpawnMask Vertical
+0.45	1.5		0 		4		0	SpawnMask Vertical
 
 DB			DB			DB
 ST			DB			DB
@@ -64,7 +64,7 @@ DB			ST			DB
 DB			DB			ST
 DB			DB			DB
 
-0.28		1.2		0 		4		0	SpawnMask Vertical
+0.425	1.4		0 		4		0	SpawnMask Vertical
 
 DB			DB			DB
 ST			ST			DB

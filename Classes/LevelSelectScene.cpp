@@ -60,10 +60,6 @@ void LevelSelectScene::InitializeLevelParams()
 		FilePath = FileUtils::getInstance()->fullPathForFilename(GenerateFilenameForWorldConfig(NextWorldNumber));
 	}
 
-#ifdef DEMO_BUILD
-	LevelParamsContainer[1][0].bLocked = false;
-#endif
-
 	CCLOG("Level data initialization from file finished");
 }
 
@@ -107,6 +103,11 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			}
 
 			NewLevelParams.bLocked = bLevelLocked;
+
+#ifdef DEMO_BUILD
+			if (NewLevelParams.LevelNumber == 0)
+				NewLevelParams.bLocked = false;
+#endif
 
 			std::stringstream ParamsStringStream(Line);
 
@@ -368,7 +369,10 @@ void LevelSelectScene::CreateResetProgressButton()
 					CurrLevelStruct.bLocked = !(CurrLevelStruct.WorldNumber == 0 && CurrLevelStruct.LevelNumber == 0);
 
 #ifdef DEMO_BUILD
-			LevelParamsContainer[1][0].bLocked = false;
+			for (auto& CurrWorldContainer : LevelParamsContainer)
+				for (auto& CurrLevelStruct : CurrWorldContainer)
+					if (CurrLevelStruct.LevelNumber == 0)
+						CurrLevelStruct.bLocked = false;
 #endif
 
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));

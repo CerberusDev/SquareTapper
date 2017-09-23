@@ -5,7 +5,6 @@
 #include "LevelSelectScene.h"
 #include "GameScene.h"
 #include "TutorialScene.h"
-#include "DebugScene.h"
 
 USING_NS_CC;
 
@@ -66,12 +65,7 @@ void LevelSelectScene::InitializeLevelParams()
 std::string LevelSelectScene::GenerateFilenameForWorldConfig(int WorldNumber)
 {
 	std::stringstream Stream;
-
-#ifdef DEMO_BUILD
-	std::string LevelsDirectoryName = "lvls_demo";
-#else
 	std::string LevelsDirectoryName = "lvls";
-#endif
 
 	Stream << LevelsDirectoryName << "/World_" << WorldNumber << ".lvl";
 	return Stream.str();
@@ -103,11 +97,6 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			}
 
 			NewLevelParams.bLocked = bLevelLocked;
-
-#ifdef DEMO_BUILD
-			if (NewLevelParams.LevelNumber == 0)
-				NewLevelParams.bLocked = false;
-#endif
 
 			std::stringstream ParamsStringStream(Line);
 
@@ -242,13 +231,11 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 		LevelButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type) {
 			if (type == ui::Widget::TouchEventType::ENDED)
 			{
-#ifndef DEMO_BUILD
 				if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
 					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
 				else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
 					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::DoubleTapSquare));
 				else
-#endif
 					Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
 			}
 		});
@@ -350,30 +337,12 @@ void LevelSelectScene::CreateResetProgressButton()
 					UserDefaultData->setIntegerForKey(LevelAttemptsKey.c_str(), 0);
 				}
 			}
-#ifdef DEMO_BUILD
-			for (int i = 0; i < 15; ++i)
-			{
-				for (int j = 1; j <= 3; ++j)
-				{
-					std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[0][i].LevelDisplayNumber);
-					std::stringstream Stream;
-					Stream << "DEMO" << LevelKey << j;
-					UserDefaultData->setIntegerForKey(Stream.str().c_str(), 0);
-				}
-			}
-#endif
+
 			UserDefaultData->flush();
 
 			for (auto& CurrWorldContainer : LevelParamsContainer)
 				for (auto& CurrLevelStruct : CurrWorldContainer)
 					CurrLevelStruct.bLocked = !(CurrLevelStruct.WorldNumber == 0 && CurrLevelStruct.LevelNumber == 0);
-
-#ifdef DEMO_BUILD
-			for (auto& CurrWorldContainer : LevelParamsContainer)
-				for (auto& CurrLevelStruct : CurrWorldContainer)
-					if (CurrLevelStruct.LevelNumber == 0)
-						CurrLevelStruct.bLocked = false;
-#endif
 
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}
@@ -407,11 +376,7 @@ void LevelSelectScene::CreateBackToMenuButton()
 	BackToMenuButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
-#ifdef DEMO_BUILD
-			Director::getInstance()->replaceScene(DebugScene::create());
-#else
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
-#endif
 		}
 	});
 

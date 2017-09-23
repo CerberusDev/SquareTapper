@@ -445,18 +445,6 @@ void GameScene::LevelCompleted()
 	if (StarsNumber > LastBestStarsNumber)
 	{
 		UserDefaultData->setIntegerForKey(LevelKey.c_str(), StarsNumber);
-
-#ifdef DEMO_BUILD
-		const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsStruct.LevelDisplayNumber);
-		int AttemptsNumber = UserDefault::getInstance()->getIntegerForKey(LevelAttemptsKey.c_str(), 0);
-
-		for (int i = LastBestStarsNumber + 1; i <= StarsNumber; ++i)
-		{
-			std::stringstream Stream;
-			Stream << "DEMO" << LevelKey << i;
-			UserDefaultData->setIntegerForKey(Stream.str().c_str(), AttemptsNumber);
-		}
-#endif
 		UserDefaultData->flush();
 	
 		LevelSelectScene::NotifyLevelCompleted(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber, StarsNumber);

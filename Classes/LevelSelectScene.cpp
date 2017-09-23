@@ -203,10 +203,7 @@ bool LevelSelectScene::init()
 
 	CreateResetProgressButton();
 	CreateBackToMenuButton();
-
-#ifdef _WINDOWS
-	CreateReloadScriptsButton();
-#endif
+	CreateDebugButton();
 
 	return true;
 }
@@ -349,20 +346,35 @@ void LevelSelectScene::CreateResetProgressButton()
 	this->addChild(ResetProgressButton, 1);
 }
 
-void LevelSelectScene::CreateReloadScriptsButton()
+void LevelSelectScene::CreateDebugButton()
 {
-	auto ReloadScriptsButton = ui::Button::create("gui/icons/icon_replay_inactive_512.png", "img/ui/icon_replay_active_512.png");
-	ReloadScriptsButton->setPosition(Vec2(GameScene::GetScreenPositionX(1), GameScene::GetButtonsPositionY()));
-	ReloadScriptsButton->setScale(100.0f / 512.0f);
-	ReloadScriptsButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+	auto DebugButton = ui::Button::create("img/ui/DebugButton.png", "img/ui/DebugButton.png");
+	DebugButton->setPosition(Vec2(GameScene::GetScreenPositionX(1), GameScene::GetButtonsPositionY()));
+	DebugButton->setScale(100.0f / 512.0f);
+	DebugButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
+			UserDefault* UserDefaultData = UserDefault::getInstance();
+
+			for (unsigned int i = 0; i < LevelParamsContainer.size(); ++i)
+			{
+				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
+				{
+					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 1);
+
+					LevelParamsContainer[i][j].bLocked = false;
+				}
+			}
+
+			UserDefaultData->flush();
+
 			LevelSelectScene::InitializeLevelParams();
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}
 	});
 
-	this->addChild(ReloadScriptsButton, 1);
+	this->addChild(DebugButton, 1);
 }
 
 void LevelSelectScene::CreateBackToMenuButton()

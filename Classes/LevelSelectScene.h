@@ -44,6 +44,6 @@ public:
 	void CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateStarsLabel(cocos2d::ui::Layout* PageLayout);
 	void CreateResetProgressButton();
-	void CreateReloadScriptsButton();
+	void CreateDebugButton();
 	void CreateBackToMenuButton();
 };

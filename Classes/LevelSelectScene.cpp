@@ -335,14 +335,12 @@ void LevelSelectScene::CreateResetProgressButton()
 					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 0);
 					const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsContainer[i][j].LevelDisplayNumber);
 					UserDefaultData->setIntegerForKey(LevelAttemptsKey.c_str(), 0);
+
+					LevelParamsContainer[i][j].bLocked = (i != 0 || j != 0);
 				}
 			}
 
 			UserDefaultData->flush();
-
-			for (auto& CurrWorldContainer : LevelParamsContainer)
-				for (auto& CurrLevelStruct : CurrWorldContainer)
-					CurrLevelStruct.bLocked = !(CurrLevelStruct.WorldNumber == 0 && CurrLevelStruct.LevelNumber == 0);
 
 			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}

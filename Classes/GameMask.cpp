@@ -115,7 +115,7 @@ void GameMask::OnTouch(Touch* touch, Event* event)
 
 		auto FailedIcon = Sprite::create("gui/squares/square_star_512.png");
 		FailedIcon->setPosition(Vec2(46.0f, 200.0f + 95.0f * FailedIconCounter));
-		FailedIcon->setScale(SMALL_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
+		FailedIcon->setScale(STAR_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
 		ParentScene->addChild(FailedIcon, 0);
 		++FailedIconCounter;
 	}

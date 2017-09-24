@@ -19,7 +19,7 @@ const std::string GameSquare::ActivationSpriteFilename_DangerousSecondTap = "gui
 const std::string GameSquare::InactiveSpriteFilename_Standard = "gui/bqsqr/bgsqr_0_inactive_512.png";
 const std::string GameSquare::InactiveSpriteFilename_DoubleTap = "gui/bqsqr/bgsqr_8_inactive_512.png";
 
-const std::string GameSquare::FailedSpriteFilename = "gui/squares/square_star_512.png";
+const std::string GameSquare::FailedSpriteFilename = "gui/icons/icon_fail_triangle_star_512.png";
 const std::string GameSquare::CompletedSpriteFilename = "gui/squares/square_inactive_512.png";
 
 GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY):
@@ -29,7 +29,6 @@ ParentScene(argScene),
 EventListener(nullptr),
 InactiveSprite(nullptr),
 ActivationSprite(nullptr),
-FailedSprite(nullptr),
 CompletedSprite(nullptr),
 SpritePosition(argSpritePosition),
 State(ESquareState::Inactive),
@@ -43,6 +42,9 @@ bAlreadyTapped(false),
 bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
+	for (int i = 0; i < FAILED_SPRITES_NUMBER; ++i)
+		FailedSprites[i] = nullptr;
+
 	InactiveSprite = Sprite::create(bDoubleTap ? InactiveSpriteFilename_DoubleTap : InactiveSpriteFilename_Standard);
 	InactiveSprite->setPosition(SpritePosition);
 	InactiveSprite->setScale(SpritesScale);
@@ -85,8 +87,9 @@ GameSquare::~GameSquare()
 	InactiveSprite->removeFromParent();
 	ActivationSprite->removeFromParent();
 
-	if (FailedSprite)
-		FailedSprite->removeFromParent();
+	for (int i = 0; i < FAILED_SPRITES_NUMBER; ++i)
+		if (FailedSprites[i])
+			FailedSprites[i]->removeFromParent();
 
 	if (CompletedSprite)
 		CompletedSprite->removeFromParent();
@@ -211,14 +214,27 @@ void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* Sca
 
 	if (bShowFailedSprite)
 	{
-		FailedSprite = Sprite::create(FailedSpriteFilename);
-		FailedSprite->setPosition(SpritePosition);
-		FailedSprite->setScale(SMALL_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
-		FailedSprite->setOpacity(0.0f);
-		ParentScene->addChild(FailedSprite, 3);
+		for (int i = 0; i < FAILED_SPRITES_NUMBER; ++i)
+		{
+			static const float Offset = (RECORD_SQUARE_SIZE - STAR_SQUARE_SIZE) / 2.0f;
+			static const Vec2 PosMods[4] = { Vec2(-Offset, 0.0f), Vec2(0.0f, Offset), Vec2(Offset, 0.0f), Vec2(0.0f, -Offset) };
 
-		auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
-		FailedSprite->runAction(FadeInAction);
+			FailedSprites[i] = Sprite::create(FailedSpriteFilename);
+			FailedSprites[i]->setRotation(90.0f * i);
+			FailedSprites[i]->setPosition(SpritePosition);
+			FailedSprites[i]->setScale(STAR_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
+			FailedSprites[i]->setOpacity(0.0f);
+			ParentScene->addChild(FailedSprites[i], 3);
+
+			auto DelayAction = DelayTime::create(0.1f);
+			auto MoveAction = MoveBy::create(0.5f, PosMods[i]);
+			auto EaseMoveAction = EaseOut::create(MoveAction, 2.0f);
+			auto SequenceAction = Sequence::createWithTwoActions(DelayAction, EaseMoveAction);
+			auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
+			auto SpawnAction = Spawn::createWithTwoActions(SequenceAction, FadeInAction);
+			FailedSprites[i]->runAction(SpawnAction);
+		}
+
 	}
 }
 

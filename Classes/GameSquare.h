@@ -6,6 +6,8 @@
 
 #include "SquareTapper.h"
 
+#define FAILED_SPRITES_NUMBER 4
+
 class GameScene;
 
 class GameSquare
@@ -30,7 +32,7 @@ protected:
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* InactiveSprite;
 	cocos2d::Sprite* ActivationSprite;
-	cocos2d::Sprite* FailedSprite;
+	cocos2d::Sprite* FailedSprites[FAILED_SPRITES_NUMBER];
 	cocos2d::Sprite* CompletedSprite;
 	cocos2d::Vec2 SpritePosition;
 	ESquareState State;

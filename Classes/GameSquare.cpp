@@ -228,7 +228,7 @@ void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* Sca
 
 			auto DelayAction = DelayTime::create(0.1f);
 			auto MoveAction = MoveBy::create(0.5f, PosMods[i]);
-			auto EaseMoveAction = EaseOut::create(MoveAction, 2.0f);
+			auto EaseMoveAction = EaseOut::create(MoveAction, 3.0f);
 			auto SequenceAction = Sequence::createWithTwoActions(DelayAction, EaseMoveAction);
 			auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
 			auto SpawnAction = Spawn::createWithTwoActions(SequenceAction, FadeInAction);

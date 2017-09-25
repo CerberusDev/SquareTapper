@@ -22,7 +22,7 @@
 # Standard + Bezpieczne kwadraty + Niebezpieczne kwadraty + Double tap
 
 # ============= 1 - 3 =============
-0.4		1.3		2		2		0
+0.4		1.35		2		2		0
 
 ST			ST			ST
 ST			ST			ST
@@ -30,7 +30,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.4		1.3		1		3		0
+0.4		1.35		1		3		0
 
 ST			ST			ST
 ST			DB			ST
@@ -38,7 +38,7 @@ ST			DB			ST
 ST			DB			ST
 ST			ST			ST
 
-0.4		1.3		3		1		0
+0.4		1.35		3		1		0
 
 ST			ST			ST
 DB			ST			DB
@@ -47,7 +47,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 4 - 6 =============
-0.4		1.2		6		2		0
+0.4		1.225		6		2		0
 
 ST			ST			ST
 ST			DB			ST
@@ -55,7 +55,7 @@ DB			ST			DB
 ST			DB			ST
 ST			ST			ST
 
-0.4		1.2		3		3		0
+0.4		1.225	3		3		0
 
 ST			ST			DB
 DB			ST			ST
@@ -63,7 +63,7 @@ ST			ST			DB
 DB			ST			ST
 ST			ST			DB
 
-0.4		1.2		1		1		0
+0.4		1.225	1		1		0
 
 ST			ST			ST
 DB			ST			DB

@@ -21,7 +21,7 @@
 # Standard + Bezpieczne maski + Niebezpieczne kwadraty + Double tap
 
 # ============= 1 - 3 =============
-0.55	1.4		0		3		0	SpawnMask Horizontal
+0.55	1.57	0		3		0	SpawnMask Horizontal
 
 ST			ST			ST
 ST			ST			ST
@@ -29,7 +29,7 @@ ST			ST			ST
 ST			ST			ST
 DB			DB			DB
 
-0.50	1.375	0		3		0	SpawnMask Horizontal
+0.50	1.51	0		3		0	SpawnMask Horizontal
 
 ST			ST			ST
 DB			ST			DB
@@ -37,7 +37,7 @@ ST			ST			ST
 DB			DB			DB
 ST			ST			ST
 
-0.45	1.35	0		3		0	SpawnMask Horizontal
+0.45	1.46	0		3		0	SpawnMask Horizontal
 
 DB			ST			ST
 ST			ST			ST
@@ -46,7 +46,7 @@ ST			ST			ST
 ST			ST			DB
 
 # ============= 4 - 6 =============
-0.5		1.325	0		3		0	SpawnMask Vertical
+0.5		1.4		0		3		0	SpawnMask Vertical
 
 DB			DB			ST
 DB			ST			ST
@@ -54,7 +54,7 @@ ST			ST			ST
 ST			ST			DB
 ST			DB			DB
 
-0.475	1.3		0		3		0	SpawnMask Vertical
+0.475	1.36	0		3		0	SpawnMask Vertical
 
 DB			DB			DB
 ST			DB			ST
@@ -62,7 +62,7 @@ ST			ST			ST
 ST			ST			ST
 ST			DB			ST
 
-0.35	1.275	0		3		0	SpawnMask Vertical
+0.35	1.315	0		3		0	SpawnMask Vertical
 
 ST			ST			ST
 ST			ST			ST
@@ -71,7 +71,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 7 - 9 =============
-0.345	1.3	0		3		0
+0.345	1.35	0		3		0	SpawnMask Horizontal
 
 ST			ST			ST
 DB			DB			DB
@@ -79,7 +79,7 @@ DB			ST			DB
 ST			ST			ST
 ST			ST			ST
 
-0.325	1.27	0		3		0	SpawnMask Horizontal
+0.325	1.35	0		3		0	
 
 DB			ST			DB
 ST			ST			ST
@@ -87,7 +87,7 @@ ST			ST			ST
 ST			ST			ST
 DB			ST			DB
 
-0.3		1.17	0		3		0	SpawnMask Horizontal
+0.3		1.23	0		5		0	SpawnMask Horizontal
 
 DB			ST			ST
 DB			DB			DB
@@ -96,7 +96,15 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 10 - 12 =============
-0.55	0.65		0		4		0
+0.295	1.33	0 		4		0	SpawnMask Vertical
+
+ST			DB			DB
+DB			DB			ST
+DB			ST			DB
+ST			DB			DB
+DB			DB			ST
+
+0.55	0.7		0		4		0
 
 ST			DB			ST
 DB			ST			DB
@@ -104,15 +112,8 @@ ST			ST			ST
 DB			ST			DB
 DB			DB			DB
 
-0.295	1.25		0 		4		0	SpawnMask Vertical
 
-DB			DB			DB
-ST			DB			DB
-DB			ST			DB
-DB			DB			ST
-DB			DB			DB
-
-0.27	1.12	0 		4		0	SpawnMask Vertical
+0.295	1.3		0 		4		0	SpawnMask Vertical
 
 DB			DB			DB
 ST			ST			DB

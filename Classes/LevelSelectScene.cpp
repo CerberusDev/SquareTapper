@@ -146,7 +146,8 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 
 void LevelSelectScene::AddSequenceSquareToLevelParams(LevelParams& CurrLevelParamsStruct, const std::string& SquareType, int SquareIndex)
 {
-	std::string Tail = SquareType.substr(SquareType.size() - 3);
+	int TailStartPos = SquareType.find('.') + 1;
+	std::string Tail = SquareType.substr(TailStartPos, SquareType.length() - TailStartPos);
 	std::replace(Tail.begin(), Tail.end(), '.', ' ');
 	std::stringstream TailStringStream(Tail);
 

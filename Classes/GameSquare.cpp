@@ -37,9 +37,9 @@ SavedActivationTotalTime(-1.0f),
 CompletedSpriteFadeInTime(0.15f),
 SpritesScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE),
 ActivationFreezeRequestsCounter(0),
+TouchBlockCounter(0),
 bDoubleTap(bargDoubleTap),
 bAlreadyTapped(false),
-bBlockTouchEvents(false),
 bPausedOnGameOver(false)
 {
 	for (int i = 0; i < FAILED_SPRITES_NUMBER; ++i)
@@ -108,7 +108,7 @@ void GameSquare::StartActivation(float ActivationTotalTime)
 
 void GameSquare::OnTouch(Touch* touch, Event* event)
 {
-	if (State == ESquareState::DuringActivation && !bBlockTouchEvents && !bPausedOnGameOver)
+	if (State == ESquareState::DuringActivation && TouchBlockCounter == 0 && !bPausedOnGameOver)
 		SquareCorrectlyTapped();
 }
 
@@ -272,7 +272,7 @@ void GameSquare::SetActivationFreeze(bool argbActivationFrozen)
 
 void GameSquare::SetBlockTouchEvents(bool argbBlockTouchEvents)
 {
-	bBlockTouchEvents = argbBlockTouchEvents;
+	argbBlockTouchEvents ? ++TouchBlockCounter : --TouchBlockCounter;
 }
 
 void GameSquare::PauseOnGameOver()

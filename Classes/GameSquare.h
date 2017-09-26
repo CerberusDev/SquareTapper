@@ -41,9 +41,9 @@ protected:
 	const float CompletedSpriteFadeInTime;
 	const float SpritesScale;
 	int ActivationFreezeRequestsCounter;
+	int TouchBlockCounter;
 	const bool bDoubleTap;
 	bool bAlreadyTapped;
-	bool bBlockTouchEvents;
 	bool bPausedOnGameOver;
 
 // ---------------------------------------------------------------------------------------------------

@@ -122,6 +122,22 @@ bool GameScene::init()
 	AttemptsNrLabel->setColor(GREY_COLOR);
 	this->addChild(AttemptsNrLabel, 1);
 
+	float DebugLabelsFontSize = 22.0f;
+
+	std::stringstream DebugWorldStream;
+	DebugWorldStream << "World_" << LevelParamsStruct.WorldNumber;
+	auto DebugWorldLabel = Label::createWithTTF(DebugWorldStream.str(), FONT_FILE_PATH_STANDARD, DebugLabelsFontSize);
+	DebugWorldLabel->setPosition(Vec2(80.0f, 1235.0f));
+	DebugWorldLabel->setColor(Color3B::RED);
+	this->addChild(DebugWorldLabel, 1);
+
+	std::stringstream DebugLevelStream;
+	DebugLevelStream << "Level: " << LevelParamsStruct.LevelNumber + 1;
+	auto DebugLevelLabel = Label::createWithTTF(DebugLevelStream.str(), FONT_FILE_PATH_STANDARD, DebugLabelsFontSize);
+	DebugLevelLabel->setPosition(Vec2(80.0f, 1200.0f));
+	DebugLevelLabel->setColor(Color3B::RED);
+	this->addChild(DebugLevelLabel, 1);
+
 	const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
 	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelRecordKey.c_str(), 0);
 

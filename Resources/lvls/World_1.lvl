@@ -1,4 +1,3 @@
-
 #
 # Parameters in first line of level definition:
 #
@@ -23,24 +22,24 @@
 0.5		1.55	0		0		0
 
 ST			ST			ST
+ST			DB			ST
+DB			ST			DB
+ST			DB			ST
+ST			ST			ST
+
+0.475	1.45	0		0		0
+
+ST			ST			ST
 ST			ST			ST
 DB			DB			DB
 ST			ST			ST
 ST			ST			ST
 
-0.475	1.45	0		0		0
-
-ST			DB			ST
-ST			ST			ST
-ST			DB			ST
-ST			ST			ST
-ST			DB			ST
-
 0.45	1.35	0		0		0
 
 ST			DB			ST
 ST			ST			ST
-DB			ST			DB
+ST			DB			ST
 ST			ST			ST
 ST			DB			ST
 
@@ -103,7 +102,7 @@ DB			ST			DB
 DB			ST			DB
 ST			ST			ST
 
-1.25	0.7		0		0		0
+0.55		0.7		0		0		0
 
 ST			DB			ST
 DB			ST			DB

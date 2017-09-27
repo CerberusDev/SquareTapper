@@ -21,7 +21,7 @@ protected:
 	cocos2d::MenuItemImage* RestartMenuItem;
 	cocos2d::MenuItemImage* NextMenuItem;
 	GameSquare* Squares[SQUARE_AMOUNT_X][SQUARE_AMOUNT_Y];	
-	GameMask* Mask;
+	std::vector<GameMask*> Masks;
 	std::vector<GameSquare*> ActiveSquares;
 	StarImage* StarImages[MAX_STARS_NUMBER];
 	GameSquareSequence* NextSequenceSquareToActivate;

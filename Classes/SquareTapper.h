@@ -33,6 +33,15 @@
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 enum class ESquareSafetyType { Safe, Standard, Dangerous, DangerousSecondTap };
 enum class ETutorialType { StandardSquare, DoubleTapSquare };
+enum class EMaskType { Vertical, Horizontal, HorizontalBig };
+
+struct MaskDefiniton
+{
+	EMaskType Type;
+	bool bKillingMask;
+
+	MaskDefiniton(EMaskType argType, bool argbKillingMask) : Type(argType), bKillingMask(argbKillingMask) {}
+};
 
 struct LevelParams
 {
@@ -47,9 +56,7 @@ struct LevelParams
 	std::vector<int> DoubleTapSquareIndices;
 	std::vector<std::vector<int> > SequencesSquareIndices;
 	std::vector<int> SequenceDoubleTapSquareIndices;
-	bool bSpawnGameMask;
-	bool bVerticalMask;
-	bool bKillingMask;
+	std::vector<MaskDefiniton> Masks;
 	bool bLocked;
 
 	LevelParams():
@@ -61,9 +68,6 @@ struct LevelParams
 	DangerousSecondTapSquaresNumber(-1),
 	SquaresActivationTimeInterval(-1.0f), 
 	TotalSquareActivationTime(-1.0f),
-	bSpawnGameMask(false),
-	bVerticalMask(false),
-	bKillingMask(false),
 	bLocked(true)
 	{};
 };

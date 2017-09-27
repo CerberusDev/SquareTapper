@@ -22,7 +22,6 @@ GameScene::GameScene(LevelParams argLevelParamsStruct):
 BackMenuItem(nullptr),
 RestartMenuItem(nullptr),
 NextMenuItem(nullptr),
-Mask(nullptr),
 NextSequenceSquareToActivate(nullptr),
 LevelParamsStruct(argLevelParamsStruct),
 StartDelay(0.5f),
@@ -146,7 +145,7 @@ bool GameScene::init()
 
 	SpawnGameObjects();
 
-	auto StartDelayAction = DelayTime::create(LevelParamsStruct.bSpawnGameMask ? StartDelay + 0.7f : StartDelay);
+	auto StartDelayAction = DelayTime::create(LevelParamsStruct.Masks.size() > 0 ? StartDelay + 0.7f : StartDelay);
 	auto ActivateFirstSquareAction = CallFunc::create([&]() {ActivateNextSquare(); });
 	runAction(Sequence::create(StartDelayAction, ActivateFirstSquareAction, nullptr));
 
@@ -198,12 +197,17 @@ void GameScene::SpawnGameObjects()
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			SpawnSingleGameSquare(x, y, SafeSquareIndices, DangerousSquareIndices, DangerousSecondTapSquareIndices);
 
-	if (LevelParamsStruct.bSpawnGameMask)
+	for (const MaskDefiniton& CurrMaskDefinition : LevelParamsStruct.Masks)
 	{
-		if (LevelParamsStruct.bVerticalMask)
-			Mask = new VerticalGameMask(this, LevelParamsStruct.bKillingMask);
-		else
-			Mask = new HorizontalGameMask(this, LevelParamsStruct.bKillingMask);
+		switch (CurrMaskDefinition.Type)
+		{
+		case EMaskType::Vertical:
+			Masks.push_back(new VerticalGameMask(this, CurrMaskDefinition.bKillingMask));
+			break;
+		case EMaskType::Horizontal:
+			Masks.push_back(new HorizontalGameMask(this, CurrMaskDefinition.bKillingMask));
+			break;
+		}
 	}
 }
 
@@ -267,8 +271,8 @@ void GameScene::onExit()
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			delete Squares[x][y];
 
-	if (Mask)
-		delete Mask;
+	for (int i = 0; i < Masks.size(); ++i)
+		delete Masks[i];
 
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
 		delete StarImages[i];
@@ -436,8 +440,8 @@ void GameScene::LevelFailed()
 		for (GameSquare* CurrSquare : ActiveSquares)
 			CurrSquare->PauseOnGameOver();
 	
-		if (Mask)
-			Mask->RequestFinishAnimation();
+		for (GameMask* CurrMask : Masks)
+			CurrMask->RequestFinishAnimation();
 
 		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(this);
 
@@ -450,8 +454,8 @@ void GameScene::LevelCompleted()
 	bLevelFinished = true;
 	Blink("gui/squares/square_active_512.png");
 
-	if (Mask)
-		Mask->RequestFinishAnimation();
+	for (GameMask* CurrMask : Masks)
+		CurrMask->RequestFinishAnimation();
 
 	std::string LevelKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
 

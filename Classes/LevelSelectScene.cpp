@@ -106,16 +106,20 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			ParamsStringStream >> NewLevelParams.DangerousSquaresNumber;
 			ParamsStringStream >> NewLevelParams.DangerousSecondTapSquaresNumber;
 
-			if (Line.find("SpawnMask") != std::string::npos)
-			{
-				NewLevelParams.bSpawnGameMask = true;
+			if (Line.find("Vertical-Killing") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::Vertical, true));
+			else if (Line.find("Vertical-Standard") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::Vertical, false));
 
-				if (Line.find("Vertical") != std::string::npos)
-					NewLevelParams.bVerticalMask = true;
+			if (Line.find("Horizontal-Killing") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::Horizontal, true));
+			else if (Line.find("Horizontal-Standard") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::Horizontal, false));
 
-				if (Line.find("Killing") != std::string::npos)
-					NewLevelParams.bKillingMask = true;
-			}
+			if (Line.find("HorizontalBig-Killing") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::HorizontalBig, true));
+			else if (Line.find("HorizontalBig-Standard") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::HorizontalBig, false));
 
 			std::getline(InputStream, Line);
 

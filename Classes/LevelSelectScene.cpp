@@ -121,6 +121,11 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 			else if (Line.find("HorizontalBig-Standard") != std::string::npos)
 				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::HorizontalBig, false));
 
+			if (Line.find("Chessboard-Killing") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::Chessboard, true));
+			else if (Line.find("Chessboard-Standard") != std::string::npos)
+				NewLevelParams.Masks.push_back(MaskDefiniton(EMaskType::Chessboard, false));
+
 			std::getline(InputStream, Line);
 
 			for (int i = SQUARE_AMOUNT_Y - 1; i >= 0; --i)

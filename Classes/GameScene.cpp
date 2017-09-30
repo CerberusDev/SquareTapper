@@ -267,14 +267,14 @@ void GameScene::onExit()
 {
 	Scene::onExit();
 
-	for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
+	for (unsigned int x = 0; x < SQUARE_AMOUNT_X; ++x)
 		for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 			delete Squares[x][y];
 
-	for (int i = 0; i < Masks.size(); ++i)
+	for (unsigned int i = 0; i < Masks.size(); ++i)
 		delete Masks[i];
 
-	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
+	for (unsigned int i = 0; i < MAX_STARS_NUMBER; ++i)
 		delete StarImages[i];
 }
 

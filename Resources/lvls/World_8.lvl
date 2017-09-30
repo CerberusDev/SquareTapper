@@ -71,7 +71,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 7 - 9 =============
-0.345	1.35	0		3		0	SpawnMask Horizontal
+0.345	1.05		0		3		0	SpawnMask Horizontal
 
 ST			ST			ST
 DB			DB			DB
@@ -79,7 +79,7 @@ DB			ST			DB
 ST			ST			ST
 ST			ST			ST
 
-0.325	1.35	0		3		0	
+0.325	1.25	0		3		0	
 
 DB			ST			DB
 ST			ST			ST
@@ -87,7 +87,7 @@ ST			ST			ST
 ST			ST			ST
 DB			ST			DB
 
-0.3		1.23	0		5		0	SpawnMask Horizontal
+0.3		1.1		0		5		0	SpawnMask Horizontal
 
 DB			ST			ST
 DB			DB			DB

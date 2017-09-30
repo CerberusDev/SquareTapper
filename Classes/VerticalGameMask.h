@@ -17,7 +17,7 @@ public:
 	VerticalGameMask(GameScene* argScene, bool bKillingMask);
 
 protected:
-	virtual void UpdateSpritePosition();
-	virtual void Move();
-	virtual void FrozeSquareActivation();
+	virtual void UpdateSpritePosition() override;
+	virtual void Move() override;
+	virtual void FrozeSquareActivation() override;
 };

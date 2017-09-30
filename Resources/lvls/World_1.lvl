@@ -6,7 +6,10 @@
 # 3. Number of safe squares on level
 # 4. Number of dangerous squares on level
 # 5. Number of double tap squares with dangerous second actuation part on level
-# 6. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
+# 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard 
+#								Horizontal-Killing 		Horizontal-Standard
+#								HorizontalBig-Killing 	HorizontalBig-Standard 
+#								Chessboard-Killing 		Chessboard-Standard )
 #
 # Square codes:
 # 
@@ -60,7 +63,7 @@ ST			ST			ST
 DB			ST			DB
 ST			ST			ST
 
-0.375	1.25		0		0		0
+0.375	1.25	0		0		0
 
 DB			DB			DB
 ST			ST			ST
@@ -85,7 +88,7 @@ DB			ST			DB
 ST			ST			ST
 DB			ST			DB
 
-0.3		1.15		0		0		0
+0.3		1.15	0		0		0
 
 DB			ST			ST
 ST			DB			ST
@@ -102,7 +105,7 @@ DB			ST			DB
 DB			ST			DB
 ST			ST			ST
 
-0.55		0.7		0		0		0
+0.55	0.7		0		0		0
 
 ST			DB			ST
 DB			ST			DB

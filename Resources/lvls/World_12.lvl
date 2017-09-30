@@ -7,7 +7,10 @@
 # 3. Number of safe squares on level
 # 4. Number of dangerous squares on level
 # 5. Number of double tap squares with dangerous second actuation part on level
-# 6. Mask definition (Keywords: SpawnMask, Vertical, Horizontal, Killing)
+# 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard 
+#								Horizontal-Killing 		Horizontal-Standard
+#								HorizontalBig-Killing 	HorizontalBig-Standard 
+#								Chessboard-Killing 		Chessboard-Standard )
 #
 # Square codes:
 # 
@@ -23,7 +26,6 @@
 # Testowy świat na same interwały, a czas aktywacji taki sam
 
 # ============= 1 - 3 =============
-
 0.7		2.1		0		0		0
 
 ST			ST			ST
@@ -32,7 +34,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.5		1.65		0		0		0
+0.5		1.65	0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -40,7 +42,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.425		1.5		0		0		0
+0.425	1.5		0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -49,7 +51,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 4 - 6 =============
-0.35	1.325		0		0		0
+0.35	1.325	0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -100,7 +102,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 10 - 12 =============
-0.2		1.125		0		0		0
+0.2		1.125	0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -150,3 +152,6 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
+
+
+

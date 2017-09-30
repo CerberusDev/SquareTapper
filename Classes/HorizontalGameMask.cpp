@@ -8,9 +8,9 @@
 
 USING_NS_CC;
 
-HorizontalGameMask::HorizontalGameMask(GameScene* argScene, bool bKillingMask) :
+HorizontalGameMask::HorizontalGameMask(GameScene* argScene, bool bKillingMask, int InitialOffset) :
 GameMask(argScene, bKillingMask),
-CurrentRowIndex(0)
+CurrentRowIndex(InitialOffset)
 {
 	MaskSprite->setScaleX(((SQUARE_AMOUNT_X - 1) * GameScene::GetDistBetweenSquares() + SQUARE_SPRITE_SIZE + 2.0f * MARGIN_SIZE) / SQUARE_TEXTURES_SIZE);
 	MaskSprite->setScaleY((SQUARE_SPRITE_SIZE + 2.0f * MARGIN_SIZE) / SQUARE_TEXTURES_SIZE);

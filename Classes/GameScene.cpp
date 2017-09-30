@@ -205,6 +205,10 @@ void GameScene::SpawnGameObjects()
 		case EMaskType::Horizontal:
 			Masks.push_back(new HorizontalGameMask(this, CurrMaskDefinition.bKillingMask));
 			break;
+		case EMaskType::HorizontalBig:
+			Masks.push_back(new HorizontalGameMask(this, CurrMaskDefinition.bKillingMask, 0));
+			Masks.push_back(new HorizontalGameMask(this, CurrMaskDefinition.bKillingMask, 1));
+			break;
 		}
 	}
 }

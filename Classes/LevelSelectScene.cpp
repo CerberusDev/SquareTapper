@@ -396,7 +396,8 @@ void LevelSelectScene::CreateBackToMenuButton()
 	BackToMenuButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
-			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+			//temporary: do nothing
+			//Director::getInstance()->replaceScene(LevelSelectScene::create(0));
 		}
 	});
 

@@ -438,6 +438,13 @@ void LevelSelectScene::GetPrevLevelIDs(int CurrWorldNumber, int CurrLevelNumber,
 	}
 }
 
+const LevelParams& LevelSelectScene::GetNextLevelData(int CurrWorldNumber, int CurrLevelNumber)
+{
+	int NextWorldNumber, NextLevelNumber;
+	GetNextLevelIDs(CurrWorldNumber, CurrLevelNumber, NextWorldNumber, NextLevelNumber);
+	return LevelParamsContainer[NextWorldNumber][NextLevelNumber];
+}
+
 bool LevelSelectScene::IsNextLevelLocked(int CurrWorldNumber, int CurrLevelNumber)
 {
 	bool bResult = true;

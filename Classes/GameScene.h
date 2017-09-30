@@ -37,12 +37,12 @@ protected:
 // ---------------------------------------------------------------------------------------------------
 
 public:
-	GameScene(LevelParams argLevelParamsStruct);
+	GameScene(const LevelParams& argLevelParamsStruct);
 
-    virtual bool init();
+	virtual bool init();
 	virtual void onExit();
-    
-	static GameScene* create(LevelParams argLevelParamsStruct);
+
+	static GameScene* create(const LevelParams& argLevelParamsStruct);
 	static float GetScreenPositionX(int SquareIndexX);
 	static float GetScreenPositionY(int SquareIndexY);
 	static float GetStarPositionY();

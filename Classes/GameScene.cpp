@@ -18,7 +18,7 @@ USING_NS_CC;
 #define BUTTONS_POS_Y (BOTTOM_SQUARES_POS_Y - SQUARE_SPRITE_SIZE * 0.5f) * 0.5f
 #define STARS_POS_Y 1110.0f
 
-GameScene::GameScene(LevelParams argLevelParamsStruct):
+GameScene::GameScene(const LevelParams& argLevelParamsStruct):
 BackMenuItem(nullptr),
 RestartMenuItem(nullptr),
 NextMenuItem(nullptr),
@@ -34,7 +34,7 @@ bLevelFinished(false)
 
 }
 
-GameScene* GameScene::create(LevelParams argLevelParamsStruct)
+GameScene* GameScene::create(const LevelParams& argLevelParamsStruct)
 {
 	GameScene *pRet = new(std::nothrow) GameScene(argLevelParamsStruct);
 
@@ -83,10 +83,8 @@ bool GameScene::init()
 
 	NextMenuItem = MenuItemImage::create("gui/icons/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
 		[&](Ref* sender) {
-		if ((int)LevelData[LevelParamsStruct.WorldNumber].size() > LevelParamsStruct.LevelNumber + 1)
-			Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber][LevelParamsStruct.LevelNumber + 1]));
-		else
-			Director::getInstance()->replaceScene(GameScene::create(LevelData[LevelParamsStruct.WorldNumber + 1][0]));
+		const LevelParams& NextLevelParams = LevelSelectScene::GetNextLevelData(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber);
+		Director::getInstance()->replaceScene(GameScene::create(NextLevelParams));
 	});
 
 	if (LevelSelectScene::IsNextLevelLocked(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))

@@ -35,6 +35,7 @@ public:
 	static LevelSelectScene* create(int argStartWorldNumber);
 	static void GetNextLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& NextWorldNumber, int& NextLevelNumber);
 	static void GetPrevLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& PrevWorldNumber, int& PrevLevelNumber);
+	static const LevelParams& GetNextLevelData(int CurrWorldNumber, int CurrLevelNumber);
 	static bool IsNextLevelLocked(int CurrWorldNumber, int CurrLevelNumber);
 	static void NotifyLevelCompleted(int CurrWorldNumber, int CurrLevelNumber, int NumberOfStars);
 

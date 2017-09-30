@@ -72,7 +72,7 @@ void TutorialScene::InitTutorialStandard()
 	static const float SquareActivationTime = 2.0f;
 
 	auto SpawnSquare = CallFunc::create([&]() {
-		Square = new GameSquare(this, false, ESquareSafetyType::Standard, Vec2(DESIGN_RES_X / 2.0f, SQUARE_POS_Y), 0, 0);
+		Square = new GameSquare(this, false, ESquareSafetyType::Standard, Vec2(GameScene::GetScreenPositionX(1), GameScene::GetScreenPositionY(2)), 0, 0);
 		Square->SetBlockTouchEvents(true);
 	});
 	auto Delay1Action = DelayTime::create(Delay1);
@@ -121,7 +121,7 @@ void TutorialScene::InitTutorialDoubleTap()
 	static const float SquareActivationTime = 2.0f;
 
 	auto SpawnSquare = CallFunc::create([&]() {
-		Square = new GameSquare(this, true, ESquareSafetyType::Standard, Vec2(DESIGN_RES_X / 2.0f, SQUARE_POS_Y), 0, 0);
+		Square = new GameSquare(this, true, ESquareSafetyType::Standard, Vec2(GameScene::GetScreenPositionX(1), GameScene::GetScreenPositionY(2)), 0, 0);
 		Square->SetBlockTouchEvents(true);
 	});
 	auto Delay1Action = DelayTime::create(Delay1);

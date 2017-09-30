@@ -9,7 +9,7 @@
 class GameScene;
 class GameSquare;
 
-#define MARGIN_SIZE 20.0f
+#define MARGIN_SIZE ((GameScene::GetDistBetweenSquares() - SQUARE_SPRITE_SIZE) / 2.0f)
 
 class GameMask
 {

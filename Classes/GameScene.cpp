@@ -80,8 +80,6 @@ bool GameScene::init()
 	RestartMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 	MenuItems.pushBack(RestartMenuItem);
 
-	auto const& LevelData = LevelSelectScene::GetLevelData();
-
 	NextMenuItem = MenuItemImage::create("gui/icons/icon_arrow_inactive_512.png", "img/ui/icon_arrow_inactive_512.png",
 		[&](Ref* sender) {
 		const LevelParams& NextLevelParams = LevelSelectScene::GetNextLevelData(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber);

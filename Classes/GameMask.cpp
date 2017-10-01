@@ -34,19 +34,6 @@ bShouldFinishAnimation(false)
 	auto SequenceAction = Sequence::create(FadeInAction, OnFadingInEndFunction, DelayAction, OnFadingOutStartFunction, FadeOutAction, OnFadingOutEndFunction, nullptr);
 
 	MaskSprite->runAction(RepeatForever::create(SequenceAction));
-
-	if (bKillOnTouch)
-	{
-		EventListener = EventListenerTouchOneByOne::create();
-		EventListener->onTouchBegan = [&](Touch* touch, Event* event) {
-			if (MaskSprite->getBoundingBox().containsPoint(touch->getLocation()))
-				OnTouch(touch, event);
-
-			return false;
-		};
-
-		Director::getInstance()->getEventDispatcher()->addEventListenerWithFixedPriority(EventListener, 1);
-	}
 }
 
 GameMask::~GameMask()
@@ -70,7 +57,7 @@ void GameMask::UnfrozeSquareActivation()
 void GameMask::OnFadingInEnd()
 {
 	for (auto CurrSquare : FrozenSquares)
-		CurrSquare->SetBlockTouchEvents(true);
+		CurrSquare->SetBlockTouchEvents(true, bKillOnTouch);
 
 	bMaskFullyVisible = true;
 
@@ -81,7 +68,7 @@ void GameMask::OnFadingInEnd()
 void GameMask::OnFadingOutStart()
 {
 	for (auto CurrSquare : FrozenSquares)
-		CurrSquare->SetBlockTouchEvents(false);
+		CurrSquare->SetBlockTouchEvents(false, bKillOnTouch);
 
 	bMaskFullyVisible = false;
 

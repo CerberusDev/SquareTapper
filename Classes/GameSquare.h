@@ -42,6 +42,7 @@ protected:
 	const float SpritesScale;
 	int ActivationFreezeRequestsCounter;
 	int TouchBlockCounter;
+	int KillingTouchBlockCounter;
 	const bool bDoubleTap;
 	bool bAlreadyTapped;
 	bool bPausedOnGameOver;
@@ -53,7 +54,7 @@ public:
 
 	virtual void StartActivation(float ActivationTotalTime);
 	void SetActivationFreeze(bool argbActivationFrozen);
-	void SetBlockTouchEvents(bool argbBlockTouchEvents);
+	void SetBlockTouchEvents(bool bBlockTouchEvents, bool bKilingBlock = false);
 	void SimulateCorrectTap();
 	void PauseOnGameOver();
 

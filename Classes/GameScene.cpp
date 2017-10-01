@@ -8,6 +8,7 @@
 #include "LevelSelectScene.h"
 #include "VerticalGameMask.h"
 #include "HorizontalGameMask.h"
+#include "ToggleGameMask.h"
 #include "StarImage.h"
 
 USING_NS_CC;
@@ -208,6 +209,11 @@ void GameScene::SpawnGameObjects()
 		case EMaskType::HorizontalBig:
 			Masks.push_back(new HorizontalGameMask(this, CurrMaskDefinition.bKillingMask, 0));
 			Masks.push_back(new HorizontalGameMask(this, CurrMaskDefinition.bKillingMask, 1));
+			break;
+		case EMaskType::Chessboard:
+			for (int x = 0; x < SQUARE_AMOUNT_X; ++x)
+				for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
+					Masks.push_back(new ToggleGameMask(this, CurrMaskDefinition.bKillingMask, Vec2(x, y), Vec2(1, 1), (x + y) % 2 == 0));
 			break;
 		}
 	}

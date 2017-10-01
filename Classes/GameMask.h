@@ -41,6 +41,6 @@ protected:
 	void UnfrozeSquareActivation();
 	void OnFadingInEnd();
 	void OnFadingOutStart();
-	void OnFadingOutEnd();
+	virtual void OnFadingOutEnd();
 	void OnTouch(cocos2d::Touch* touch, cocos2d::Event* event);
 };

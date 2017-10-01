@@ -121,9 +121,7 @@ void GameSquare::SquareCorrectlyTapped()
 {
 	if (SafetyType == ESquareSafetyType::Dangerous || (SafetyType == ESquareSafetyType::DangerousSecondTap && bDoubleTap && bAlreadyTapped))
 	{
-		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
-		auto ScaleSequence = ScaleUpActivationSquare();
-		Failed(ScaleSequence);
+		Failed();
 	}
 	else if (bDoubleTap && !bAlreadyTapped)
 	{
@@ -150,6 +148,8 @@ void GameSquare::SquareCorrectlyTapped()
 
 void GameSquare::ActivationEnded()
 {
+	ActivationSprite->setScale(SpritesScale);
+
 	if (SafetyType == ESquareSafetyType::Standard)
 	{
 		Failed();
@@ -187,9 +187,17 @@ void GameSquare::Completed(bool bUpscaleActivationSquare)
 		ParentGameScene->OnSquareCompleted(this);
 }
 
-void GameSquare::Failed(cocos2d::Sequence* ScaleUpSequence)
+void GameSquare::Failed()
 {
 	State = ESquareState::Failed;
+
+	Sequence* ScaleUpSequence = nullptr;
+
+	if (ActivationSprite->getScale() < SpritesScale)
+	{
+		Director::getInstance()->getActionManager()->removeAllActionsFromTarget(ActivationSprite);
+		ScaleUpSequence = ScaleUpActivationSquare();
+	}
 
 	ShowFinalSprites(true, ScaleUpSequence);
 

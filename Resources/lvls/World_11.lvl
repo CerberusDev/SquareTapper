@@ -10,8 +10,7 @@
 # 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard 
 #								Horizontal-Killing 		Horizontal-Standard
 #								HorizontalBig-Killing 	HorizontalBig-Standard 
-#								Chessboard-Killing 		Chessboard-Standard
-#								Full-Killing 			Full-Standard )
+#								Chessboard-Killing 		Chessboard-Standard )
 #
 # Square codes:
 # 
@@ -22,110 +21,112 @@
 #	Y - Sequence ID (please start counting from 0)
 #	Z - Square's index in sequence (0 means first)	
 #
-#	Standard + Double tap 2 + Bezpieczne kwadraty
+
+
+# Standard + Niebezpieczne maski
 
 # ============= 1 - 3 =============
-0.5		1.5		10		0		0	Horizontal-Killing 
+0.6		1.25	0		0		0	Horizontal-Killing
 
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
-ST			DB			ST
-ST			ST			ST
-
-0.4		1.45	6		0		0	
-
-ST			DB			ST
-ST			DB			ST
-ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.375	1.4		2		0		0	Horizontal-Killing 
+0.6		1.15	0		0		0	Horizontal-Killing
 
-ST			DB			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
-ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+
+0.6		1.1		0		0		0	Horizontal-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 4 - 6 =============
-0.35	1.3		3		0		0	Vertical-Killing 
+0.45	1.275	0		0		0	Horizontal-Killing
 
-DB			ST			ST
 ST			ST			ST
-DB			ST			ST
-ST			ST			ST
-DB			ST			ST
-
-0.325	0.8		3		0		0	
-
-DB			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.3		1.25	3		0		0	Vertical-Killing 
+0.45	1.25	0		0		0	Vertical-Killing
 
 ST			ST			ST
-ST			ST			DB
-DB			DB			ST
-ST			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.45	1.05	0		0		0	Horizontal-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 
 # ============= 7 - 9 =============
-0.3		1.2		1		0		0	Vertical-Killing 	
+0.35	1.15	0		0		0 	Vertical-Killing
 
 ST			ST			ST
-ST			ST			DB
-ST			DB			DB
-ST			ST			DB
-ST			ST			ST
-
-0.3		1.175	8		0		0	Horizontal-Killing 
-
-DB			ST			ST
 ST			ST			ST
 ST			ST			ST
-ST			ST			DB
-ST			DB			DB
-
-0.3		1.15	1		0		0	Vertical-Killing 
-
-ST			DB			ST
-ST			DB			ST
 ST			ST			ST
-ST			DB			ST
-ST			DB			ST
+ST			ST			ST
+
+0.375	1.125	0		0		0	Horizontal-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.35	1.075	0		0		0	Vertical-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 10 - 12 =============
-0.285	1.15	6		0		0	Vertical-Killing 
+0.325	1.075	0		0		0	Vertical-Killing
 
-ST			DB			ST
 ST			ST			ST
 ST			ST			ST
-DB			DB			DB
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 
-0.27	1.15	5		0		0	Vertical-Killing 
+0.3		1.075	0		0		0	Vertical-Killing
 
-DB			DB			ST
-DB			ST			ST
 ST			ST			ST
-ST			ST			DB
-ST			DB			DB
-
-0.25	1.2		4		0		0	Vertical-Killing 
-
-ST			DB			ST
-DB			ST			DB
 ST			ST			ST
-DB			ST			DB
-ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.275	1.05	0		0		0	Vertical-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 13 - 15 =============
-0.15	0.85	15		0		0	Vertical-Killing 
+0.15	1.7		0		0		0	Vertical-Killing
 
 ST			ST			ST
 ST			ST			ST
@@ -133,20 +134,21 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.175	2.0		5		0		0	Vertical-Killing 
+0.55	0.725	0		0		0	Horizontal-Killing
 
 ST			ST			ST
-DB			ST			DB
-DB			ST			DB
-DB			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 
-0.2		0.8		8		0		0	Vertical-Killing 
+0.35	0.8		3		0		0 	Horizontal-Killing
 
-ST			DB			ST
 ST			ST			ST
-DB			ST			DB
 ST			ST			ST
-ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
 
 

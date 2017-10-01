@@ -10,8 +10,7 @@
 # 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard 
 #								Horizontal-Killing 		Horizontal-Standard
 #								HorizontalBig-Killing 	HorizontalBig-Standard 
-#								Chessboard-Killing 		Chessboard-Standard
-#								Full-Killing 			Full-Standard )
+#								Chessboard-Killing 		Chessboard-Standard )
 #
 # Square codes:
 # 
@@ -24,7 +23,7 @@
 #
 
 
-# Testowy świat na same interwały, a czas aktywacji taki sam
+# Standard
 
 # ============= 1 - 3 =============
 0.7		2.1		0		0		0

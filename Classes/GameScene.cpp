@@ -215,6 +215,9 @@ void GameScene::SpawnGameObjects()
 				for (int y = 0; y < SQUARE_AMOUNT_Y; ++y)
 					Masks.push_back(new ToggleGameMask(this, CurrMaskDefinition.bKillingMask, Vec2(x, y), Vec2(1, 1), (x + y) % 2 == 0));
 			break;
+		case EMaskType::Full:
+			Masks.push_back(new ToggleGameMask(this, CurrMaskDefinition.bKillingMask, Vec2(0, 0), Vec2(SQUARE_AMOUNT_X, SQUARE_AMOUNT_Y)));
+			break;
 		}
 	}
 }

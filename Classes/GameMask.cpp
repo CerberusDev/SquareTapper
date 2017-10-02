@@ -25,11 +25,11 @@ bShouldFinishAnimation(false)
 	MaskSprite->setOpacity(0.0f);
 	ParentScene->addChild(MaskSprite, 0);
 
-	auto FadeInAction = FadeTo::create(0.15f, MAX_OPACITY);
+	auto FadeInAction = FadeTo::create(0.1f, MAX_OPACITY);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { OnFadingInEnd(); });
-	auto DelayAction = DelayTime::create(0.6f);
+	auto DelayAction = DelayTime::create(0.7f);
 	auto OnFadingOutStartFunction = CallFunc::create([&]() { OnFadingOutStart(); });
-	auto FadeOutAction = FadeOut::create(0.15f);
+	auto FadeOutAction = FadeOut::create(0.1f);
 	auto OnFadingOutEndFunction = CallFunc::create([&]() { OnFadingOutEnd(); });
 	auto SequenceAction = Sequence::create(FadeInAction, OnFadingInEndFunction, DelayAction, OnFadingOutStartFunction, FadeOutAction, OnFadingOutEndFunction, nullptr);
 

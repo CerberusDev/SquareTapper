@@ -23,7 +23,7 @@ bShouldFinishAnimation(false)
 {
 	MaskSprite = Sprite::create(bKillOnTouch ? KillingMaskSpriteFilename : StandardMaskSpriteFilename);
 	MaskSprite->setOpacity(0.0f);
-	ParentScene->addChild(MaskSprite, 0);
+	ParentScene->addChild(MaskSprite, bKillOnTouch ? 0 : -1);
 
 	auto FadeInAction = FadeTo::create(0.1f, MAX_OPACITY);
 	auto OnFadingInEndFunction = CallFunc::create([&]() { OnFadingInEnd(); });

@@ -96,7 +96,7 @@ ST			ST			ST
 ST			ST			ST
 ST			DB			ST
 
-0.42		1.4		0		0		0		Vertical-Standard	HorizontalBig-Killing
+0.42	1.4		0		0		0		Vertical-Standard	HorizontalBig-Killing
 
 ST			ST			DB
 ST			DB			DB
@@ -105,7 +105,7 @@ DB			DB			ST
 DB			ST			ST
 
 # ============= 10 - 12 =============
-0.45	1.4		0		0		0		Chessboard-Standard		Horizontal-Killing
+0.45	1.45	0		0		0		Chessboard-Standard		Horizontal-Killing
 
 ST			ST			ST
 DB			ST			DB
@@ -113,7 +113,7 @@ ST			ST			ST
 DB			ST			DB
 ST			DB			ST
 
-0.5		1.35	0		0		0		Chessboard-Standard		Vertical-Killing
+0.5		1.4		0		0		0		Chessboard-Standard		Vertical-Killing
 
 ST			DB			ST
 DB			ST			DB
@@ -121,7 +121,7 @@ ST			ST			ST
 ST			DB			ST
 DB			ST			DB
 
-0.55	1.15		0		0		0		Chessboard-Standard		Vertical-Killing
+0.55	1.2		0		0		0		Chessboard-Standard		Vertical-Killing
 
 ST			ST			ST
 DB			ST			DB

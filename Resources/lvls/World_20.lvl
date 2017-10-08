@@ -107,13 +107,13 @@ SQ(DB).2.0	SQ(DB).2.1	SQ(DB).2.2
 ST			DB			ST
 SQ(ST).1.0	SQ(ST).1.1	SQ(ST).1.2
 ST			DB			ST
-SQ(DB).0.2	SQ(DB).0.1	SQ(DB).0.0
+SQ(DB).0.2	SQ(ST).0.1	SQ(DB).0.0
 
 0.4		1.05	0		4		0
 
 DB			DB			ST
 ST			SQ(DB).0.2	SQ(DB).0.3
-ST			SQ(DB).0.1	SQ(DB).0.4
+ST			SQ(ST).0.1	SQ(ST).0.4
 ST			SQ(DB).0.0	SQ(DB).0.5
 DB			DB			ST
 

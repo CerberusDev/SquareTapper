@@ -52,7 +52,7 @@ DB			ST			DB
 
 
 # ============= 4 - 6 =============
-0.55		1.3		0		0		0	Vertical-Killing		-
+0.55		1.35	0		0		0	Vertical-Killing
 
 ST			SQ(ST).0.6	ST			
 ST			SQ(ST).0.5	SQ(ST).0.4
@@ -60,7 +60,7 @@ ST			DB			SQ(ST).0.3
 ST			SQ(ST).0.1	SQ(ST).0.2
 ST			SQ(ST).0.0	ST			
 
-0.55		1.1		0		0		0	Vertical-Killing		+
+0.55		1.15	0		0		0	Vertical-Killing
 
 ST			ST			ST			
 SQ(DB).0.2	SQ(ST).0.3	SQ(DB).0.4
@@ -68,7 +68,7 @@ SQ(ST).0.1	ST			SQ(ST).0.5
 SQ(ST).0.0	ST			SQ(ST).0.6
 ST			ST			ST			
 
-0.55		1.25		0		0		0	Vertical-Killing		-
+0.55		1.25		0		0		0	Vertical-Killing
 
 ST			SQ(ST).0.6	ST			
 SQ(ST).0.4	SQ(DB).0.5	ST

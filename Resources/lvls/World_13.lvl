@@ -75,14 +75,6 @@ ST			ST			DB
 ST			ST			ST
 
 # ============= 7 - 9 =============
-0.3		1.2		1		0		0	Vertical-Killing 	
-
-ST			ST			ST
-ST			ST			DB
-ST			DB			DB
-ST			ST			DB
-ST			ST			ST
-
 0.3		1.175	8		0		0	Horizontal-Killing 
 
 DB			ST			ST
@@ -91,15 +83,14 @@ ST			ST			ST
 ST			ST			DB
 ST			DB			DB
 
-0.3		1.15	1		0		0	Vertical-Killing 
+0.3		1.2		1		0		0	Vertical-Killing 	
 
-ST			DB			ST
-ST			DB			ST
 ST			ST			ST
-ST			DB			ST
-ST			DB			ST
+ST			ST			DB
+ST			DB			DB
+ST			ST			DB
+ST			ST			ST
 
-# ============= 10 - 12 =============
 0.285	1.15	6		0		0	Vertical-Killing 
 
 ST			DB			ST
@@ -107,6 +98,15 @@ ST			ST			ST
 ST			ST			ST
 DB			DB			DB
 ST			ST			ST
+
+# ============= 10 - 12 =============
+0.3		1.15	1		0		0	Vertical-Killing 
+
+ST			DB			ST
+ST			DB			ST
+ST			ST			ST
+ST			DB			ST
+ST			DB			ST
 
 0.27	1.15	5		0		0	Vertical-Killing 
 

@@ -26,7 +26,7 @@
 # Standard + Bezpieczne maski + Niebezpieczne kwadraty
 
 # ============= 1 - 3 =============
-0.46	1.42	0		6		0	Horizontal-Standard
+0.46	1.32	0		6		0	Horizontal-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -34,7 +34,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.41	1.4		0		5		0	Horizontal-Standard
+0.41	1.3		0		5		0	HorizontalBig-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -42,7 +42,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.34	1.38	0		4		0	Horizontal-Standard
+0.34	1.28	0		4		0	Horizontal-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -51,7 +51,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 4 - 6 =============
-0.31	1.35	0		0		0	Vertical-Standard
+0.31	1.25	0		0		0	Vertical-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -59,7 +59,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.285	1.23	0		4		0	Vertical-Standard
+0.285	1.13	0		4		0	Vertical-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -67,7 +67,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.26	1.2		0		6		0	Vertical-Standard
+0.26	1.1		0		6		0	Vertical-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -76,7 +76,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 7 - 9 =============
-0.23	1.0		0		7		0	Vertical-Standard
+0.23	0.95		0		7		0	Vertical-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -84,7 +84,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.4		0.775	0		4		0	
+0.4		0.755	0		4		0	
 
 ST			ST			ST
 ST			ST			ST
@@ -92,7 +92,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.25	0.95	0		2		0	Vertical-Standard
+0.25	0.9		0		2		0	Vertical-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -101,7 +101,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 10 - 12 =============
-0.21	0.85	0		4		0	Horizontal-Standard
+0.21	0.8		0		4		0	Horizontal-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -109,7 +109,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.225	0.7		0		6		0	Horizontal-Standard
+0.225	0.7		0		6		0	HorizontalBig-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -117,7 +117,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.14	1.35	0		1		0	Vertical-Standard
+0.14	1.3		0		1		0	Vertical-Standard
 
 ST			ST			ST
 ST			ST			ST
@@ -142,7 +142,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-5		6		0		8		0	Vertical-Standard
+5		6		0		8		0	Cheesboard-Standard
 
 ST			ST			ST
 ST			ST			ST

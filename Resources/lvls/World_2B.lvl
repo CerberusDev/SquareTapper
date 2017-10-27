@@ -22,10 +22,11 @@
 #	Z - Square's index in sequence (0 means first)	
 #
 
-#Standard + Sekwencje (Długie!) + Niebezpieczne kwadraty  
+
+# Standard + Niebezpieczne
 
 # ============= 1 - 3 =============
-0.7		2.1		0		0		0
+0.7		1.4		0		3		0
 
 ST			ST			ST
 ST			ST			ST
@@ -33,7 +34,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.5		1.65	0		0		0
+0.5		1.45	0		3		0
 
 ST			ST			ST
 ST			ST			ST
@@ -41,7 +42,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.425	1.5		0		0		0
+0.425	1.3		0		3		0
 
 ST			ST			ST
 ST			ST			ST
@@ -50,7 +51,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 4 - 6 =============
-0.35	1.325	0		0		0
+0.35	1.225	0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -58,7 +59,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.3		1.25	0		0		0
+0.3		1.15	0		1		0
 
 ST			ST			ST
 ST			ST			ST
@@ -66,8 +67,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-
-0.28	1.2		0		0		0
+0.28	1.1		0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -76,7 +76,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 7 - 9 =============
-0.26	1.15	0		0		0
+0.24	1.05	0		4		0
 
 ST			ST			ST
 ST			ST			ST
@@ -84,7 +84,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.185	1.7		0		0		0
+0.165	1.6		0		4		0
 
 ST			ST			ST
 ST			ST			ST
@@ -92,7 +92,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.24	1.1		0		0		0
+0.22	1.0		0		4		0
 
 ST			ST			ST
 ST			ST			ST
@@ -101,7 +101,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 10 - 12 =============
-0.22	1.125	0		0		0
+0.18	1.025	0		6		0
 
 ST			ST			ST
 ST			ST			ST
@@ -109,7 +109,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.21	1.1		0		0		0
+0.17	1.2		0		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -118,7 +118,7 @@ ST			ST			ST
 ST			ST			ST
 
 
-0.2		1.075	0		0		0
+0.16		0.975	0		6		0
 
 ST			ST			ST
 ST			ST			ST
@@ -127,7 +127,7 @@ ST			ST			ST
 ST			ST			ST
 
 # ============= 13 - 15 =============
-1.55	0.7		0		0		0
+0.1		2.5		0		3		0
 
 ST			ST			ST
 ST			ST			ST
@@ -135,7 +135,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.29	0.625	0		0		0
+0.29	0.625	0		3		0
 
 ST			ST			ST
 ST			ST			ST
@@ -143,7 +143,7 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.07	2		0		0		0
+0.02	2		0		3		0
 
 ST			ST			ST
 ST			ST			ST

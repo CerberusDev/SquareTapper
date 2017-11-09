@@ -46,14 +46,13 @@ void LevelSelectScene::InitializeLevelParams()
 {
 	LevelParamsContainer.clear();
 
-	int TotalLevelNumber = 0;
 	std::string FilePath = FileUtils::getInstance()->fullPathForFilename(GenerateFilenameForWorldConfig(0));
 
 	while (!FilePath.empty())
 	{
 		LevelParamsContainer.push_back(std::vector<LevelParams>());
 
-		InitializeLevelParamsForSingleWorld(FilePath, TotalLevelNumber);
+		InitializeLevelParamsForSingleWorld(FilePath);
 
 		int NextWorldNumber = LevelParamsContainer.size();
 		FilePath = FileUtils::getInstance()->fullPathForFilename(GenerateFilenameForWorldConfig(NextWorldNumber));
@@ -71,7 +70,7 @@ std::string LevelSelectScene::GenerateFilenameForWorldConfig(int WorldNumber)
 	return Stream.str();
 }
 
-void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& FilePath, int& TotalLevelNumber)
+void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& FilePath)
 {
 	std::string FileContents = FileUtils::getInstance()->getStringFromFile(FilePath);
 	std::istringstream InputStream(FileContents);
@@ -84,7 +83,22 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 
 			NewLevelParams.WorldNumber = LevelParamsContainer.size() - 1;
 			NewLevelParams.LevelNumber = LevelParamsContainer.back().size();
-			NewLevelParams.LevelDisplayNumber = ++TotalLevelNumber;
+
+			if (NewLevelParams.LevelNumber < STANDARD_LEVELS_PER_WORLD)
+			{
+				std::stringstream Stream;
+				Stream << NewLevelParams.WorldNumber * STANDARD_LEVELS_PER_WORLD + NewLevelParams.LevelNumber + 1;
+				NewLevelParams.LevelDisplayNumber = Stream.str();
+			}
+			else
+			{
+				switch (NewLevelParams.LevelNumber)
+				{
+				case 12:	NewLevelParams.LevelDisplayNumber = "I";	break;
+				case 13:	NewLevelParams.LevelDisplayNumber = "II";	break;
+				case 14:	NewLevelParams.LevelDisplayNumber = "III";	break;
+				}
+			}
 
 			bool bLevelLocked = false;
 			int PrevWorldNumber, PrevLevelNumber;
@@ -92,7 +106,7 @@ void LevelSelectScene::InitializeLevelParamsForSingleWorld(const std::string& Fi
 
 			if (PrevWorldNumber != -1 && PrevLevelNumber != -1)
 			{
-				std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[PrevWorldNumber][PrevLevelNumber].LevelDisplayNumber);
+				std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[PrevWorldNumber][PrevLevelNumber].GetLevelID());
 				bLevelLocked = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0) == 0;
 			}
 
@@ -227,7 +241,7 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 {
 	static const float LevelButtonFontSize = 180.0f;
 
-	std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[WorldNumber][LevelNumber].LevelDisplayNumber);
+	std::string LevelKey = GetLevelRecordKey(LevelParamsContainer[WorldNumber][LevelNumber].GetLevelID());
 	int StarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelKey.c_str(), 0);
 	TotalNumberOfStars += StarsNumber;
 
@@ -297,9 +311,9 @@ void LevelSelectScene::CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout
 	auto LeftArrowIcon = Sprite::create();
 
 	if (WorldNumber == 0)
-		LeftArrowIcon->setTexture("gui/icons/icon_arrow_inactive_512.png");
+		LeftArrowIcon->setTexture("gui/icons/icon_left_inactive_512.png");
 	else
-		LeftArrowIcon->setTexture("gui/icons/icon_arrow_active_512.png");
+		LeftArrowIcon->setTexture("gui/icons/icon_right_active_512.png");
 
 	LeftArrowIcon->setFlippedX(true);
 	LeftArrowIcon->setScale(ARROW_ICON_SIZE / BUTTON_TEXTURES_SIZE);
@@ -309,9 +323,9 @@ void LevelSelectScene::CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout
 	auto RightArrowIcon = Sprite::create();
 
 	if (WorldNumber == LevelParamsContainer.size() - 1)
-		RightArrowIcon->setTexture("gui/icons/icon_arrow_inactive_512.png");
+		RightArrowIcon->setTexture("gui/icons/icon_left_inactive_512.png");
 	else
-		RightArrowIcon->setTexture("gui/icons/icon_arrow_active_512.png");
+		RightArrowIcon->setTexture("gui/icons/icon_right_active_512.png");
 
 	RightArrowIcon->setScale(ARROW_ICON_SIZE / BUTTON_TEXTURES_SIZE);
 	RightArrowIcon->setPosition(Vec2(GameScene::GetScreenPositionX(MAX_STARS_NUMBER - 1), GameScene::GetStarPositionY()));
@@ -343,9 +357,9 @@ void LevelSelectScene::CreateResetProgressButton()
 			{
 				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 				{
-					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].GetLevelID());
 					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 0);
-					const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsContainer[i][j].GetLevelID());
 					UserDefaultData->setIntegerForKey(LevelAttemptsKey.c_str(), 0);
 
 					LevelParamsContainer[i][j].bLocked = (i != 0 || j != 0);
@@ -375,7 +389,7 @@ void LevelSelectScene::CreateDebugButton()
 			{
 				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 				{
-					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].LevelDisplayNumber);
+					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].GetLevelID());
 					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 1);
 
 					LevelParamsContainer[i][j].bLocked = false;

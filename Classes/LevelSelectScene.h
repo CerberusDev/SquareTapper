@@ -29,7 +29,7 @@ public:
 
 	static void InitializeLevelParams();
 	static std::string GenerateFilenameForWorldConfig(int WorldNumber);
-	static void InitializeLevelParamsForSingleWorld(const std::string& FilePath, int& TotalLevelNumber);
+	static void InitializeLevelParamsForSingleWorld(const std::string& FilePath);
 	static void AddSequenceSquareToLevelParams(LevelParams& CurrLevelParamsStruct, const std::string& SquareType, int SquareIndex);
 	static const std::vector<std::vector<LevelParams>>& GetLevelData() { return LevelParamsContainer; };
 	static LevelSelectScene* create(int argStartWorldNumber);

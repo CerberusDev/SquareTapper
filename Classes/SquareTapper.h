@@ -14,6 +14,10 @@
 #define SQUARE_AMOUNT_X 3
 #define SQUARE_AMOUNT_Y 5
 
+#define LEVELS_PER_WORLD 15
+#define BONUS_LEVELS_PER_WORLD 3
+#define STANDARD_LEVELS_PER_WORLD (LEVELS_PER_WORLD - BONUS_LEVELS_PER_WORLD)
+
 #define BACKGROUND_COLOR Color3B(22, 16, 30)
 #define GREY_COLOR Color3B(100, 96, 90)
 #define GOLD_COLOR Color3B(247, 198, 70)
@@ -45,7 +49,7 @@ struct MaskDefiniton
 
 struct LevelParams
 {
-	int LevelDisplayNumber;
+	std::string LevelDisplayNumber;
 	int WorldNumber;
 	int LevelNumber;
 	int SafeSquaresNumber;
@@ -60,7 +64,7 @@ struct LevelParams
 	bool bLocked;
 
 	LevelParams():
-	LevelDisplayNumber(-1),
+	LevelDisplayNumber("---"),
 	WorldNumber(-1),
 	LevelNumber(-1),
 	SafeSquaresNumber(-1),
@@ -70,6 +74,8 @@ struct LevelParams
 	TotalSquareActivationTime(-1.0f),
 	bLocked(true)
 	{};
+
+	int GetLevelID() const { return WorldNumber * LEVELS_PER_WORLD + LevelNumber; }
 };
 
 std::string GetLevelRecordKey(const int LevelDisplayName);

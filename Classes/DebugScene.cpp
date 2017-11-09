@@ -30,7 +30,7 @@ bool DebugScene::init()
 
 	for (int i = 14; i >= 0; --i)
 	{
-		std::string LevelKey = GetLevelRecordKey(LevelSelectScene::GetLevelData()[0][i].LevelDisplayNumber);
+		std::string LevelKey = GetLevelRecordKey(LevelSelectScene::GetLevelData()[0][i].GetLevelID());
 
 		for (int j = 1; j <= 3; ++j)
 		{

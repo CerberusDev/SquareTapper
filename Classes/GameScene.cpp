@@ -105,7 +105,7 @@ bool GameScene::init()
 	LevelLabel->setColor(GREY_COLOR);
 	this->addChild(LevelLabel, 1);
 
-	const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsStruct.LevelDisplayNumber);
+	const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsStruct.GetLevelID());
 	int AttemptsNumber = UserDefault::getInstance()->getIntegerForKey(LevelAttemptsKey.c_str(), 0);
 	++AttemptsNumber;
 	UserDefault::getInstance()->setIntegerForKey(LevelAttemptsKey.c_str(), AttemptsNumber);
@@ -134,7 +134,7 @@ bool GameScene::init()
 	DebugLevelLabel->setColor(Color3B::RED);
 	this->addChild(DebugLevelLabel, 1);
 
-	const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
+	const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsStruct.GetLevelID());
 	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelRecordKey.c_str(), 0);
 
 	for (int i = 0; i < MAX_STARS_NUMBER; ++i)
@@ -466,7 +466,7 @@ void GameScene::LevelCompleted()
 	for (GameMask* CurrMask : Masks)
 		CurrMask->RequestFinishAnimation();
 
-	std::string LevelKey = GetLevelRecordKey(LevelParamsStruct.LevelDisplayNumber);
+	std::string LevelKey = GetLevelRecordKey(LevelParamsStruct.GetLevelID());
 
 	UserDefault* UserDefaultData = UserDefault::getInstance();
 	int LastBestStarsNumber = UserDefaultData->getIntegerForKey(LevelKey.c_str(), 0);
@@ -519,8 +519,4 @@ void GameScene::Blink(const std::string& SpriteFilePath, bool bLongAndUnder)
 
 		BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, RemoveMyself, nullptr));
 	}
-
-
-
-	
 }

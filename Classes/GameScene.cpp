@@ -461,7 +461,7 @@ void GameScene::LevelFailed()
 void GameScene::LevelCompleted()
 {
 	bLevelFinished = true;
-	Blink("gui/squares/square_active_512.png");
+	Blink("gui/squares/square_active_512.png", true);
 
 	for (GameMask* CurrMask : Masks)
 		CurrMask->RequestFinishAnimation();
@@ -486,19 +486,41 @@ void GameScene::LevelCompleted()
 	}
 }
 
-void GameScene::Blink(const std::string& SpriteFilePath)
+void GameScene::Blink(const std::string& SpriteFilePath, bool bLongAndUnder)
 {
 	auto BlinkSprite = Sprite::create(SpriteFilePath);
 	BlinkSprite->setOpacity(0.0f);
 	BlinkSprite->setPosition(DESIGN_RES_X / 2.0f, DESIGN_RES_Y / 2.0f);
 	BlinkSprite->setScale(DESIGN_RES_X / SQUARE_TEXTURES_SIZE, DESIGN_RES_Y / SQUARE_TEXTURES_SIZE);
-	addChild(BlinkSprite, 30);
 
-	auto FadeInAction = FadeTo::create(0.08f, 160);
-	auto FadeOutAction = FadeTo::create(0.12f, 0);
-	auto RemoveMyself = CallFunc::create([BlinkSprite]() {
-		BlinkSprite->removeFromParent();
-	});
 
-	BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, RemoveMyself, nullptr));
+	if (bLongAndUnder)
+	{
+		addChild(BlinkSprite, 0);
+
+		auto FadeInAction = FadeTo::create(0.13f, 255);
+		auto DelayAction = DelayTime::create(0.16f);
+		auto FadeOutAction = FadeTo::create(0.13f, 0);
+		auto RemoveMyself = CallFunc::create([BlinkSprite]() {
+			BlinkSprite->removeFromParent();
+		});
+
+		BlinkSprite->runAction(Sequence::create(FadeInAction, DelayAction, FadeOutAction, RemoveMyself, nullptr));
+	}
+	else
+	{
+		addChild(BlinkSprite, 30);
+
+		auto FadeInAction = FadeTo::create(0.08f, 160);
+		auto FadeOutAction = FadeTo::create(0.12f, 0);
+		auto RemoveMyself = CallFunc::create([BlinkSprite]() {
+			BlinkSprite->removeFromParent();
+		});
+
+		BlinkSprite->runAction(Sequence::create(FadeInAction, FadeOutAction, RemoveMyself, nullptr));
+	}
+
+
+
+	
 }

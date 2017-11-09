@@ -69,5 +69,5 @@ public:
 
 protected:
 	GameSquare* GetSquareByIndex(int Index) const;
-	void Blink(const std::string& SpriteFilePath);
+	void Blink(const std::string& SpriteFilePath, bool bLongAndUnder = false);
 };

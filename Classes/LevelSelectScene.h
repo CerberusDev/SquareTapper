@@ -15,6 +15,7 @@ protected:
 	static const std::string LevelButtonSpriteFilename_2Stars;
 	static const std::string LevelButtonSpriteFilename_3Stars;
 	static const std::string LevelButtonSpriteFilename_Locked;
+	static const std::string LevelButtonSpriteFilename_Locked_Bonus;
 
 	static std::vector<std::vector<LevelParams>> LevelParamsContainer;
 	int StartWorldNumber;

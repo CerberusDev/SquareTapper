@@ -15,6 +15,7 @@ const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/perce
 const std::string LevelSelectScene::LevelButtonSpriteFilename_2Stars = "gui/percent/percent_66_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/percent/percent_100_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_Locked = "gui/bqsqr/bgsqr_0_inactive_512.png";
+const std::string LevelSelectScene::LevelButtonSpriteFilename_Locked_Bonus = "gui/bqsqr/bgsqr_9_inactive_512.png";
 
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 
@@ -276,9 +277,11 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, cocos
 	}
 	else
 	{
-		LevelButton->loadTextures(LevelButtonSpriteFilename_Locked, LevelButtonSpriteFilename_Locked);
+		if (LevelNumber < STANDARD_LEVELS_PER_WORLD)
+			LevelButton->loadTextures(LevelButtonSpriteFilename_Locked, LevelButtonSpriteFilename_Locked);
+		else
+			LevelButton->loadTextures(LevelButtonSpriteFilename_Locked_Bonus, LevelButtonSpriteFilename_Locked_Bonus);
 	}
-
 
 	PageLayout->addChild(LevelButton);
 }

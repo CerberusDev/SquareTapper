@@ -86,7 +86,7 @@ bool GameScene::init()
 		Director::getInstance()->replaceScene(GameScene::create(NextLevelParams));
 	});
 
-	if (LevelSelectScene::IsNextLevelLocked(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))
+	if (!LevelSelectScene::CanTravelToNextLevel(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))
 		NextMenuItem->setVisible(false);
 
 	NextMenuItem->setPosition(Vec2(GetScreenPositionX(1), GetButtonsPositionY()));
@@ -479,7 +479,7 @@ void GameScene::LevelCompleted()
 		LevelSelectScene::NotifyLevelCompleted(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber, StarsNumber);
 	}
 
-	if (!LevelSelectScene::IsNextLevelLocked(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))
+	if (LevelSelectScene::CanTravelToNextLevel(LevelParamsStruct.WorldNumber, LevelParamsStruct.LevelNumber))
 	{
 		NextMenuItem->setVisible(true);
 		NextMenuItem->setNormalImage(Sprite::create("gui/icons/icon_arrow_active_512.png"));

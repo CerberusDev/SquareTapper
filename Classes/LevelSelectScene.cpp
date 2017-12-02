@@ -456,7 +456,7 @@ void LevelSelectScene::CreateDebugButton()
 				for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
 				{
 					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].GetLevelID());
-					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 1);
+					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 3);
 				}
 			}
 

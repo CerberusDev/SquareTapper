@@ -61,6 +61,7 @@ public:
 	void DecreaseStarNumber();
 	void LevelFailed();
 	void LevelCompleted();
+	void LevelFinished();
 	void SetNextSequenceSquareToActivate(int SquareIndex);
 
 	bool IsLevelFinished() { return bLevelFinished; };

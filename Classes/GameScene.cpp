@@ -19,6 +19,10 @@ USING_NS_CC;
 #define BUTTONS_POS_Y (BOTTOM_SQUARES_POS_Y - SQUARE_SPRITE_SIZE * 0.5f) * 0.5f
 #define STARS_POS_Y 1110.0f
 
+int GameScene::DifficultyCounter = 1;
+int GameScene::DifficultyCounterMax = 15;
+int GameScene::DifficultyCounterDecreaseOnSuccess = 6;
+
 GameScene::GameScene(const LevelParams& argLevelParamsStruct):
 BackMenuItem(nullptr),
 RestartMenuItem(nullptr),
@@ -133,6 +137,13 @@ bool GameScene::init()
 	DebugLevelLabel->setPosition(Vec2(80.0f, 1200.0f));
 	DebugLevelLabel->setColor(Color3B::RED);
 	this->addChild(DebugLevelLabel, 1);
+
+	std::stringstream DebugTriesStream;
+	DebugTriesStream << "DiffCount: " << DifficultyCounter;
+	auto DebugTriesLabel = Label::createWithTTF(DebugTriesStream.str(), FONT_FILE_PATH_STANDARD, DebugLabelsFontSize);
+	DebugTriesLabel->setPosition(Vec2(80.0f, 1165.0f));
+	DebugTriesLabel->setColor(Color3B::RED);
+	this->addChild(DebugTriesLabel, 1);
 
 	const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsStruct.GetLevelID());
 	int RecordStarsNumber = UserDefault::getInstance()->getIntegerForKey(LevelRecordKey.c_str(), 0);
@@ -377,6 +388,24 @@ void GameScene::ActivateNextSquare()
 	QueueNextSquareActivation(NextActivationDelay);
 }
 
+float GameScene::GetSquareTotalActivationTime() const
+{
+	static const int DiffCounterToStart = 5;
+	static const float Range = DifficultyCounterMax - DiffCounterToStart;
+	static const float MaximumModifier = 0.15f;
+
+	return LevelParamsStruct.TotalSquareActivationTime * (1.0f + std::min((float)std::max(DifficultyCounter - DiffCounterToStart, 0) / Range, 1.0f) * MaximumModifier);
+}
+
+float GameScene::GetSquaresActivationInterval() const
+{
+	static const int DiffCounterToStart = 5;
+	static const float Range = DifficultyCounterMax - DiffCounterToStart;
+	static const float MaximumModifier = 0.15f;
+
+	return LevelParamsStruct.SquaresActivationTimeInterval * (1.0f + std::min((float)std::max(DifficultyCounter - DiffCounterToStart, 0) / Range, 1.0f) * MaximumModifier);
+}
+
 void GameScene::QueueNextSquareActivation(float Delay)
 {
 	auto DelayAction = DelayTime::create(Delay);
@@ -445,6 +474,7 @@ void GameScene::LevelFailed()
 	if (!bLevelFinished)
 	{
 		LevelFinished();
+		DifficultyCounter = std::min(DifficultyCounter + 1, DifficultyCounterMax);
 
 		for (GameSquare* CurrSquare : ActiveSquares)
 			CurrSquare->PauseOnGameOver();
@@ -461,6 +491,7 @@ void GameScene::LevelFailed()
 void GameScene::LevelCompleted()
 {
 	LevelFinished();
+	DifficultyCounter = std::max(DifficultyCounter - DifficultyCounterDecreaseOnSuccess, 1);
 
 	Blink("gui/squares/square_active_512.png", true);
 

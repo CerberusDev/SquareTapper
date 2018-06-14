@@ -17,6 +17,10 @@ class GameSquareSequence;
 class GameScene : public cocos2d::Scene
 {
 protected:
+	static int DifficultyCounter;
+	static int DifficultyCounterMax;
+	static int DifficultyCounterDecreaseOnSuccess;
+
 	cocos2d::MenuItemImage* BackMenuItem;
 	cocos2d::MenuItemImage* RestartMenuItem;
 	cocos2d::MenuItemImage* NextMenuItem;
@@ -54,6 +58,8 @@ public:
 	void SpawnSingleGameSquare(int x, int y, const std::vector<int>& SafeSquareIndices, const std::vector<int>& DangerousSquareIndices, const std::vector<int>& DangerousSecondTapSquareIndices);
 	GameSquare* GetSquareForActivation();
 	void ActivateNextSquare();
+	float GetSquareTotalActivationTime() const;
+	float GetSquaresActivationInterval() const;
 	void QueueNextSquareActivation(float Delay);
 	void OnSquareCompleted(GameSquare* CompletedSquare, bool bWillBeActivatingAgain = false);
 	void CheckIfLevelCompleted();

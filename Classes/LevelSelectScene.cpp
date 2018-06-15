@@ -17,20 +17,22 @@ const std::string LevelSelectScene::LevelButtonSpriteFilename_3Stars = "gui/perc
 const std::string LevelSelectScene::LevelButtonSpriteFilename_Locked = "gui/bqsqr/bgsqr_0_inactive_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_Locked_Bonus = "gui/bqsqr/bgsqr_9_inactive_512.png";
 
+const std::string LevelSelectScene::UDDKeyLastSeenWorld = "LastSeenWorld";
+
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 std::vector<int> LevelSelectScene::RequiredStarsPerWorld;
 std::vector<std::string> LevelSelectScene::IconNamePerWorld;
 
-LevelSelectScene::LevelSelectScene(int argStartWorldNumber) :
-StartWorldNumber(argStartWorldNumber),
+LevelSelectScene::LevelSelectScene() :
 TotalNumberOfStars(0)
 {
-
+	UserDefault* UserDefaultData = UserDefault::getInstance();
+	StartWorldNumber = UserDefaultData->getIntegerForKey(UDDKeyLastSeenWorld.c_str(), 0);
 }
 
-LevelSelectScene* LevelSelectScene::create(int argStartWorldNumber)
+LevelSelectScene* LevelSelectScene::create()
 {
-	LevelSelectScene *pRet = new(std::nothrow) LevelSelectScene(argStartWorldNumber);
+	LevelSelectScene *pRet = new(std::nothrow) LevelSelectScene();
 
 	if (pRet && pRet->init())
 	{
@@ -322,6 +324,10 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, int S
 		LevelButton->addTouchEventListener([=](Ref* sender, ui::Widget::TouchEventType type) {
 			if (type == ui::Widget::TouchEventType::ENDED)
 			{
+				UserDefault* UserDefaultData = UserDefault::getInstance();
+				UserDefaultData->setIntegerForKey(UDDKeyLastSeenWorld.c_str(), WorldNumber);
+				UserDefaultData->flush();
+
 				if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
 					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
 				else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
@@ -432,9 +438,10 @@ void LevelSelectScene::CreateResetProgressButton()
 				}
 			}
 
+			UserDefaultData->setIntegerForKey(UDDKeyLastSeenWorld.c_str(), 0);
 			UserDefaultData->flush();
 
-			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+			Director::getInstance()->replaceScene(LevelSelectScene::create());
 		}
 	});
 
@@ -463,7 +470,7 @@ void LevelSelectScene::CreateDebugButton()
 			UserDefaultData->flush();
 
 			LevelSelectScene::InitializeLevelParams();
-			Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+			Director::getInstance()->replaceScene(LevelSelectScene::create());
 		}
 	});
 

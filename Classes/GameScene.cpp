@@ -65,7 +65,7 @@ bool GameScene::init()
 
 	BackMenuItem = MenuItemImage::create("gui/icons/icon_menu_inactive_small_512.png", "img/ui/icon_menu_inactive_small_512.png",
 		[&](Ref* sender) {
-		Director::getInstance()->replaceScene(LevelSelectScene::create(LevelParamsStruct.WorldNumber));
+		Director::getInstance()->replaceScene(LevelSelectScene::create());
 	});
 
 	BackMenuItem->setPosition(Vec2(GetScreenPositionX(0), GetButtonsPositionY()));

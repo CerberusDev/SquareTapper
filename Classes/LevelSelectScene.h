@@ -17,6 +17,8 @@ protected:
 	static const std::string LevelButtonSpriteFilename_Locked;
 	static const std::string LevelButtonSpriteFilename_Locked_Bonus;
 
+	static const std::string UDDKeyLastSeenWorld;
+
 	static std::vector<std::vector<LevelParams>> LevelParamsContainer;
 	static std::vector<int> RequiredStarsPerWorld;
 	static std::vector<std::string> IconNamePerWorld;
@@ -26,7 +28,7 @@ protected:
 // ---------------------------------------------------------------------------------------------------
 
 public:
-	LevelSelectScene(int argStartWorldNumber);
+	LevelSelectScene();
 
 	virtual bool init();
 
@@ -36,7 +38,7 @@ public:
 	static void InitializeLevelParamsForSingleWorld(const std::string& FilePath);
 	static void AddSequenceSquareToLevelParams(LevelParams& CurrLevelParamsStruct, const std::string& SquareType, int SquareIndex);
 	static const std::vector<std::vector<LevelParams>>& GetLevelData() { return LevelParamsContainer; };
-	static LevelSelectScene* create(int argStartWorldNumber);
+	static LevelSelectScene* create();
 	static void GetNextLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& NextWorldNumber, int& NextLevelNumber);
 	static void GetPrevLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& PrevWorldNumber, int& PrevLevelNumber);
 	static const LevelParams& GetNextLevelData(int CurrWorldNumber, int CurrLevelNumber);

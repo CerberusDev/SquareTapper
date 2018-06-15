@@ -20,8 +20,8 @@ USING_NS_CC;
 #define STARS_POS_Y 1110.0f
 
 int GameScene::DifficultyCounter = 1;
-int GameScene::DifficultyCounterMax = 15;
-int GameScene::DifficultyCounterDecreaseOnSuccess = 6;
+const int GameScene::DifficultyCounterMax = 15;
+const int GameScene::DifficultyCounterDecreaseOnSuccess = 6;
 
 GameScene::GameScene(const LevelParams& argLevelParamsStruct):
 BackMenuItem(nullptr),

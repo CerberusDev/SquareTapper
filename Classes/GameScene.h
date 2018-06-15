@@ -18,8 +18,8 @@ class GameScene : public cocos2d::Scene
 {
 protected:
 	static int DifficultyCounter;
-	static int DifficultyCounterMax;
-	static int DifficultyCounterDecreaseOnSuccess;
+	const static int DifficultyCounterMax;
+	const static int DifficultyCounterDecreaseOnSuccess;
 
 	cocos2d::MenuItemImage* BackMenuItem;
 	cocos2d::MenuItemImage* RestartMenuItem;

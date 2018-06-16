@@ -286,6 +286,13 @@ bool LevelSelectScene::init()
 
 		CreateWorldIcon(i, PageLayout);
 		CreateTopArrowsIcons(i, PageLayout);
+
+		std::stringstream DebugWorldStream;
+		DebugWorldStream << "World_" << i;
+		auto DebugWorldLabel = Label::createWithTTF(DebugWorldStream.str(), FONT_FILE_PATH_STANDARD, 22.0f);
+		DebugWorldLabel->setPosition(Vec2(80.0f, 1235.0f));
+		DebugWorldLabel->setColor(Color3B::RED);
+		PageLayout->addChild(DebugWorldLabel, 1);
 	}
 
 	for (ui::Layout* PageLayout : PageLayouts)

@@ -29,6 +29,5 @@ public:
 
 	void InitTutorialStandard();
 	void InitTutorialDoubleTap();
-	void CreateInstructionLabel(const std::string& InstructionString, float PosX, float PosY);
 	void CreateConfirationButton(float PosX, float PosY, int WorldNumberToTravelTo);
 };

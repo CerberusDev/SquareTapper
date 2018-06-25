@@ -463,7 +463,7 @@ void GameScene::DecreaseStarNumber()
 {
 	StarImages[MAX_STARS_NUMBER - StarsNumber]->Inactivate();
 	--StarsNumber;
-	Blink("gui/squares/square_star_512.png");
+	Blink(false);
 
 	if (StarsNumber == 0)
 		LevelFailed();
@@ -493,7 +493,7 @@ void GameScene::LevelCompleted()
 	LevelFinished();
 	DifficultyCounter = std::max(DifficultyCounter - DifficultyCounterDecreaseOnSuccess, 1);
 
-	Blink("gui/squares/square_active_512.png", true);
+	Blink(true);
 
 	for (GameMask* CurrMask : Masks)
 		CurrMask->RequestFinishAnimation();
@@ -532,15 +532,14 @@ void GameScene::LevelFinished()
 	NextMenuItem->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 }
 
-void GameScene::Blink(const std::string& SpriteFilePath, bool bLongAndUnder)
+void GameScene::Blink(bool bLongWhiteBlink)
 {
-	auto BlinkSprite = Sprite::create(SpriteFilePath);
+	auto BlinkSprite = Sprite::create(bLongWhiteBlink ? "gui/squares/square_active_512.png" : "gui/squares/square_star_512.png");
 	BlinkSprite->setOpacity(0.0f);
 	BlinkSprite->setPosition(DESIGN_RES_X / 2.0f, DESIGN_RES_Y / 2.0f);
 	BlinkSprite->setScale(DESIGN_RES_X / SQUARE_TEXTURES_SIZE, DESIGN_RES_Y / SQUARE_TEXTURES_SIZE);
 
-
-	if (bLongAndUnder)
+	if (bLongWhiteBlink)
 	{
 		addChild(BlinkSprite, 0);
 
@@ -557,8 +556,8 @@ void GameScene::Blink(const std::string& SpriteFilePath, bool bLongAndUnder)
 	{
 		addChild(BlinkSprite, 30);
 
-		auto FadeInAction = FadeTo::create(0.08f, 160);
-		auto FadeOutAction = FadeTo::create(0.12f, 0);
+		auto FadeInAction = FadeTo::create(0.07f, 160);
+		auto FadeOutAction = FadeTo::create(0.3f, 0);
 		auto RemoveMyself = CallFunc::create([BlinkSprite]() {
 			BlinkSprite->removeFromParent();
 		});

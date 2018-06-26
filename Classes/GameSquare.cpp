@@ -232,20 +232,14 @@ void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* Sca
 
 			FailedSprites[i] = Sprite::create(FailedSpriteFilename);
 			FailedSprites[i]->setRotation(90.0f * i);
-			FailedSprites[i]->setPosition(SpritePosition);
+			FailedSprites[i]->setPosition(SpritePosition + PosMods[i]);
 			FailedSprites[i]->setScale(STAR_SQUARE_SIZE / SQUARE_TEXTURES_SIZE);
 			FailedSprites[i]->setOpacity(0.0f);
 			ParentScene->addChild(FailedSprites[i], 3);
 
-			auto DelayAction = DelayTime::create(0.1f);
-			auto MoveAction = MoveBy::create(0.5f, PosMods[i]);
-			auto EaseMoveAction = EaseOut::create(MoveAction, 3.0f);
-			auto SequenceAction = Sequence::createWithTwoActions(DelayAction, EaseMoveAction);
 			auto FadeInAction = FadeIn::create(CompletedSpriteFadeInTime);
-			auto SpawnAction = Spawn::createWithTwoActions(SequenceAction, FadeInAction);
-			FailedSprites[i]->runAction(SpawnAction);
+			FailedSprites[i]->runAction(FadeInAction);
 		}
-
 	}
 }
 

@@ -9,7 +9,7 @@ USING_NS_CC;
 
 const std::string GameSquareSequence::PlusSpriteFilename = "gui/bqsqr/bgsqr_straight_inactive_513.png";
 
-GameSquareSequence::GameSquareSequence(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY) :
+GameSquareSequence::GameSquareSequence(BaseScene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY) :
 GameSquare(argScene, bargDoubleTap, argSafetyType, argSpritePosition, argPosX, argPosY),
 NextSquareInSequenceIndex(-1),
 bMyTurnToActivate(false),

@@ -8,8 +8,6 @@
 
 #define FAILED_SPRITES_NUMBER 4
 
-class GameScene;
-
 class GameSquare
 {
 public:
@@ -28,7 +26,7 @@ protected:
 	static const std::string FailedSpriteFilename;
 	static const std::string CompletedSpriteFilename;
 
-	cocos2d::Scene* ParentScene;
+	class BaseScene* ParentScene;
 	cocos2d::EventListenerTouchOneByOne* EventListener;
 	cocos2d::Sprite* InactiveSprite;
 	cocos2d::Sprite* ActivationSprite;
@@ -49,7 +47,7 @@ protected:
 
 // ---------------------------------------------------------------------------------------------------
 public:
-	GameSquare(cocos2d::Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
+	GameSquare(BaseScene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const cocos2d::Vec2& argSpritePosition, int argPosX, int argPosY);
 	virtual ~GameSquare();
 
 	virtual void StartActivation(float ActivationTotalTime);

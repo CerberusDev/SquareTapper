@@ -2,7 +2,7 @@
 // -------------------------------- SquareTapper by Maciej Pryc, 2017 --------------------------------
 // ---------------------------------------------------------------------------------------------------
 
-#include "GameScene.h"
+#include "BaseScene.h"
 #include "GameSquare.h"
 
 USING_NS_CC;
@@ -22,7 +22,7 @@ const std::string GameSquare::InactiveSpriteFilename_DoubleTap = "gui/bqsqr/bgsq
 const std::string GameSquare::FailedSpriteFilename = "gui/icons/icon_fail_triangle_star_512.png";
 const std::string GameSquare::CompletedSpriteFilename = "gui/squares/square_inactive_512.png";
 
-GameSquare::GameSquare(Scene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY):
+GameSquare::GameSquare(BaseScene* argScene, const bool bargDoubleTap, ESquareSafetyType argSafetyType, const Vec2& argSpritePosition, int argPosX, int argPosY):
 PosX(argPosX),
 PosY(argPosY),
 ParentScene(argScene),
@@ -178,8 +178,7 @@ void GameSquare::SafeActivationEnded()
 	ActivationSprite->setTexture(GetActivationSpriteFilename(SafetyType));
 	ActivationSprite->setScale(0.0f);
 
-	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-		ParentGameScene->OnSquareCompleted(this, true);
+	ParentScene->OnSquareCompleted(this, true);
 }
 
 void GameSquare::Completed(bool bUpscaleActivationSquare)
@@ -189,8 +188,7 @@ void GameSquare::Completed(bool bUpscaleActivationSquare)
 
 	ShowFinalSprites(false, bUpscaleActivationSquare ? ScaleUpActivationSquare() : nullptr);
 
-	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-		ParentGameScene->OnSquareCompleted(this);
+	ParentScene->OnSquareCompleted(this);
 }
 
 void GameSquare::Failed()
@@ -207,8 +205,7 @@ void GameSquare::Failed()
 
 	ShowFinalSprites(true, ScaleUpSequence);
 
-	if (GameScene* ParentGameScene = dynamic_cast<GameScene*>(ParentScene))
-		ParentGameScene->OnSquareFailed(this);
+	ParentScene->OnSquareFailed(this);
 }
 
 void GameSquare::ShowFinalSprites(bool bShowFailedSprite, cocos2d::Sequence* ScaleUpSequence)

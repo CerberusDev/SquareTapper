@@ -5,16 +5,16 @@
 #pragma once
 
 #include "SquareTapper.h"
+#include "BaseScene.h"
 
 #define ACTIVATION_SEQUENCE_ACTION_TAG 1000
 #define MAX_STARS_NUMBER 3
 
-class GameSquare;
 class GameMask;
 class StarImage;
 class GameSquareSequence;
 
-class GameScene : public cocos2d::Scene
+class GameScene : public BaseScene
 {
 protected:
 	static int DifficultyCounter;
@@ -61,9 +61,9 @@ public:
 	float GetSquareTotalActivationTime() const;
 	float GetSquaresActivationInterval() const;
 	void QueueNextSquareActivation(float Delay);
-	void OnSquareCompleted(GameSquare* CompletedSquare, bool bWillBeActivatingAgain = false);
+	virtual void OnSquareCompleted(GameSquare* CompletedSquare, bool bWillBeActivatingAgain = false) override;
 	void CheckIfLevelCompleted();
-	void OnSquareFailed(GameSquare* FailedSquare);
+	virtual void OnSquareFailed(GameSquare* FailedSquare) override;
 	void DecreaseStarNumber();
 	void LevelFailed();
 	void LevelCompleted();
@@ -76,5 +76,4 @@ public:
 
 protected:
 	GameSquare* GetSquareByIndex(int Index) const;
-	void Blink(bool bLongWhiteBlink);
 };

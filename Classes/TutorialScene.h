@@ -5,10 +5,9 @@
 #pragma once
 
 #include "SquareTapper.h"
+#include "BaseScene.h"
 
-class GameSquare;
-
-class TutorialScene : public cocos2d::Scene
+class TutorialScene : public BaseScene
 {
 protected:
 	static const std::string InstructionString_Standard;
@@ -16,6 +15,7 @@ protected:
 	
 	GameSquare* Square;
 	ETutorialType TutorialType;
+	int NextWorldNumber[(int)ETutorialType::MAX];
 
 // ---------------------------------------------------------------------------------------------------
 
@@ -29,5 +29,6 @@ public:
 
 	void InitTutorialStandard();
 	void InitTutorialDoubleTap();
-	void CreateConfirationButton(float PosX, float PosY, int WorldNumberToTravelTo);
+	virtual void OnSquareCompleted(GameSquare* CompletedSquare, bool bWillBeActivatingAgain = false) override;
+	virtual void OnSquareFailed(GameSquare* FailedSquare) override;
 };

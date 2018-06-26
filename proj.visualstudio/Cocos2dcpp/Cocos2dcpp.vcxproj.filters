@@ -2293,6 +2293,9 @@
     <ClInclude Include="..\..\Classes\ToggleGameMask.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Classes\BaseScene.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="jni">
@@ -4287,6 +4290,9 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\ToggleGameMask.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\BaseScene.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

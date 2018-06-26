@@ -37,7 +37,7 @@
 
 enum class ESquareState { Inactive, DuringActivation, Completed, Failed };
 enum class ESquareSafetyType { Safe, Standard, Dangerous, DangerousSecondTap };
-enum class ETutorialType { StandardSquare, DoubleTapSquare };
+enum class ETutorialType { StandardSquare, DoubleTapSquare, MAX };
 enum class EMaskType { Vertical, Horizontal, HorizontalBig, Chessboard, Full };
 
 struct MaskDefiniton

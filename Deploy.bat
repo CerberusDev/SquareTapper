@@ -1,4 +1,5 @@
 set FolderName=%time::=.%
+set FolderName=%FolderName: =0%
 set FolderName=%FolderName:~0,-5%
 set FolderName=SquareTapper_%date:/=%_%FolderName%
 

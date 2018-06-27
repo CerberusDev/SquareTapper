@@ -21,7 +21,8 @@ const std::string LevelSelectScene::UDDKeyLastSeenWorld = "LastSeenWorld";
 
 std::vector<std::vector<LevelParams>> LevelSelectScene::LevelParamsContainer;
 std::vector<int> LevelSelectScene::RequiredStarsPerWorld;
-std::vector<std::string> LevelSelectScene::IconNamePerWorld;
+std::vector<std::string> LevelSelectScene::IconNamePerWorld_Standard;
+std::vector<std::string> LevelSelectScene::IconNamePerWorld_Maxed;
 
 LevelSelectScene::LevelSelectScene() :
 TotalNumberOfStars(0)
@@ -71,7 +72,8 @@ void LevelSelectScene::InitializeLevelParams()
 void LevelSelectScene::InitializeIconsAndRequiredStars()
 {
 	RequiredStarsPerWorld.clear();
-	IconNamePerWorld.clear();
+	IconNamePerWorld_Standard.clear();
+	IconNamePerWorld_Maxed.clear();
 
 	std::string FileContents = FileUtils::getInstance()->getStringFromFile("lvls/_Info.txt");
 	std::istringstream InputStream(FileContents);
@@ -91,7 +93,11 @@ void LevelSelectScene::InitializeIconsAndRequiredStars()
 				std::string IconFilename;
 				std::stringstream IconFilenameStringStream(Line);
 				IconFilenameStringStream >> IconFilename;
-				IconNamePerWorld.push_back("gui/signs/" + IconFilename);
+				IconNamePerWorld_Standard.push_back("gui/signs/" + IconFilename);
+
+				std::string SubstringToReplace("inactive");
+				IconFilename.replace(IconFilename.find(SubstringToReplace), SubstringToReplace.length(), "star");
+				IconNamePerWorld_Maxed.push_back("gui/signs/" + IconFilename);
 			}
 			else
 			{
@@ -250,6 +256,7 @@ bool LevelSelectScene::init()
 
 		const bool bWorldLocked = (TotalNumberOfStars < RequiredStarsPerWorld[i]);
 		bool bMaxStarsOnStandardLevels = true;
+		bool bMaxStarsOnAllLevels = true;
 		int StarsOnLastStandardLevel = -1;
 
 		for (unsigned int j = 0; j < LevelParamsContainer[i].size(); ++j)
@@ -264,6 +271,9 @@ bool LevelSelectScene::init()
 			}
 			else
 			{
+				if (StarsNumber != 3)
+					bMaxStarsOnAllLevels = false;
+
 				if (j < STANDARD_LEVELS_PER_WORLD)
 				{
 					if (StarsNumber != 3)
@@ -284,7 +294,7 @@ bool LevelSelectScene::init()
 		if (bWorldLocked)
 			CreateRequiredStarsLabel(i, PageLayout);
 		else
-			CreateWorldIcon(i, PageLayout);
+			CreateWorldIcon(i, PageLayout, bMaxStarsOnAllLevels);
 
 		CreateTopArrowsIcons(i, PageLayout);
 
@@ -369,9 +379,9 @@ const std::string& LevelSelectScene::GetLevelButtonSpriteFilename(int StarsNumbe
 	}
 }
 
-void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout)
+void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout, bool bMaxedVersion)
 {
-	auto WorldIcon = Sprite::create(IconNamePerWorld[WorldNumber]);
+	auto WorldIcon = Sprite::create(bMaxedVersion ? IconNamePerWorld_Maxed[WorldNumber] : IconNamePerWorld_Standard[WorldNumber]);
 	WorldIcon->setPosition(Vec2(DESIGN_RES_X / 2.0f, GameScene::GetScreenPositionY(SQUARE_AMOUNT_Y)));
 	WorldIcon->setScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
 	PageLayout->addChild(WorldIcon);

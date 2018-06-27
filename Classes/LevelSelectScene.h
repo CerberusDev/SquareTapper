@@ -21,7 +21,8 @@ protected:
 
 	static std::vector<std::vector<LevelParams>> LevelParamsContainer;
 	static std::vector<int> RequiredStarsPerWorld;
-	static std::vector<std::string> IconNamePerWorld;
+	static std::vector<std::string> IconNamePerWorld_Standard;
+	static std::vector<std::string> IconNamePerWorld_Maxed;
 	int StartWorldNumber;
 	int TotalNumberOfStars;
 
@@ -47,7 +48,7 @@ public:
 
 	void CreateLevelButton(int WorldNumber, int LevelNumber, int StarsNumber, cocos2d::ui::Layout* PageLayout);
 	const std::string& GetLevelButtonSpriteFilename(int StarsNumber);
-	void CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout);
+	void CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout, bool bMaxedVersion);
 	void CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateRequiredStarsLabel(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateStarsLabel(cocos2d::ui::Layout* PageLayout);

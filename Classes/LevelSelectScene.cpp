@@ -283,8 +283,9 @@ bool LevelSelectScene::init()
 
 		if (bWorldLocked)
 			CreateRequiredStarsLabel(i, PageLayout);
+		else
+			CreateWorldIcon(i, PageLayout);
 
-		CreateWorldIcon(i, PageLayout);
 		CreateTopArrowsIcons(i, PageLayout);
 
 		std::stringstream DebugWorldStream;

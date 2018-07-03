@@ -185,7 +185,8 @@
     <ClInclude Include="..\..\Classes\SquareTapper.h" />
     <ClInclude Include="..\..\Classes\StarImage.h" />
     <ClInclude Include="..\..\Classes\ToggleGameMask.h" />
-    <ClInclude Include="..\..\Classes\TutorialScene.h" />
+    <ClInclude Include="..\..\Classes\TutorialScene_DoubleTap.h" />
+    <ClInclude Include="..\..\Classes\TutorialScene_Standard.h" />
     <ClInclude Include="..\..\Classes\VerticalGameMask.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCAction.h" />
     <ClInclude Include="..\..\cocos2d\cocos\2d\CCActionCamera.h" />
@@ -952,7 +953,8 @@
     <ClCompile Include="..\..\Classes\SquareTapper.cpp" />
     <ClCompile Include="..\..\Classes\StarImage.cpp" />
     <ClCompile Include="..\..\Classes\ToggleGameMask.cpp" />
-    <ClCompile Include="..\..\Classes\TutorialScene.cpp" />
+    <ClCompile Include="..\..\Classes\TutorialScene_DoubleTap.cpp" />
+    <ClCompile Include="..\..\Classes\TutorialScene_Standard.cpp" />
     <ClCompile Include="..\..\Classes\VerticalGameMask.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCAction.cpp" />
     <ClCompile Include="..\..\cocos2d\cocos\2d\CCActionCamera.cpp" />

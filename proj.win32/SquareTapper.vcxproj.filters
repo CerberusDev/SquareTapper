@@ -38,11 +38,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\StarImage.cpp" />
     <ClCompile Include="..\Classes\GameSquareSequence.cpp" />
-    <ClCompile Include="..\Classes\TutorialScene.cpp" />
     <ClCompile Include="..\Classes\SquareTapper.cpp" />
     <ClCompile Include="..\Classes\DebugScene.cpp" />
     <ClCompile Include="..\Classes\ToggleGameMask.cpp" />
     <ClCompile Include="..\Classes\BaseScene.cpp" />
+    <ClCompile Include="..\Classes\TutorialScene_Standard.cpp" />
+    <ClCompile Include="..\Classes\TutorialScene_DoubleTap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -74,10 +75,11 @@
     </ClInclude>
     <ClInclude Include="..\Classes\StarImage.h" />
     <ClInclude Include="..\Classes\GameSquareSequence.h" />
-    <ClInclude Include="..\Classes\TutorialScene.h" />
     <ClInclude Include="..\Classes\DebugScene.h" />
     <ClInclude Include="..\Classes\ToggleGameMask.h" />
     <ClInclude Include="..\Classes\BaseScene.h" />
+    <ClInclude Include="..\Classes\TutorialScene_Standard.h" />
+    <ClInclude Include="..\Classes\TutorialScene_DoubleTap.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

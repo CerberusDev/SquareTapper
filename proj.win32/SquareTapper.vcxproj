@@ -156,7 +156,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\SquareTapper.cpp" />
     <ClCompile Include="..\Classes\StarImage.cpp" />
     <ClCompile Include="..\Classes\ToggleGameMask.cpp" />
-    <ClCompile Include="..\Classes\TutorialScene.cpp" />
+    <ClCompile Include="..\Classes\TutorialScene_DoubleTap.cpp" />
+    <ClCompile Include="..\Classes\TutorialScene_Standard.cpp" />
     <ClCompile Include="..\Classes\VerticalGameMask.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -173,7 +174,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\SquareTapper.h" />
     <ClInclude Include="..\Classes\StarImage.h" />
     <ClInclude Include="..\Classes\ToggleGameMask.h" />
-    <ClInclude Include="..\Classes\TutorialScene.h" />
+    <ClInclude Include="..\Classes\TutorialScene_DoubleTap.h" />
+    <ClInclude Include="..\Classes\TutorialScene_Standard.h" />
     <ClInclude Include="..\Classes\VerticalGameMask.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

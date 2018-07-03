@@ -4,7 +4,8 @@
 
 #include "LevelSelectScene.h"
 #include "GameScene.h"
-#include "TutorialScene.h"
+#include "TutorialScene_Standard.h"
+#include "TutorialScene_DoubleTap.h"
 
 USING_NS_CC;
 
@@ -347,9 +348,9 @@ void LevelSelectScene::CreateLevelButton(int WorldNumber, int LevelNumber, int S
 				UserDefaultData->flush();
 
 				if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_STANDARD)
-					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::StandardSquare));
+					Director::getInstance()->replaceScene(TutorialScene_Standard::create());
 				else if (LevelNumber == 0 && WorldNumber == WORLD_NUMBER_ON_TUTORIAL_DOUBLE_TAP)
-					Director::getInstance()->replaceScene(TutorialScene::create(ETutorialType::DoubleTapSquare));
+					Director::getInstance()->replaceScene(TutorialScene_DoubleTap::create());
 				else
 					Director::getInstance()->replaceScene(GameScene::create(LevelParamsContainer[WorldNumber][LevelNumber]));
 			}

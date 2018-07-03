@@ -2284,9 +2284,6 @@
     <ClInclude Include="..\..\Classes\GameSquareSequence.h">
       <Filter>jni</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Classes\TutorialScene.h">
-      <Filter>jni</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Classes\DebugScene.h">
       <Filter>jni</Filter>
     </ClInclude>
@@ -2294,6 +2291,12 @@
       <Filter>jni</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classes\BaseScene.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\TutorialScene_DoubleTap.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Classes\TutorialScene_Standard.h">
       <Filter>jni</Filter>
     </ClInclude>
   </ItemGroup>
@@ -4280,9 +4283,6 @@
     <ClCompile Include="..\..\Classes\GameSquareSequence.cpp">
       <Filter>jni</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Classes\TutorialScene.cpp">
-      <Filter>jni</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Classes\SquareTapper.cpp">
       <Filter>jni</Filter>
     </ClCompile>
@@ -4293,6 +4293,12 @@
       <Filter>jni</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Classes\BaseScene.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\TutorialScene_DoubleTap.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Classes\TutorialScene_Standard.cpp">
       <Filter>jni</Filter>
     </ClCompile>
   </ItemGroup>

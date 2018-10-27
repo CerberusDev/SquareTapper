@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea16 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
@@ -92,6 +92,35 @@
             this.textBox44 = new System.Windows.Forms.TextBox();
             this.textBox45 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.comboBox9 = new System.Windows.Forms.ComboBox();
+            this.comboBox10 = new System.Windows.Forms.ComboBox();
+            this.comboBox11 = new System.Windows.Forms.ComboBox();
+            this.comboBox12 = new System.Windows.Forms.ComboBox();
+            this.comboBox13 = new System.Windows.Forms.ComboBox();
+            this.comboBox14 = new System.Windows.Forms.ComboBox();
+            this.comboBox15 = new System.Windows.Forms.ComboBox();
+            this.comboBox16 = new System.Windows.Forms.ComboBox();
+            this.comboBox17 = new System.Windows.Forms.ComboBox();
+            this.comboBox18 = new System.Windows.Forms.ComboBox();
+            this.comboBox19 = new System.Windows.Forms.ComboBox();
+            this.comboBox20 = new System.Windows.Forms.ComboBox();
+            this.comboBox21 = new System.Windows.Forms.ComboBox();
+            this.comboBox22 = new System.Windows.Forms.ComboBox();
+            this.comboBox23 = new System.Windows.Forms.ComboBox();
+            this.comboBox24 = new System.Windows.Forms.ComboBox();
+            this.comboBox25 = new System.Windows.Forms.ComboBox();
+            this.comboBox26 = new System.Windows.Forms.ComboBox();
+            this.comboBox27 = new System.Windows.Forms.ComboBox();
+            this.comboBox28 = new System.Windows.Forms.ComboBox();
+            this.comboBox29 = new System.Windows.Forms.ComboBox();
+            this.comboBox30 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,15 +137,15 @@
             // 
             // chart1
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
+            chartArea16.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea16);
             this.chart1.Location = new System.Drawing.Point(821, 113);
             this.chart1.Name = "chart1";
-            series5.BorderWidth = 3;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Name = "Series1";
-            this.chart1.Series.Add(series5);
+            series16.BorderWidth = 3;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Name = "Series1";
+            this.chart1.Series.Add(series16);
             this.chart1.Size = new System.Drawing.Size(556, 300);
             this.chart1.TabIndex = 15;
             this.chart1.Text = "chart1";
@@ -688,18 +717,438 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.IntegralHeight = false;
             this.comboBox1.ItemHeight = 25;
-            this.comboBox1.Location = new System.Drawing.Point(97, 311);
+            this.comboBox1.Location = new System.Drawing.Point(97, 191);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(51, 31);
+            this.comboBox1.Size = new System.Drawing.Size(37, 31);
             this.comboBox1.TabIndex = 116;
-            this.comboBox1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.comboBox1_DrawItem);
-            this.comboBox1.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.comboBox1_MeasureItem);
+            this.comboBox1.SelectedValueChanged += new System.EventHandler(this.comboBox1_SelectedValueChanged);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox2.DropDownHeight = 500;
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.IntegralHeight = false;
+            this.comboBox2.ItemHeight = 25;
+            this.comboBox2.Location = new System.Drawing.Point(97, 228);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(37, 31);
+            this.comboBox2.TabIndex = 117;
+            this.comboBox2.Visible = false;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox3.DropDownHeight = 500;
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.IntegralHeight = false;
+            this.comboBox3.ItemHeight = 25;
+            this.comboBox3.Location = new System.Drawing.Point(140, 191);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(37, 31);
+            this.comboBox3.TabIndex = 119;
+            this.comboBox3.Visible = false;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox4.DropDownHeight = 500;
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.IntegralHeight = false;
+            this.comboBox4.ItemHeight = 25;
+            this.comboBox4.Location = new System.Drawing.Point(140, 228);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(37, 31);
+            this.comboBox4.TabIndex = 118;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox5.DropDownHeight = 500;
+            this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.IntegralHeight = false;
+            this.comboBox5.ItemHeight = 25;
+            this.comboBox5.Location = new System.Drawing.Point(183, 191);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(37, 31);
+            this.comboBox5.TabIndex = 121;
+            this.comboBox5.Visible = false;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox6.DropDownHeight = 500;
+            this.comboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.IntegralHeight = false;
+            this.comboBox6.ItemHeight = 25;
+            this.comboBox6.Location = new System.Drawing.Point(183, 228);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(37, 31);
+            this.comboBox6.TabIndex = 120;
+            // 
+            // comboBox7
+            // 
+            this.comboBox7.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox7.DropDownHeight = 500;
+            this.comboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.IntegralHeight = false;
+            this.comboBox7.ItemHeight = 25;
+            this.comboBox7.Location = new System.Drawing.Point(226, 191);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(37, 31);
+            this.comboBox7.TabIndex = 123;
+            this.comboBox7.Visible = false;
+            // 
+            // comboBox8
+            // 
+            this.comboBox8.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox8.DropDownHeight = 500;
+            this.comboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox8.FormattingEnabled = true;
+            this.comboBox8.IntegralHeight = false;
+            this.comboBox8.ItemHeight = 25;
+            this.comboBox8.Location = new System.Drawing.Point(226, 228);
+            this.comboBox8.Name = "comboBox8";
+            this.comboBox8.Size = new System.Drawing.Size(37, 31);
+            this.comboBox8.TabIndex = 122;
+            // 
+            // comboBox9
+            // 
+            this.comboBox9.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox9.DropDownHeight = 500;
+            this.comboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox9.FormattingEnabled = true;
+            this.comboBox9.IntegralHeight = false;
+            this.comboBox9.ItemHeight = 25;
+            this.comboBox9.Location = new System.Drawing.Point(269, 191);
+            this.comboBox9.Name = "comboBox9";
+            this.comboBox9.Size = new System.Drawing.Size(37, 31);
+            this.comboBox9.TabIndex = 125;
+            this.comboBox9.Visible = false;
+            // 
+            // comboBox10
+            // 
+            this.comboBox10.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox10.DropDownHeight = 500;
+            this.comboBox10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox10.FormattingEnabled = true;
+            this.comboBox10.IntegralHeight = false;
+            this.comboBox10.ItemHeight = 25;
+            this.comboBox10.Location = new System.Drawing.Point(269, 228);
+            this.comboBox10.Name = "comboBox10";
+            this.comboBox10.Size = new System.Drawing.Size(37, 31);
+            this.comboBox10.TabIndex = 124;
+            // 
+            // comboBox11
+            // 
+            this.comboBox11.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox11.DropDownHeight = 500;
+            this.comboBox11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox11.FormattingEnabled = true;
+            this.comboBox11.IntegralHeight = false;
+            this.comboBox11.ItemHeight = 25;
+            this.comboBox11.Location = new System.Drawing.Point(312, 191);
+            this.comboBox11.Name = "comboBox11";
+            this.comboBox11.Size = new System.Drawing.Size(37, 31);
+            this.comboBox11.TabIndex = 127;
+            this.comboBox11.Visible = false;
+            // 
+            // comboBox12
+            // 
+            this.comboBox12.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox12.DropDownHeight = 500;
+            this.comboBox12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox12.FormattingEnabled = true;
+            this.comboBox12.IntegralHeight = false;
+            this.comboBox12.ItemHeight = 25;
+            this.comboBox12.Location = new System.Drawing.Point(312, 228);
+            this.comboBox12.Name = "comboBox12";
+            this.comboBox12.Size = new System.Drawing.Size(37, 31);
+            this.comboBox12.TabIndex = 126;
+            // 
+            // comboBox13
+            // 
+            this.comboBox13.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox13.DropDownHeight = 500;
+            this.comboBox13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox13.FormattingEnabled = true;
+            this.comboBox13.IntegralHeight = false;
+            this.comboBox13.ItemHeight = 25;
+            this.comboBox13.Location = new System.Drawing.Point(355, 191);
+            this.comboBox13.Name = "comboBox13";
+            this.comboBox13.Size = new System.Drawing.Size(37, 31);
+            this.comboBox13.TabIndex = 129;
+            this.comboBox13.Visible = false;
+            // 
+            // comboBox14
+            // 
+            this.comboBox14.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox14.DropDownHeight = 500;
+            this.comboBox14.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox14.FormattingEnabled = true;
+            this.comboBox14.IntegralHeight = false;
+            this.comboBox14.ItemHeight = 25;
+            this.comboBox14.Location = new System.Drawing.Point(355, 228);
+            this.comboBox14.Name = "comboBox14";
+            this.comboBox14.Size = new System.Drawing.Size(37, 31);
+            this.comboBox14.TabIndex = 128;
+            // 
+            // comboBox15
+            // 
+            this.comboBox15.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox15.DropDownHeight = 500;
+            this.comboBox15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox15.FormattingEnabled = true;
+            this.comboBox15.IntegralHeight = false;
+            this.comboBox15.ItemHeight = 25;
+            this.comboBox15.Location = new System.Drawing.Point(398, 191);
+            this.comboBox15.Name = "comboBox15";
+            this.comboBox15.Size = new System.Drawing.Size(37, 31);
+            this.comboBox15.TabIndex = 131;
+            this.comboBox15.Visible = false;
+            // 
+            // comboBox16
+            // 
+            this.comboBox16.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox16.DropDownHeight = 500;
+            this.comboBox16.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox16.FormattingEnabled = true;
+            this.comboBox16.IntegralHeight = false;
+            this.comboBox16.ItemHeight = 25;
+            this.comboBox16.Location = new System.Drawing.Point(398, 228);
+            this.comboBox16.Name = "comboBox16";
+            this.comboBox16.Size = new System.Drawing.Size(37, 31);
+            this.comboBox16.TabIndex = 130;
+            // 
+            // comboBox17
+            // 
+            this.comboBox17.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox17.DropDownHeight = 500;
+            this.comboBox17.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox17.FormattingEnabled = true;
+            this.comboBox17.IntegralHeight = false;
+            this.comboBox17.ItemHeight = 25;
+            this.comboBox17.Location = new System.Drawing.Point(441, 191);
+            this.comboBox17.Name = "comboBox17";
+            this.comboBox17.Size = new System.Drawing.Size(37, 31);
+            this.comboBox17.TabIndex = 133;
+            this.comboBox17.Visible = false;
+            // 
+            // comboBox18
+            // 
+            this.comboBox18.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox18.DropDownHeight = 500;
+            this.comboBox18.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox18.FormattingEnabled = true;
+            this.comboBox18.IntegralHeight = false;
+            this.comboBox18.ItemHeight = 25;
+            this.comboBox18.Location = new System.Drawing.Point(441, 228);
+            this.comboBox18.Name = "comboBox18";
+            this.comboBox18.Size = new System.Drawing.Size(37, 31);
+            this.comboBox18.TabIndex = 132;
+            // 
+            // comboBox19
+            // 
+            this.comboBox19.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox19.DropDownHeight = 500;
+            this.comboBox19.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox19.FormattingEnabled = true;
+            this.comboBox19.IntegralHeight = false;
+            this.comboBox19.ItemHeight = 25;
+            this.comboBox19.Location = new System.Drawing.Point(484, 191);
+            this.comboBox19.Name = "comboBox19";
+            this.comboBox19.Size = new System.Drawing.Size(37, 31);
+            this.comboBox19.TabIndex = 135;
+            this.comboBox19.Visible = false;
+            // 
+            // comboBox20
+            // 
+            this.comboBox20.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox20.DropDownHeight = 500;
+            this.comboBox20.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox20.FormattingEnabled = true;
+            this.comboBox20.IntegralHeight = false;
+            this.comboBox20.ItemHeight = 25;
+            this.comboBox20.Location = new System.Drawing.Point(484, 228);
+            this.comboBox20.Name = "comboBox20";
+            this.comboBox20.Size = new System.Drawing.Size(37, 31);
+            this.comboBox20.TabIndex = 134;
+            // 
+            // comboBox21
+            // 
+            this.comboBox21.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox21.DropDownHeight = 500;
+            this.comboBox21.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox21.FormattingEnabled = true;
+            this.comboBox21.IntegralHeight = false;
+            this.comboBox21.ItemHeight = 25;
+            this.comboBox21.Location = new System.Drawing.Point(527, 191);
+            this.comboBox21.Name = "comboBox21";
+            this.comboBox21.Size = new System.Drawing.Size(37, 31);
+            this.comboBox21.TabIndex = 137;
+            this.comboBox21.Visible = false;
+            // 
+            // comboBox22
+            // 
+            this.comboBox22.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox22.DropDownHeight = 500;
+            this.comboBox22.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox22.FormattingEnabled = true;
+            this.comboBox22.IntegralHeight = false;
+            this.comboBox22.ItemHeight = 25;
+            this.comboBox22.Location = new System.Drawing.Point(527, 228);
+            this.comboBox22.Name = "comboBox22";
+            this.comboBox22.Size = new System.Drawing.Size(37, 31);
+            this.comboBox22.TabIndex = 136;
+            // 
+            // comboBox23
+            // 
+            this.comboBox23.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox23.DropDownHeight = 500;
+            this.comboBox23.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox23.FormattingEnabled = true;
+            this.comboBox23.IntegralHeight = false;
+            this.comboBox23.ItemHeight = 25;
+            this.comboBox23.Location = new System.Drawing.Point(570, 191);
+            this.comboBox23.Name = "comboBox23";
+            this.comboBox23.Size = new System.Drawing.Size(37, 31);
+            this.comboBox23.TabIndex = 139;
+            this.comboBox23.Visible = false;
+            // 
+            // comboBox24
+            // 
+            this.comboBox24.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox24.DropDownHeight = 500;
+            this.comboBox24.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox24.FormattingEnabled = true;
+            this.comboBox24.IntegralHeight = false;
+            this.comboBox24.ItemHeight = 25;
+            this.comboBox24.Location = new System.Drawing.Point(570, 228);
+            this.comboBox24.Name = "comboBox24";
+            this.comboBox24.Size = new System.Drawing.Size(37, 31);
+            this.comboBox24.TabIndex = 138;
+            // 
+            // comboBox25
+            // 
+            this.comboBox25.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox25.DropDownHeight = 500;
+            this.comboBox25.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox25.FormattingEnabled = true;
+            this.comboBox25.IntegralHeight = false;
+            this.comboBox25.ItemHeight = 25;
+            this.comboBox25.Location = new System.Drawing.Point(613, 191);
+            this.comboBox25.Name = "comboBox25";
+            this.comboBox25.Size = new System.Drawing.Size(37, 31);
+            this.comboBox25.TabIndex = 141;
+            this.comboBox25.Visible = false;
+            // 
+            // comboBox26
+            // 
+            this.comboBox26.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox26.DropDownHeight = 500;
+            this.comboBox26.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox26.FormattingEnabled = true;
+            this.comboBox26.IntegralHeight = false;
+            this.comboBox26.ItemHeight = 25;
+            this.comboBox26.Location = new System.Drawing.Point(613, 228);
+            this.comboBox26.Name = "comboBox26";
+            this.comboBox26.Size = new System.Drawing.Size(37, 31);
+            this.comboBox26.TabIndex = 140;
+            // 
+            // comboBox27
+            // 
+            this.comboBox27.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox27.DropDownHeight = 500;
+            this.comboBox27.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox27.FormattingEnabled = true;
+            this.comboBox27.IntegralHeight = false;
+            this.comboBox27.ItemHeight = 25;
+            this.comboBox27.Location = new System.Drawing.Point(656, 191);
+            this.comboBox27.Name = "comboBox27";
+            this.comboBox27.Size = new System.Drawing.Size(37, 31);
+            this.comboBox27.TabIndex = 143;
+            this.comboBox27.Visible = false;
+            // 
+            // comboBox28
+            // 
+            this.comboBox28.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox28.DropDownHeight = 500;
+            this.comboBox28.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox28.FormattingEnabled = true;
+            this.comboBox28.IntegralHeight = false;
+            this.comboBox28.ItemHeight = 25;
+            this.comboBox28.Location = new System.Drawing.Point(656, 228);
+            this.comboBox28.Name = "comboBox28";
+            this.comboBox28.Size = new System.Drawing.Size(37, 31);
+            this.comboBox28.TabIndex = 142;
+            // 
+            // comboBox29
+            // 
+            this.comboBox29.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox29.DropDownHeight = 500;
+            this.comboBox29.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox29.FormattingEnabled = true;
+            this.comboBox29.IntegralHeight = false;
+            this.comboBox29.ItemHeight = 25;
+            this.comboBox29.Location = new System.Drawing.Point(699, 191);
+            this.comboBox29.Name = "comboBox29";
+            this.comboBox29.Size = new System.Drawing.Size(37, 31);
+            this.comboBox29.TabIndex = 145;
+            this.comboBox29.Visible = false;
+            // 
+            // comboBox30
+            // 
+            this.comboBox30.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBox30.DropDownHeight = 500;
+            this.comboBox30.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox30.FormattingEnabled = true;
+            this.comboBox30.IntegralHeight = false;
+            this.comboBox30.ItemHeight = 25;
+            this.comboBox30.Location = new System.Drawing.Point(699, 228);
+            this.comboBox30.Name = "comboBox30";
+            this.comboBox30.Size = new System.Drawing.Size(37, 31);
+            this.comboBox30.TabIndex = 144;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1421, 811);
+            this.Controls.Add(this.comboBox29);
+            this.Controls.Add(this.comboBox30);
+            this.Controls.Add(this.comboBox27);
+            this.Controls.Add(this.comboBox28);
+            this.Controls.Add(this.comboBox25);
+            this.Controls.Add(this.comboBox26);
+            this.Controls.Add(this.comboBox23);
+            this.Controls.Add(this.comboBox24);
+            this.Controls.Add(this.comboBox21);
+            this.Controls.Add(this.comboBox22);
+            this.Controls.Add(this.comboBox19);
+            this.Controls.Add(this.comboBox20);
+            this.Controls.Add(this.comboBox17);
+            this.Controls.Add(this.comboBox18);
+            this.Controls.Add(this.comboBox15);
+            this.Controls.Add(this.comboBox16);
+            this.Controls.Add(this.comboBox13);
+            this.Controls.Add(this.comboBox14);
+            this.Controls.Add(this.comboBox11);
+            this.Controls.Add(this.comboBox12);
+            this.Controls.Add(this.comboBox9);
+            this.Controls.Add(this.comboBox10);
+            this.Controls.Add(this.comboBox7);
+            this.Controls.Add(this.comboBox8);
+            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.comboBox6);
+            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox43);
             this.Controls.Add(this.textBox44);
@@ -834,6 +1283,35 @@
         private System.Windows.Forms.TextBox textBox44;
         private System.Windows.Forms.TextBox textBox45;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.ComboBox comboBox9;
+        private System.Windows.Forms.ComboBox comboBox10;
+        private System.Windows.Forms.ComboBox comboBox11;
+        private System.Windows.Forms.ComboBox comboBox12;
+        private System.Windows.Forms.ComboBox comboBox13;
+        private System.Windows.Forms.ComboBox comboBox14;
+        private System.Windows.Forms.ComboBox comboBox15;
+        private System.Windows.Forms.ComboBox comboBox16;
+        private System.Windows.Forms.ComboBox comboBox17;
+        private System.Windows.Forms.ComboBox comboBox18;
+        private System.Windows.Forms.ComboBox comboBox19;
+        private System.Windows.Forms.ComboBox comboBox20;
+        private System.Windows.Forms.ComboBox comboBox21;
+        private System.Windows.Forms.ComboBox comboBox22;
+        private System.Windows.Forms.ComboBox comboBox23;
+        private System.Windows.Forms.ComboBox comboBox24;
+        private System.Windows.Forms.ComboBox comboBox25;
+        private System.Windows.Forms.ComboBox comboBox26;
+        private System.Windows.Forms.ComboBox comboBox27;
+        private System.Windows.Forms.ComboBox comboBox28;
+        private System.Windows.Forms.ComboBox comboBox29;
+        private System.Windows.Forms.ComboBox comboBox30;
     }
 }
 

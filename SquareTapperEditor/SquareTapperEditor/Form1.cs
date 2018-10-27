@@ -15,41 +15,49 @@ namespace SquareTapperEditor
     public partial class Form1 : Form
     {
         // Margins around owner drawn ComboBoxes.
-        private const int MarginWidth = 4;
-        private const int MarginHeight = 4;
+        private const int MarginWidth = 1;
+        private const int MarginHeight = 1;
 
         public Form1()
         {
             InitializeComponent();
 
-            //comboBox1.Items.Add("test1");
-            //comboBox1.Items.Add("test2");
-            //comboBox1.Items.Add("test3");
-            //comboBox1.Items.Add("test4");
-
-            //var bmp = new Bitmap(Properties.Resources.test);
-
-            //Assembly myAssembly = Assembly.GetExecutingAssembly();
-            //Stream myStream = myAssembly.GetManifestResourceStream(myAssembly.GetName().Name + "test.png");
-            //Bitmap bmp = new Bitmap(myStream);
-
-            //Assembly myAssembly = Assembly.GetExecutingAssembly();
-            //Stream myStream = myAssembly.GetManifestResourceStream(myAssembly.GetName().Name + "test.png");
-            //Bitmap bmp = new Bitmap(myStream);
-            //comboBox1.Items.Add(bmp);
-
-            //comboBox1.SelectedIndex = 0;
-
             Image[] imgs =
             {
-                Properties.Resources.test1,
-                Properties.Resources.test2,
-                Properties.Resources.test3,
+                Properties.Resources.mask1,
+                Properties.Resources.mask2,
+                Properties.Resources.mask3,
+                Properties.Resources.mask4,
+                Properties.Resources.mask5,
             };
 
-            foreach (Image img in imgs) comboBox1.Items.Add(img);
+            ComboBox[] MaskComboBoxes1 = { comboBox1, comboBox3, comboBox5, comboBox7, comboBox9, comboBox11, comboBox13, comboBox15, comboBox17, comboBox19, comboBox21, comboBox23, comboBox25, comboBox27, comboBox29 };
+            ComboBox[] MaskComboBoxes2 = { comboBox2, comboBox4, comboBox6, comboBox8, comboBox10, comboBox12, comboBox14, comboBox16, comboBox18, comboBox20, comboBox22, comboBox24, comboBox26, comboBox28, comboBox30 };
 
-            comboBox1.MeasureItem += comboBox1_MeasureItem;
+            foreach (Image img in imgs)
+            {
+                foreach (ComboBox cb in MaskComboBoxes1)
+                    cb.Items.Add(img);
+
+                foreach (ComboBox cb in MaskComboBoxes2)
+                    cb.Items.Add(img);
+            }
+
+            foreach (ComboBox cb in MaskComboBoxes1)
+            {
+                cb.SelectedIndex = 0;
+                cb.MeasureItem += comboBox_MeasureItem;
+                cb.DrawItem += comboBox_DrawItem;
+                cb.Visible = true;
+            }
+
+            foreach (ComboBox cb in MaskComboBoxes2)
+            {
+                cb.SelectedIndex = 0;
+                cb.MeasureItem += comboBox_MeasureItem;
+                cb.DrawItem += comboBox_DrawItem;
+                cb.Visible = false;
+            }
         }
 
         private void redrawChart()
@@ -112,7 +120,7 @@ namespace SquareTapperEditor
             return (argTextbox.Text.Length > 0 && argTextbox.Text != ",") ? float.Parse(argTextbox.Text) : 0.0f;
         }
 
-        private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
+        private void comboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             if (e.Index < 0) return;
 
@@ -126,12 +134,9 @@ namespace SquareTapperEditor
             RectangleF rect = new RectangleF(e.Bounds.X + MarginWidth, e.Bounds.Y + MarginHeight, wid, hgt);
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
             e.Graphics.DrawImage(img, rect);
-
-            // Draw the focus rectangle if appropriate.
-           // e.DrawFocusRectangle(); ;
         }
 
-        private void comboBox1_MeasureItem(object sender, MeasureItemEventArgs e)
+        private void comboBox_MeasureItem(object sender, MeasureItemEventArgs e)
         {
             if (e.Index < 0) return;
 
@@ -139,6 +144,20 @@ namespace SquareTapperEditor
             Image img = (Image)cbo.Items[e.Index];
             e.ItemHeight = img.Height + 2 * MarginHeight;
             e.ItemWidth = img.Width + 2 * MarginWidth;
+        }
+
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex > 0)
+            {
+                comboBox2.Visible = true;
+            }
+            else
+            {
+                comboBox1.SelectedIndex = Math.Max(comboBox2.SelectedIndex, 0);
+                comboBox2.Visible = false;
+                comboBox2.SelectedIndex = 0;
+            }
         }
     }
 }

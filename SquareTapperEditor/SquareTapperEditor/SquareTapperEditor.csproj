@@ -82,13 +82,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\test1.png" />
+    <None Include="Resources\mask1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\test2.png" />
+    <None Include="Resources\mask2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\test3.png" />
+    <None Include="Resources\mask3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mask4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mask5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

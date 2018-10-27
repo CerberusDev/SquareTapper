@@ -7,23 +7,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
 
 namespace SquareTapperEditor
 {
     public partial class Form1 : Form
     {
+        // Margins around owner drawn ComboBoxes.
+        private const int MarginWidth = 4;
+        private const int MarginHeight = 4;
+
         public Form1()
         {
             InitializeComponent();
 
-            comboBox1.Items.Add("test1");
-            comboBox1.Items.Add("test2");
-            comboBox1.Items.Add("test3");
-            comboBox1.Items.Add("test4");
+            //comboBox1.Items.Add("test1");
+            //comboBox1.Items.Add("test2");
+            //comboBox1.Items.Add("test3");
+            //comboBox1.Items.Add("test4");
 
-            comboBox1.SelectedIndex = 0;
+            //var bmp = new Bitmap(Properties.Resources.test);
 
-            //comboBox1.displa
+            //Assembly myAssembly = Assembly.GetExecutingAssembly();
+            //Stream myStream = myAssembly.GetManifestResourceStream(myAssembly.GetName().Name + "test.png");
+            //Bitmap bmp = new Bitmap(myStream);
+
+            //Assembly myAssembly = Assembly.GetExecutingAssembly();
+            //Stream myStream = myAssembly.GetManifestResourceStream(myAssembly.GetName().Name + "test.png");
+            //Bitmap bmp = new Bitmap(myStream);
+            //comboBox1.Items.Add(bmp);
+
+            //comboBox1.SelectedIndex = 0;
+
+            Image[] imgs =
+            {
+                Properties.Resources.test1,
+                Properties.Resources.test2,
+                Properties.Resources.test3,
+            };
+
+            foreach (Image img in imgs) comboBox1.Items.Add(img);
+
+            comboBox1.MeasureItem += comboBox1_MeasureItem;
         }
 
         private void redrawChart()
@@ -84,6 +110,35 @@ namespace SquareTapperEditor
         private float getValueFromTextbox(TextBox argTextbox)
         {
             return (argTextbox.Text.Length > 0 && argTextbox.Text != ",") ? float.Parse(argTextbox.Text) : 0.0f;
+        }
+
+        private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            e.DrawBackground();
+
+            ComboBox cbo = sender as ComboBox;
+            Image img = (Image)cbo.Items[e.Index];
+            float hgt = e.Bounds.Height - 2 * MarginHeight;
+            float scale = hgt / img.Height;
+            float wid = img.Width * scale;
+            RectangleF rect = new RectangleF(e.Bounds.X + MarginWidth, e.Bounds.Y + MarginHeight, wid, hgt);
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+            e.Graphics.DrawImage(img, rect);
+
+            // Draw the focus rectangle if appropriate.
+           // e.DrawFocusRectangle(); ;
+        }
+
+        private void comboBox1_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            ComboBox cbo = sender as ComboBox;
+            Image img = (Image)cbo.Items[e.Index];
+            e.ItemHeight = img.Height + 2 * MarginHeight;
+            e.ItemWidth = img.Width + 2 * MarginWidth;
         }
     }
 }

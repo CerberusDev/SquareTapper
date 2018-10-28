@@ -99,9 +99,14 @@ namespace SquareTapperEditor
             ButtonImages.Add(Properties.Resources.button2);
             ButtonImages.Add(Properties.Resources.button3);
 
-            pictureBox1.Tag = 0;
-            pictureBox1.Image = ButtonImages[0];
-            pictureBox1.Click += pictureBox_Click;
+            PictureBox[] picBoxes = { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, pictureBox15 };
+
+            foreach (PictureBox pc in picBoxes)
+            {
+                pc.Tag = 0;
+                pc.Image = ButtonImages[0];
+                pc.Click += pictureBox_Click;
+            }
         }
         // ======================================== constructor end ==========================================
 

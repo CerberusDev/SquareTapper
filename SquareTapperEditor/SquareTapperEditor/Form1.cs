@@ -20,12 +20,13 @@ namespace SquareTapperEditor
 
         private List<ComboBox> MaskComboBoxes1;
         private List<ComboBox> MaskComboBoxes2;
+        private List<Image> ButtonImages;
 
         public Form1()
         {
             InitializeComponent();
 
-            Image[] imgs =
+            Image[] maskImgases =
             {
                 Properties.Resources.mask1,
                 Properties.Resources.mask2,
@@ -68,7 +69,7 @@ namespace SquareTapperEditor
             MaskComboBoxes2.Add(comboBox28);
             MaskComboBoxes2.Add(comboBox30);
 
-            foreach (Image img in imgs)
+            foreach (Image img in maskImgases)
             {
                 foreach (ComboBox cb in MaskComboBoxes1)
                     cb.Items.Add(img);
@@ -93,7 +94,16 @@ namespace SquareTapperEditor
                 cb.MeasureItem += comboBox_MeasureItem;
                 cb.DrawItem += comboBox_DrawItem;
             }
+
+            ButtonImages = new List<Image>();
+            ButtonImages.Add(Properties.Resources.button2);
+            ButtonImages.Add(Properties.Resources.button3);
+
+            pictureBox1.Tag = 0;
+            pictureBox1.Image = ButtonImages[0];
+            pictureBox1.Click += pictureBox_Click;
         }
+        // ======================================== constructor end ==========================================
 
         private void redrawChart()
         {
@@ -202,6 +212,24 @@ namespace SquareTapperEditor
                     cbo2.Visible = false;
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+
+            button.ImageIndex = (button.ImageIndex + 1) % button.ImageList.Images.Count;
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            PictureBox picBox = sender as PictureBox;
+
+            int tag = (int)picBox.Tag;
+            tag = (tag + 1) % ButtonImages.Count;
+            picBox.Tag = tag;
+
+            picBox.Image = ButtonImages[tag];
         }
     }
 }

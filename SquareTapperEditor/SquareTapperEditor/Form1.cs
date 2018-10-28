@@ -18,6 +18,9 @@ namespace SquareTapperEditor
         private const int MarginWidth = 1;
         private const int MarginHeight = 1;
 
+        private List<ComboBox> MaskComboBoxes1;
+        private List<ComboBox> MaskComboBoxes2;
+
         public Form1()
         {
             InitializeComponent();
@@ -31,8 +34,39 @@ namespace SquareTapperEditor
                 Properties.Resources.mask5,
             };
 
-            ComboBox[] MaskComboBoxes1 = { comboBox1, comboBox3, comboBox5, comboBox7, comboBox9, comboBox11, comboBox13, comboBox15, comboBox17, comboBox19, comboBox21, comboBox23, comboBox25, comboBox27, comboBox29 };
-            ComboBox[] MaskComboBoxes2 = { comboBox2, comboBox4, comboBox6, comboBox8, comboBox10, comboBox12, comboBox14, comboBox16, comboBox18, comboBox20, comboBox22, comboBox24, comboBox26, comboBox28, comboBox30 };
+            MaskComboBoxes1 = new List<ComboBox>();
+            MaskComboBoxes1.Add(comboBox1);
+            MaskComboBoxes1.Add(comboBox3);
+            MaskComboBoxes1.Add(comboBox5);
+            MaskComboBoxes1.Add(comboBox7);
+            MaskComboBoxes1.Add(comboBox9);
+            MaskComboBoxes1.Add(comboBox11);
+            MaskComboBoxes1.Add(comboBox13);
+            MaskComboBoxes1.Add(comboBox15);
+            MaskComboBoxes1.Add(comboBox17);
+            MaskComboBoxes1.Add(comboBox19);
+            MaskComboBoxes1.Add(comboBox21);
+            MaskComboBoxes1.Add(comboBox23);
+            MaskComboBoxes1.Add(comboBox25);
+            MaskComboBoxes1.Add(comboBox27);
+            MaskComboBoxes1.Add(comboBox29);
+
+            MaskComboBoxes2 = new List<ComboBox>();
+            MaskComboBoxes2.Add(comboBox2);
+            MaskComboBoxes2.Add(comboBox4);
+            MaskComboBoxes2.Add(comboBox6);
+            MaskComboBoxes2.Add(comboBox8);
+            MaskComboBoxes2.Add(comboBox10);
+            MaskComboBoxes2.Add(comboBox12);
+            MaskComboBoxes2.Add(comboBox14);
+            MaskComboBoxes2.Add(comboBox16);
+            MaskComboBoxes2.Add(comboBox18);
+            MaskComboBoxes2.Add(comboBox20);
+            MaskComboBoxes2.Add(comboBox22);
+            MaskComboBoxes2.Add(comboBox24);
+            MaskComboBoxes2.Add(comboBox26);
+            MaskComboBoxes2.Add(comboBox28);
+            MaskComboBoxes2.Add(comboBox30);
 
             foreach (Image img in imgs)
             {
@@ -45,18 +79,19 @@ namespace SquareTapperEditor
 
             foreach (ComboBox cb in MaskComboBoxes1)
             {
+                cb.Visible = true;
                 cb.SelectedIndex = 0;
                 cb.MeasureItem += comboBox_MeasureItem;
                 cb.DrawItem += comboBox_DrawItem;
-                cb.Visible = true;
+                cb.SelectedValueChanged += comboBox_SelectedValueChanged;
             }
 
             foreach (ComboBox cb in MaskComboBoxes2)
-            {
+            { 
+                cb.Visible = false;
                 cb.SelectedIndex = 0;
                 cb.MeasureItem += comboBox_MeasureItem;
                 cb.DrawItem += comboBox_DrawItem;
-                cb.Visible = false;
             }
         }
 
@@ -146,17 +181,26 @@ namespace SquareTapperEditor
             e.ItemWidth = img.Width + 2 * MarginWidth;
         }
 
-        private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
+        private void comboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex > 0)
+            ComboBox cbo1 = sender as ComboBox;
+            ComboBox cbo2 = MaskComboBoxes2[MaskComboBoxes1.IndexOf(cbo1)];
+
+            if (cbo1.SelectedIndex > 0)
             {
-                comboBox2.Visible = true;
+                cbo2.Visible = true;
             }
             else
             {
-                comboBox1.SelectedIndex = Math.Max(comboBox2.SelectedIndex, 0);
-                comboBox2.Visible = false;
-                comboBox2.SelectedIndex = 0;
+                if (cbo2.SelectedIndex > 0)
+                {
+                    cbo1.SelectedIndex = cbo2.SelectedIndex;
+                    cbo2.SelectedIndex = 0;
+                }
+                else
+                {
+                    cbo2.Visible = false;
+                }
             }
         }
     }

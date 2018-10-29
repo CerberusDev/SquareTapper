@@ -106,7 +106,10 @@ namespace SquareTapperEditor
                 pc.Tag = 0;
                 pc.Image = ButtonImages[0];
                 pc.Click += pictureBox_Click;
+                pc.Paint += pictureBox_Paint;
             }
+
+            panel1.Tag = 0;
         }
         // ======================================== constructor end ==========================================
 
@@ -235,6 +238,19 @@ namespace SquareTapperEditor
             picBox.Tag = tag;
 
             picBox.Image = ButtonImages[tag];
+        }
+
+
+        private void pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            PictureBox pc = sender as PictureBox;
+
+            
+
+            Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
+            pen.Width = 3.0f;
+            e.Graphics.DrawLine(pen, 20 - pc.Location.X, 10 - pc.Location.Y, 300 - pc.Location.X, 100 - pc.Location.Y);
+
         }
     }
 }

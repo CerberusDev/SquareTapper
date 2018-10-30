@@ -12,18 +12,6 @@ using System.IO;
 
 namespace SquareTapperEditor
 {
-    class LineData
-    {
-        public Point LineStartLocation;
-        public Point LineEndLocation;
-        public bool bFinished;
-
-        public LineData()
-        {
-            bFinished = false;
-        }
-    }
-
     public partial class Form1 : Form
     {
         // Margins around owner drawn ComboBoxes.
@@ -121,6 +109,8 @@ namespace SquareTapperEditor
                 pc.Paint += pictureBox_Paint;
                 pc.MouseMove += pictureBox_MouseMove;
             }
+
+            redrawChart();
         }
         // ======================================== constructor end ==========================================
 
@@ -302,6 +292,18 @@ namespace SquareTapperEditor
                     panel1.Refresh();
                 }
             }
+        }
+    }
+
+    class LineData
+    {
+        public Point LineStartLocation;
+        public Point LineEndLocation;
+        public bool bFinished;
+
+        public LineData()
+        {
+            bFinished = false;
         }
     }
 }

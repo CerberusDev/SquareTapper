@@ -12,6 +12,18 @@ using System.IO;
 
 namespace SquareTapperEditor
 {
+    class LineData
+    {
+        public Point LineStartLocation;
+        public Point LineEndLocation;
+        public bool bFinished;
+
+        public LineData()
+        {
+            bFinished = false;
+        }
+    }
+
     public partial class Form1 : Form
     {
         // Margins around owner drawn ComboBoxes.
@@ -107,9 +119,8 @@ namespace SquareTapperEditor
                 pc.Image = ButtonImages[0];
                 pc.Click += pictureBox_Click;
                 pc.Paint += pictureBox_Paint;
+                pc.MouseMove += pictureBox_MouseMove;
             }
-
-            panel1.Tag = 0;
         }
         // ======================================== constructor end ==========================================
 
@@ -232,25 +243,65 @@ namespace SquareTapperEditor
         private void pictureBox_Click(object sender, EventArgs e)
         {
             PictureBox picBox = sender as PictureBox;
+            MouseEventArgs me = e as MouseEventArgs;
 
-            int tag = (int)picBox.Tag;
-            tag = (tag + 1) % ButtonImages.Count;
-            picBox.Tag = tag;
+            if (me.Button == MouseButtons.Left)
+            {
+                int tag = (int)picBox.Tag;
+                tag = (tag + 1) % ButtonImages.Count;
+                picBox.Tag = tag;
 
-            picBox.Image = ButtonImages[tag];
+                picBox.Image = ButtonImages[tag];
+            }
+            else if (me.Button == MouseButtons.Right)
+            {
+                if (panel1.Tag == null)
+                {
+                    LineData ld = new LineData();
+
+                    ld.LineStartLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+                    ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
+                    panel1.Tag = ld;
+                }
+                else
+                {
+                    LineData ld = (panel1.Tag) as LineData;
+
+                    ld.LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+                    ld.bFinished = true;
+                    panel1.Refresh();
+                }
+            }
         }
 
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            PictureBox pc = sender as PictureBox;
+            if (panel1.Tag != null)
+            {
+                PictureBox pc = sender as PictureBox;
+                LineData ld = (panel1.Tag) as LineData;
 
-            
+                Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
+                pen.Width = 3.0f;
+                e.Graphics.DrawLine(pen, ld.LineStartLocation.X - pc.Location.X, ld.LineStartLocation.Y - pc.Location.Y, ld.LineEndLocation.X - pc.Location.X, ld.LineEndLocation.Y - pc.Location.Y);
+            }
 
-            Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
-            pen.Width = 3.0f;
-            e.Graphics.DrawLine(pen, 20 - pc.Location.X, 10 - pc.Location.Y, 300 - pc.Location.X, 100 - pc.Location.Y);
+        }
 
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (panel1.Tag != null)
+            {
+                LineData ld = (panel1.Tag) as LineData;
+
+                if (!ld.bFinished)
+                {
+                    PictureBox pc = sender as PictureBox;
+                    ld.LineEndLocation = new Point(e.Location.X + pc.Location.X, e.Location.Y + pc.Location.Y);
+                    panel1.Refresh();
+                }
+            }
         }
     }
 }

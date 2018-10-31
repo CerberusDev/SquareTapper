@@ -261,12 +261,14 @@ namespace SquareTapperEditor
 
                         ld.LineStartLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
                         ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
+                        ld.StartButtonIndex = ((picBox.Tag) as ButtonData).Index;
                         ldList.Add(ld);
                     }
                     else
                     {
                         ldList.Last().LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
                         ldList.Last().bFinished = true;
+                        ldList.Last().EndButtonIndex = ((picBox.Tag) as ButtonData).Index;
                         panel1.Refresh();
                     }
                 }
@@ -310,6 +312,8 @@ namespace SquareTapperEditor
     {
         public Point LineStartLocation;
         public Point LineEndLocation;
+        public int StartButtonIndex;
+        public int EndButtonIndex;
         public bool bFinished;
 
         public LineData()

@@ -251,30 +251,47 @@ namespace SquareTapperEditor
 
                     ld.LineStartLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
                     ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
-                    panel1.Tag = ld;
+
+                    List<LineData> ldList = new List<LineData>();
+                    ldList.Add(ld);
+
+                    panel1.Tag = ldList;
                 }
                 else
                 {
-                    LineData ld = (panel1.Tag) as LineData;
+                    List<LineData> ldList = (panel1.Tag) as List<LineData>;
 
-                    ld.LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
-                    ld.bFinished = true;
-                    panel1.Refresh();
+                    if (ldList.Last().bFinished)
+                    {
+                        LineData ld = new LineData();
+
+                        ld.LineStartLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+                        ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
+                        ldList.Add(ld);
+                    }
+                    else
+                    {
+                        ldList.Last().LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+                        ldList.Last().bFinished = true;
+                        panel1.Refresh();
+                    }
                 }
             }
         }
-
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (panel1.Tag != null)
             {
                 PictureBox pc = sender as PictureBox;
-                LineData ld = (panel1.Tag) as LineData;
-
+                List<LineData> ldList = (panel1.Tag) as List<LineData>;
                 Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
                 pen.Width = 3.0f;
-                e.Graphics.DrawLine(pen, ld.LineStartLocation.X - pc.Location.X, ld.LineStartLocation.Y - pc.Location.Y, ld.LineEndLocation.X - pc.Location.X, ld.LineEndLocation.Y - pc.Location.Y);
+
+                foreach (LineData ld in ldList)
+                {
+                    e.Graphics.DrawLine(pen, ld.LineStartLocation.X - pc.Location.X, ld.LineStartLocation.Y - pc.Location.Y, ld.LineEndLocation.X - pc.Location.X, ld.LineEndLocation.Y - pc.Location.Y);
+                }
             }
 
         }
@@ -283,12 +300,12 @@ namespace SquareTapperEditor
         {
             if (panel1.Tag != null)
             {
-                LineData ld = (panel1.Tag) as LineData;
+                List<LineData> ldList = (panel1.Tag) as List<LineData>;
 
-                if (!ld.bFinished)
+                if (!ldList.Last().bFinished)
                 {
                     PictureBox pc = sender as PictureBox;
-                    ld.LineEndLocation = new Point(e.Location.X + pc.Location.X, e.Location.Y + pc.Location.Y);
+                    ldList.Last().LineEndLocation = new Point(e.Location.X + pc.Location.X, e.Location.Y + pc.Location.Y);
                     panel1.Refresh();
                 }
             }

@@ -101,9 +101,11 @@ namespace SquareTapperEditor
 
             PictureBox[] picBoxes = { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, pictureBox15 };
 
+            int i = 0;
+
             foreach (PictureBox pc in picBoxes)
             {
-                pc.Tag = 0;
+                pc.Tag = new ButtonData(i++);
                 pc.Image = ButtonImages[0];
                 pc.Click += pictureBox_Click;
                 pc.Paint += pictureBox_Paint;
@@ -223,13 +225,6 @@ namespace SquareTapperEditor
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-
-            button.ImageIndex = (button.ImageIndex + 1) % button.ImageList.Images.Count;
-        }
-
         private void pictureBox_Click(object sender, EventArgs e)
         {
             PictureBox picBox = sender as PictureBox;
@@ -237,11 +232,10 @@ namespace SquareTapperEditor
 
             if (me.Button == MouseButtons.Left)
             {
-                int tag = (int)picBox.Tag;
-                tag = (tag + 1) % ButtonImages.Count;
-                picBox.Tag = tag;
+                ButtonData bt = (picBox.Tag) as ButtonData;
+                bt.bDoubleTap = !bt.bDoubleTap;
 
-                picBox.Image = ButtonImages[tag];
+                picBox.Image = bt.bDoubleTap ? ButtonImages[1] : ButtonImages[0];
             }
             else if (me.Button == MouseButtons.Right)
             {
@@ -321,6 +315,18 @@ namespace SquareTapperEditor
         public LineData()
         {
             bFinished = false;
+        }
+    }
+
+    class ButtonData
+    {
+        public bool bDoubleTap;
+        public int Index;
+
+        public ButtonData(int argIndex)
+        {
+            bDoubleTap = false;
+            Index = argIndex;
         }
     }
 }

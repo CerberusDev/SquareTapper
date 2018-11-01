@@ -110,6 +110,7 @@ namespace SquareTapperEditor
                 pc.Click += pictureBox_Click;
                 pc.Paint += pictureBox_Paint;
                 pc.MouseMove += pictureBox_MouseMove;
+                pc.DoubleClick += pictureBox_DoubleClick;
             }
 
             panel1.Tag = new List<LineData>();
@@ -297,6 +298,49 @@ namespace SquareTapperEditor
             return X * X + Y * Y < Z * Z;
         }
 
+        private void pictureBox_DoubleClick(object sender, EventArgs e)
+        {
+            MouseEventArgs me = e as MouseEventArgs;
+
+            if (me.Button == MouseButtons.Right)
+            {
+                PictureBox picBox = sender as PictureBox;
+                ButtonData bd = (picBox.Tag) as ButtonData;
+                List<LineData> ldList = (panel1.Tag) as List<LineData>;
+
+                foreach (LineData ld in ldList)
+                {
+                    if (ld.bFinished)
+                    {
+                        if (ld.StartButtonIndex == bd.Index)
+                        {
+                            if (ldList.Last().bFinished == false)
+                                ldList.Remove(ldList.Last());
+
+                            ldList.Remove(ld);
+                            ld.bFinished = false;
+                            ld.LineStartLocation = ld.LineEndLocation;
+                            ld.StartButtonIndex = ld.EndButtonIndex;
+                            ld.EndButtonIndex = -1;
+                            ldList.Add(ld);
+                            break;
+                        }
+                        else if (ld.EndButtonIndex == bd.Index)
+                        {
+                            if (ldList.Last().bFinished == false)
+                                ldList.Remove(ldList.Last());
+
+                            ldList.Remove(ld);
+                            ld.bFinished = false;
+                            ld.EndButtonIndex = -1;
+                            ldList.Add(ld);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (panel1.Tag != null)
@@ -341,6 +385,8 @@ namespace SquareTapperEditor
         public LineData()
         {
             bFinished = false;
+            StartButtonIndex = -1;
+            EndButtonIndex = -1;
         }
     }
 

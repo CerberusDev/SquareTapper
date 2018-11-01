@@ -112,6 +112,8 @@ namespace SquareTapperEditor
                 pc.MouseMove += pictureBox_MouseMove;
             }
 
+            panel1.Tag = new List<LineData>();
+
             redrawChart();
         }
         // ======================================== constructor end ==========================================
@@ -239,23 +241,12 @@ namespace SquareTapperEditor
             }
             else if (me.Button == MouseButtons.Right)
             {
-                if (panel1.Tag == null)
+                ButtonData bd = (picBox.Tag) as ButtonData;
+                List<LineData> ldList = (panel1.Tag) as List<LineData>;
+
+                if (ldList.Count == 0 || ldList.Last().bFinished)
                 {
-                    LineData ld = new LineData();
-
-                    ld.LineStartLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
-                    ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
-
-                    List<LineData> ldList = new List<LineData>();
-                    ldList.Add(ld);
-
-                    panel1.Tag = ldList;
-                }
-                else
-                {
-                    List<LineData> ldList = (panel1.Tag) as List<LineData>;
-
-                    if (ldList.Last().bFinished)
+                    if (CanAddAnotherLineHere(ldList, bd.Index))
                     {
                         LineData ld = new LineData();
 
@@ -264,15 +255,46 @@ namespace SquareTapperEditor
                         ld.StartButtonIndex = ((picBox.Tag) as ButtonData).Index;
                         ldList.Add(ld);
                     }
+                }
+                else
+                {
+                    LineData ld = ldList.Last();
+                    ld.LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+
+                    if (bd.Index != ld.StartButtonIndex && CanAddAnotherLineHere(ldList, bd.Index) && IsLineLengthOkay(ld.LineStartLocation, ld.LineEndLocation, picBox.Width))
+                    {
+                        ld.bFinished = true;
+                        ld.EndButtonIndex = bd.Index;
+                    }
                     else
                     {
-                        ldList.Last().LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
-                        ldList.Last().bFinished = true;
-                        ldList.Last().EndButtonIndex = ((picBox.Tag) as ButtonData).Index;
-                        panel1.Refresh();
+                        ldList.Remove(ld);
                     }
+
+                    panel1.Refresh();
                 }
             }
+        }
+
+        private bool CanAddAnotherLineHere(List<LineData> ldList, int buttonIdx)
+        {
+            int Count = 0;
+
+            foreach (LineData ld in ldList)
+            {
+                if (ld.StartButtonIndex == buttonIdx || ld.EndButtonIndex == buttonIdx)
+                    Count++;
+            }
+
+            return Count < 2;
+        }
+
+        private bool IsLineLengthOkay(Point Start, Point End, int buttonSize)
+        {
+            int X = Start.X - End.X;
+            int Y = Start.Y - End.Y;
+            int Z = (int)(buttonSize * 1.2f);
+            return X * X + Y * Y < Z * Z;
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
@@ -284,7 +306,7 @@ namespace SquareTapperEditor
                 Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
                 pen.Width = 3.0f;
 
-                foreach (LineData ld in ldList)
+                foreach (LineData ld in ldList) 
                 {
                     e.Graphics.DrawLine(pen, ld.LineStartLocation.X - pc.Location.X, ld.LineStartLocation.Y - pc.Location.Y, ld.LineEndLocation.X - pc.Location.X, ld.LineEndLocation.Y - pc.Location.Y);
                 }
@@ -298,7 +320,7 @@ namespace SquareTapperEditor
             {
                 List<LineData> ldList = (panel1.Tag) as List<LineData>;
 
-                if (!ldList.Last().bFinished)
+                if (ldList.Count > 0 && !ldList.Last().bFinished)
                 {
                     PictureBox pc = sender as PictureBox;
                     ldList.Last().LineEndLocation = new Point(e.Location.X + pc.Location.X, e.Location.Y + pc.Location.Y);

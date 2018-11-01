@@ -22,6 +22,8 @@ namespace SquareTapperEditor
         private List<ComboBox> MaskComboBoxes2;
         private List<Image> ButtonImages;
 
+        private Panel lastPanelUnderCursor;
+
         public Form1()
         {
             InitializeComponent();
@@ -99,21 +101,26 @@ namespace SquareTapperEditor
             ButtonImages.Add(Properties.Resources.button2);
             ButtonImages.Add(Properties.Resources.button3);
 
-            PictureBox[] picBoxes = { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, pictureBox15 };
+            //PictureBox[] picBoxes = { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, pictureBox15 };
+            Panel[] panels = { panel1, panel2 };
 
-            int i = 0;
-
-            foreach (PictureBox pc in picBoxes)
+            foreach (Panel panel in panels)
             {
-                pc.Tag = new ButtonData(i++);
-                pc.Image = ButtonImages[0];
-                pc.Click += pictureBox_Click;
-                pc.Paint += pictureBox_Paint;
-                pc.MouseMove += pictureBox_MouseMove;
-                pc.DoubleClick += pictureBox_DoubleClick;
-            }
+                panel.Tag = new List<LineData>();
+                int i = 0;
 
-            panel1.Tag = new List<LineData>();
+                foreach (Control ctrl in panel.Controls)
+                {
+                    PictureBox pc = ctrl as PictureBox;
+
+                    pc.Tag = new ButtonData(i++);
+                    pc.Image = ButtonImages[0];
+                    pc.Click += pictureBox_Click;
+                    pc.Paint += pictureBox_Paint;
+                    pc.MouseMove += pictureBox_MouseMove;
+                    pc.DoubleClick += pictureBox_DoubleClick;
+                }
+            }
 
             redrawChart();
         }
@@ -232,6 +239,7 @@ namespace SquareTapperEditor
         {
             PictureBox picBox = sender as PictureBox;
             MouseEventArgs me = e as MouseEventArgs;
+            Panel panel = (picBox.Parent) as Panel;
 
             if (me.Button == MouseButtons.Left)
             {
@@ -243,7 +251,7 @@ namespace SquareTapperEditor
             else if (me.Button == MouseButtons.Right)
             {
                 ButtonData bd = (picBox.Tag) as ButtonData;
-                List<LineData> ldList = (panel1.Tag) as List<LineData>;
+                List<LineData> ldList = (panel.Tag) as List<LineData>;
 
                 if (ldList.Count == 0 || ldList.Last().bFinished)
                 {
@@ -255,6 +263,8 @@ namespace SquareTapperEditor
                         ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
                         ld.StartButtonIndex = ((picBox.Tag) as ButtonData).Index;
                         ldList.Add(ld);
+
+                        lastPanelUnderCursor = panel;
                     }
                 }
                 else
@@ -272,7 +282,8 @@ namespace SquareTapperEditor
                         ldList.Remove(ld);
                     }
 
-                    panel1.Refresh();
+                    lastPanelUnderCursor = null;
+                    panel.Refresh();
                 }
             }
         }
@@ -306,7 +317,8 @@ namespace SquareTapperEditor
             {
                 PictureBox picBox = sender as PictureBox;
                 ButtonData bd = (picBox.Tag) as ButtonData;
-                List<LineData> ldList = (panel1.Tag) as List<LineData>;
+                Panel panel = (picBox.Parent) as Panel;
+                List<LineData> ldList = (panel.Tag) as List<LineData>;
 
                 foreach (LineData ld in ldList)
                 {
@@ -323,6 +335,8 @@ namespace SquareTapperEditor
                             ld.StartButtonIndex = ld.EndButtonIndex;
                             ld.EndButtonIndex = -1;
                             ldList.Add(ld);
+
+                            lastPanelUnderCursor = panel;
                             break;
                         }
                         else if (ld.EndButtonIndex == bd.Index)
@@ -334,6 +348,8 @@ namespace SquareTapperEditor
                             ld.bFinished = false;
                             ld.EndButtonIndex = -1;
                             ldList.Add(ld);
+
+                            lastPanelUnderCursor = panel;
                             break;
                         }
                     }
@@ -343,10 +359,12 @@ namespace SquareTapperEditor
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            if (panel1.Tag != null)
+            PictureBox pc = sender as PictureBox;
+            Panel panel = (pc.Parent) as Panel;
+
+            if (panel.Tag != null)
             {
-                PictureBox pc = sender as PictureBox;
-                List<LineData> ldList = (panel1.Tag) as List<LineData>;
+                List<LineData> ldList = (panel.Tag) as List<LineData>;
                 Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
                 pen.Width = 3.0f;
 
@@ -360,17 +378,32 @@ namespace SquareTapperEditor
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (panel1.Tag != null)
+            PictureBox pc = sender as PictureBox;
+            Panel panel = (pc.Parent) as Panel;
+
+            if (lastPanelUnderCursor != null && lastPanelUnderCursor != panel)
             {
-                List<LineData> ldList = (panel1.Tag) as List<LineData>;
+                List<LineData> ldList = (lastPanelUnderCursor.Tag) as List<LineData>;
+                ldList.Remove(ldList.Last());
+                lastPanelUnderCursor.Refresh();
+                lastPanelUnderCursor = null;
+            }
+
+            if (panel.Tag != null)
+            {
+                List<LineData> ldList = (panel.Tag) as List<LineData>;
 
                 if (ldList.Count > 0 && !ldList.Last().bFinished)
                 {
-                    PictureBox pc = sender as PictureBox;
                     ldList.Last().LineEndLocation = new Point(e.Location.X + pc.Location.X, e.Location.Y + pc.Location.Y);
-                    panel1.Refresh();
+                    panel.Refresh();
                 }
             }
+        }
+
+        private void panel1_MouseLeave(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("gowno");
         }
     }
 

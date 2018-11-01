@@ -101,8 +101,7 @@ namespace SquareTapperEditor
             ButtonImages.Add(Properties.Resources.button2);
             ButtonImages.Add(Properties.Resources.button3);
 
-            //PictureBox[] picBoxes = { pictureBox1, pictureBox2, pictureBox3, pictureBox4, pictureBox5, pictureBox6, pictureBox7, pictureBox8, pictureBox9, pictureBox10, pictureBox11, pictureBox12, pictureBox13, pictureBox14, pictureBox15 };
-            Panel[] panels = { panel1, panel2 };
+            Panel[] panels = { panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel13, panel14, panel15 };
 
             foreach (Panel panel in panels)
             {

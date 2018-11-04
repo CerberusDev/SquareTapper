@@ -367,9 +367,7 @@ namespace SquareTapperEditor
             if (me.Button == MouseButtons.Left)
             {
                 ButtonData bt = (picBox.Tag) as ButtonData;
-                bt.bDoubleTap = !bt.bDoubleTap;
-
-                picBox.Image = bt.bDoubleTap ? ButtonImages[1] : ButtonImages[0];
+                SetPicBoxData(picBox, !bt.bDoubleTap);
             }
             else if (me.Button == MouseButtons.Right)
             {
@@ -409,6 +407,14 @@ namespace SquareTapperEditor
                     panel.Refresh();
                 }
             }
+        }
+
+        private void SetPicBoxData(PictureBox picBox, bool bDoubleTap)
+        {
+            ButtonData bt = (picBox.Tag) as ButtonData;
+            bt.bDoubleTap = bDoubleTap;
+
+            picBox.Image = bt.bDoubleTap ? ButtonImages[1] : ButtonImages[0];
         }
 
         private bool CanAddAnotherLineHere(List<LineData> ldList, int buttonIdx)
@@ -564,7 +570,7 @@ namespace SquareTapperEditor
 
                         line = sr.ReadLine();
 
-                        for (int i = 4; i <= 0; --i)
+                        for (int i = 4; i >= 0; --i)
                         {
                             line = sr.ReadLine();
                             String[] lineParamsOriginal = line.Split();
@@ -572,11 +578,30 @@ namespace SquareTapperEditor
 
                             foreach (String s in lineParamsOriginal)
                                 if (s.Length > 0)
-                                    levelParams.Add(s);
+                                    lineParams.Add(s);
 
                             for (int j = 1; j <= 3; ++j)
                             {
                                 int idx = i * 3 + j;
+
+                                PictureBox pc = null;
+
+                                foreach (Control ctrl in LayoutPanels[levelIdx].Controls)
+                                {
+                                    PictureBox currPC = ctrl as PictureBox;
+                                    ButtonData bt = (currPC.Tag) as ButtonData;
+
+                                    if (bt.Index == idx)
+                                    {
+                                        pc = currPC;
+                                        break;
+                                    }
+                                }
+
+                                if (lineParams[j - 1] == "DB")
+                                    SetPicBoxData(pc, true);
+                                else
+                                    SetPicBoxData(pc, false);
                             }
                         }
 

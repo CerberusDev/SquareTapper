@@ -103,6 +103,26 @@ namespace SquareTapperEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mask10 {
+            get {
+                object obj = ResourceManager.GetObject("mask10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask11 {
+            get {
+                object obj = ResourceManager.GetObject("mask11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mask2 {
             get {
                 object obj = ResourceManager.GetObject("mask2", resourceCulture);
@@ -136,6 +156,46 @@ namespace SquareTapperEditor.Properties {
         internal static System.Drawing.Bitmap mask5 {
             get {
                 object obj = ResourceManager.GetObject("mask5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask6 {
+            get {
+                object obj = ResourceManager.GetObject("mask6", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask7 {
+            get {
+                object obj = ResourceManager.GetObject("mask7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask8 {
+            get {
+                object obj = ResourceManager.GetObject("mask8", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mask9 {
+            get {
+                object obj = ResourceManager.GetObject("mask9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

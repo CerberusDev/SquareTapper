@@ -35,6 +35,12 @@ namespace SquareTapperEditor
                 Properties.Resources.mask3,
                 Properties.Resources.mask4,
                 Properties.Resources.mask5,
+                Properties.Resources.mask6,
+                Properties.Resources.mask7,
+                Properties.Resources.mask8,
+                Properties.Resources.mask9,
+                Properties.Resources.mask10,
+                Properties.Resources.mask11
             };
 
             MaskComboBoxes1 = new List<ComboBox>();
@@ -398,11 +404,6 @@ namespace SquareTapperEditor
                     panel.Refresh();
                 }
             }
-        }
-
-        private void panel1_MouseLeave(object sender, EventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine("gowno");
         }
     }
 

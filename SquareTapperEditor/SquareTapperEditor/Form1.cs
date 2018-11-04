@@ -27,8 +27,10 @@ namespace SquareTapperEditor
 
         private List<ComboBox> MaskComboBoxes1;
         private List<ComboBox> MaskComboBoxes2;
+        private List<String> MaskCodes;
         private List<Image> ButtonImages;
 
+        private List<Panel> LayoutPanels;
         private Panel lastPanelUnderCursor;
 
         public Form1()
@@ -49,6 +51,18 @@ namespace SquareTapperEditor
                 Properties.Resources.mask10,
                 Properties.Resources.mask11
             };
+
+            MaskCodes = new List<String>();
+            MaskCodes.Add("Horizontal-Standard");
+            MaskCodes.Add("Horizontal-Killing");
+            MaskCodes.Add("Vertical-Standard");
+            MaskCodes.Add("Vertical-Killing");
+            MaskCodes.Add("HorizontalBig-Standard");
+            MaskCodes.Add("HorizontalBig-Killing");
+            MaskCodes.Add("Chessboard-Standard");
+            MaskCodes.Add("Chessboard-Killing");
+            MaskCodes.Add("Full-Standard");
+            MaskCodes.Add("Full-Killing");
 
             IntervalTextBoxes = new List<TextBox>();
             IntervalTextBoxes.Add(textBox1);
@@ -211,9 +225,9 @@ namespace SquareTapperEditor
             ButtonImages.Add(Properties.Resources.button2);
             ButtonImages.Add(Properties.Resources.button3);
 
-            Panel[] panels = { panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel13, panel14, panel15 };
+            LayoutPanels = new List<Panel> { panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel13, panel14, panel15 };
 
-            foreach (Panel panel in panels)
+            foreach (Panel panel in LayoutPanels)
             {
                 panel.Tag = new List<LineData>();
                 int i = 0;
@@ -522,9 +536,61 @@ namespace SquareTapperEditor
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
-                MessageBox.Show(sr.ReadToEnd());
+                String line;
+                int levelIdx = 0;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line.Length > 1 && line[0] != '#')
+                    {
+                        String[] levelParamsOriginal = line.Split();
+                        List<String> levelParams = new List<String>();
+
+                        foreach (String s in levelParamsOriginal)
+                            if (s.Length > 0)
+                                levelParams.Add(s);
+
+                        IntervalTextBoxes[levelIdx].Text = levelParams[0];
+                        DurationTextBoxes[levelIdx].Text = levelParams[1];
+                        NumbericUpDowns1[levelIdx].Value = decimal.Parse(levelParams[2]);
+                        NumbericUpDowns2[levelIdx].Value = decimal.Parse(levelParams[3]);
+                        NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
+
+                        if (levelParams.Count > 5)
+                            MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
+
+                        if (levelParams.Count > 6)
+                            MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
+
+                        line = sr.ReadLine();
+
+                        for (int i = 4; i <= 0; --i)
+                        {
+                            line = sr.ReadLine();
+                            String[] lineParamsOriginal = line.Split();
+                            List<String> lineParams = new List<String>();
+
+                            foreach (String s in lineParamsOriginal)
+                                if (s.Length > 0)
+                                    levelParams.Add(s);
+
+                            for (int j = 1; j <= 3; ++j)
+                            {
+                                int idx = i * 3 + j;
+                            }
+                        }
+
+                        ++levelIdx;
+                    }
+                }
+
                 sr.Close();
             }
+        }
+
+        private int MaskCodeToIdx(String MaskCode)
+        {
+            return MaskCodes.IndexOf(MaskCode) + 1;
         }
 
         // ======================================== import end ==========================================

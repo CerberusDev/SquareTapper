@@ -18,6 +18,13 @@ namespace SquareTapperEditor
         private const int MarginWidth = 1;
         private const int MarginHeight = 1;
 
+        private List<TextBox> IntervalTextBoxes;
+        private List<TextBox> DurationTextBoxes;
+
+        private List<NumericUpDown> NumbericUpDowns1;
+        private List<NumericUpDown> NumbericUpDowns2;
+        private List<NumericUpDown> NumbericUpDowns3;
+
         private List<ComboBox> MaskComboBoxes1;
         private List<ComboBox> MaskComboBoxes2;
         private List<Image> ButtonImages;
@@ -42,6 +49,91 @@ namespace SquareTapperEditor
                 Properties.Resources.mask10,
                 Properties.Resources.mask11
             };
+
+            IntervalTextBoxes = new List<TextBox>();
+            IntervalTextBoxes.Add(textBox1);
+            IntervalTextBoxes.Add(textBox4);
+            IntervalTextBoxes.Add(textBox7);
+            IntervalTextBoxes.Add(textBox10);
+            IntervalTextBoxes.Add(textBox13);
+            IntervalTextBoxes.Add(textBox16);
+            IntervalTextBoxes.Add(textBox19);
+            IntervalTextBoxes.Add(textBox22);
+            IntervalTextBoxes.Add(textBox25);
+            IntervalTextBoxes.Add(textBox28);
+            IntervalTextBoxes.Add(textBox31);
+            IntervalTextBoxes.Add(textBox34);
+            IntervalTextBoxes.Add(textBox37);
+            IntervalTextBoxes.Add(textBox40);
+            IntervalTextBoxes.Add(textBox43);
+
+            DurationTextBoxes = new List<TextBox>();
+            DurationTextBoxes.Add(textBox2);
+            DurationTextBoxes.Add(textBox5);
+            DurationTextBoxes.Add(textBox8);
+            DurationTextBoxes.Add(textBox11);
+            DurationTextBoxes.Add(textBox14);
+            DurationTextBoxes.Add(textBox17);
+            DurationTextBoxes.Add(textBox20);
+            DurationTextBoxes.Add(textBox23);
+            DurationTextBoxes.Add(textBox26);
+            DurationTextBoxes.Add(textBox29);
+            DurationTextBoxes.Add(textBox32);
+            DurationTextBoxes.Add(textBox35);
+            DurationTextBoxes.Add(textBox38);
+            DurationTextBoxes.Add(textBox41);
+            DurationTextBoxes.Add(textBox44);
+
+            NumbericUpDowns1 = new List<NumericUpDown>();
+            NumbericUpDowns1.Add(numericUpDown1);
+            NumbericUpDowns1.Add(numericUpDown4);
+            NumbericUpDowns1.Add(numericUpDown7);
+            NumbericUpDowns1.Add(numericUpDown10);
+            NumbericUpDowns1.Add(numericUpDown13);
+            NumbericUpDowns1.Add(numericUpDown16);
+            NumbericUpDowns1.Add(numericUpDown19);
+            NumbericUpDowns1.Add(numericUpDown22);
+            NumbericUpDowns1.Add(numericUpDown25);
+            NumbericUpDowns1.Add(numericUpDown28);
+            NumbericUpDowns1.Add(numericUpDown31);
+            NumbericUpDowns1.Add(numericUpDown34);
+            NumbericUpDowns1.Add(numericUpDown37);
+            NumbericUpDowns1.Add(numericUpDown40);
+            NumbericUpDowns1.Add(numericUpDown43);
+
+            NumbericUpDowns2 = new List<NumericUpDown>();
+            NumbericUpDowns2.Add(numericUpDown2);
+            NumbericUpDowns2.Add(numericUpDown5);
+            NumbericUpDowns2.Add(numericUpDown8);
+            NumbericUpDowns2.Add(numericUpDown11);
+            NumbericUpDowns2.Add(numericUpDown14);
+            NumbericUpDowns2.Add(numericUpDown17);
+            NumbericUpDowns2.Add(numericUpDown20);
+            NumbericUpDowns2.Add(numericUpDown23);
+            NumbericUpDowns2.Add(numericUpDown26);
+            NumbericUpDowns2.Add(numericUpDown29);
+            NumbericUpDowns2.Add(numericUpDown32);
+            NumbericUpDowns2.Add(numericUpDown35);
+            NumbericUpDowns2.Add(numericUpDown38);
+            NumbericUpDowns2.Add(numericUpDown41);
+            NumbericUpDowns2.Add(numericUpDown44);
+
+            NumbericUpDowns3 = new List<NumericUpDown>();
+            NumbericUpDowns3.Add(numericUpDown3);
+            NumbericUpDowns3.Add(numericUpDown6);
+            NumbericUpDowns3.Add(numericUpDown9);
+            NumbericUpDowns3.Add(numericUpDown12);
+            NumbericUpDowns3.Add(numericUpDown15);
+            NumbericUpDowns3.Add(numericUpDown18);
+            NumbericUpDowns3.Add(numericUpDown21);
+            NumbericUpDowns3.Add(numericUpDown24);
+            NumbericUpDowns3.Add(numericUpDown27);
+            NumbericUpDowns3.Add(numericUpDown30);
+            NumbericUpDowns3.Add(numericUpDown33);
+            NumbericUpDowns3.Add(numericUpDown36);
+            NumbericUpDowns3.Add(numericUpDown39);
+            NumbericUpDowns3.Add(numericUpDown42);
+            NumbericUpDowns3.Add(numericUpDown45);
 
             MaskComboBoxes1 = new List<ComboBox>();
             MaskComboBoxes1.Add(comboBox1);
@@ -76,6 +168,18 @@ namespace SquareTapperEditor
             MaskComboBoxes2.Add(comboBox26);
             MaskComboBoxes2.Add(comboBox28);
             MaskComboBoxes2.Add(comboBox30);
+
+            foreach (TextBox tb in IntervalTextBoxes)
+            {
+                tb.TextChanged += handleTextChanges;
+                tb.KeyPress += handleKeyPress;
+            }
+
+            foreach (TextBox tb in DurationTextBoxes)
+            {
+                tb.TextChanged += handleTextChanges;
+                tb.KeyPress += handleKeyPress;
+            }
 
             foreach (Image img in maskImgases)
             {
@@ -405,6 +509,25 @@ namespace SquareTapperEditor
                 }
             }
         }
+
+        // ======================================== import ==========================================
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Level files|*.lvl";
+            openFileDialog1.Title = "Select a Level File";
+            openFileDialog1.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
+                MessageBox.Show(sr.ReadToEnd());
+                sr.Close();
+            }
+        }
+
+        // ======================================== import end ==========================================
     }
 
     class LineData

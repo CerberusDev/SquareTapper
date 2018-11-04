@@ -230,13 +230,13 @@ namespace SquareTapperEditor
             foreach (Panel panel in LayoutPanels)
             {
                 panel.Tag = new List<LineData>();
-                int i = 0;
 
                 foreach (Control ctrl in panel.Controls)
                 {
                     PictureBox pc = ctrl as PictureBox;
 
-                    pc.Tag = new ButtonData(i++);
+                    int index = int.Parse(pc.Tag as String);
+                    pc.Tag = new ButtonData(index);
                     pc.Image = ButtonImages[0];
                     pc.Click += pictureBox_Click;
                     pc.Paint += pictureBox_Paint;

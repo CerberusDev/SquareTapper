@@ -392,6 +392,8 @@
             this.pictureBox223 = new System.Windows.Forms.PictureBox();
             this.pictureBox224 = new System.Windows.Forms.PictureBox();
             this.pictureBox225 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -4890,11 +4892,32 @@
             this.pictureBox225.TabStop = false;
             this.pictureBox225.Tag = "13";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(447, 26);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 211;
+            this.button2.Text = "Export";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label16.Location = new System.Drawing.Point(546, 31);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(0, 13);
+            this.label16.TabIndex = 212;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1421, 811);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.panel15);
             this.Controls.Add(this.panel14);
             this.Controls.Add(this.panel13);
@@ -5689,6 +5712,8 @@
         private System.Windows.Forms.PictureBox pictureBox223;
         private System.Windows.Forms.PictureBox pictureBox224;
         private System.Windows.Forms.PictureBox pictureBox225;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label16;
     }
 }
 

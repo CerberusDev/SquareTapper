@@ -33,6 +33,8 @@ namespace SquareTapperEditor
         private List<Panel> LayoutPanels;
         private Panel lastPanelUnderCursor;
 
+        private String OpenFilename;
+
         public Form1()
         {
             InitializeComponent();
@@ -530,6 +532,26 @@ namespace SquareTapperEditor
             }
         }
 
+        private int MaskCodeToIdx(String MaskCode)
+        {
+            return MaskCodes.IndexOf(MaskCode) + 1;
+        }
+
+        private String IdxToMaskCode(int Idx)
+        {
+            if (Idx == 0)
+                return null;
+
+            return MaskCodes[Idx - 1];
+        }
+
+        private void SetOpenFilename(String NewOpenFilename)
+        {
+            OpenFilename = NewOpenFilename;
+            String[] tmp = OpenFilename.Split('\\');
+            label16.Text = tmp.Last();
+        }
+
         // ======================================== import ==========================================
 
         private void button1_Click(object sender, EventArgs e)
@@ -539,9 +561,10 @@ namespace SquareTapperEditor
             openFileDialog1.Title = "Select a Level File";
             openFileDialog1.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                System.IO.StreamReader sr = new System.IO.StreamReader(openFileDialog1.FileName);
+                SetOpenFilename(openFileDialog1.FileName);
+                StreamReader sr = new StreamReader(openFileDialog1.FileName);
                 String line;
                 int levelIdx = 0;
 
@@ -563,10 +586,20 @@ namespace SquareTapperEditor
                         NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
 
                         if (levelParams.Count > 5)
+                        {
                             MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
+                            
+                            if (levelParams.Count > 6)
+                                MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
+                            else
+                                MaskComboBoxes2[levelIdx].SelectedIndex = 0;
+                        }
+                        else
+                        {
+                            MaskComboBoxes2[levelIdx].SelectedIndex = 0;
+                            MaskComboBoxes1[levelIdx].SelectedIndex = 0;
+                        }
 
-                        if (levelParams.Count > 6)
-                            MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
 
                         line = sr.ReadLine();
 
@@ -613,12 +646,143 @@ namespace SquareTapperEditor
             }
         }
 
-        private int MaskCodeToIdx(String MaskCode)
+        // ======================================== import end ==========================================
+        // ========================================== export ============================================
+
+        private void button2_Click(object sender, EventArgs e)
         {
-            return MaskCodes.IndexOf(MaskCode) + 1;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Level files|*.lvl";
+            saveFileDialog1.Title = "Save a Level File";
+            saveFileDialog1.DefaultExt = ".lvl";
+
+            if (OpenFilename == null)
+            {
+                saveFileDialog1.InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                saveFileDialog1.FileName = "Default.lvl";
+            }
+            else
+            {
+                saveFileDialog1.InitialDirectory = OpenFilename;
+                saveFileDialog1.FileName = label16.Text;
+            }
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                SetOpenFilename(saveFileDialog1.FileName);
+                StreamWriter sr = new StreamWriter(OpenFilename);
+
+                sr.WriteLine();
+                sr.WriteLine("#");
+                sr.WriteLine("# Parameters in first line of level definition:");
+                sr.WriteLine("#");
+                sr.WriteLine("# 1. Interval between square's activations");
+                sr.WriteLine("# 2. Total activation time of one square");
+                sr.WriteLine("# 3. Number of safe squares on level");
+                sr.WriteLine("# 4. Number of dangerous squares on level");
+                sr.WriteLine("# 5. Number of double tap squares with dangerous second actuation part on level");
+                sr.WriteLine("# 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard");
+                sr.WriteLine("#								Horizontal-Killing 		Horizontal-Standard");
+                sr.WriteLine("#								HorizontalBig-Killing 	HorizontalBig-Standard");
+                sr.WriteLine("#								Chessboard-Killing 		Chessboard-Standard");
+                sr.WriteLine("#								Full-Killing 			Full-Standard )");
+                sr.WriteLine("#");
+                sr.WriteLine("# Square codes:");
+                sr.WriteLine("#");
+                sr.WriteLine("# ST - Standard square");
+                sr.WriteLine("# DB - Double-tap square");
+                sr.WriteLine("# SQ(XX).Y.Z ( e.g. SQ(ST).0.0 )- Sequence square, requires more specified definition:");
+                sr.WriteLine("#	XX - Square type (ST or DB)");
+                sr.WriteLine("#	Y - Sequence ID (please start counting from 0)");
+                sr.WriteLine("#	Z - Square's index in sequence (0 means first)	");
+                sr.WriteLine("#");
+                sr.WriteLine();
+                sr.WriteLine();
+                sr.WriteLine();
+
+                for (int levelIdx = 0; levelIdx < 15; ++levelIdx)
+                {
+                    if (levelIdx == 0)
+                        sr.WriteLine("# ============= 1 - 3 =============");
+                    else if (levelIdx == 3)
+                        sr.WriteLine("# ============= 4 - 6 =============");
+                    else if (levelIdx == 6)
+                        sr.WriteLine("# ============= 7 - 9 =============");
+                    else if (levelIdx == 9)
+                        sr.WriteLine("# ============= 10 - 12 =============");
+                    else if (levelIdx == 12)
+                        sr.WriteLine("# ============= 13 - 15 =============");
+
+                    sr.Write(IntervalTextBoxes[levelIdx].Text.Replace(",", "."));
+                    sr.Write("\t\t");
+                    sr.Write(DurationTextBoxes[levelIdx].Text.Replace(",", "."));
+                    sr.Write("\t\t");
+                    sr.Write(NumbericUpDowns1[levelIdx].Value);
+                    sr.Write("\t\t");
+                    sr.Write(NumbericUpDowns2[levelIdx].Value);
+                    sr.Write("\t\t");
+                    sr.Write(NumbericUpDowns3[levelIdx].Value);
+
+                    String MaskCode = IdxToMaskCode(MaskComboBoxes1[levelIdx].SelectedIndex);
+
+                    if (MaskCode != null)
+                    {
+                        sr.Write("\t\t");
+                        sr.Write(MaskCode);
+
+                        MaskCode = IdxToMaskCode(MaskComboBoxes2[levelIdx].SelectedIndex);
+
+                        if (MaskCode != null)
+                        {
+                            sr.Write("\t\t");
+                            sr.Write(MaskCode);
+                        }
+                    }
+
+                    sr.WriteLine();
+                    sr.WriteLine();
+
+                    for (int i = 4; i >= 0; --i)
+                    {
+                        for (int j = 1; j <= 3; ++j)
+                        {
+                            int idx = i * 3 + j;
+
+                            PictureBox pc = null;
+
+                            foreach (Control ctrl in LayoutPanels[levelIdx].Controls)
+                            {
+                                PictureBox currPC = ctrl as PictureBox;
+                                ButtonData local_bt = (currPC.Tag) as ButtonData;
+
+                                if (local_bt.Index == idx)
+                                {
+                                    pc = currPC;
+                                    break;
+                                }
+                            }
+
+                            ButtonData bt = (pc.Tag) as ButtonData;
+
+                            if (bt.bDoubleTap)
+                                sr.Write("DB");
+                            else
+                                sr.Write("ST");
+
+                            sr.Write("\t\t\t");
+                        }
+
+                        sr.WriteLine();
+                    }
+
+                    sr.WriteLine();
+                }
+
+                sr.Close();
+            }
         }
 
-        // ======================================== import end ==========================================
+        // ======================================== export end ==========================================
     }
 
     class LineData

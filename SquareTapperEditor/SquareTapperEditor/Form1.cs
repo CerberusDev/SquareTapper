@@ -382,7 +382,7 @@ namespace SquareTapperEditor
                     {
                         LineData ld = new LineData();
 
-                        ld.LineStartLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+                        ld.LineStartLocation = GetControlCenter(picBox);
                         ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
                         ld.StartButtonIndex = ((picBox.Tag) as ButtonData).Index;
                         ldList.Add(ld);
@@ -393,7 +393,7 @@ namespace SquareTapperEditor
                 else
                 {
                     LineData ld = ldList.Last();
-                    ld.LineEndLocation = new Point(picBox.Location.X + picBox.Width / 2, picBox.Location.Y + picBox.Height / 2);
+                    ld.LineEndLocation = GetControlCenter(picBox);
 
                     if (bd.Index != ld.StartButtonIndex && CanAddAnotherLineHere(ldList, bd.Index) && IsLineLengthOkay(ld.LineStartLocation, ld.LineEndLocation, picBox.Width))
                     {
@@ -409,6 +409,11 @@ namespace SquareTapperEditor
                     panel.Refresh();
                 }
             }
+        }
+
+        private Point GetControlCenter(Control ctrl)
+        {
+            return new Point(ctrl.Location.X + ctrl.Width / 2, ctrl.Location.Y + ctrl.Height / 2);
         }
 
         private void SetPicBoxData(PictureBox picBox, bool bDoubleTap)
@@ -600,8 +605,8 @@ namespace SquareTapperEditor
                             MaskComboBoxes1[levelIdx].SelectedIndex = 0;
                         }
 
-
                         line = sr.ReadLine();
+                        List<SeqData> sequenceData = new List<SeqData>();
 
                         for (int i = 4; i >= 0; --i)
                         {
@@ -616,9 +621,11 @@ namespace SquareTapperEditor
                             for (int j = 1; j <= 3; ++j)
                             {
                                 int idx = i * 3 + j;
-
+                                String currTileData = lineParams[j - 1];
+                                
                                 PictureBox pc = null;
 
+                                // Find pc with given index (idx)
                                 foreach (Control ctrl in LayoutPanels[levelIdx].Controls)
                                 {
                                     PictureBox currPC = ctrl as PictureBox;
@@ -631,12 +638,14 @@ namespace SquareTapperEditor
                                     }
                                 }
 
-                                if (lineParams[j - 1] == "DB")
-                                    SetPicBoxData(pc, true);
-                                else
-                                    SetPicBoxData(pc, false);
+                                if (currTileData.Contains("SQ"))
+                                    sequenceData.Add(new SeqData(currTileData, idx));
+
+                                SetPicBoxData(pc, currTileData.Contains("DB"));
                             }
                         }
+
+                        importSequenceData(sequenceData, LayoutPanels[levelIdx]);
 
                         ++levelIdx;
                     }
@@ -644,6 +653,61 @@ namespace SquareTapperEditor
 
                 sr.Close();
             }
+        }
+
+        private void importSequenceData(List<SeqData> originalSequenceData, Panel currPanel)
+        {
+            List<LineData> ldList = new List<LineData>();
+            currPanel.Tag = ldList;
+
+            if (originalSequenceData.Count > 0)
+            {
+                int maxSeqID = 0;
+
+                foreach (SeqData sq in originalSequenceData)
+                {
+                    if (sq.SeqID > maxSeqID)
+                        maxSeqID = sq.SeqID;
+                }
+
+                List<List<SeqData>> seqData = new List<List<SeqData>>();
+
+                for (int i = 0; i <= maxSeqID; ++i)
+                    seqData.Add(new List<SeqData>());
+
+                foreach (SeqData sq in originalSequenceData)
+                    seqData[sq.SeqID].Add(sq);
+
+                foreach (List<SeqData> Sequence in seqData)
+                {
+                    Sequence.Sort((x, y) => x.TileNum > y.TileNum ? 1 : -1);
+
+                    for (int i = 0; i < Sequence.Count - 1; ++i)
+                    {
+                        LineData ld = new LineData();
+                        ld.bFinished = true;
+                        ld.StartButtonIndex = Sequence[i].TileIndex;
+                        ld.EndButtonIndex = Sequence[i + 1].TileIndex;
+                        ld.LineStartLocation = GetButtonCenter(Sequence[i].TileIndex, currPanel);
+                        ld.LineEndLocation = GetButtonCenter(Sequence[i + 1].TileIndex, currPanel);
+                        ldList.Add(ld);
+                    }
+                }
+            }
+        }
+
+        private Point GetButtonCenter(int Index, Panel currPanel)
+        {
+            foreach (Control ctrl in currPanel.Controls)
+            {
+                PictureBox pc = ctrl as PictureBox;
+                ButtonData bt = (pc.Tag) as ButtonData;
+
+                if (bt.Index == Index)
+                    return GetControlCenter(pc);
+            }
+
+            return new Point(-1, -1);
         }
 
         // ======================================== import end ==========================================
@@ -812,4 +876,19 @@ namespace SquareTapperEditor
             Index = argIndex;
         }
     }
+
+    class SeqData
+    {
+        public int SeqID;
+        public int TileNum;
+        public int TileIndex;
+
+        public SeqData(String RawData, int argTileIndex)
+        {
+            TileIndex = argTileIndex;
+            String[] tmp = RawData.Split('.');
+            SeqID = int.Parse(tmp[1]);
+            TileNum = int.Parse(tmp[2]);
+        }
+    };
 }

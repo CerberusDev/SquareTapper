@@ -128,11 +128,11 @@ SQ(ST).2.2	SQ(ST).2.1	SQ(ST).2.0
 # ============= 13 - 15 =============
 1.55	0.7		0		0		0
 
-SQ(ST).14.0	SQ(ST).5.0	SQ(ST).4.0
-SQ(ST).13.0	SQ(ST).6.0	SQ(ST).3.0
-SQ(ST).12.0	SQ(ST).7.0	SQ(ST).2.0 
-SQ(ST).11.0	SQ(ST).8.0	SQ(ST).1.0
-SQ(ST).10.0	SQ(ST).9.0	SQ(ST).0.0
+SQ(ST).0.14	SQ(ST).0.5	SQ(ST).0.4
+SQ(ST).0.13	SQ(ST).0.6	SQ(ST).0.3
+SQ(ST).0.12	SQ(ST).0.7	SQ(ST).0.2 
+SQ(ST).0.11	SQ(ST).0.8	SQ(ST).0.1
+SQ(ST).0.10	SQ(ST).0.9	SQ(ST).0.0
 
 0.29	0.8		0		0		0
 

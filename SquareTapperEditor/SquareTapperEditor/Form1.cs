@@ -253,25 +253,44 @@ namespace SquareTapperEditor
 
         private void redrawChart()
         {
-            float[] yValues = new float[15];
+            float[] yValues1 = new float[15];
 
-            yValues[0] = getValueFromTextbox(textBox1);
-            yValues[1] = getValueFromTextbox(textBox4);
-            yValues[2] = getValueFromTextbox(textBox7);
-            yValues[3] = getValueFromTextbox(textBox10);
-            yValues[4] = getValueFromTextbox(textBox13);
-            yValues[5] = getValueFromTextbox(textBox16);
-            yValues[6] = getValueFromTextbox(textBox19);
-            yValues[7] = getValueFromTextbox(textBox22);
-            yValues[8] = getValueFromTextbox(textBox25);
-            yValues[9] = getValueFromTextbox(textBox28);
-            yValues[10] = getValueFromTextbox(textBox31);
-            yValues[11] = getValueFromTextbox(textBox34);
-            yValues[12] = getValueFromTextbox(textBox37);
-            yValues[13] = getValueFromTextbox(textBox40);
-            yValues[14] = getValueFromTextbox(textBox43);
+            yValues1[0] = getValueFromTextbox(textBox1);
+            yValues1[1] = getValueFromTextbox(textBox4);
+            yValues1[2] = getValueFromTextbox(textBox7);
+            yValues1[3] = getValueFromTextbox(textBox10);
+            yValues1[4] = getValueFromTextbox(textBox13);
+            yValues1[5] = getValueFromTextbox(textBox16);
+            yValues1[6] = getValueFromTextbox(textBox19);
+            yValues1[7] = getValueFromTextbox(textBox22);
+            yValues1[8] = getValueFromTextbox(textBox25);
+            yValues1[9] = getValueFromTextbox(textBox28);
+            yValues1[10] = getValueFromTextbox(textBox31);
+            yValues1[11] = getValueFromTextbox(textBox34);
+            yValues1[12] = getValueFromTextbox(textBox37);
+            yValues1[13] = getValueFromTextbox(textBox40);
+            yValues1[14] = getValueFromTextbox(textBox43);
 
-            chart1.Series[0].Points.DataBindY(yValues);
+            float[] yValues2 = new float[15];
+
+            yValues2[0] = getValueFromTextbox(textBox2);
+            yValues2[1] = getValueFromTextbox(textBox5);
+            yValues2[2] = getValueFromTextbox(textBox8);
+            yValues2[3] = getValueFromTextbox(textBox11);
+            yValues2[4] = getValueFromTextbox(textBox14);
+            yValues2[5] = getValueFromTextbox(textBox17);
+            yValues2[6] = getValueFromTextbox(textBox20);
+            yValues2[7] = getValueFromTextbox(textBox23);
+            yValues2[8] = getValueFromTextbox(textBox26);
+            yValues2[9] = getValueFromTextbox(textBox29);
+            yValues2[10] = getValueFromTextbox(textBox32);
+            yValues2[11] = getValueFromTextbox(textBox35);
+            yValues2[12] = getValueFromTextbox(textBox38);
+            yValues2[13] = getValueFromTextbox(textBox41);
+            yValues2[14] = getValueFromTextbox(textBox44);
+
+            chart1.Series[0].Points.DataBindY(yValues1);
+            chart1.Series[1].Points.DataBindY(yValues2);
         }
 
         private void handleTextChanges(object sender, EventArgs e)

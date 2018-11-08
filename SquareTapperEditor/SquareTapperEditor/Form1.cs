@@ -66,39 +66,8 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Standard");
             MaskCodes.Add("Full-Killing");
 
-            IntervalTextBoxes = new List<TextBox>();
-            IntervalTextBoxes.Add(textBox1);
-            IntervalTextBoxes.Add(textBox4);
-            IntervalTextBoxes.Add(textBox7);
-            IntervalTextBoxes.Add(textBox10);
-            IntervalTextBoxes.Add(textBox13);
-            IntervalTextBoxes.Add(textBox16);
-            IntervalTextBoxes.Add(textBox19);
-            IntervalTextBoxes.Add(textBox22);
-            IntervalTextBoxes.Add(textBox25);
-            IntervalTextBoxes.Add(textBox28);
-            IntervalTextBoxes.Add(textBox31);
-            IntervalTextBoxes.Add(textBox34);
-            IntervalTextBoxes.Add(textBox37);
-            IntervalTextBoxes.Add(textBox40);
-            IntervalTextBoxes.Add(textBox43);
-
-            DurationTextBoxes = new List<TextBox>();
-            DurationTextBoxes.Add(textBox2);
-            DurationTextBoxes.Add(textBox5);
-            DurationTextBoxes.Add(textBox8);
-            DurationTextBoxes.Add(textBox11);
-            DurationTextBoxes.Add(textBox14);
-            DurationTextBoxes.Add(textBox17);
-            DurationTextBoxes.Add(textBox20);
-            DurationTextBoxes.Add(textBox23);
-            DurationTextBoxes.Add(textBox26);
-            DurationTextBoxes.Add(textBox29);
-            DurationTextBoxes.Add(textBox32);
-            DurationTextBoxes.Add(textBox35);
-            DurationTextBoxes.Add(textBox38);
-            DurationTextBoxes.Add(textBox41);
-            DurationTextBoxes.Add(textBox44);
+            IntervalTextBoxes = new List<TextBox> { textBox1, textBox4, textBox6, textBox8, textBox10, textBox12, textBox14, textBox16, textBox18, textBox20, textBox22, textBox24, textBox26, textBox28, textBox30 };
+            DurationTextBoxes = new List<TextBox> { textBox2, textBox3, textBox5, textBox7, textBox9, textBox11, textBox13, textBox15, textBox17, textBox19, textBox21, textBox23, textBox25, textBox27, textBox29 };
 
             NumbericUpDowns1 = new List<NumericUpDown>();
             NumbericUpDowns1.Add(numericUpDown1);
@@ -254,40 +223,13 @@ namespace SquareTapperEditor
         private void redrawChart()
         {
             float[] yValues1 = new float[15];
-
-            yValues1[0] = getValueFromTextbox(textBox1);
-            yValues1[1] = getValueFromTextbox(textBox4);
-            yValues1[2] = getValueFromTextbox(textBox7);
-            yValues1[3] = getValueFromTextbox(textBox10);
-            yValues1[4] = getValueFromTextbox(textBox13);
-            yValues1[5] = getValueFromTextbox(textBox16);
-            yValues1[6] = getValueFromTextbox(textBox19);
-            yValues1[7] = getValueFromTextbox(textBox22);
-            yValues1[8] = getValueFromTextbox(textBox25);
-            yValues1[9] = getValueFromTextbox(textBox28);
-            yValues1[10] = getValueFromTextbox(textBox31);
-            yValues1[11] = getValueFromTextbox(textBox34);
-            yValues1[12] = getValueFromTextbox(textBox37);
-            yValues1[13] = getValueFromTextbox(textBox40);
-            yValues1[14] = getValueFromTextbox(textBox43);
-
             float[] yValues2 = new float[15];
 
-            yValues2[0] = getValueFromTextbox(textBox2);
-            yValues2[1] = getValueFromTextbox(textBox5);
-            yValues2[2] = getValueFromTextbox(textBox8);
-            yValues2[3] = getValueFromTextbox(textBox11);
-            yValues2[4] = getValueFromTextbox(textBox14);
-            yValues2[5] = getValueFromTextbox(textBox17);
-            yValues2[6] = getValueFromTextbox(textBox20);
-            yValues2[7] = getValueFromTextbox(textBox23);
-            yValues2[8] = getValueFromTextbox(textBox26);
-            yValues2[9] = getValueFromTextbox(textBox29);
-            yValues2[10] = getValueFromTextbox(textBox32);
-            yValues2[11] = getValueFromTextbox(textBox35);
-            yValues2[12] = getValueFromTextbox(textBox38);
-            yValues2[13] = getValueFromTextbox(textBox41);
-            yValues2[14] = getValueFromTextbox(textBox44);
+            for (int i = 0; i < 15; ++i)
+            {
+                yValues1[i] = getValueFromTextbox(IntervalTextBoxes[i]);
+                yValues2[i] = getValueFromTextbox(DurationTextBoxes[i]);
+            }
 
             chart1.Series[0].Points.DataBindY(yValues1);
             chart1.Series[1].Points.DataBindY(yValues2);

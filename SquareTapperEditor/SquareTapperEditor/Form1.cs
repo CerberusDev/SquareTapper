@@ -366,12 +366,12 @@ namespace SquareTapperEditor
             MouseEventArgs me = e as MouseEventArgs;
             Panel panel = (picBox.Parent) as Panel;
 
-            if (me.Button == MouseButtons.Left)
+            if (me.Button == MouseButtons.Left && !checkBox1.Checked)
             {
                 ButtonData bt = (picBox.Tag) as ButtonData;
                 SetPicBoxData(picBox, !bt.bDoubleTap);
             }
-            else if (me.Button == MouseButtons.Right)
+            else if (me.Button == MouseButtons.Right || (checkBox1.Checked && me.Button == MouseButtons.Left))
             {
                 ButtonData bd = (picBox.Tag) as ButtonData;
                 List<LineData> ldList = (panel.Tag) as List<LineData>;
@@ -449,7 +449,7 @@ namespace SquareTapperEditor
         {
             MouseEventArgs me = e as MouseEventArgs;
 
-            if (me.Button == MouseButtons.Right)
+            if (me.Button == MouseButtons.Right || (checkBox1.Checked && me.Button == MouseButtons.Left))
             {
                 PictureBox picBox = sender as PictureBox;
                 ButtonData bd = (picBox.Tag) as ButtonData;

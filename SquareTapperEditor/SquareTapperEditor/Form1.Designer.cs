@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
@@ -394,6 +394,7 @@
             this.pictureBox225 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -695,15 +696,15 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Location = new System.Drawing.Point(821, 113);
             this.chart1.Name = "chart1";
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(556, 300);
             this.chart1.TabIndex = 15;
             this.chart1.Text = "chart1";
@@ -1565,7 +1566,7 @@
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(80, 349);
+            this.panel1.Location = new System.Drawing.Point(80, 371);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(79, 167);
             this.panel1.TabIndex = 148;
@@ -2291,7 +2292,7 @@
             this.panel2.Controls.Add(this.pictureBox28);
             this.panel2.Controls.Add(this.pictureBox29);
             this.panel2.Controls.Add(this.pictureBox30);
-            this.panel2.Location = new System.Drawing.Point(123, 522);
+            this.panel2.Location = new System.Drawing.Point(123, 544);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(79, 167);
             this.panel2.TabIndex = 162;
@@ -2478,7 +2479,7 @@
             this.panel3.Controls.Add(this.pictureBox43);
             this.panel3.Controls.Add(this.pictureBox44);
             this.panel3.Controls.Add(this.pictureBox45);
-            this.panel3.Location = new System.Drawing.Point(165, 349);
+            this.panel3.Location = new System.Drawing.Point(165, 371);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(79, 167);
             this.panel3.TabIndex = 163;
@@ -2665,7 +2666,7 @@
             this.panel4.Controls.Add(this.pictureBox58);
             this.panel4.Controls.Add(this.pictureBox59);
             this.panel4.Controls.Add(this.pictureBox60);
-            this.panel4.Location = new System.Drawing.Point(208, 522);
+            this.panel4.Location = new System.Drawing.Point(208, 544);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(79, 167);
             this.panel4.TabIndex = 164;
@@ -2852,7 +2853,7 @@
             this.panel5.Controls.Add(this.pictureBox73);
             this.panel5.Controls.Add(this.pictureBox74);
             this.panel5.Controls.Add(this.pictureBox75);
-            this.panel5.Location = new System.Drawing.Point(250, 349);
+            this.panel5.Location = new System.Drawing.Point(250, 371);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(79, 167);
             this.panel5.TabIndex = 164;
@@ -3039,7 +3040,7 @@
             this.panel6.Controls.Add(this.pictureBox88);
             this.panel6.Controls.Add(this.pictureBox89);
             this.panel6.Controls.Add(this.pictureBox90);
-            this.panel6.Location = new System.Drawing.Point(293, 522);
+            this.panel6.Location = new System.Drawing.Point(293, 544);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(79, 167);
             this.panel6.TabIndex = 164;
@@ -3226,7 +3227,7 @@
             this.panel7.Controls.Add(this.pictureBox103);
             this.panel7.Controls.Add(this.pictureBox104);
             this.panel7.Controls.Add(this.pictureBox105);
-            this.panel7.Location = new System.Drawing.Point(335, 349);
+            this.panel7.Location = new System.Drawing.Point(335, 371);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(79, 167);
             this.panel7.TabIndex = 164;
@@ -3413,7 +3414,7 @@
             this.panel8.Controls.Add(this.pictureBox118);
             this.panel8.Controls.Add(this.pictureBox119);
             this.panel8.Controls.Add(this.pictureBox120);
-            this.panel8.Location = new System.Drawing.Point(378, 522);
+            this.panel8.Location = new System.Drawing.Point(378, 544);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(79, 167);
             this.panel8.TabIndex = 164;
@@ -3600,7 +3601,7 @@
             this.panel9.Controls.Add(this.pictureBox133);
             this.panel9.Controls.Add(this.pictureBox134);
             this.panel9.Controls.Add(this.pictureBox135);
-            this.panel9.Location = new System.Drawing.Point(420, 349);
+            this.panel9.Location = new System.Drawing.Point(420, 371);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(79, 167);
             this.panel9.TabIndex = 164;
@@ -3787,7 +3788,7 @@
             this.panel10.Controls.Add(this.pictureBox148);
             this.panel10.Controls.Add(this.pictureBox149);
             this.panel10.Controls.Add(this.pictureBox150);
-            this.panel10.Location = new System.Drawing.Point(463, 522);
+            this.panel10.Location = new System.Drawing.Point(463, 544);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(79, 167);
             this.panel10.TabIndex = 164;
@@ -3974,7 +3975,7 @@
             this.panel11.Controls.Add(this.pictureBox163);
             this.panel11.Controls.Add(this.pictureBox164);
             this.panel11.Controls.Add(this.pictureBox165);
-            this.panel11.Location = new System.Drawing.Point(505, 349);
+            this.panel11.Location = new System.Drawing.Point(505, 371);
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(79, 167);
             this.panel11.TabIndex = 164;
@@ -4161,7 +4162,7 @@
             this.panel12.Controls.Add(this.pictureBox178);
             this.panel12.Controls.Add(this.pictureBox179);
             this.panel12.Controls.Add(this.pictureBox180);
-            this.panel12.Location = new System.Drawing.Point(548, 522);
+            this.panel12.Location = new System.Drawing.Point(548, 544);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(79, 167);
             this.panel12.TabIndex = 164;
@@ -4348,7 +4349,7 @@
             this.panel13.Controls.Add(this.pictureBox193);
             this.panel13.Controls.Add(this.pictureBox194);
             this.panel13.Controls.Add(this.pictureBox195);
-            this.panel13.Location = new System.Drawing.Point(590, 349);
+            this.panel13.Location = new System.Drawing.Point(590, 371);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(79, 167);
             this.panel13.TabIndex = 164;
@@ -4535,7 +4536,7 @@
             this.panel14.Controls.Add(this.pictureBox208);
             this.panel14.Controls.Add(this.pictureBox209);
             this.panel14.Controls.Add(this.pictureBox210);
-            this.panel14.Location = new System.Drawing.Point(633, 522);
+            this.panel14.Location = new System.Drawing.Point(633, 544);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(79, 167);
             this.panel14.TabIndex = 164;
@@ -4722,7 +4723,7 @@
             this.panel15.Controls.Add(this.pictureBox223);
             this.panel15.Controls.Add(this.pictureBox224);
             this.panel15.Controls.Add(this.pictureBox225);
-            this.panel15.Location = new System.Drawing.Point(675, 349);
+            this.panel15.Location = new System.Drawing.Point(675, 371);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(79, 167);
             this.panel15.TabIndex = 164;
@@ -4911,11 +4912,23 @@
             this.label16.Size = new System.Drawing.Size(0, 13);
             this.label16.TabIndex = 212;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(81, 331);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(84, 23);
+            this.checkBox1.TabIndex = 213;
+            this.checkBox1.Text = "Simulate RMB";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1421, 811);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel15);
@@ -5714,6 +5727,7 @@
         private System.Windows.Forms.PictureBox pictureBox225;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

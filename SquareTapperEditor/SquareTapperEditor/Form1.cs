@@ -18,6 +18,9 @@ namespace SquareTapperEditor
         private const int MarginWidth = 1;
         private const int MarginHeight = 1;
 
+        private List<Label> LevelLabels1;
+        private List<Label> LevelLabels2;
+
         private List<TextBox> IntervalTextBoxes;
         private List<TextBox> DurationTextBoxes;
 
@@ -66,8 +69,11 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Standard");
             MaskCodes.Add("Full-Killing");
 
-            IntervalTextBoxes = new List<TextBox> { textBox1, textBox4, textBox6, textBox8, textBox10, textBox12, textBox14, textBox16, textBox18, textBox20, textBox22, textBox24, textBox26, textBox28, textBox30 };
-            DurationTextBoxes = new List<TextBox> { textBox2, textBox3, textBox5, textBox7, textBox9, textBox11, textBox13, textBox15, textBox17, textBox19, textBox21, textBox23, textBox25, textBox27, textBox29 };
+            LevelLabels1 = new List<Label> { label2, label4, label6, label8, label10, label12, label14, label16, label18, label20, label22, label24, label26, label28, label30 };
+            LevelLabels2 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25, label27, label29, label31 };
+
+            IntervalTextBoxes = new List<TextBox> { textBox1, textBox3, textBox5, textBox7, textBox9, textBox11, textBox13, textBox15, textBox17, textBox19, textBox21, textBox23, textBox25, textBox27, textBox29 };
+            DurationTextBoxes = new List<TextBox> { textBox2, textBox4, textBox6, textBox8, textBox10, textBox12, textBox14, textBox16, textBox18, textBox20, textBox22, textBox24, textBox26, textBox28, textBox30 };
 
             NumbericUpDowns1 = new List<NumericUpDown>();
             NumbericUpDowns1.Add(numericUpDown1);
@@ -215,6 +221,8 @@ namespace SquareTapperEditor
                     pc.DoubleClick += pictureBox_DoubleClick;
                 }
             }
+
+            label1.Text = "";
 
             redrawChart();
         }
@@ -515,7 +523,7 @@ namespace SquareTapperEditor
         {
             OpenFilename = NewOpenFilename;
             String[] tmp = OpenFilename.Split('\\');
-            label16.Text = tmp.Last();
+            label1.Text = tmp.Last();
         }
 
         // ======================================== import ==========================================
@@ -672,9 +680,26 @@ namespace SquareTapperEditor
         }
 
         // ======================================== import end ==========================================
-        // ========================================== export ============================================
 
         private void button2_Click(object sender, EventArgs e)
+        {
+            save();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            saveAs();
+        }
+
+        private void save()
+        {
+            if (OpenFilename == null)
+                saveAs();
+            else
+                export(OpenFilename);
+        }
+
+        private void saveAs()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Level files|*.lvl";
@@ -689,141 +714,146 @@ namespace SquareTapperEditor
             else
             {
                 saveFileDialog1.InitialDirectory = OpenFilename;
-                saveFileDialog1.FileName = label16.Text;
+                saveFileDialog1.FileName = label1.Text;
             }
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                export(saveFileDialog1.FileName);
+        }
+
+        // ========================================== export ============================================
+
+        private void export(String fileName)
+        {
+            SetOpenFilename(fileName);
+            StreamWriter sr = new StreamWriter(OpenFilename);
+
+            sr.WriteLine();
+            sr.WriteLine("#");
+            sr.WriteLine("# Parameters in first line of level definition:");
+            sr.WriteLine("#");
+            sr.WriteLine("# 1. Interval between square's activations");
+            sr.WriteLine("# 2. Total activation time of one square");
+            sr.WriteLine("# 3. Number of safe squares on level");
+            sr.WriteLine("# 4. Number of dangerous squares on level");
+            sr.WriteLine("# 5. Number of double tap squares with dangerous second actuation part on level");
+            sr.WriteLine("# 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard");
+            sr.WriteLine("#								Horizontal-Killing 		Horizontal-Standard");
+            sr.WriteLine("#								HorizontalBig-Killing 	HorizontalBig-Standard");
+            sr.WriteLine("#								Chessboard-Killing 		Chessboard-Standard");
+            sr.WriteLine("#								Full-Killing 			Full-Standard )");
+            sr.WriteLine("#");
+            sr.WriteLine("# Square codes:");
+            sr.WriteLine("#");
+            sr.WriteLine("# ST - Standard square");
+            sr.WriteLine("# DB - Double-tap square");
+            sr.WriteLine("# SQ(XX).Y.Z ( e.g. SQ(ST).0.0 )- Sequence square, requires more specified definition:");
+            sr.WriteLine("#	XX - Square type (ST or DB)");
+            sr.WriteLine("#	Y - Sequence ID (please start counting from 0)");
+            sr.WriteLine("#	Z - Square's index in sequence (0 means first)	");
+            sr.WriteLine("#");
+            sr.WriteLine();
+            sr.WriteLine();
+            sr.WriteLine();
+
+            for (int levelIdx = 0; levelIdx < 15; ++levelIdx)
             {
-                SetOpenFilename(saveFileDialog1.FileName);
-                StreamWriter sr = new StreamWriter(OpenFilename);
+                if (levelIdx == 0)
+                    sr.WriteLine("# ============= 1 - 3 =============");
+                else if (levelIdx == 3)
+                    sr.WriteLine("# ============= 4 - 6 =============");
+                else if (levelIdx == 6)
+                    sr.WriteLine("# ============= 7 - 9 =============");
+                else if (levelIdx == 9)
+                    sr.WriteLine("# ============= 10 - 12 =============");
+                else if (levelIdx == 12)
+                    sr.WriteLine("# ============= 13 - 15 =============");
 
-                sr.WriteLine();
-                sr.WriteLine("#");
-                sr.WriteLine("# Parameters in first line of level definition:");
-                sr.WriteLine("#");
-                sr.WriteLine("# 1. Interval between square's activations");
-                sr.WriteLine("# 2. Total activation time of one square");
-                sr.WriteLine("# 3. Number of safe squares on level");
-                sr.WriteLine("# 4. Number of dangerous squares on level");
-                sr.WriteLine("# 5. Number of double tap squares with dangerous second actuation part on level");
-                sr.WriteLine("# 6. Mask definition (Keywords: Vertical-Killing 		Vertical-Standard");
-                sr.WriteLine("#								Horizontal-Killing 		Horizontal-Standard");
-                sr.WriteLine("#								HorizontalBig-Killing 	HorizontalBig-Standard");
-                sr.WriteLine("#								Chessboard-Killing 		Chessboard-Standard");
-                sr.WriteLine("#								Full-Killing 			Full-Standard )");
-                sr.WriteLine("#");
-                sr.WriteLine("# Square codes:");
-                sr.WriteLine("#");
-                sr.WriteLine("# ST - Standard square");
-                sr.WriteLine("# DB - Double-tap square");
-                sr.WriteLine("# SQ(XX).Y.Z ( e.g. SQ(ST).0.0 )- Sequence square, requires more specified definition:");
-                sr.WriteLine("#	XX - Square type (ST or DB)");
-                sr.WriteLine("#	Y - Sequence ID (please start counting from 0)");
-                sr.WriteLine("#	Z - Square's index in sequence (0 means first)	");
-                sr.WriteLine("#");
-                sr.WriteLine();
-                sr.WriteLine();
-                sr.WriteLine();
+                sr.Write(IntervalTextBoxes[levelIdx].Text.Replace(",", "."));
+                sr.Write("\t\t");
+                sr.Write(DurationTextBoxes[levelIdx].Text.Replace(",", "."));
+                sr.Write("\t\t");
+                sr.Write(NumbericUpDowns1[levelIdx].Value);
+                sr.Write("\t\t");
+                sr.Write(NumbericUpDowns2[levelIdx].Value);
+                sr.Write("\t\t");
+                sr.Write(NumbericUpDowns3[levelIdx].Value);
 
-                for (int levelIdx = 0; levelIdx < 15; ++levelIdx)
+                String MaskCode = IdxToMaskCode(MaskComboBoxes1[levelIdx].SelectedIndex);
+
+                if (MaskCode != null)
                 {
-                    if (levelIdx == 0)
-                        sr.WriteLine("# ============= 1 - 3 =============");
-                    else if (levelIdx == 3)
-                        sr.WriteLine("# ============= 4 - 6 =============");
-                    else if (levelIdx == 6)
-                        sr.WriteLine("# ============= 7 - 9 =============");
-                    else if (levelIdx == 9)
-                        sr.WriteLine("# ============= 10 - 12 =============");
-                    else if (levelIdx == 12)
-                        sr.WriteLine("# ============= 13 - 15 =============");
+                    sr.Write("\t\t");
+                    sr.Write(MaskCode);
 
-                    sr.Write(IntervalTextBoxes[levelIdx].Text.Replace(",", "."));
-                    sr.Write("\t\t");
-                    sr.Write(DurationTextBoxes[levelIdx].Text.Replace(",", "."));
-                    sr.Write("\t\t");
-                    sr.Write(NumbericUpDowns1[levelIdx].Value);
-                    sr.Write("\t\t");
-                    sr.Write(NumbericUpDowns2[levelIdx].Value);
-                    sr.Write("\t\t");
-                    sr.Write(NumbericUpDowns3[levelIdx].Value);
-
-                    String MaskCode = IdxToMaskCode(MaskComboBoxes1[levelIdx].SelectedIndex);
+                    MaskCode = IdxToMaskCode(MaskComboBoxes2[levelIdx].SelectedIndex);
 
                     if (MaskCode != null)
                     {
                         sr.Write("\t\t");
                         sr.Write(MaskCode);
-
-                        MaskCode = IdxToMaskCode(MaskComboBoxes2[levelIdx].SelectedIndex);
-
-                        if (MaskCode != null)
-                        {
-                            sr.Write("\t\t");
-                            sr.Write(MaskCode);
-                        }
                     }
+                }
 
-                    sr.WriteLine();
-                    sr.WriteLine();
+                sr.WriteLine();
+                sr.WriteLine();
 
-                    List<SeqData> seqData = getExportSequenceData(LayoutPanels[levelIdx]);
+                List<SeqData> seqData = getExportSequenceData(LayoutPanels[levelIdx]);
 
-                    for (int i = 4; i >= 0; --i)
+                for (int i = 4; i >= 0; --i)
+                {
+                    for (int j = 1; j <= 3; ++j)
                     {
-                        for (int j = 1; j <= 3; ++j)
+                        int idx = i * 3 + j;
+                        PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
+                        ButtonData bt = (pc.Tag) as ButtonData;
+
+                        SeqData matchingSeqData = null;
+
+                        foreach (SeqData sq in seqData)
                         {
-                            int idx = i * 3 + j;
-                            PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
-                            ButtonData bt = (pc.Tag) as ButtonData;
-
-                            SeqData matchingSeqData = null;
-
-                            foreach (SeqData sq in seqData)
+                            if (sq.TileIndex == idx)
                             {
-                                if (sq.TileIndex == idx)
-                                {
-                                    matchingSeqData = sq;
-                                    break;
-                                }
-                            }
-
-                            if (matchingSeqData == null)
-                            {
-                                if (bt.bDoubleTap)
-                                    sr.Write("DB");
-                                else
-                                    sr.Write("ST");
-
-                                sr.Write("\t\t\t");
-                            }
-                            else
-                            {
-                                sr.Write("SQ(");
-
-                                if (bt.bDoubleTap)
-                                    sr.Write("DB");
-                                else
-                                    sr.Write("ST");
-
-                                sr.Write(").");
-                                sr.Write(matchingSeqData.SeqID);
-                                sr.Write(".");
-                                sr.Write(matchingSeqData.TileNum);
-                                sr.Write("\t");
+                                matchingSeqData = sq;
+                                break;
                             }
                         }
 
-                        sr.WriteLine();
+                        if (matchingSeqData == null)
+                        {
+                            if (bt.bDoubleTap)
+                                sr.Write("DB");
+                            else
+                                sr.Write("ST");
+
+                            sr.Write("\t\t\t");
+                        }
+                        else
+                        {
+                            sr.Write("SQ(");
+
+                            if (bt.bDoubleTap)
+                                sr.Write("DB");
+                            else
+                                sr.Write("ST");
+
+                            sr.Write(").");
+                            sr.Write(matchingSeqData.SeqID);
+                            sr.Write(".");
+                            sr.Write(matchingSeqData.TileNum);
+                            sr.Write("\t");
+                        }
                     }
 
                     sr.WriteLine();
                 }
 
-                sr.Close();
+                sr.WriteLine();
             }
-        }
 
+            sr.Close();
+        }
+        
         private List<SeqData> getExportSequenceData(Panel currPanel)
         {
             List<LineData> ldList = (currPanel.Tag) as List<LineData>;

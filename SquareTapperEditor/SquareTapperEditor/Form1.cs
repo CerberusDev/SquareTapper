@@ -181,6 +181,15 @@ namespace SquareTapperEditor
                 tb.KeyPress += handleKeyPress;
             }
 
+            foreach (NumericUpDown nb in NumbericUpDowns1)
+                nb.ValueChanged += numUpDown_ValueChanged;
+
+            foreach (NumericUpDown nb in NumbericUpDowns2)
+                nb.ValueChanged += numUpDown_ValueChanged;
+
+            foreach (NumericUpDown nb in NumbericUpDowns3)
+                nb.ValueChanged += numUpDown_ValueChanged;
+
             foreach (Image img in maskImgases)
             {
                 foreach (ComboBox cb in MaskComboBoxes1)
@@ -205,6 +214,7 @@ namespace SquareTapperEditor
                 cb.SelectedIndex = 0;
                 cb.MeasureItem += comboBox_MeasureItem;
                 cb.DrawItem += comboBox_DrawItem;
+                cb.SelectedValueChanged += genericValueChanged;
             }
 
             ButtonImages = new List<Image>();
@@ -232,10 +242,36 @@ namespace SquareTapperEditor
             }
 
             label1.Text = "";
+            markAsClean();
 
             redrawChart();
         }
         // ======================================== constructor end ==========================================
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                save();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private bool isDirty()
+        {
+            return label27.Visible;
+        }
+
+        private void markAsDirty()
+        {
+            label27.Visible = true;
+        }
+
+        private void markAsClean()
+        {
+            label27.Visible = false;
+        }
 
         private void initLevelNumbers()
         {
@@ -290,6 +326,7 @@ namespace SquareTapperEditor
             }
 
             redrawChart();
+            markAsDirty();
         }
 
         private void handleKeyPress(object sender, KeyPressEventArgs e)
@@ -361,6 +398,18 @@ namespace SquareTapperEditor
                     cbo2.Visible = false;
                 }
             }
+
+            markAsDirty();
+        }
+
+        private void genericValueChanged(object sender, EventArgs e)
+        {
+            markAsDirty();
+        }
+
+        private void numUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            markAsDirty();
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
@@ -373,6 +422,7 @@ namespace SquareTapperEditor
             {
                 ButtonData bt = (picBox.Tag) as ButtonData;
                 SetPicBoxData(picBox, !bt.bDoubleTap);
+                markAsDirty();
             }
             else if (me.Button == MouseButtons.Right || (checkBox1.Checked && me.Button == MouseButtons.Left))
             {
@@ -402,6 +452,7 @@ namespace SquareTapperEditor
                     {
                         ld.bFinished = true;
                         ld.EndButtonIndex = bd.Index;
+                        markAsDirty();
                     }
                     else
                     {
@@ -476,6 +527,7 @@ namespace SquareTapperEditor
                             ldList.Add(ld);
 
                             lastPanelUnderCursor = panel;
+                            markAsDirty();
                             break;
                         }
                         else if (ld.EndButtonIndex == bd.Index)
@@ -489,6 +541,7 @@ namespace SquareTapperEditor
                             ldList.Add(ld);
 
                             lastPanelUnderCursor = panel;
+                            markAsDirty();
                             break;
                         }
                     }
@@ -643,6 +696,7 @@ namespace SquareTapperEditor
                 }
 
                 sr.Close();
+                markAsClean();
             }
         }
 
@@ -730,9 +784,14 @@ namespace SquareTapperEditor
         private void save()
         {
             if (OpenFilename == null)
+            {
                 saveAs();
+            }
             else
+            {
                 export(OpenFilename);
+                markAsClean();
+            }
         }
 
         private void saveAs()
@@ -754,7 +813,10 @@ namespace SquareTapperEditor
             }
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
                 export(saveFileDialog1.FileName);
+                markAsClean();
+            }
         }
 
         // ========================================== export ============================================

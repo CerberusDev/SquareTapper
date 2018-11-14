@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -409,6 +409,7 @@
             this.label30 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -710,23 +711,23 @@
             // 
             // chart1
             // 
-            chartArea2.AxisX.Interval = 1D;
-            chartArea2.AxisX.Maximum = 15D;
-            chartArea2.AxisX.Minimum = 1D;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.Interval = 1D;
+            chartArea1.AxisX.Maximum = 15D;
+            chartArea1.AxisX.Minimum = 1D;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(176, 478);
             this.chart1.Name = "chart1";
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Name = "Series1";
-            series4.BorderWidth = 3;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Name = "Series2";
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Series1";
+            series2.BorderWidth = 3;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "Series2";
+            this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(556, 300);
             this.chart1.TabIndex = 15;
             this.chart1.Text = "chart1";
@@ -5063,11 +5064,22 @@
             this.label25.Text = "1";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label27.Location = new System.Drawing.Point(86, 340);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(16, 24);
+            this.label27.TabIndex = 304;
+            this.label27.Text = "!";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1421, 811);
+            this.Controls.Add(this.label27);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label30);
             this.Controls.Add(this.label28);
@@ -5894,6 +5906,7 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label27;
     }
 }
 

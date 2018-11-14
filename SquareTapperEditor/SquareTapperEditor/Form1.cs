@@ -70,7 +70,16 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Killing");
 
             LevelLabels1 = new List<Label> { label2, label4, label6, label8, label10, label12, label14, label16, label18, label20, label22, label24, label26, label28, label30 };
-            LevelLabels2 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25, label27, label29, label31 };
+            LevelLabels2 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25 };
+
+            for (int i = 1; i <= 12; ++i)
+                LevelLabels1[i].Text = (i).ToString();
+
+            LevelLabels1[12].Text = "I";
+            LevelLabels1[13].Text = "II";
+            LevelLabels1[14].Text = "III";
+
+            initLevelNumbers();
 
             IntervalTextBoxes = new List<TextBox> { textBox1, textBox3, textBox5, textBox7, textBox9, textBox11, textBox13, textBox15, textBox17, textBox19, textBox21, textBox23, textBox25, textBox27, textBox29 };
             DurationTextBoxes = new List<TextBox> { textBox2, textBox4, textBox6, textBox8, textBox10, textBox12, textBox14, textBox16, textBox18, textBox20, textBox22, textBox24, textBox26, textBox28, textBox30 };
@@ -227,6 +236,31 @@ namespace SquareTapperEditor
             redrawChart();
         }
         // ======================================== constructor end ==========================================
+
+        private void initLevelNumbers()
+        {
+            int worldNr = 0;
+
+            if (OpenFilename != null)
+            {
+                string[] tmp1 = OpenFilename.Split('_');
+
+                if (tmp1.Count() == 2 && tmp1[0].Contains("World"))
+                {
+                    string[] tmp2 = tmp1[1].Split('.');
+
+                    int itmp;
+                    if (int.TryParse(tmp2[0], out itmp))
+                    {
+                        worldNr = itmp;
+                    }
+                }
+            }
+
+            int i = 0;
+            foreach (Label lb in LevelLabels2)
+                lb.Text = (++i + worldNr * 12).ToString();
+        }
 
         private void redrawChart()
         {
@@ -524,6 +558,8 @@ namespace SquareTapperEditor
             OpenFilename = NewOpenFilename;
             String[] tmp = OpenFilename.Split('\\');
             label1.Text = tmp.Last();
+
+            initLevelNumbers();
         }
 
         // ======================================== import ==========================================

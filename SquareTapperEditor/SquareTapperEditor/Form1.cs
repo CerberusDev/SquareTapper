@@ -69,8 +69,8 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Standard");
             MaskCodes.Add("Full-Killing");
 
-            LevelLabels1 = new List<Label> { label2, label4, label6, label8, label10, label12, label14, label16, label18, label20, label22, label24, label26, label28, label30 };
-            LevelLabels2 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25 };
+            LevelLabels1 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25, label26, label28, label30 };
+            LevelLabels2 = new List<Label> { label2, label4, label6, label8, label10, label12, label14, label16, label18, label20, label22, label24 };
 
             for (int i = 1; i <= 12; ++i)
                 LevelLabels1[i].Text = (i).ToString();
@@ -302,15 +302,24 @@ namespace SquareTapperEditor
         {
             float[] yValues1 = new float[15];
             float[] yValues2 = new float[15];
+            float[] yValues3 = new float[15];
+            float[] yValues4 = new float[15];
+            float[] yValues5 = new float[15];
 
             for (int i = 0; i < 15; ++i)
             {
-                yValues1[i] = getValueFromTextbox(IntervalTextBoxes[i]);
-                yValues2[i] = getValueFromTextbox(DurationTextBoxes[i]);
+                yValues1[i] = (float)NumbericUpDowns1[i].Value;
+                yValues2[i] = (float)NumbericUpDowns2[i].Value;
+                yValues3[i] = (float)NumbericUpDowns3[i].Value;
+                yValues4[i] = getValueFromTextbox(IntervalTextBoxes[i]);
+                yValues5[i] = getValueFromTextbox(DurationTextBoxes[i]);
             }
 
             chart1.Series[0].Points.DataBindY(yValues1);
             chart1.Series[1].Points.DataBindY(yValues2);
+            chart1.Series[2].Points.DataBindY(yValues3);
+            chart1.Series[3].Points.DataBindY(yValues4);
+            chart1.Series[4].Points.DataBindY(yValues5);
         }
 
         private void handleTextChanges(object sender, EventArgs e)
@@ -410,6 +419,7 @@ namespace SquareTapperEditor
         private void numUpDown_ValueChanged(object sender, EventArgs e)
         {
             markAsDirty();
+            redrawChart();
         }
 
         private void pictureBox_Click(object sender, EventArgs e)

@@ -326,6 +326,8 @@ namespace SquareTapperEditor
             float[] yValues4 = new float[15];
             float[] yValues5 = new float[15];
 
+            float max = 0.0f;
+
             for (int i = 0; i < 15; ++i)
             {
                 yValues1[i] = (float)NumbericUpDowns1[i].Value;
@@ -333,6 +335,20 @@ namespace SquareTapperEditor
                 yValues3[i] = (float)NumbericUpDowns3[i].Value;
                 yValues4[i] = getValueFromTextbox(IntervalTextBoxes[i]);
                 yValues5[i] = getValueFromTextbox(DurationTextBoxes[i]);
+
+                if (yValues4[i] > max)
+                    max = yValues4[i];
+
+                if (yValues5[i] > max)
+                    max = yValues5[i];
+            }
+
+            float mod = 14.0f / max;
+
+            for (int i = 0; i < 15; ++i)
+            {
+                yValues4[i] *= mod;
+                yValues5[i] *= mod;
             }
 
             chart1.Series[0].Points.DataBindY(yValues1);

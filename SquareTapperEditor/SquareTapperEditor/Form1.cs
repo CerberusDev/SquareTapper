@@ -258,6 +258,14 @@ namespace SquareTapperEditor
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (isDirty() && MessageBox.Show("Are you sure about that? You have unsaved changes!", "Unsaved changed detected", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
+
         private bool isDirty()
         {
             return label27.Visible;

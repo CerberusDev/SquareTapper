@@ -715,14 +715,15 @@
             // chart1
             // 
             chartArea1.AxisX.Interval = 1D;
-            chartArea1.AxisX.Maximum = 15D;
-            chartArea1.AxisX.Minimum = 1D;
+            chartArea1.AxisX.Maximum = 16D;
+            chartArea1.AxisX.Minimum = 0D;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(176, 478);
             this.chart1.Name = "chart1";
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             series1.Name = "Series1";
             series2.BorderWidth = 3;
             series2.ChartArea = "ChartArea1";

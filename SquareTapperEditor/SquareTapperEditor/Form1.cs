@@ -244,6 +244,12 @@ namespace SquareTapperEditor
             label1.Text = "";
             markAsClean();
 
+            int alpha = 110;
+            chart1.Series[0].Color = Color.FromArgb(alpha, 72, 69, 145);
+            chart1.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart1.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
+            chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
+            chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
             redrawChart();
         }
         // ======================================== constructor end ==========================================
@@ -260,7 +266,7 @@ namespace SquareTapperEditor
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isDirty() && MessageBox.Show("Are you sure about that? You have unsaved changes!", "Unsaved changed detected", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
+            if (isDirty() && MessageBox.Show("Are you sure about that? You have unsaved changes!", "Unsaved changes detected", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
                 e.Cancel = true;
             }

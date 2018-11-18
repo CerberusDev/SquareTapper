@@ -679,65 +679,73 @@ namespace SquareTapperEditor
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line.Length > 1 && line[0] != '#')
+                    if (line.Length > 1)
                     {
-                        String[] levelParamsOriginal = line.Split();
-                        List<String> levelParams = new List<String>();
-
-                        foreach (String s in levelParamsOriginal)
-                            if (s.Length > 0)
-                                levelParams.Add(s);
-
-                        IntervalTextBoxes[levelIdx].Text = levelParams[0];
-                        DurationTextBoxes[levelIdx].Text = levelParams[1];
-                        NumbericUpDowns1[levelIdx].Value = decimal.Parse(levelParams[2]);
-                        NumbericUpDowns2[levelIdx].Value = decimal.Parse(levelParams[3]);
-                        NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
-
-                        if (levelParams.Count > 5)
+                        if (line.Length > 2 && line[0] == '#' && line[1] == '!')
                         {
-                            MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
-                            
-                            if (levelParams.Count > 6)
-                                MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
-                            else
-                                MaskComboBoxes2[levelIdx].SelectedIndex = 0;
+                            String s = line.Substring(2);
+                            textBox31.Text = s;
                         }
-                        else
+                        else if (line[0] != '#')
                         {
-                            MaskComboBoxes2[levelIdx].SelectedIndex = 0;
-                            MaskComboBoxes1[levelIdx].SelectedIndex = 0;
-                        }
+                            String[] levelParamsOriginal = line.Split();
+                            List<String> levelParams = new List<String>();
 
-                        line = sr.ReadLine();
-                        List<SeqData> sequenceData = new List<SeqData>();
-
-                        for (int i = 4; i >= 0; --i)
-                        {
-                            line = sr.ReadLine();
-                            String[] lineParamsOriginal = line.Split();
-                            List<String> lineParams = new List<String>();
-
-                            foreach (String s in lineParamsOriginal)
+                            foreach (String s in levelParamsOriginal)
                                 if (s.Length > 0)
-                                    lineParams.Add(s);
+                                    levelParams.Add(s);
 
-                            for (int j = 1; j <= 3; ++j)
+                            IntervalTextBoxes[levelIdx].Text = levelParams[0];
+                            DurationTextBoxes[levelIdx].Text = levelParams[1];
+                            NumbericUpDowns1[levelIdx].Value = decimal.Parse(levelParams[2]);
+                            NumbericUpDowns2[levelIdx].Value = decimal.Parse(levelParams[3]);
+                            NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
+
+                            if (levelParams.Count > 5)
                             {
-                                int idx = i * 3 + j;
-                                String currTileData = lineParams[j - 1];
-                                PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
-
-                                if (currTileData.Contains("SQ"))
-                                    sequenceData.Add(new SeqData(currTileData, idx));
-
-                                SetPicBoxData(pc, currTileData.Contains("DB"));
+                                MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
+                            
+                                if (levelParams.Count > 6)
+                                    MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
+                                else
+                                    MaskComboBoxes2[levelIdx].SelectedIndex = 0;
                             }
+                            else
+                            {
+                                MaskComboBoxes2[levelIdx].SelectedIndex = 0;
+                                MaskComboBoxes1[levelIdx].SelectedIndex = 0;
+                            }
+
+                            line = sr.ReadLine();
+                            List<SeqData> sequenceData = new List<SeqData>();
+
+                            for (int i = 4; i >= 0; --i)
+                            {
+                                line = sr.ReadLine();
+                                String[] lineParamsOriginal = line.Split();
+                                List<String> lineParams = new List<String>();
+
+                                foreach (String s in lineParamsOriginal)
+                                    if (s.Length > 0)
+                                        lineParams.Add(s);
+
+                                for (int j = 1; j <= 3; ++j)
+                                {
+                                    int idx = i * 3 + j;
+                                    String currTileData = lineParams[j - 1];
+                                    PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
+
+                                    if (currTileData.Contains("SQ"))
+                                        sequenceData.Add(new SeqData(currTileData, idx));
+
+                                    SetPicBoxData(pc, currTileData.Contains("DB"));
+                                }
+                            }
+
+                            importSequenceData(sequenceData, LayoutPanels[levelIdx]);
+
+                            ++levelIdx;
                         }
-
-                        importSequenceData(sequenceData, LayoutPanels[levelIdx]);
-
-                        ++levelIdx;
                     }
                 }
 
@@ -898,6 +906,7 @@ namespace SquareTapperEditor
             sr.WriteLine("#");
             sr.WriteLine();
             sr.WriteLine();
+            sr.WriteLine("#!" + textBox31.Text);
             sr.WriteLine();
 
             for (int levelIdx = 0; levelIdx < 15; ++levelIdx)
@@ -1093,6 +1102,11 @@ namespace SquareTapperEditor
         }
 
         // ======================================== export end ==========================================
+
+        private void textBox31_TextChanged(object sender, EventArgs e)
+        {
+            markAsDirty();
+        }
     }
 
     class LineData

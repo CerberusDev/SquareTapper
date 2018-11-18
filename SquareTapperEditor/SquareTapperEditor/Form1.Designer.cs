@@ -413,6 +413,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.textBox31 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -5092,11 +5094,31 @@
             this.label27.TabIndex = 304;
             this.label27.Text = "!";
             // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label29.Location = new System.Drawing.Point(12, 428);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(58, 13);
+            this.label29.TabIndex = 305;
+            this.label29.Text = "Comment";
+            // 
+            // textBox31
+            // 
+            this.textBox31.Location = new System.Drawing.Point(15, 445);
+            this.textBox31.Name = "textBox31";
+            this.textBox31.Size = new System.Drawing.Size(381, 20);
+            this.textBox31.TabIndex = 306;
+            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1421, 811);
+            this.Controls.Add(this.textBox31);
+            this.Controls.Add(this.label29);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label30);
@@ -5926,6 +5948,8 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox textBox31;
     }
 }
 

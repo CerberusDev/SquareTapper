@@ -22,7 +22,8 @@
 #	Y - Sequence ID (please start counting from 0)
 #	Z - Square's index in sequence (0 means first)	
 #
-# Standard + Bezpieczne maski + Niebezpieczne kwadraty + Double tap
+
+#!Standard + Bezpieczne maski + Niebezpieczne kwadraty + Double tap
 
 # ============= 1 - 3 =============
 0.35	1.75		0		3		0	Horizontal-Standard

@@ -72,8 +72,8 @@ namespace SquareTapperEditor
             LevelLabels1 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25, label26, label28, label30 };
             LevelLabels2 = new List<Label> { label2, label4, label6, label8, label10, label12, label14, label16, label18, label20, label22, label24 };
 
-            for (int i = 1; i <= 12; ++i)
-                LevelLabels1[i].Text = (i).ToString();
+            for (int i = 0; i <= 12; ++i)
+                LevelLabels1[i].Text = (i + 1).ToString();
 
             LevelLabels1[12].Text = "I";
             LevelLabels1[13].Text = "II";
@@ -300,10 +300,11 @@ namespace SquareTapperEditor
             if (OpenFilename != null)
             {
                 string[] tmp1 = OpenFilename.Split('_');
+                int nr = tmp1.Count();
 
-                if (tmp1.Count() == 2 && tmp1[0].Contains("World"))
+                if (nr >= 2 && tmp1[nr - 2].Contains("World"))
                 {
-                    string[] tmp2 = tmp1[1].Split('.');
+                    string[] tmp2 = tmp1[nr - 1].Split('.');
 
                     int itmp;
                     if (int.TryParse(tmp2[0], out itmp))

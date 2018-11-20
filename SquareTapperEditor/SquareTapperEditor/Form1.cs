@@ -264,15 +264,20 @@ namespace SquareTapperEditor
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private DialogResult ignoreChangesMsgBox()
+        private bool dontQuit_ChangesMsgBox()
         {
-            return MessageBox.Show("Are you sure about that? You have unsaved changes!", "Unsaved changes detected", 
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            if (!isDirty())
+                return false;
+
+            DialogResult result = MessageBox.Show("Would you like to return to save your changes?", "Unsaved changes detected!",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+
+            return result == DialogResult.Yes;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isDirty() && ignoreChangesMsgBox() == DialogResult.No)
+            if (dontQuit_ChangesMsgBox())
             {
                 e.Cancel = true;
             }
@@ -671,7 +676,7 @@ namespace SquareTapperEditor
             openFileDialog1.Title = "Select a Level File";
             openFileDialog1.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            if ((!isDirty() || ignoreChangesMsgBox() == DialogResult.Yes) && openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (!dontQuit_ChangesMsgBox() && openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 SetOpenFilename(openFileDialog1.FileName);
                 StreamReader sr = new StreamReader(openFileDialog1.FileName);

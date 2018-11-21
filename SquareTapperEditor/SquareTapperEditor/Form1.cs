@@ -37,6 +37,7 @@ namespace SquareTapperEditor
         private Panel lastPanelUnderCursor;
 
         private String OpenFilename;
+        private int openedWorldNr = -1;
 
         public Form1()
         {
@@ -271,6 +272,25 @@ namespace SquareTapperEditor
                 cb.Items.Add(worldNrToString(nr));
         }
 
+        private void comboBox31_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            int newWorldNr = fileNameToWorldNr(cb.SelectedItem as string);
+
+            if (newWorldNr != openedWorldNr)
+            {
+                if (dontQuit_ChangesMsgBox())
+                {
+                    comboBox31.SelectedItem = worldNrToString(openedWorldNr);
+                }
+                else
+                {
+                    openedWorldNr = newWorldNr;
+                    import(worldNrToPath(openedWorldNr));
+                }
+            }
+        }
+
         private string worldNrToString(int nr)
         {
             return "World_" + nr;
@@ -289,6 +309,16 @@ namespace SquareTapperEditor
             string[] tmp2 = filename.Split('.');
             string[] tmp3 = tmp2[0].Split('_');
             return int.Parse(tmp3[tmp3.Count() - 1]);
+        }
+
+        private string worldNrStringToPath(string worldNrString)
+        {
+            return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + worldNrString + ".lvl";
+        }
+
+        private string worldNrToPath(int worldNr)
+        {
+            return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\World_" + worldNr + ".lvl";
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -687,8 +717,6 @@ namespace SquareTapperEditor
             initLevelNumbers();
         }
 
-        // ======================================== import ==========================================
-
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -697,87 +725,92 @@ namespace SquareTapperEditor
             openFileDialog1.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             if (!dontQuit_ChangesMsgBox() && openFileDialog1.ShowDialog() == DialogResult.OK)
+                import(openFileDialog1.FileName);
+        }
+
+        // ======================================== import ==========================================
+
+        private void import(String fileName)
+        {
+            SetOpenFilename(fileName);
+            StreamReader sr = new StreamReader(fileName);
+            String line;
+            int levelIdx = 0;
+
+            while ((line = sr.ReadLine()) != null)
             {
-                SetOpenFilename(openFileDialog1.FileName);
-                StreamReader sr = new StreamReader(openFileDialog1.FileName);
-                String line;
-                int levelIdx = 0;
-
-                while ((line = sr.ReadLine()) != null)
+                if (line.Length > 1)
                 {
-                    if (line.Length > 1)
+                    if (line.Length > 2 && line[0] == '#' && line[1] == '!')
                     {
-                        if (line.Length > 2 && line[0] == '#' && line[1] == '!')
+                        String s = line.Substring(2);
+                        textBox31.Text = s;
+                    }
+                    else if (line[0] != '#')
+                    {
+                        String[] levelParamsOriginal = line.Split();
+                        List<String> levelParams = new List<String>();
+
+                        foreach (String s in levelParamsOriginal)
+                            if (s.Length > 0)
+                                levelParams.Add(s);
+
+                        IntervalTextBoxes[levelIdx].Text = levelParams[0];
+                        DurationTextBoxes[levelIdx].Text = levelParams[1];
+                        NumbericUpDowns1[levelIdx].Value = decimal.Parse(levelParams[2]);
+                        NumbericUpDowns2[levelIdx].Value = decimal.Parse(levelParams[3]);
+                        NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
+
+                        if (levelParams.Count > 5)
                         {
-                            String s = line.Substring(2);
-                            textBox31.Text = s;
-                        }
-                        else if (line[0] != '#')
-                        {
-                            String[] levelParamsOriginal = line.Split();
-                            List<String> levelParams = new List<String>();
-
-                            foreach (String s in levelParamsOriginal)
-                                if (s.Length > 0)
-                                    levelParams.Add(s);
-
-                            IntervalTextBoxes[levelIdx].Text = levelParams[0];
-                            DurationTextBoxes[levelIdx].Text = levelParams[1];
-                            NumbericUpDowns1[levelIdx].Value = decimal.Parse(levelParams[2]);
-                            NumbericUpDowns2[levelIdx].Value = decimal.Parse(levelParams[3]);
-                            NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
-
-                            if (levelParams.Count > 5)
-                            {
-                                MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
+                            MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
                             
-                                if (levelParams.Count > 6)
-                                    MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
-                                else
-                                    MaskComboBoxes2[levelIdx].SelectedIndex = 0;
-                            }
+                            if (levelParams.Count > 6)
+                                MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
                             else
-                            {
                                 MaskComboBoxes2[levelIdx].SelectedIndex = 0;
-                                MaskComboBoxes1[levelIdx].SelectedIndex = 0;
-                            }
-
-                            line = sr.ReadLine();
-                            List<SeqData> sequenceData = new List<SeqData>();
-
-                            for (int i = 4; i >= 0; --i)
-                            {
-                                line = sr.ReadLine();
-                                String[] lineParamsOriginal = line.Split();
-                                List<String> lineParams = new List<String>();
-
-                                foreach (String s in lineParamsOriginal)
-                                    if (s.Length > 0)
-                                        lineParams.Add(s);
-
-                                for (int j = 1; j <= 3; ++j)
-                                {
-                                    int idx = i * 3 + j;
-                                    String currTileData = lineParams[j - 1];
-                                    PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
-
-                                    if (currTileData.Contains("SQ"))
-                                        sequenceData.Add(new SeqData(currTileData, idx));
-
-                                    SetPicBoxData(pc, currTileData.Contains("DB"));
-                                }
-                            }
-
-                            importSequenceData(sequenceData, LayoutPanels[levelIdx]);
-
-                            ++levelIdx;
                         }
+                        else
+                        {
+                            MaskComboBoxes2[levelIdx].SelectedIndex = 0;
+                            MaskComboBoxes1[levelIdx].SelectedIndex = 0;
+                        }
+
+                        line = sr.ReadLine();
+                        List<SeqData> sequenceData = new List<SeqData>();
+
+                        for (int i = 4; i >= 0; --i)
+                        {
+                            line = sr.ReadLine();
+                            String[] lineParamsOriginal = line.Split();
+                            List<String> lineParams = new List<String>();
+
+                            foreach (String s in lineParamsOriginal)
+                                if (s.Length > 0)
+                                    lineParams.Add(s);
+
+                            for (int j = 1; j <= 3; ++j)
+                            {
+                                int idx = i * 3 + j;
+                                String currTileData = lineParams[j - 1];
+                                PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
+
+                                if (currTileData.Contains("SQ"))
+                                    sequenceData.Add(new SeqData(currTileData, idx));
+
+                                SetPicBoxData(pc, currTileData.Contains("DB"));
+                            }
+                        }
+
+                        importSequenceData(sequenceData, LayoutPanels[levelIdx]);
+
+                        ++levelIdx;
                     }
                 }
-
-                sr.Close();
-                markAsClean();
             }
+
+            sr.Close();
+            markAsClean();
         }
 
         private PictureBox GetPictureBoxWithIdx(Panel currPanel, int idx)

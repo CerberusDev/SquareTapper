@@ -5230,11 +5230,13 @@
             // 
             // comboBox31
             // 
+            this.comboBox31.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox31.FormattingEnabled = true;
             this.comboBox31.Location = new System.Drawing.Point(15, 288);
             this.comboBox31.Name = "comboBox31";
             this.comboBox31.Size = new System.Drawing.Size(87, 21);
             this.comboBox31.TabIndex = 318;
+            this.comboBox31.SelectedValueChanged += new System.EventHandler(this.comboBox31_SelectedValueChanged);
             // 
             // Form1
             // 

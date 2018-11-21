@@ -123,6 +123,24 @@
   <ItemGroup>
     <None Include="Resources\mask11.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ble ble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dangerous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\interval.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\safe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\total_activation_time.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unfair.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

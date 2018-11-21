@@ -93,6 +93,26 @@ namespace SquareTapperEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap dangerous {
+            get {
+                object obj = ResourceManager.GetObject("dangerous", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap interval {
+            get {
+                object obj = ResourceManager.GetObject("interval", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mask1 {
             get {
                 object obj = ResourceManager.GetObject("mask1", resourceCulture);
@@ -196,6 +216,36 @@ namespace SquareTapperEditor.Properties {
         internal static System.Drawing.Bitmap mask9 {
             get {
                 object obj = ResourceManager.GetObject("mask9", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap safe {
+            get {
+                object obj = ResourceManager.GetObject("safe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap total_activation_time {
+            get {
+                object obj = ResourceManager.GetObject("total_activation_time", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap unfair {
+            get {
+                object obj = ResourceManager.GetObject("unfair", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

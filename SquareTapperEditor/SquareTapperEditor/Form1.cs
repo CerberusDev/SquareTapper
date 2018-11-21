@@ -717,17 +717,6 @@ namespace SquareTapperEditor
             initLevelNumbers();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Level files|*.lvl";
-            openFileDialog1.Title = "Select a Level File";
-            openFileDialog1.InitialDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-            if (!dontQuit_ChangesMsgBox() && openFileDialog1.ShowDialog() == DialogResult.OK)
-                import(openFileDialog1.FileName);
-        }
-
         // ======================================== import ==========================================
 
         private void import(String fileName)

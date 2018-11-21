@@ -241,7 +241,6 @@ namespace SquareTapperEditor
                 }
             }
 
-            label1.Text = "";
             markAsClean();
 
             int alpha = 120;
@@ -251,8 +250,46 @@ namespace SquareTapperEditor
             chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
             chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
             redrawChart();
+            refreshLevelComboBox();
         }
         // ======================================== constructor end ==========================================
+
+        private void refreshLevelComboBox()
+        {
+            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string[] files = Directory.GetFiles(path, "*.lvl", SearchOption.AllDirectories);
+
+            List<int> nrList = new List<int>();
+
+            foreach (string fileName in files)
+                nrList.Add(fileNameToWorldNr(fileName));
+
+            nrList.Sort();
+            ComboBox cb = comboBox31;
+
+            foreach (int nr in nrList)
+                cb.Items.Add(worldNrToString(nr));
+        }
+
+        private string worldNrToString(int nr)
+        {
+            return "World_" + nr;
+        }
+
+        private string worldNrToString(string nr)
+        {
+            return "World_" + nr;
+        }
+
+        private int fileNameToWorldNr(string path)
+        {
+            string[] tmp1 = path.Split('\\');
+            string filename = tmp1[tmp1.Count() - 1];
+
+            string[] tmp2 = filename.Split('.');
+            string[] tmp3 = tmp2[0].Split('_');
+            return int.Parse(tmp3[tmp3.Count() - 1]);
+        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -303,21 +340,7 @@ namespace SquareTapperEditor
             int worldNr = 0;
 
             if (OpenFilename != null)
-            {
-                string[] tmp1 = OpenFilename.Split('_');
-                int nr = tmp1.Count();
-
-                if (nr >= 2 && tmp1[nr - 2].Contains("World"))
-                {
-                    string[] tmp2 = tmp1[nr - 1].Split('.');
-
-                    int itmp;
-                    if (int.TryParse(tmp2[0], out itmp))
-                    {
-                        worldNr = itmp;
-                    }
-                }
-            }
+                worldNr = fileNameToWorldNr(OpenFilename);
 
             int i = 0;
             foreach (Label lb in LevelLabels2)
@@ -661,9 +684,6 @@ namespace SquareTapperEditor
         private void SetOpenFilename(String NewOpenFilename)
         {
             OpenFilename = NewOpenFilename;
-            String[] tmp = OpenFilename.Split('\\');
-            label1.Text = tmp.Last();
-
             initLevelNumbers();
         }
 
@@ -869,7 +889,6 @@ namespace SquareTapperEditor
             else
             {
                 saveFileDialog1.InitialDirectory = OpenFilename;
-                saveFileDialog1.FileName = label1.Text;
             }
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)

@@ -251,6 +251,13 @@ namespace SquareTapperEditor
             chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
             redrawChart();
             refreshLevelComboBox();
+
+            if (comboBox31.Items.Count > 0)
+            {
+                string firstLevel = comboBox31.Items[0] as string;
+                import(fileNameToWorldNr(firstLevel));
+                comboBox31.SelectedItem = firstLevel;
+            }
         }
         // ======================================== constructor end ==========================================
 
@@ -336,8 +343,9 @@ namespace SquareTapperEditor
             if (!isDirty())
                 return false;
 
-            DialogResult result = MessageBox.Show("Would you like to return to save your changes?", "Unsaved changes detected!",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            DialogResult result = 
+                MessageBox.Show("Would you like to return to save your changes? If you proceed those changes will not be saved in the currently opened level."
+                , "Unsaved changes detected! Return?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             return result == DialogResult.Yes;
         }
@@ -877,7 +885,6 @@ namespace SquareTapperEditor
                 string lastWorldNr = comboBox31.Items[comboBox31.Items.Count - 1] as string;
                 int createdWorldNr = fileNameToWorldNr(lastWorldNr) + 1;
 
-                openedWorldNr = createdWorldNr;
                 export(createdWorldNr);
                 initLevelNumbers();
                 markAsClean();

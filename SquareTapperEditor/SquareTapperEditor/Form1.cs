@@ -69,19 +69,48 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Standard");
             MaskCodes.Add("Full-Killing");
 
-            LevelLabels1 = new List<Label> { label3, label5, label7, label9, label11, label13, label15, label17, label19, label21, label23, label25, label26, label28, label30 };
-            LevelLabels2 = new List<Label> { label2, label4, label6, label8, label10, label12, label14, label16, label18, label20, label22, label24 };
+            LevelLabels1 = new List<Label> { label2 };
+            LevelLabels2 = new List<Label> { label3 };
+            IntervalTextBoxes = new List<TextBox> { textBox1 };
+
+            const int offsetX = 84;
+
+            for (int i = 1; i < 15; ++i)
+            {
+                if (i < 12)
+                {
+                    Label lbl1 = new Label();
+                    lbl1.Font = IntervalTextBoxes[0].Font;
+                    lbl1.Size = IntervalTextBoxes[0].Size;
+                    lbl1.Location = new Point(LevelLabels1[0].Location.X + offsetX * i, LevelLabels1[0].Location.Y);
+                    LevelLabels1.Add(lbl1);
+                    Controls.Add(lbl1);
+                }
+
+                Label lbl2 = new Label();
+                lbl2.Font = IntervalTextBoxes[0].Font;
+                lbl2.Size = IntervalTextBoxes[0].Size;
+                lbl2.Location = new Point(LevelLabels2[0].Location.X + offsetX * i, LevelLabels2[0].Location.Y);
+                LevelLabels2.Add(lbl2);
+                Controls.Add(lbl2);
+
+                TextBox txt = new TextBox();
+                txt.Font = IntervalTextBoxes[0].Font;
+                txt.Size = IntervalTextBoxes[0].Size;
+                txt.Location = new Point(IntervalTextBoxes[0].Location.X + offsetX * i, IntervalTextBoxes[0].Location.Y);
+                IntervalTextBoxes.Add(txt);
+                Controls.Add(txt);
+            }
 
             for (int i = 0; i <= 12; ++i)
-                LevelLabels1[i].Text = (i + 1).ToString();
+                LevelLabels2[i].Text = (i + 1).ToString();
 
-            LevelLabels1[12].Text = "I";
-            LevelLabels1[13].Text = "II";
-            LevelLabels1[14].Text = "III";
+            LevelLabels2[12].Text = "I";
+            LevelLabels2[13].Text = "II";
+            LevelLabels2[14].Text = "III";
 
             initLevelNumbers();
 
-            IntervalTextBoxes = new List<TextBox> { textBox1, textBox3, textBox5, textBox7, textBox9, textBox11, textBox13, textBox15, textBox17, textBox19, textBox21, textBox23, textBox25, textBox27, textBox29 };
             DurationTextBoxes = new List<TextBox> { textBox2, textBox4, textBox6, textBox8, textBox10, textBox12, textBox14, textBox16, textBox18, textBox20, textBox22, textBox24, textBox26, textBox28, textBox30 };
 
             NumbericUpDowns1 = new List<NumericUpDown>();
@@ -376,7 +405,7 @@ namespace SquareTapperEditor
         private void initLevelNumbers()
         {
             int i = 0;
-            foreach (Label lb in LevelLabels2)
+            foreach (Label lb in LevelLabels1)
                 lb.Text = (++i + openedWorldNr * 12).ToString();
         }
 

@@ -36,7 +36,6 @@ namespace SquareTapperEditor
         private List<Panel> LayoutPanels;
         private Panel lastPanelUnderCursor;
 
-        private String OpenFilename;
         private int openedWorldNr = -1;
 
         public Form1()
@@ -257,6 +256,9 @@ namespace SquareTapperEditor
 
         private void refreshLevelComboBox()
         {
+            ComboBox cb = comboBox31;
+            cb.Items.Clear();
+
             string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string[] files = Directory.GetFiles(path, "*.lvl", SearchOption.AllDirectories);
 
@@ -266,7 +268,6 @@ namespace SquareTapperEditor
                 nrList.Add(fileNameToWorldNr(fileName));
 
             nrList.Sort();
-            ComboBox cb = comboBox31;
 
             foreach (int nr in nrList)
                 cb.Items.Add(worldNrToString(nr));
@@ -285,8 +286,7 @@ namespace SquareTapperEditor
                 }
                 else
                 {
-                    openedWorldNr = newWorldNr;
-                    import(worldNrToPath(openedWorldNr));
+                    import(newWorldNr);
                 }
             }
         }
@@ -367,14 +367,9 @@ namespace SquareTapperEditor
 
         private void initLevelNumbers()
         {
-            int worldNr = 0;
-
-            if (OpenFilename != null)
-                worldNr = fileNameToWorldNr(OpenFilename);
-
             int i = 0;
             foreach (Label lb in LevelLabels2)
-                lb.Text = (++i + worldNr * 12).ToString();
+                lb.Text = (++i + openedWorldNr * 12).ToString();
         }
 
         private void redrawChart()
@@ -711,18 +706,15 @@ namespace SquareTapperEditor
             return MaskCodes[Idx - 1];
         }
 
-        private void SetOpenFilename(String NewOpenFilename)
-        {
-            OpenFilename = NewOpenFilename;
-            initLevelNumbers();
-        }
-
         // ======================================== import ==========================================
 
-        private void import(String fileName)
+        private void import(int worldNr)
         {
-            SetOpenFilename(fileName);
-            StreamReader sr = new StreamReader(fileName);
+            openedWorldNr = worldNr;
+            initLevelNumbers();
+
+            string worldPath = worldNrToPath(worldNr);
+            StreamReader sr = new StreamReader(worldPath);
             String line;
             int levelIdx = 0;
 
@@ -880,52 +872,31 @@ namespace SquareTapperEditor
 
         private void button3_Click(object sender, EventArgs e)
         {
-            saveAs();
+            if (!dontQuit_ChangesMsgBox())
+            {
+                string lastWorldNr = comboBox31.Items[comboBox31.Items.Count - 1] as string;
+                int createdWorldNr = fileNameToWorldNr(lastWorldNr) + 1;
+
+                openedWorldNr = createdWorldNr;
+                export(createdWorldNr);
+                initLevelNumbers();
+                markAsClean();
+                refreshLevelComboBox();
+                comboBox31.SelectedItem = comboBox31.Items[comboBox31.Items.Count - 1];
+            }
         }
 
         private void save()
         {
-            if (OpenFilename == null)
-            {
-                saveAs();
-            }
-            else
-            {
-                export(OpenFilename);
-                markAsClean();
-            }
-        }
-
-        private void saveAs()
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Level files|*.lvl";
-            saveFileDialog1.Title = "Save a Level File";
-            saveFileDialog1.DefaultExt = ".lvl";
-
-            if (OpenFilename == null)
-            {
-                saveFileDialog1.InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                saveFileDialog1.FileName = "Default.lvl";
-            }
-            else
-            {
-                saveFileDialog1.InitialDirectory = OpenFilename;
-            }
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                export(saveFileDialog1.FileName);
-                markAsClean();
-            }
+            export(openedWorldNr);
+            markAsClean();
         }
 
         // ========================================== export ============================================
 
-        private void export(String fileName)
+        private void export(int worldNr)
         {
-            SetOpenFilename(fileName);
-            StreamWriter sr = new StreamWriter(OpenFilename);
+            StreamWriter sr = new StreamWriter(worldNrToPath(worldNr));
 
             sr.WriteLine();
             sr.WriteLine("#");

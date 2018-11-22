@@ -90,6 +90,7 @@ namespace SquareTapperEditor
                 if (i < 12)
                 {
                     Label lbl1 = new Label();
+                    lbl1.TextAlign = LevelLabels1[0].TextAlign;
                     lbl1.Font = LevelLabels1[0].Font;
                     lbl1.Size = LevelLabels1[0].Size;
                     lbl1.Location = new Point(LevelLabels1[0].Location.X + offsetX * i, LevelLabels1[0].Location.Y);
@@ -98,6 +99,7 @@ namespace SquareTapperEditor
                 }
 
                 Label lbl2 = new Label();
+                lbl2.TextAlign = LevelLabels2[0].TextAlign;
                 lbl2.Font = LevelLabels2[0].Font;
                 lbl2.Size = LevelLabels2[0].Size;
                 lbl2.Location = new Point(LevelLabels2[0].Location.X + offsetX * i, LevelLabels2[0].Location.Y);

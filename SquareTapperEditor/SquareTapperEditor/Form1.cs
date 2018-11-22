@@ -69,11 +69,15 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Standard");
             MaskCodes.Add("Full-Killing");
 
+            ButtonImages = new List<Image> { Properties.Resources.button2, Properties.Resources.button3 };
+
             LevelLabels1 = new List<Label> { label2 };
             LevelLabels2 = new List<Label> { label3 };
             IntervalTextBoxes = new List<TextBox> { textBox1 };
+            LayoutPanels = new List<Panel> { panel1 };
 
             const int offsetX = 84;
+            const int pictureBoxSize = 26;
 
             for (int i = 1; i < 15; ++i)
             {
@@ -100,6 +104,43 @@ namespace SquareTapperEditor
                 txt.Location = new Point(IntervalTextBoxes[0].Location.X + offsetX * i, IntervalTextBoxes[0].Location.Y);
                 IntervalTextBoxes.Add(txt);
                 Controls.Add(txt);
+
+                Panel pan = new Panel();
+                pan.Tag = new List<LineData>();
+                pan.Size = LayoutPanels[0].Size;
+                pan.Location = new Point(LayoutPanels[0].Location.X + offsetX * i, LayoutPanels[0].Location.Y);
+                LayoutPanels.Add(pan);
+                Controls.Add(pan);
+
+                for (int j = 0; j < 15; ++j)
+                {
+                    PictureBox pc = new PictureBox();
+                    pc.Size = new Size(pictureBoxSize, pictureBoxSize);
+                    pc.Location = new Point(pictureBoxSize * (j % 3), pictureBoxSize * (4 - j / 3));
+                    pc.Tag = new ButtonData(j + 1);
+                    pc.Image = ButtonImages[0];
+                    pc.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pc.Click += pictureBox_Click;
+                    pc.Paint += pictureBox_Paint;
+                    pc.MouseMove += pictureBox_MouseMove;
+                    pc.DoubleClick += pictureBox_DoubleClick;
+                    pan.Controls.Add(pc);
+                }
+            }
+
+            LayoutPanels[0].Tag = new List<LineData>();
+
+            foreach (Control ctrl in LayoutPanels[0].Controls)
+            {
+                PictureBox pc = ctrl as PictureBox;
+
+                int index = int.Parse(pc.Tag as String);
+                pc.Tag = new ButtonData(index);
+                pc.Image = ButtonImages[0];
+                pc.Click += pictureBox_Click;
+                pc.Paint += pictureBox_Paint;
+                pc.MouseMove += pictureBox_MouseMove;
+                pc.DoubleClick += pictureBox_DoubleClick;
             }
 
             for (int i = 0; i <= 12; ++i)
@@ -244,30 +285,6 @@ namespace SquareTapperEditor
                 cb.MeasureItem += comboBox_MeasureItem;
                 cb.DrawItem += comboBox_DrawItem;
                 cb.SelectedValueChanged += genericValueChanged;
-            }
-
-            ButtonImages = new List<Image>();
-            ButtonImages.Add(Properties.Resources.button2);
-            ButtonImages.Add(Properties.Resources.button3);
-
-            LayoutPanels = new List<Panel> { panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8, panel9, panel10, panel11, panel12, panel13, panel14, panel15 };
-
-            foreach (Panel panel in LayoutPanels)
-            {
-                panel.Tag = new List<LineData>();
-
-                foreach (Control ctrl in panel.Controls)
-                {
-                    PictureBox pc = ctrl as PictureBox;
-
-                    int index = int.Parse(pc.Tag as String);
-                    pc.Tag = new ButtonData(index);
-                    pc.Image = ButtonImages[0];
-                    pc.Click += pictureBox_Click;
-                    pc.Paint += pictureBox_Paint;
-                    pc.MouseMove += pictureBox_MouseMove;
-                    pc.DoubleClick += pictureBox_DoubleClick;
-                }
             }
 
             markAsClean();

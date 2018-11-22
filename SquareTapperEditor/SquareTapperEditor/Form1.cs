@@ -74,6 +74,12 @@ namespace SquareTapperEditor
             LevelLabels1 = new List<Label> { label2 };
             LevelLabels2 = new List<Label> { label3 };
             IntervalTextBoxes = new List<TextBox> { textBox1 };
+            DurationTextBoxes = new List<TextBox> { textBox2 };
+            NumbericUpDowns1 = new List<NumericUpDown> { numericUpDown1 };
+            NumbericUpDowns2 = new List<NumericUpDown> { numericUpDown2 };
+            NumbericUpDowns3 = new List<NumericUpDown> { numericUpDown3 };
+            MaskComboBoxes1 = new List<ComboBox> { comboBox1 };
+            MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
 
             const int offsetX = 84;
@@ -84,26 +90,74 @@ namespace SquareTapperEditor
                 if (i < 12)
                 {
                     Label lbl1 = new Label();
-                    lbl1.Font = IntervalTextBoxes[0].Font;
-                    lbl1.Size = IntervalTextBoxes[0].Size;
+                    lbl1.Font = LevelLabels1[0].Font;
+                    lbl1.Size = LevelLabels1[0].Size;
                     lbl1.Location = new Point(LevelLabels1[0].Location.X + offsetX * i, LevelLabels1[0].Location.Y);
                     LevelLabels1.Add(lbl1);
                     Controls.Add(lbl1);
                 }
 
                 Label lbl2 = new Label();
-                lbl2.Font = IntervalTextBoxes[0].Font;
-                lbl2.Size = IntervalTextBoxes[0].Size;
+                lbl2.Font = LevelLabels2[0].Font;
+                lbl2.Size = LevelLabels2[0].Size;
                 lbl2.Location = new Point(LevelLabels2[0].Location.X + offsetX * i, LevelLabels2[0].Location.Y);
                 LevelLabels2.Add(lbl2);
                 Controls.Add(lbl2);
 
-                TextBox txt = new TextBox();
-                txt.Font = IntervalTextBoxes[0].Font;
-                txt.Size = IntervalTextBoxes[0].Size;
-                txt.Location = new Point(IntervalTextBoxes[0].Location.X + offsetX * i, IntervalTextBoxes[0].Location.Y);
-                IntervalTextBoxes.Add(txt);
-                Controls.Add(txt);
+                TextBox txt1 = new TextBox();
+                txt1.Font = IntervalTextBoxes[0].Font;
+                txt1.Size = IntervalTextBoxes[0].Size;
+                txt1.Location = new Point(IntervalTextBoxes[0].Location.X + offsetX * i, IntervalTextBoxes[0].Location.Y);
+                IntervalTextBoxes.Add(txt1);
+                Controls.Add(txt1);
+
+                TextBox txt2 = new TextBox();
+                txt2.Font = DurationTextBoxes[0].Font;
+                txt2.Size = DurationTextBoxes[0].Size;
+                txt2.Location = new Point(DurationTextBoxes[0].Location.X + offsetX * i, DurationTextBoxes[0].Location.Y);
+                DurationTextBoxes.Add(txt2);
+                Controls.Add(txt2);
+
+                NumericUpDown nb1 = new NumericUpDown();
+                nb1.Maximum = 15;
+                nb1.Size = NumbericUpDowns1[0].Size;
+                nb1.Location = new Point(NumbericUpDowns1[0].Location.X + offsetX * i, NumbericUpDowns1[0].Location.Y);
+                NumbericUpDowns1.Add(nb1);
+                Controls.Add(nb1);
+
+                NumericUpDown nb2 = new NumericUpDown();
+                nb2.Maximum = 15;
+                nb2.Size = NumbericUpDowns2[0].Size;
+                nb2.Location = new Point(NumbericUpDowns2[0].Location.X + offsetX * i, NumbericUpDowns2[0].Location.Y);
+                NumbericUpDowns2.Add(nb2);
+                Controls.Add(nb2);
+
+                NumericUpDown nb3 = new NumericUpDown();
+                nb3.Maximum = 15;
+                nb3.Size = NumbericUpDowns3[0].Size;
+                nb3.Location = new Point(NumbericUpDowns3[0].Location.X + offsetX * i, NumbericUpDowns3[0].Location.Y);
+                NumbericUpDowns3.Add(nb3);
+                Controls.Add(nb3);
+
+                ComboBox mask1 = new ComboBox();
+                mask1.DropDownStyle = MaskComboBoxes1[0].DropDownStyle;
+                mask1.DropDownHeight = MaskComboBoxes1[0].DropDownHeight;
+                mask1.DrawMode = MaskComboBoxes1[0].DrawMode;
+                mask1.ItemHeight = MaskComboBoxes1[0].ItemHeight;
+                mask1.Size = MaskComboBoxes1[0].Size;
+                mask1.Location = new Point(MaskComboBoxes1[0].Location.X + offsetX * i, MaskComboBoxes1[0].Location.Y);
+                MaskComboBoxes1.Add(mask1);
+                Controls.Add(mask1);
+
+                ComboBox mask2 = new ComboBox();
+                mask2.DropDownStyle = MaskComboBoxes2[0].DropDownStyle;
+                mask2.DropDownHeight = MaskComboBoxes2[0].DropDownHeight;
+                mask2.DrawMode = MaskComboBoxes2[0].DrawMode;
+                mask2.ItemHeight = MaskComboBoxes2[0].ItemHeight;
+                mask2.Size = MaskComboBoxes2[0].Size;
+                mask2.Location = new Point(MaskComboBoxes2[0].Location.X + offsetX * i, MaskComboBoxes2[0].Location.Y);
+                MaskComboBoxes2.Add(mask2);
+                Controls.Add(mask2);
 
                 Panel pan = new Panel();
                 pan.Tag = new List<LineData>();
@@ -117,30 +171,28 @@ namespace SquareTapperEditor
                     PictureBox pc = new PictureBox();
                     pc.Size = new Size(pictureBoxSize, pictureBoxSize);
                     pc.Location = new Point(pictureBoxSize * (j % 3), pictureBoxSize * (4 - j / 3));
-                    pc.Tag = new ButtonData(j + 1);
-                    pc.Image = ButtonImages[0];
+                    pc.Tag = (j + 1).ToString();
                     pc.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pc.Click += pictureBox_Click;
-                    pc.Paint += pictureBox_Paint;
-                    pc.MouseMove += pictureBox_MouseMove;
-                    pc.DoubleClick += pictureBox_DoubleClick;
                     pan.Controls.Add(pc);
                 }
             }
 
-            LayoutPanels[0].Tag = new List<LineData>();
-
-            foreach (Control ctrl in LayoutPanels[0].Controls)
+            foreach (Panel panel in LayoutPanels)
             {
-                PictureBox pc = ctrl as PictureBox;
+                panel.Tag = new List<LineData>();
 
-                int index = int.Parse(pc.Tag as String);
-                pc.Tag = new ButtonData(index);
-                pc.Image = ButtonImages[0];
-                pc.Click += pictureBox_Click;
-                pc.Paint += pictureBox_Paint;
-                pc.MouseMove += pictureBox_MouseMove;
-                pc.DoubleClick += pictureBox_DoubleClick;
+                foreach (Control ctrl in panel.Controls)
+                {
+                    PictureBox pc = ctrl as PictureBox;
+
+                    int index = int.Parse(pc.Tag as String);
+                    pc.Tag = new ButtonData(index);
+                    pc.Image = ButtonImages[0];
+                    pc.Click += pictureBox_Click;
+                    pc.Paint += pictureBox_Paint;
+                    pc.MouseMove += pictureBox_MouseMove;
+                    pc.DoubleClick += pictureBox_DoubleClick;
+                }
             }
 
             for (int i = 0; i <= 12; ++i)
@@ -151,93 +203,6 @@ namespace SquareTapperEditor
             LevelLabels2[14].Text = "III";
 
             initLevelNumbers();
-
-            DurationTextBoxes = new List<TextBox> { textBox2, textBox4, textBox6, textBox8, textBox10, textBox12, textBox14, textBox16, textBox18, textBox20, textBox22, textBox24, textBox26, textBox28, textBox30 };
-
-            NumbericUpDowns1 = new List<NumericUpDown>();
-            NumbericUpDowns1.Add(numericUpDown1);
-            NumbericUpDowns1.Add(numericUpDown4);
-            NumbericUpDowns1.Add(numericUpDown7);
-            NumbericUpDowns1.Add(numericUpDown10);
-            NumbericUpDowns1.Add(numericUpDown13);
-            NumbericUpDowns1.Add(numericUpDown16);
-            NumbericUpDowns1.Add(numericUpDown19);
-            NumbericUpDowns1.Add(numericUpDown22);
-            NumbericUpDowns1.Add(numericUpDown25);
-            NumbericUpDowns1.Add(numericUpDown28);
-            NumbericUpDowns1.Add(numericUpDown31);
-            NumbericUpDowns1.Add(numericUpDown34);
-            NumbericUpDowns1.Add(numericUpDown37);
-            NumbericUpDowns1.Add(numericUpDown40);
-            NumbericUpDowns1.Add(numericUpDown43);
-
-            NumbericUpDowns2 = new List<NumericUpDown>();
-            NumbericUpDowns2.Add(numericUpDown2);
-            NumbericUpDowns2.Add(numericUpDown5);
-            NumbericUpDowns2.Add(numericUpDown8);
-            NumbericUpDowns2.Add(numericUpDown11);
-            NumbericUpDowns2.Add(numericUpDown14);
-            NumbericUpDowns2.Add(numericUpDown17);
-            NumbericUpDowns2.Add(numericUpDown20);
-            NumbericUpDowns2.Add(numericUpDown23);
-            NumbericUpDowns2.Add(numericUpDown26);
-            NumbericUpDowns2.Add(numericUpDown29);
-            NumbericUpDowns2.Add(numericUpDown32);
-            NumbericUpDowns2.Add(numericUpDown35);
-            NumbericUpDowns2.Add(numericUpDown38);
-            NumbericUpDowns2.Add(numericUpDown41);
-            NumbericUpDowns2.Add(numericUpDown44);
-
-            NumbericUpDowns3 = new List<NumericUpDown>();
-            NumbericUpDowns3.Add(numericUpDown3);
-            NumbericUpDowns3.Add(numericUpDown6);
-            NumbericUpDowns3.Add(numericUpDown9);
-            NumbericUpDowns3.Add(numericUpDown12);
-            NumbericUpDowns3.Add(numericUpDown15);
-            NumbericUpDowns3.Add(numericUpDown18);
-            NumbericUpDowns3.Add(numericUpDown21);
-            NumbericUpDowns3.Add(numericUpDown24);
-            NumbericUpDowns3.Add(numericUpDown27);
-            NumbericUpDowns3.Add(numericUpDown30);
-            NumbericUpDowns3.Add(numericUpDown33);
-            NumbericUpDowns3.Add(numericUpDown36);
-            NumbericUpDowns3.Add(numericUpDown39);
-            NumbericUpDowns3.Add(numericUpDown42);
-            NumbericUpDowns3.Add(numericUpDown45);
-
-            MaskComboBoxes1 = new List<ComboBox>();
-            MaskComboBoxes1.Add(comboBox1);
-            MaskComboBoxes1.Add(comboBox3);
-            MaskComboBoxes1.Add(comboBox5);
-            MaskComboBoxes1.Add(comboBox7);
-            MaskComboBoxes1.Add(comboBox9);
-            MaskComboBoxes1.Add(comboBox11);
-            MaskComboBoxes1.Add(comboBox13);
-            MaskComboBoxes1.Add(comboBox15);
-            MaskComboBoxes1.Add(comboBox17);
-            MaskComboBoxes1.Add(comboBox19);
-            MaskComboBoxes1.Add(comboBox21);
-            MaskComboBoxes1.Add(comboBox23);
-            MaskComboBoxes1.Add(comboBox25);
-            MaskComboBoxes1.Add(comboBox27);
-            MaskComboBoxes1.Add(comboBox29);
-
-            MaskComboBoxes2 = new List<ComboBox>();
-            MaskComboBoxes2.Add(comboBox2);
-            MaskComboBoxes2.Add(comboBox4);
-            MaskComboBoxes2.Add(comboBox6);
-            MaskComboBoxes2.Add(comboBox8);
-            MaskComboBoxes2.Add(comboBox10);
-            MaskComboBoxes2.Add(comboBox12);
-            MaskComboBoxes2.Add(comboBox14);
-            MaskComboBoxes2.Add(comboBox16);
-            MaskComboBoxes2.Add(comboBox18);
-            MaskComboBoxes2.Add(comboBox20);
-            MaskComboBoxes2.Add(comboBox22);
-            MaskComboBoxes2.Add(comboBox24);
-            MaskComboBoxes2.Add(comboBox26);
-            MaskComboBoxes2.Add(comboBox28);
-            MaskComboBoxes2.Add(comboBox30);
 
             foreach (TextBox tb in IntervalTextBoxes)
             {

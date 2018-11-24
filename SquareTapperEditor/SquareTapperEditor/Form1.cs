@@ -210,12 +210,14 @@ namespace SquareTapperEditor
             {
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
+                SpawnArrows(tb);
             }
 
             foreach (TextBox tb in DurationTextBoxes)
             {
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
+                SpawnArrows(tb);
             }
 
             foreach (NumericUpDown nb in NumbericUpDowns1)
@@ -273,6 +275,48 @@ namespace SquareTapperEditor
             }
         }
         // ======================================== constructor end ==========================================
+
+        private void SpawnArrows(object ctrl)
+        {
+            const int arrowSize = 22;
+
+            TextBox tx = ctrl as TextBox;
+
+            if (tx != null)
+            {
+                Button bt1 = new Button();
+                bt1.Image = Properties.Resources.arrow2;
+                bt1.Size = new Size(arrowSize, arrowSize);
+                bt1.Location = new Point(tx.Location.X - arrowSize, tx.Location.Y - 1);
+                bt1.Tag = tx;
+                bt1.Click += buttonArrow1_Click;
+                Controls.Add(bt1);
+
+                Button bt2 = new Button();
+                bt2.Image = Properties.Resources.arrow1;
+                bt2.Size = new Size(arrowSize, arrowSize);
+                bt2.Location = new Point(tx.Location.X + tx.Size.Width, tx.Location.Y - 1);
+                bt2.Tag = tx;
+                bt2.Click += buttonArrow2_Click;
+                Controls.Add(bt2);
+            }
+        }
+
+        private void buttonArrow1_Click(object sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+            TextBox tx = bt.Tag as TextBox;
+            float value = getValueFromTextbox(tx);
+            tx.Text = (Math.Max(value - 0.05f, 0.0f)).ToString();
+        }
+
+        private void buttonArrow2_Click(object sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+            TextBox tx = bt.Tag as TextBox;
+            float value = getValueFromTextbox(tx);
+            tx.Text = (value + 0.05f).ToString();
+        }
 
         private void refreshLevelComboBox()
         {

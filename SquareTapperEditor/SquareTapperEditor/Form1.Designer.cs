@@ -66,11 +66,6 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.textBox31 = new System.Windows.Forms.TextBox();
-            this.pictureBox226 = new System.Windows.Forms.PictureBox();
-            this.pictureBox227 = new System.Windows.Forms.PictureBox();
-            this.pictureBox228 = new System.Windows.Forms.PictureBox();
-            this.pictureBox229 = new System.Windows.Forms.PictureBox();
-            this.pictureBox230 = new System.Windows.Forms.PictureBox();
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
@@ -78,6 +73,11 @@
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.comboBox31 = new System.Windows.Forms.ComboBox();
+            this.pictureBox230 = new System.Windows.Forms.PictureBox();
+            this.pictureBox229 = new System.Windows.Forms.PictureBox();
+            this.pictureBox228 = new System.Windows.Forms.PictureBox();
+            this.pictureBox227 = new System.Windows.Forms.PictureBox();
+            this.pictureBox226 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
@@ -98,16 +98,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox227)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox229)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox230)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox229)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox227)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(138, 58);
+            this.textBox1.Location = new System.Drawing.Point(159, 58);
             this.textBox1.MaxLength = 5;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(37, 20);
@@ -156,7 +156,7 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(138, 84);
+            this.textBox2.Location = new System.Drawing.Point(159, 84);
             this.textBox2.MaxLength = 5;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(37, 20);
@@ -169,8 +169,9 @@
             this.comboBox1.DropDownHeight = 500;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.IntegralHeight = false;
             this.comboBox1.ItemHeight = 25;
-            this.comboBox1.Location = new System.Drawing.Point(138, 188);
+            this.comboBox1.Location = new System.Drawing.Point(159, 188);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(37, 31);
             this.comboBox1.TabIndex = 116;
@@ -181,8 +182,9 @@
             this.comboBox2.DropDownHeight = 500;
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.IntegralHeight = false;
             this.comboBox2.ItemHeight = 25;
-            this.comboBox2.Location = new System.Drawing.Point(138, 225);
+            this.comboBox2.Location = new System.Drawing.Point(159, 225);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(37, 31);
             this.comboBox2.TabIndex = 117;
@@ -205,7 +207,7 @@
             this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(118, 262);
+            this.panel1.Location = new System.Drawing.Point(139, 262);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(78, 130);
             this.panel1.TabIndex = 148;
@@ -377,7 +379,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(138, 110);
+            this.numericUpDown1.Location = new System.Drawing.Point(159, 110);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             15,
             0,
@@ -389,7 +391,7 @@
             // 
             // numericUpDown2
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(138, 136);
+            this.numericUpDown2.Location = new System.Drawing.Point(159, 136);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             15,
             0,
@@ -401,7 +403,7 @@
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(138, 162);
+            this.numericUpDown3.Location = new System.Drawing.Point(159, 162);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             15,
             0,
@@ -435,7 +437,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(138, 23);
+            this.label2.Location = new System.Drawing.Point(159, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 214;
@@ -445,7 +447,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(138, 42);
+            this.label3.Location = new System.Drawing.Point(159, 42);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 13);
             this.label3.TabIndex = 274;
@@ -489,56 +491,6 @@
             this.textBox31.Size = new System.Drawing.Size(381, 20);
             this.textBox31.TabIndex = 306;
             this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
-            // 
-            // pictureBox226
-            // 
-            this.pictureBox226.Image = global::SquareTapperEditor.Properties.Resources.interval;
-            this.pictureBox226.Location = new System.Drawing.Point(69, 58);
-            this.pictureBox226.Name = "pictureBox226";
-            this.pictureBox226.Size = new System.Drawing.Size(43, 21);
-            this.pictureBox226.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox226.TabIndex = 307;
-            this.pictureBox226.TabStop = false;
-            // 
-            // pictureBox227
-            // 
-            this.pictureBox227.Image = global::SquareTapperEditor.Properties.Resources.total_activation_time;
-            this.pictureBox227.Location = new System.Drawing.Point(69, 83);
-            this.pictureBox227.Name = "pictureBox227";
-            this.pictureBox227.Size = new System.Drawing.Size(43, 21);
-            this.pictureBox227.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox227.TabIndex = 308;
-            this.pictureBox227.TabStop = false;
-            // 
-            // pictureBox228
-            // 
-            this.pictureBox228.Image = global::SquareTapperEditor.Properties.Resources.safe;
-            this.pictureBox228.Location = new System.Drawing.Point(80, 108);
-            this.pictureBox228.Name = "pictureBox228";
-            this.pictureBox228.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox228.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox228.TabIndex = 309;
-            this.pictureBox228.TabStop = false;
-            // 
-            // pictureBox229
-            // 
-            this.pictureBox229.Image = global::SquareTapperEditor.Properties.Resources.dangerous;
-            this.pictureBox229.Location = new System.Drawing.Point(80, 134);
-            this.pictureBox229.Name = "pictureBox229";
-            this.pictureBox229.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox229.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox229.TabIndex = 310;
-            this.pictureBox229.TabStop = false;
-            // 
-            // pictureBox230
-            // 
-            this.pictureBox230.Image = global::SquareTapperEditor.Properties.Resources.unfair;
-            this.pictureBox230.Location = new System.Drawing.Point(80, 160);
-            this.pictureBox230.Name = "pictureBox230";
-            this.pictureBox230.Size = new System.Drawing.Size(22, 22);
-            this.pictureBox230.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox230.TabIndex = 311;
-            this.pictureBox230.TabStop = false;
             // 
             // label31
             // 
@@ -610,6 +562,56 @@
             this.comboBox31.TabIndex = 318;
             this.comboBox31.SelectedValueChanged += new System.EventHandler(this.comboBox31_SelectedValueChanged);
             // 
+            // pictureBox230
+            // 
+            this.pictureBox230.Image = global::SquareTapperEditor.Properties.Resources.unfair;
+            this.pictureBox230.Location = new System.Drawing.Point(80, 160);
+            this.pictureBox230.Name = "pictureBox230";
+            this.pictureBox230.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox230.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox230.TabIndex = 311;
+            this.pictureBox230.TabStop = false;
+            // 
+            // pictureBox229
+            // 
+            this.pictureBox229.Image = global::SquareTapperEditor.Properties.Resources.dangerous;
+            this.pictureBox229.Location = new System.Drawing.Point(80, 134);
+            this.pictureBox229.Name = "pictureBox229";
+            this.pictureBox229.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox229.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox229.TabIndex = 310;
+            this.pictureBox229.TabStop = false;
+            // 
+            // pictureBox228
+            // 
+            this.pictureBox228.Image = global::SquareTapperEditor.Properties.Resources.safe;
+            this.pictureBox228.Location = new System.Drawing.Point(80, 108);
+            this.pictureBox228.Name = "pictureBox228";
+            this.pictureBox228.Size = new System.Drawing.Size(22, 22);
+            this.pictureBox228.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox228.TabIndex = 309;
+            this.pictureBox228.TabStop = false;
+            // 
+            // pictureBox227
+            // 
+            this.pictureBox227.Image = global::SquareTapperEditor.Properties.Resources.total_activation_time;
+            this.pictureBox227.Location = new System.Drawing.Point(69, 83);
+            this.pictureBox227.Name = "pictureBox227";
+            this.pictureBox227.Size = new System.Drawing.Size(43, 21);
+            this.pictureBox227.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox227.TabIndex = 308;
+            this.pictureBox227.TabStop = false;
+            // 
+            // pictureBox226
+            // 
+            this.pictureBox226.Image = global::SquareTapperEditor.Properties.Resources.interval;
+            this.pictureBox226.Location = new System.Drawing.Point(69, 58);
+            this.pictureBox226.Name = "pictureBox226";
+            this.pictureBox226.Size = new System.Drawing.Size(43, 21);
+            this.pictureBox226.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox226.TabIndex = 307;
+            this.pictureBox226.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -667,11 +669,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox227)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox229)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox230)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox229)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox227)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

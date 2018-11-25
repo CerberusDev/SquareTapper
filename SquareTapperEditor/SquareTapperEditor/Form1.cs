@@ -24,9 +24,9 @@ namespace SquareTapperEditor
         private List<TextBox> IntervalTextBoxes;
         private List<TextBox> DurationTextBoxes;
 
-        private List<NumericUpDown> NumbericUpDowns1;
-        private List<NumericUpDown> NumbericUpDowns2;
-        private List<NumericUpDown> NumbericUpDowns3;
+        private List<TextBox> NumbericUpDowns1;
+        private List<TextBox> NumbericUpDowns2;
+        private List<TextBox> NumbericUpDowns3;
 
         private List<ComboBox> MaskComboBoxes1;
         private List<ComboBox> MaskComboBoxes2;
@@ -75,9 +75,9 @@ namespace SquareTapperEditor
             LevelLabels2 = new List<Label> { label3 };
             IntervalTextBoxes = new List<TextBox> { textBox1 };
             DurationTextBoxes = new List<TextBox> { textBox2 };
-            NumbericUpDowns1 = new List<NumericUpDown> { numericUpDown1 };
-            NumbericUpDowns2 = new List<NumericUpDown> { numericUpDown2 };
-            NumbericUpDowns3 = new List<NumericUpDown> { numericUpDown3 };
+            NumbericUpDowns1 = new List<TextBox> { textBox3 };
+            NumbericUpDowns2 = new List<TextBox> { textBox4 };
+            NumbericUpDowns3 = new List<TextBox> { textBox5 };
             MaskComboBoxes1 = new List<ComboBox> { comboBox1 };
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
@@ -120,22 +120,19 @@ namespace SquareTapperEditor
                 DurationTextBoxes.Add(txt2);
                 Controls.Add(txt2);
 
-                NumericUpDown nb1 = new NumericUpDown();
-                nb1.Maximum = 15;
+                TextBox nb1 = new TextBox();
                 nb1.Size = NumbericUpDowns1[0].Size;
                 nb1.Location = new Point(NumbericUpDowns1[0].Location.X + offsetX * i, NumbericUpDowns1[0].Location.Y);
                 NumbericUpDowns1.Add(nb1);
                 Controls.Add(nb1);
 
-                NumericUpDown nb2 = new NumericUpDown();
-                nb2.Maximum = 15;
+                TextBox nb2 = new TextBox();
                 nb2.Size = NumbericUpDowns2[0].Size;
                 nb2.Location = new Point(NumbericUpDowns2[0].Location.X + offsetX * i, NumbericUpDowns2[0].Location.Y);
                 NumbericUpDowns2.Add(nb2);
                 Controls.Add(nb2);
 
-                NumericUpDown nb3 = new NumericUpDown();
-                nb3.Maximum = 15;
+                TextBox nb3 = new TextBox();
                 nb3.Size = NumbericUpDowns3[0].Size;
                 nb3.Location = new Point(NumbericUpDowns3[0].Location.X + offsetX * i, NumbericUpDowns3[0].Location.Y);
                 NumbericUpDowns3.Add(nb3);
@@ -220,14 +217,23 @@ namespace SquareTapperEditor
                 SpawnArrows(tb);
             }
 
-            foreach (NumericUpDown nb in NumbericUpDowns1)
-                nb.ValueChanged += numUpDown_ValueChanged;
+            foreach (TextBox nb in NumbericUpDowns1)
+            {
+                nb.TextChanged += handleTextChanges_decimal;
+                nb.KeyPress += handleKeyPress_decimal;
+            }
 
-            foreach (NumericUpDown nb in NumbericUpDowns2)
-                nb.ValueChanged += numUpDown_ValueChanged;
+            foreach (TextBox nb in NumbericUpDowns2)
+            {
+                nb.TextChanged += handleTextChanges_decimal;
+                nb.KeyPress += handleKeyPress_decimal;
+            } 
 
-            foreach (NumericUpDown nb in NumbericUpDowns3)
-                nb.ValueChanged += numUpDown_ValueChanged;
+            foreach (TextBox nb in NumbericUpDowns3)
+            {
+                nb.TextChanged += handleTextChanges_decimal;
+                nb.KeyPress += handleKeyPress_decimal;
+            }
 
             foreach (Image img in maskImgases)
             {
@@ -449,9 +455,9 @@ namespace SquareTapperEditor
 
             for (int i = 0; i < 15; ++i)
             {
-                yValues1[i] = (float)NumbericUpDowns1[i].Value;
-                yValues2[i] = (float)NumbericUpDowns2[i].Value;
-                yValues3[i] = (float)NumbericUpDowns3[i].Value;
+                yValues1[i] = getValueFromTextbox(NumbericUpDowns1[i]);
+                yValues2[i] = getValueFromTextbox(NumbericUpDowns2[i]);
+                yValues3[i] = getValueFromTextbox(NumbericUpDowns3[i]);
                 yValues4[i] = getValueFromTextbox(IntervalTextBoxes[i]);
                 yValues5[i] = getValueFromTextbox(DurationTextBoxes[i]);
 
@@ -505,6 +511,29 @@ namespace SquareTapperEditor
 
             // only allow one decimal point
             if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void handleTextChanges_decimal(object sender, EventArgs e)
+        {
+            TextBox tx = sender as TextBox;
+
+            if (tx.Text.Length > 0 && decimal.Parse(tx.Text) > 15)
+            {
+                tx.Text = (15).ToString();
+                tx.SelectionStart = tx.Text.Length;
+                tx.SelectionLength = 0;
+            }
+
+            redrawChart();
+            markAsDirty();
+        }
+
+        private void handleKeyPress_decimal(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -569,12 +598,6 @@ namespace SquareTapperEditor
         private void genericValueChanged(object sender, EventArgs e)
         {
             markAsDirty();
-        }
-
-        private void numUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            markAsDirty();
-            redrawChart();
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
@@ -803,9 +826,9 @@ namespace SquareTapperEditor
 
                         IntervalTextBoxes[levelIdx].Text = levelParams[0];
                         DurationTextBoxes[levelIdx].Text = levelParams[1];
-                        NumbericUpDowns1[levelIdx].Value = decimal.Parse(levelParams[2]);
-                        NumbericUpDowns2[levelIdx].Value = decimal.Parse(levelParams[3]);
-                        NumbericUpDowns3[levelIdx].Value = decimal.Parse(levelParams[4]);
+                        NumbericUpDowns1[levelIdx].Text = levelParams[2];
+                        NumbericUpDowns2[levelIdx].Text = levelParams[3];
+                        NumbericUpDowns3[levelIdx].Text = levelParams[4];
 
                         if (levelParams.Count > 5)
                         {
@@ -1008,11 +1031,11 @@ namespace SquareTapperEditor
                 sr.Write("\t\t");
                 sr.Write(DurationTextBoxes[levelIdx].Text.Replace(",", "."));
                 sr.Write("\t\t");
-                sr.Write(NumbericUpDowns1[levelIdx].Value);
+                sr.Write(NumbericUpDowns1[levelIdx].Text);
                 sr.Write("\t\t");
-                sr.Write(NumbericUpDowns2[levelIdx].Value);
+                sr.Write(NumbericUpDowns2[levelIdx].Text);
                 sr.Write("\t\t");
-                sr.Write(NumbericUpDowns3[levelIdx].Value);
+                sr.Write(NumbericUpDowns3[levelIdx].Text);
 
                 String MaskCode = IdxToMaskCode(MaskComboBoxes1[levelIdx].SelectedIndex);
 

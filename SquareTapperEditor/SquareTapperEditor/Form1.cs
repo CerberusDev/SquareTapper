@@ -107,6 +107,7 @@ namespace SquareTapperEditor
                 Controls.Add(lbl2);
 
                 TextBox txt1 = new TextBox();
+                txt1.Tag = IntervalTextBoxes[0].Tag;
                 txt1.Font = IntervalTextBoxes[0].Font;
                 txt1.Size = IntervalTextBoxes[0].Size;
                 txt1.Location = new Point(IntervalTextBoxes[0].Location.X + offsetX * i, IntervalTextBoxes[0].Location.Y);
@@ -114,6 +115,7 @@ namespace SquareTapperEditor
                 Controls.Add(txt1);
 
                 TextBox txt2 = new TextBox();
+                txt2.Tag = DurationTextBoxes[0].Tag;
                 txt2.Font = DurationTextBoxes[0].Font;
                 txt2.Size = DurationTextBoxes[0].Size;
                 txt2.Location = new Point(DurationTextBoxes[0].Location.X + offsetX * i, DurationTextBoxes[0].Location.Y);
@@ -121,18 +123,21 @@ namespace SquareTapperEditor
                 Controls.Add(txt2);
 
                 TextBox nb1 = new TextBox();
+                nb1.Tag = NumbericUpDowns1[0].Tag;
                 nb1.Size = NumbericUpDowns1[0].Size;
                 nb1.Location = new Point(NumbericUpDowns1[0].Location.X + offsetX * i, NumbericUpDowns1[0].Location.Y);
                 NumbericUpDowns1.Add(nb1);
                 Controls.Add(nb1);
 
                 TextBox nb2 = new TextBox();
+                nb2.Tag = NumbericUpDowns2[0].Tag;
                 nb2.Size = NumbericUpDowns2[0].Size;
                 nb2.Location = new Point(NumbericUpDowns2[0].Location.X + offsetX * i, NumbericUpDowns2[0].Location.Y);
                 NumbericUpDowns2.Add(nb2);
                 Controls.Add(nb2);
 
                 TextBox nb3 = new TextBox();
+                nb3.Tag = NumbericUpDowns3[0].Tag;
                 nb3.Size = NumbericUpDowns3[0].Size;
                 nb3.Location = new Point(NumbericUpDowns3[0].Location.X + offsetX * i, NumbericUpDowns3[0].Location.Y);
                 NumbericUpDowns3.Add(nb3);
@@ -221,18 +226,21 @@ namespace SquareTapperEditor
             {
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
+                SpawnArrows(nb);
             }
 
             foreach (TextBox nb in NumbericUpDowns2)
             {
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
+                SpawnArrows(nb);
             } 
 
             foreach (TextBox nb in NumbericUpDowns3)
             {
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
+                SpawnArrows(nb);
             }
 
             foreach (Image img in maskImgases)
@@ -313,7 +321,8 @@ namespace SquareTapperEditor
             Button bt = sender as Button;
             TextBox tx = bt.Tag as TextBox;
             float value = getValueFromTextbox(tx);
-            tx.Text = (Math.Max(value - 0.05f, 0.0f)).ToString();
+            float step = float.Parse(tx.Tag.ToString());
+            tx.Text = (Math.Max(value - step, 0.0f)).ToString();
         }
 
         private void buttonArrow2_Click(object sender, EventArgs e)
@@ -321,7 +330,8 @@ namespace SquareTapperEditor
             Button bt = sender as Button;
             TextBox tx = bt.Tag as TextBox;
             float value = getValueFromTextbox(tx);
-            tx.Text = (value + 0.05f).ToString();
+            float step = float.Parse(tx.Tag.ToString());
+            tx.Text = (value + step).ToString();
         }
 
         private void refreshLevelComboBox()

@@ -431,6 +431,11 @@ namespace SquareTapperEditor
             }
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+        }
+
         private bool isDirty()
         {
             return label27.Visible;

@@ -82,8 +82,7 @@ namespace SquareTapperEditor
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
 
-            const int offsetX = 84;
-            const int pictureBoxSize = 26;
+            int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
             for (int i = 1; i < 15; ++i)
             {
@@ -93,7 +92,7 @@ namespace SquareTapperEditor
                     lbl1.TextAlign = LevelLabels1[0].TextAlign;
                     lbl1.Font = LevelLabels1[0].Font;
                     lbl1.Size = LevelLabels1[0].Size;
-                    lbl1.Location = new Point(LevelLabels1[0].Location.X + offsetX * i, LevelLabels1[0].Location.Y);
+                    lbl1.Location = new Point(LevelLabels1[0].Location.X + getCurrentOffsetX(i), LevelLabels1[0].Location.Y);
                     LevelLabels1.Add(lbl1);
                     Controls.Add(lbl1);
                 }
@@ -102,7 +101,7 @@ namespace SquareTapperEditor
                 lbl2.TextAlign = LevelLabels2[0].TextAlign;
                 lbl2.Font = LevelLabels2[0].Font;
                 lbl2.Size = LevelLabels2[0].Size;
-                lbl2.Location = new Point(LevelLabels2[0].Location.X + offsetX * i, LevelLabels2[0].Location.Y);
+                lbl2.Location = new Point(LevelLabels2[0].Location.X + getCurrentOffsetX(i), LevelLabels2[0].Location.Y);
                 LevelLabels2.Add(lbl2);
                 Controls.Add(lbl2);
 
@@ -110,7 +109,7 @@ namespace SquareTapperEditor
                 txt1.Tag = IntervalTextBoxes[0].Tag;
                 txt1.Font = IntervalTextBoxes[0].Font;
                 txt1.Size = IntervalTextBoxes[0].Size;
-                txt1.Location = new Point(IntervalTextBoxes[0].Location.X + offsetX * i, IntervalTextBoxes[0].Location.Y);
+                txt1.Location = new Point(IntervalTextBoxes[0].Location.X + getCurrentOffsetX(i), IntervalTextBoxes[0].Location.Y);
                 IntervalTextBoxes.Add(txt1);
                 Controls.Add(txt1);
 
@@ -118,28 +117,31 @@ namespace SquareTapperEditor
                 txt2.Tag = DurationTextBoxes[0].Tag;
                 txt2.Font = DurationTextBoxes[0].Font;
                 txt2.Size = DurationTextBoxes[0].Size;
-                txt2.Location = new Point(DurationTextBoxes[0].Location.X + offsetX * i, DurationTextBoxes[0].Location.Y);
+                txt2.Location = new Point(DurationTextBoxes[0].Location.X + getCurrentOffsetX(i), DurationTextBoxes[0].Location.Y);
                 DurationTextBoxes.Add(txt2);
                 Controls.Add(txt2);
 
                 TextBox nb1 = new TextBox();
                 nb1.Tag = NumbericUpDowns1[0].Tag;
+                nb1.Font = NumbericUpDowns1[0].Font;
                 nb1.Size = NumbericUpDowns1[0].Size;
-                nb1.Location = new Point(NumbericUpDowns1[0].Location.X + offsetX * i, NumbericUpDowns1[0].Location.Y);
+                nb1.Location = new Point(NumbericUpDowns1[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns1[0].Location.Y);
                 NumbericUpDowns1.Add(nb1);
                 Controls.Add(nb1);
 
                 TextBox nb2 = new TextBox();
                 nb2.Tag = NumbericUpDowns2[0].Tag;
+                nb2.Font = NumbericUpDowns2[0].Font;
                 nb2.Size = NumbericUpDowns2[0].Size;
-                nb2.Location = new Point(NumbericUpDowns2[0].Location.X + offsetX * i, NumbericUpDowns2[0].Location.Y);
+                nb2.Location = new Point(NumbericUpDowns2[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns2[0].Location.Y);
                 NumbericUpDowns2.Add(nb2);
                 Controls.Add(nb2);
 
                 TextBox nb3 = new TextBox();
                 nb3.Tag = NumbericUpDowns3[0].Tag;
+                nb3.Font = NumbericUpDowns3[0].Font;
                 nb3.Size = NumbericUpDowns3[0].Size;
-                nb3.Location = new Point(NumbericUpDowns3[0].Location.X + offsetX * i, NumbericUpDowns3[0].Location.Y);
+                nb3.Location = new Point(NumbericUpDowns3[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns3[0].Location.Y);
                 NumbericUpDowns3.Add(nb3);
                 Controls.Add(nb3);
 
@@ -149,7 +151,7 @@ namespace SquareTapperEditor
                 mask1.DrawMode = MaskComboBoxes1[0].DrawMode;
                 mask1.ItemHeight = MaskComboBoxes1[0].ItemHeight;
                 mask1.Size = MaskComboBoxes1[0].Size;
-                mask1.Location = new Point(MaskComboBoxes1[0].Location.X + offsetX * i, MaskComboBoxes1[0].Location.Y);
+                mask1.Location = new Point(MaskComboBoxes1[0].Location.X + getCurrentOffsetX(i), MaskComboBoxes1[0].Location.Y);
                 MaskComboBoxes1.Add(mask1);
                 Controls.Add(mask1);
 
@@ -159,14 +161,14 @@ namespace SquareTapperEditor
                 mask2.DrawMode = MaskComboBoxes2[0].DrawMode;
                 mask2.ItemHeight = MaskComboBoxes2[0].ItemHeight;
                 mask2.Size = MaskComboBoxes2[0].Size;
-                mask2.Location = new Point(MaskComboBoxes2[0].Location.X + offsetX * i, MaskComboBoxes2[0].Location.Y);
+                mask2.Location = new Point(MaskComboBoxes2[0].Location.X + getCurrentOffsetX(i), MaskComboBoxes2[0].Location.Y);
                 MaskComboBoxes2.Add(mask2);
                 Controls.Add(mask2);
 
                 Panel pan = new Panel();
                 pan.Tag = new List<LineData>();
                 pan.Size = LayoutPanels[0].Size;
-                pan.Location = new Point(LayoutPanels[0].Location.X + offsetX * i, LayoutPanels[0].Location.Y);
+                pan.Location = new Point(LayoutPanels[0].Location.X + getCurrentOffsetX(i), LayoutPanels[0].Location.Y);
                 LayoutPanels.Add(pan);
                 Controls.Add(pan);
 
@@ -290,9 +292,22 @@ namespace SquareTapperEditor
         }
         // ======================================== constructor end ==========================================
 
+        private int getCurrentOffsetX(int i)
+        {
+            const int offsetX = 107;
+            const int offsetX_bonus = 50;
+
+            int baseOffset = offsetX * i;
+
+            if (i > 11)
+                baseOffset += offsetX_bonus;
+
+            return baseOffset;
+        }
+
         private void SpawnArrows(object ctrl)
         {
-            const int arrowSize = 22;
+            const int arrowSize = 23;
 
             TextBox tx = ctrl as TextBox;
 
@@ -301,7 +316,7 @@ namespace SquareTapperEditor
                 Button bt1 = new Button();
                 bt1.Image = Properties.Resources.arrow2;
                 bt1.Size = new Size(arrowSize, arrowSize);
-                bt1.Location = new Point(tx.Location.X - arrowSize, tx.Location.Y - 1);
+                bt1.Location = new Point(tx.Location.X - arrowSize, tx.Location.Y);
                 bt1.Tag = tx;
                 bt1.Click += buttonArrow1_Click;
                 Controls.Add(bt1);
@@ -309,7 +324,7 @@ namespace SquareTapperEditor
                 Button bt2 = new Button();
                 bt2.Image = Properties.Resources.arrow1;
                 bt2.Size = new Size(arrowSize, arrowSize);
-                bt2.Location = new Point(tx.Location.X + tx.Size.Width, tx.Location.Y - 1);
+                bt2.Location = new Point(tx.Location.X + tx.Size.Width, tx.Location.Y);
                 bt2.Tag = tx;
                 bt2.Click += buttonArrow2_Click;
                 Controls.Add(bt2);

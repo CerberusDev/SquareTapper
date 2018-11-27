@@ -197,7 +197,6 @@ namespace SquareTapperEditor
                     pc.Click += pictureBox_Click;
                     pc.Paint += pictureBox_Paint;
                     pc.MouseMove += pictureBox_MouseMove;
-                    pc.DoubleClick += pictureBox_DoubleClick;
                 }
             }
 
@@ -636,13 +635,13 @@ namespace SquareTapperEditor
             MouseEventArgs me = e as MouseEventArgs;
             Panel panel = (picBox.Parent) as Panel;
 
-            if (me.Button == MouseButtons.Left && !checkBox1.Checked)
+            if (!checkBox1.Checked)
             {
                 ButtonData bt = (picBox.Tag) as ButtonData;
                 SetPicBoxData(picBox, !bt.bDoubleTap);
                 markAsDirty();
             }
-            else if (me.Button == MouseButtons.Right || (checkBox1.Checked && me.Button == MouseButtons.Left))
+            else
             {
                 ButtonData bd = (picBox.Tag) as ButtonData;
                 List<LineData> ldList = (panel.Tag) as List<LineData>;
@@ -715,56 +714,6 @@ namespace SquareTapperEditor
             int Y = Start.Y - End.Y;
             int Z = (int)(buttonSize * 1.2f);
             return X * X + Y * Y < Z * Z;
-        }
-
-        private void pictureBox_DoubleClick(object sender, EventArgs e)
-        {
-            MouseEventArgs me = e as MouseEventArgs;
-
-            if (me.Button == MouseButtons.Right || (checkBox1.Checked && me.Button == MouseButtons.Left))
-            {
-                PictureBox picBox = sender as PictureBox;
-                ButtonData bd = (picBox.Tag) as ButtonData;
-                Panel panel = (picBox.Parent) as Panel;
-                List<LineData> ldList = (panel.Tag) as List<LineData>;
-
-                foreach (LineData ld in ldList)
-                {
-                    if (ld.bFinished)
-                    {
-                        if (ld.StartButtonIndex == bd.Index)
-                        {
-                            if (ldList.Last().bFinished == false)
-                                ldList.Remove(ldList.Last());
-
-                            ldList.Remove(ld);
-                            ld.bFinished = false;
-                            ld.LineStartLocation = ld.LineEndLocation;
-                            ld.StartButtonIndex = ld.EndButtonIndex;
-                            ld.EndButtonIndex = -1;
-                            ldList.Add(ld);
-
-                            lastPanelUnderCursor = panel;
-                            markAsDirty();
-                            break;
-                        }
-                        else if (ld.EndButtonIndex == bd.Index)
-                        {
-                            if (ldList.Last().bFinished == false)
-                                ldList.Remove(ldList.Last());
-
-                            ldList.Remove(ld);
-                            ld.bFinished = false;
-                            ld.EndButtonIndex = -1;
-                            ldList.Add(ld);
-
-                            lastPanelUnderCursor = panel;
-                            markAsDirty();
-                            break;
-                        }
-                    }
-                }
-            }
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)
@@ -1241,6 +1190,12 @@ namespace SquareTapperEditor
         private void textBox31_TextChanged(object sender, EventArgs e)
         {
             markAsDirty();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            cb.Text = cb.Checked ? "Sequences" : "Double Taps";
         }
     }
 

@@ -36,6 +36,10 @@ namespace SquareTapperEditor
         private List<Panel> LayoutPanels;
         private Panel lastPanelUnderCursor;
 
+        private bool bClearingResetTimersInProgress;
+        private List<CheckBox> PendingResetButtons;
+        private System.Timers.Timer ResetButtonsTimer;
+
         private int openedWorldNr = -1;
 
         public Form1()
@@ -71,6 +75,7 @@ namespace SquareTapperEditor
 
             ButtonImages = new List<Image> { Properties.Resources.button2, Properties.Resources.button3 };
 
+            PendingResetButtons = new List<CheckBox>();
             LevelLabels1 = new List<Label> { label2 };
             LevelLabels2 = new List<Label> { label3 };
             IntervalTextBoxes = new List<TextBox> { textBox1 };
@@ -248,7 +253,7 @@ namespace SquareTapperEditor
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
                 SpawnArrows(nb);
-            } 
+            }
 
             foreach (TextBox nb in NumbericUpDowns3)
             {
@@ -276,7 +281,7 @@ namespace SquareTapperEditor
             }
 
             foreach (ComboBox cb in MaskComboBoxes2)
-            { 
+            {
                 cb.Visible = false;
                 cb.SelectedIndex = 0;
                 cb.MeasureItem += comboBox_MeasureItem;
@@ -443,7 +448,7 @@ namespace SquareTapperEditor
             if (!isDirty())
                 return false;
 
-            DialogResult result = 
+            DialogResult result =
                 MessageBox.Show("Would you like to return to save your changes? If you proceed those changes will not be saved in the currently opened level."
                 , "Unsaved changes detected! Return?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
@@ -745,7 +750,7 @@ namespace SquareTapperEditor
                 Pen pen = new Pen(Color.FromArgb(255, 255, 0, 0));
                 pen.Width = 3.0f;
 
-                foreach (LineData ld in ldList) 
+                foreach (LineData ld in ldList)
                 {
                     e.Graphics.DrawLine(pen, ld.LineStartLocation.X - pc.Location.X, ld.LineStartLocation.Y - pc.Location.Y, ld.LineEndLocation.X - pc.Location.X, ld.LineEndLocation.Y - pc.Location.Y);
                 }
@@ -830,7 +835,7 @@ namespace SquareTapperEditor
                         if (levelParams.Count > 5)
                         {
                             MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
-                            
+
                             if (levelParams.Count > 6)
                                 MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
                             else
@@ -1108,7 +1113,7 @@ namespace SquareTapperEditor
 
             sr.Close();
         }
-        
+
         private List<SeqData> getExportSequenceData(Panel currPanel)
         {
             List<LineData> ldList = (currPanel.Tag) as List<LineData>;
@@ -1223,12 +1228,42 @@ namespace SquareTapperEditor
             if (cb.Checked)
             {
                 cb.Text = "You sure?";
+                PendingResetButtons.Add(cb);
+                setResetButtonTimer();
             }
             else
             {
                 cb.Text = "Reset";
-                resetPanel(cb.Tag as Panel);
 
+                if (!bClearingResetTimersInProgress)
+                {
+                    tryToCloseResetButtonsTimer();
+                    resetPanel(cb.Tag as Panel);
+                }
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+
+            if (cb.Checked)
+            {
+                cb.Text = "You sure?";
+                PendingResetButtons.Add(cb);
+                setResetButtonTimer();
+            }
+            else
+            {
+                cb.Text = "Reset All";
+
+                if (!bClearingResetTimersInProgress)
+                {
+                    tryToCloseResetButtonsTimer();
+
+                    foreach (Panel pan in LayoutPanels)
+                        resetPanel(pan);
+                }
             }
         }
 
@@ -1248,20 +1283,37 @@ namespace SquareTapperEditor
             }
         }
 
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        private void setResetButtonTimer()
         {
-            CheckBox cb = sender as CheckBox;
+            tryToCloseResetButtonsTimer();
 
-            if (cb.Checked)
+            ResetButtonsTimer = new System.Timers.Timer(1000);
+            ResetButtonsTimer.SynchronizingObject = this;
+            ResetButtonsTimer.Elapsed += clearResetButtons;
+            ResetButtonsTimer.Enabled = true;
+        }
+
+        private void clearResetButtons(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            bClearingResetTimersInProgress = true;
+            tryToCloseResetButtonsTimer();
+
+            for (int i = PendingResetButtons.Count - 1; i >= 0; --i)
             {
-                cb.Text = "You sure?";
+                CheckBox resetBt = PendingResetButtons[i];
+                resetBt.Checked = false;
+                PendingResetButtons.Remove(resetBt);
             }
-            else
-            {
-                cb.Text = "Reset All";
 
-                foreach (Panel pan in LayoutPanels)
-                    resetPanel(pan);
+            bClearingResetTimersInProgress = false;
+        }
+
+        private void tryToCloseResetButtonsTimer()
+        {
+            if (ResetButtonsTimer != null)
+            {
+                ResetButtonsTimer.Close();
+                ResetButtonsTimer = null;
             }
         }
     }

@@ -81,6 +81,8 @@ namespace SquareTapperEditor
             MaskComboBoxes1 = new List<ComboBox> { comboBox1 };
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
+            CheckBox ResetButton = checkBox2;
+            ResetButton.Tag = LayoutPanels[0];
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
@@ -181,6 +183,17 @@ namespace SquareTapperEditor
                     pc.SizeMode = PictureBoxSizeMode.StretchImage;
                     pan.Controls.Add(pc);
                 }
+
+                CheckBox bt = new CheckBox();
+                bt.Tag = pan;
+                bt.Font = ResetButton.Font;
+                bt.Text = ResetButton.Text;
+                bt.Appearance = ResetButton.Appearance;
+                bt.TextAlign = ResetButton.TextAlign;
+                bt.Size = ResetButton.Size;
+                bt.Location = new Point(ResetButton.Location.X + getCurrentOffsetX(i), ResetButton.Location.Y);
+                bt.CheckedChanged += resetCheckbox_CheckedChanged;
+                Controls.Add(bt);
             }
 
             foreach (Panel panel in LayoutPanels)
@@ -629,13 +642,18 @@ namespace SquareTapperEditor
             markAsDirty();
         }
 
+        private bool EditModeDoubleTaps()
+        {
+            return !checkBox1.Checked;
+        }
+
         private void pictureBox_Click(object sender, EventArgs e)
         {
             PictureBox picBox = sender as PictureBox;
             MouseEventArgs me = e as MouseEventArgs;
             Panel panel = (picBox.Parent) as Panel;
 
-            if (!checkBox1.Checked)
+            if (EditModeDoubleTaps())
             {
                 ButtonData bt = (picBox.Tag) as ButtonData;
                 SetPicBoxData(picBox, !bt.bDoubleTap);
@@ -1196,6 +1214,55 @@ namespace SquareTapperEditor
         {
             CheckBox cb = sender as CheckBox;
             cb.Text = cb.Checked ? "Sequences" : "Double Taps";
+        }
+
+        private void resetCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+
+            if (cb.Checked)
+            {
+                cb.Text = "You sure?";
+            }
+            else
+            {
+                cb.Text = "Reset";
+                resetPanel(cb.Tag as Panel);
+
+            }
+        }
+
+        private void resetPanel(Panel pan)
+        {
+            if (EditModeDoubleTaps())
+            {
+                foreach (Control ctrl in pan.Controls)
+                {
+                    SetPicBoxData(ctrl as PictureBox, false);
+                }
+            }
+            else
+            {
+                pan.Tag = new List<LineData>();
+                pan.Refresh();
+            }
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+
+            if (cb.Checked)
+            {
+                cb.Text = "You sure?";
+            }
+            else
+            {
+                cb.Text = "Reset All";
+
+                foreach (Panel pan in LayoutPanels)
+                    resetPanel(pan);
+            }
         }
     }
 

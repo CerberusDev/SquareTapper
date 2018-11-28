@@ -37,7 +37,7 @@ namespace SquareTapperEditor
         private Panel lastPanelUnderCursor;
 
         private bool bClearingResetTimersInProgress;
-        private List<CheckBox> PendingResetButtons;
+        private CheckBox PendingResetButton;
         private System.Timers.Timer ResetButtonsTimer;
 
         private int openedWorldNr = -1;
@@ -75,7 +75,6 @@ namespace SquareTapperEditor
 
             ButtonImages = new List<Image> { Properties.Resources.button2, Properties.Resources.button3 };
 
-            PendingResetButtons = new List<CheckBox>();
             LevelLabels1 = new List<Label> { label2 };
             LevelLabels2 = new List<Label> { label3 };
             IntervalTextBoxes = new List<TextBox> { textBox1 };
@@ -468,6 +467,12 @@ namespace SquareTapperEditor
             WindowState = FormWindowState.Maximized;
         }
 
+        private void Form1_Click(object sender, EventArgs e)
+        {
+            if (PendingResetButton != null)
+                clearPendingResetButton();
+        }
+
         private bool isDirty()
         {
             return label27.Visible;
@@ -654,6 +659,9 @@ namespace SquareTapperEditor
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            if (PendingResetButton != null)
+                clearPendingResetButton();
+
             PictureBox picBox = sender as PictureBox;
             MouseEventArgs me = e as MouseEventArgs;
             Panel panel = (picBox.Parent) as Panel;
@@ -1228,8 +1236,7 @@ namespace SquareTapperEditor
             if (cb.Checked)
             {
                 cb.Text = "You sure?";
-                PendingResetButtons.Add(cb);
-                setResetButtonTimer();
+                setNewPendingResetButton(cb);
             }
             else
             {
@@ -1237,7 +1244,7 @@ namespace SquareTapperEditor
 
                 if (!bClearingResetTimersInProgress)
                 {
-                    tryToCloseResetButtonsTimer();
+                    clearPendingResetButton();
                     resetPanel(cb.Tag as Panel);
                 }
             }
@@ -1250,8 +1257,7 @@ namespace SquareTapperEditor
             if (cb.Checked)
             {
                 cb.Text = "You sure?";
-                PendingResetButtons.Add(cb);
-                setResetButtonTimer();
+                setNewPendingResetButton(cb);
             }
             else
             {
@@ -1259,7 +1265,7 @@ namespace SquareTapperEditor
 
                 if (!bClearingResetTimersInProgress)
                 {
-                    tryToCloseResetButtonsTimer();
+                    clearPendingResetButton();
 
                     foreach (Panel pan in LayoutPanels)
                         resetPanel(pan);
@@ -1283,38 +1289,34 @@ namespace SquareTapperEditor
             }
         }
 
-        private void setResetButtonTimer()
+        private void setNewPendingResetButton(CheckBox cb)
         {
-            tryToCloseResetButtonsTimer();
+            if (PendingResetButton != null)
+                clearPendingResetButton();
+
+            PendingResetButton = cb;
 
             ResetButtonsTimer = new System.Timers.Timer(1000);
             ResetButtonsTimer.SynchronizingObject = this;
-            ResetButtonsTimer.Elapsed += clearResetButtons;
+            ResetButtonsTimer.Elapsed += resetTimerElapsed;
             ResetButtonsTimer.Enabled = true;
         }
 
-        private void clearResetButtons(Object source, System.Timers.ElapsedEventArgs e)
+        private void resetTimerElapsed(Object source, System.Timers.ElapsedEventArgs e)
         {
-            bClearingResetTimersInProgress = true;
-            tryToCloseResetButtonsTimer();
-
-            for (int i = PendingResetButtons.Count - 1; i >= 0; --i)
-            {
-                CheckBox resetBt = PendingResetButtons[i];
-                resetBt.Checked = false;
-                PendingResetButtons.Remove(resetBt);
-            }
-
-            bClearingResetTimersInProgress = false;
+            clearPendingResetButton();
         }
 
-        private void tryToCloseResetButtonsTimer()
+        private void clearPendingResetButton()
         {
-            if (ResetButtonsTimer != null)
-            {
-                ResetButtonsTimer.Close();
-                ResetButtonsTimer = null;
-            }
+            ResetButtonsTimer.Close();
+            ResetButtonsTimer = null;
+
+            bClearingResetTimersInProgress = true;
+            PendingResetButton.Checked = false;
+            bClearingResetTimersInProgress = false;
+
+            PendingResetButton = null;
         }
     }
 

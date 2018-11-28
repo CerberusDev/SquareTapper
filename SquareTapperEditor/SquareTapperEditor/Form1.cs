@@ -37,7 +37,8 @@ namespace SquareTapperEditor
         private Panel lastPanelUnderCursor;
 
         private bool bClearingResetTimersInProgress;
-        private List<ResetTimerButtonData> ResetButtonsTimers;
+        private List<CheckBox> PendingResetButtons;
+        private System.Timers.Timer ResetButtonsTimer;
 
         private int openedWorldNr = -1;
 
@@ -74,6 +75,7 @@ namespace SquareTapperEditor
 
             ButtonImages = new List<Image> { Properties.Resources.button2, Properties.Resources.button3 };
 
+            PendingResetButtons = new List<CheckBox>();
             LevelLabels1 = new List<Label> { label2 };
             LevelLabels2 = new List<Label> { label3 };
             IntervalTextBoxes = new List<TextBox> { textBox1 };
@@ -84,7 +86,6 @@ namespace SquareTapperEditor
             MaskComboBoxes1 = new List<ComboBox> { comboBox1 };
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
-            ResetButtonsTimers = new List<ResetTimerButtonData>();
             CheckBox ResetButton = checkBox2;
             ResetButton.Tag = LayoutPanels[0];
 
@@ -1227,7 +1228,8 @@ namespace SquareTapperEditor
             if (cb.Checked)
             {
                 cb.Text = "You sure?";
-                setResetButtonTimer(cb);
+                PendingResetButtons.Add(cb);
+                setResetButtonTimer();
             }
             else
             {
@@ -1235,7 +1237,7 @@ namespace SquareTapperEditor
 
                 if (!bClearingResetTimersInProgress)
                 {
-                    tryToClearResetButtonTimer(cb);
+                    tryToCloseResetButtonsTimer();
                     resetPanel(cb.Tag as Panel);
                 }
             }
@@ -1248,7 +1250,8 @@ namespace SquareTapperEditor
             if (cb.Checked)
             {
                 cb.Text = "You sure?";
-                setResetButtonTimer(cb);
+                PendingResetButtons.Add(cb);
+                setResetButtonTimer();
             }
             else
             {
@@ -1256,7 +1259,7 @@ namespace SquareTapperEditor
 
                 if (!bClearingResetTimersInProgress)
                 {
-                    tryToClearResetButtonTimer(cb);
+                    tryToCloseResetButtonsTimer();
 
                     foreach (Panel pan in LayoutPanels)
                         resetPanel(pan);
@@ -1280,49 +1283,38 @@ namespace SquareTapperEditor
             }
         }
 
-        private void setResetButtonTimer(CheckBox resetButton)
+        private void setResetButtonTimer()
         {
-            tryToClearResetButtonTimer(resetButton);
+            tryToCloseResetButtonsTimer();
 
-            System.Timers.Timer resetButtonsTimer = new System.Timers.Timer(1000);
-            resetButtonsTimer.SynchronizingObject = this;
-            resetButtonsTimer.Elapsed += resetTimerElapsed;
-            resetButtonsTimer.Enabled = true;
-
-            ResetButtonsTimers.Add(new ResetTimerButtonData(resetButtonsTimer, resetButton));
+            ResetButtonsTimer = new System.Timers.Timer(1000);
+            ResetButtonsTimer.SynchronizingObject = this;
+            ResetButtonsTimer.Elapsed += clearResetButtons;
+            ResetButtonsTimer.Enabled = true;
         }
 
-        private void clearAllResetButtons()
-        {
-            for (int i = ResetButtonsTimers.Count - 1; i >= 0; --i)
-                clearResetTimer(ResetButtonsTimers[i]);
-        }
-
-        private void resetTimerElapsed(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            System.Timers.Timer timer = source as System.Timers.Timer;
-            ResetTimerButtonData data = ResetButtonsTimers.Find(x => x.resetTimer == timer);
-
-            clearResetTimer(data);
-        }
-
-        private void tryToClearResetButtonTimer(CheckBox resetButton)
-        {
-            ResetTimerButtonData data = ResetButtonsTimers.Find(x => x.resetButton == resetButton);
-
-            if (data != null)
-                clearResetTimer(data);
-        }
-
-        private void clearResetTimer(ResetTimerButtonData timerData)
+        private void clearResetButtons(Object source, System.Timers.ElapsedEventArgs e)
         {
             bClearingResetTimersInProgress = true;
+            tryToCloseResetButtonsTimer();
 
-            timerData.resetTimer.Close();
-            timerData.resetButton.Checked = false;
-            ResetButtonsTimers.Remove(timerData);
+            for (int i = PendingResetButtons.Count - 1; i >= 0; --i)
+            {
+                CheckBox resetBt = PendingResetButtons[i];
+                resetBt.Checked = false;
+                PendingResetButtons.Remove(resetBt);
+            }
 
             bClearingResetTimersInProgress = false;
+        }
+
+        private void tryToCloseResetButtonsTimer()
+        {
+            if (ResetButtonsTimer != null)
+            {
+                ResetButtonsTimer.Close();
+                ResetButtonsTimer = null;
+            }
         }
     }
 
@@ -1375,16 +1367,4 @@ namespace SquareTapperEditor
             TileIndex = argTileIndex;
         }
     };
-
-    class ResetTimerButtonData
-    {
-        public System.Timers.Timer resetTimer;
-        public CheckBox resetButton;
-
-        public ResetTimerButtonData(System.Timers.Timer argResetTimer, CheckBox argResetButton)
-        {
-            resetTimer = argResetTimer;
-            resetButton = argResetButton;
-        }
-    }
 }

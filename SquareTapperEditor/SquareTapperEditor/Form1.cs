@@ -705,19 +705,12 @@ namespace SquareTapperEditor
                     LineData ld = ldList.Last();
                     int EndIndex = bd.Index;
 
-                    bool bLineSuccessfullyAdded = false;
-
                     if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLongLineOkay(ld.StartButtonIndex, EndIndex))
                     {
-                        ld.LineEndLocation = GetControlCenter(picBox);
-                        ld.EndButtonIndex = EndIndex;
-                        ld.bFinished = true;
-
+                        ConvertLongLineToShortOnes(ldList, EndIndex, picBox, panel);
                         markAsDirty();
-                        bLineSuccessfullyAdded = true;
                     }
-
-                    if (!bLineSuccessfullyAdded)
+                    else
                     {
                         ldList.Remove(ld);
                     }
@@ -737,7 +730,7 @@ namespace SquareTapperEditor
 
         private int picBoxRowColumnToIndex(Point RowColumn)
         {
-            return (4 - RowColumn.X) * 3 + RowColumn.Y + 1;
+            return (4 - RowColumn.Y) * 3 + RowColumn.X + 1;
         }
 
         private Point GetControlCenter(Control ctrl)
@@ -802,10 +795,102 @@ namespace SquareTapperEditor
 
         private bool IsLongLineOkay(int StartButtonIndex, int EndButtonIndex)
         {
-            Point RowColumnStart = picBoxIdxToRowColumn(StartButtonIndex);
-            Point RowColumnEnd = picBoxIdxToRowColumn(EndButtonIndex);
+            Point startRowColumn = picBoxIdxToRowColumn(StartButtonIndex);
+            Point endRowColumn = picBoxIdxToRowColumn(EndButtonIndex);
 
-            return RowColumnStart.X == RowColumnEnd.X || RowColumnStart.Y == RowColumnEnd.Y || (Math.Abs(RowColumnStart.X - RowColumnEnd.X) == Math.Abs(RowColumnStart.Y - RowColumnEnd.Y));
+            return startRowColumn.X == endRowColumn.X || startRowColumn.Y == endRowColumn.Y || isDiagonalLine(startRowColumn, endRowColumn);
+        }
+
+        private bool ConvertLongLineToShortOnes(List<LineData> ldList, int endButtonIdx, PictureBox endPicBox, Panel panel)
+        {
+            LineData ldLast = ldList.Last();
+            Point startRowColumn = picBoxIdxToRowColumn(ldLast.StartButtonIndex);
+            Point endRowColumn = picBoxIdxToRowColumn(endButtonIdx);
+
+            // Check if this is a short line already
+            if (Math.Abs(startRowColumn.X - endRowColumn.X) <= 1 && Math.Abs(startRowColumn.Y - endRowColumn.Y) <= 1)
+            {
+                ldLast.LineEndLocation = GetControlCenter(endPicBox);
+                ldLast.EndButtonIndex = endButtonIdx;
+                ldLast.bFinished = true;
+            }
+            else if (isDiagonalLine(startRowColumn, endRowColumn))
+            {
+                Point middleRowColumn = new Point((startRowColumn.X + endRowColumn.X) / 2, (startRowColumn.Y + endRowColumn.Y) / 2);
+                int middleIdx = picBoxRowColumnToIndex(middleRowColumn);
+                PictureBox middlePicBox = GetPictureBoxWithIdx(panel, middleIdx);
+                Point middleLocation = GetControlCenter(middlePicBox);
+
+                ldLast.LineEndLocation = middleLocation;
+                ldLast.EndButtonIndex = middleIdx;
+                ldLast.bFinished = true;
+
+                LineData ld = new LineData();
+                ld.StartButtonIndex = middleIdx;
+                ld.LineStartLocation = middleLocation;
+                ld.EndButtonIndex = endButtonIdx;
+                ld.LineEndLocation = GetControlCenter(endPicBox);
+                ld.bFinished = true;
+                ldList.Add(ld);
+            }
+            else
+            {
+                ldList.Remove(ldLast);
+
+                bool bHorizontalLine = startRowColumn.Y == endRowColumn.Y;
+                int startIdx = bHorizontalLine ? startRowColumn.X : startRowColumn.Y;
+                int endIdx = bHorizontalLine ? endRowColumn.X : endRowColumn.Y;
+
+                if (startIdx > endIdx)
+                {
+                    int tmp = endIdx;
+                    endIdx = startIdx;
+                    startIdx = tmp;
+                }
+
+                for (int i = startIdx; i < endIdx; ++i)
+                {
+                    Point firstRowColumn = new Point();
+                    Point secondRowColumn = new Point();
+
+                    if (bHorizontalLine)
+                    {
+                        firstRowColumn.X = i;
+                        firstRowColumn.Y = startRowColumn.Y;
+
+                        secondRowColumn.X = i + 1;
+                        secondRowColumn.Y = startRowColumn.Y;
+                    }
+                    else
+                    {
+                        firstRowColumn.X = startRowColumn.X;
+                        firstRowColumn.Y = i;
+
+                        secondRowColumn.X = startRowColumn.X;
+                        secondRowColumn.Y = i + 1;
+                    }
+
+                    int firstIdx = picBoxRowColumnToIndex(firstRowColumn);
+                    int secondIdx = picBoxRowColumnToIndex(secondRowColumn);
+                    PictureBox firstPicBox = GetPictureBoxWithIdx(panel, firstIdx);
+                    PictureBox secondPicBox = GetPictureBoxWithIdx(panel, secondIdx);
+
+                    LineData ld = new LineData();
+                    ld.StartButtonIndex = firstIdx;
+                    ld.LineStartLocation = GetControlCenter(firstPicBox);
+                    ld.EndButtonIndex = secondIdx;
+                    ld.LineEndLocation = GetControlCenter(secondPicBox);
+                    ld.bFinished = true;
+                    ldList.Add(ld);
+                }
+            }
+
+            return true;
+        }
+
+        private bool isDiagonalLine(Point startRowColumn, Point endRowColumn)
+        {
+            return Math.Abs(startRowColumn.X - endRowColumn.X) == Math.Abs(startRowColumn.Y - endRowColumn.Y);
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)

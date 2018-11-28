@@ -482,6 +482,11 @@ namespace SquareTapperEditor
                 clearPendingResetButton();
         }
 
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            clearUnfinishedLine();
+        }
+
         private bool isDirty()
         {
             return label27.Visible;
@@ -942,13 +947,8 @@ namespace SquareTapperEditor
             PictureBox pc = sender as PictureBox;
             Panel panel = (pc.Parent) as Panel;
 
-            if (lastPanelUnderCursor != null && lastPanelUnderCursor != panel)
-            {
-                List<LineData> ldList = (lastPanelUnderCursor.Tag) as List<LineData>;
-                ldList.Remove(ldList.Last());
-                lastPanelUnderCursor.Refresh();
-                lastPanelUnderCursor = null;
-            }
+            if (lastPanelUnderCursor != panel)
+                clearUnfinishedLine();
 
             if (panel.Tag != null)
             {
@@ -959,6 +959,17 @@ namespace SquareTapperEditor
                     ldList.Last().LineEndLocation = new Point(e.Location.X + pc.Location.X, e.Location.Y + pc.Location.Y);
                     panel.Refresh();
                 }
+            }
+        }
+
+        private void clearUnfinishedLine()
+        {
+            if (lastPanelUnderCursor != null)
+            {
+                List<LineData> ldList = (lastPanelUnderCursor.Tag) as List<LineData>;
+                ldList.Remove(ldList.Last());
+                lastPanelUnderCursor.Refresh();
+                lastPanelUnderCursor = null;
             }
         }
 

@@ -204,6 +204,7 @@ namespace SquareTapperEditor
             {
                 ResetButtons[i].Tag = LayoutPanels[i];
                 ResetButtons[i].CheckedChanged += resetCheckbox_CheckedChanged;
+                ResetButtons[i].EnabledChanged += resetCheckbox_EnabledChanged;
             }
 
             foreach (Panel panel in LayoutPanels)
@@ -1296,6 +1297,22 @@ namespace SquareTapperEditor
                     resetPanel(cb.Tag as Panel);
                 }
             }
+        }
+
+        private void resetCheckbox_EnabledChanged(object sender, EventArgs e)
+        {
+            bool bShouldResetAllBeEnabled = false;
+
+            foreach (CheckBox resetBt in ResetButtons)
+            {
+                if (resetBt.Enabled)
+                {
+                    bShouldResetAllBeEnabled = true;
+                    break;
+                }
+            }
+
+            checkBox3.Enabled = bShouldResetAllBeEnabled;
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)

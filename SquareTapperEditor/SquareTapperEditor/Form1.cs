@@ -441,6 +441,17 @@ namespace SquareTapperEditor
             return Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\World_" + worldNr + ".lvl";
         }
 
+        public static Control FindFocusedControl(Control control)
+        {
+            var container = control as IContainerControl;
+            while (container != null)
+            {
+                control = container.ActiveControl;
+                container = control as IContainerControl;
+            }
+            return control;
+        }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.S))
@@ -448,7 +459,7 @@ namespace SquareTapperEditor
                 save();
                 return true;
             }
-            else if (keyData == Keys.Space)
+            else if (keyData == Keys.Space && FindFocusedControl(this) != checkBox1)
             {
                 toggleEditMode();
             }
@@ -458,13 +469,13 @@ namespace SquareTapperEditor
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!sequenceHelperActivated() && e.KeyCode == Keys.ControlKey)
+            if (!EditModeDoubleTaps() && !sequenceHelperActivated() && e.KeyCode == Keys.ControlKey)
                 activateSequenceHelper(true);
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey)
+            if (!EditModeDoubleTaps() && e.KeyCode == Keys.ControlKey)
             {
                 activateSequenceHelper(false);
                 clearUnfinishedLine();

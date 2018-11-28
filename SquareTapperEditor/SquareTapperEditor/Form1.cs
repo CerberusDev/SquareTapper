@@ -179,12 +179,13 @@ namespace SquareTapperEditor
                 LayoutPanels.Add(pan);
                 Controls.Add(pan);
 
-                for (int j = 0; j < 15; ++j)
+                for (int j = 1; j < 16; ++j)
                 {
                     PictureBox pc = new PictureBox();
                     pc.Size = new Size(pictureBoxSize, pictureBoxSize);
-                    pc.Location = new Point(pictureBoxSize * (j % 3), pictureBoxSize * (4 - j / 3));
-                    pc.Tag = (j + 1).ToString();
+                    Point RowColumn = picBoxIdxToRowColumn(j);
+                    pc.Location = new Point(pictureBoxSize * RowColumn.X, pictureBoxSize * RowColumn.Y);
+                    pc.Tag = j.ToString();
                     pc.SizeMode = PictureBoxSizeMode.StretchImage;
                     pan.Controls.Add(pc);
                 }
@@ -702,15 +703,21 @@ namespace SquareTapperEditor
                 else
                 {
                     LineData ld = ldList.Last();
-                    ld.LineEndLocation = GetControlCenter(picBox);
+                    int EndIndex = bd.Index;
 
-                    if (bd.Index != ld.StartButtonIndex && CanAddAnotherLineHere(ldList, bd.Index) && IsLineLengthOkay(ld.LineStartLocation, ld.LineEndLocation, picBox.Width))
+                    bool bLineSuccessfullyAdded = false;
+
+                    if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLongLineOkay(ld.StartButtonIndex, EndIndex))
                     {
+                        ld.LineEndLocation = GetControlCenter(picBox);
+                        ld.EndButtonIndex = EndIndex;
                         ld.bFinished = true;
-                        ld.EndButtonIndex = bd.Index;
+
                         markAsDirty();
+                        bLineSuccessfullyAdded = true;
                     }
-                    else
+
+                    if (!bLineSuccessfullyAdded)
                     {
                         ldList.Remove(ld);
                     }
@@ -721,6 +728,16 @@ namespace SquareTapperEditor
             }
 
             updateResetButtonEnabledState(panel);
+        }
+
+        private Point picBoxIdxToRowColumn(int index)
+        {
+            return new Point((index - 1) % 3, 4 - (index - 1) / 3);
+        }
+
+        private int picBoxRowColumnToIndex(Point RowColumn)
+        {
+            return (4 - RowColumn.X) * 3 + RowColumn.Y + 1;
         }
 
         private Point GetControlCenter(Control ctrl)
@@ -783,12 +800,12 @@ namespace SquareTapperEditor
             return Count < 2;
         }
 
-        private bool IsLineLengthOkay(Point Start, Point End, int buttonSize)
+        private bool IsLongLineOkay(int StartButtonIndex, int EndButtonIndex)
         {
-            int X = Start.X - End.X;
-            int Y = Start.Y - End.Y;
-            int Z = (int)(buttonSize * 1.2f);
-            return X * X + Y * Y < Z * Z;
+            Point RowColumnStart = picBoxIdxToRowColumn(StartButtonIndex);
+            Point RowColumnEnd = picBoxIdxToRowColumn(EndButtonIndex);
+
+            return RowColumnStart.X == RowColumnEnd.X || RowColumnStart.Y == RowColumnEnd.Y || (Math.Abs(RowColumnStart.X - RowColumnEnd.X) == Math.Abs(RowColumnStart.Y - RowColumnEnd.Y));
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)

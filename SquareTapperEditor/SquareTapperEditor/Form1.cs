@@ -684,42 +684,52 @@ namespace SquareTapperEditor
             PictureBox picBox = sender as PictureBox;
             MouseEventArgs me = e as MouseEventArgs;
             Panel panel = (picBox.Parent) as Panel;
+            ButtonData bd = (picBox.Tag) as ButtonData;
+            List<LineData> ldList = (panel.Tag) as List<LineData>;
 
-            if (EditModeDoubleTaps())
+            if (me.Button == MouseButtons.Right)
             {
-                ButtonData bt = (picBox.Tag) as ButtonData;
-                SetPicBoxData(picBox, !bt.bDoubleTap);
-                markAsDirty();
+                if (ldList.Count > 0 && !ldList.Last().bFinished)
+                {
+                    lastPanelUnderCursor = null;
+                    ldList.Remove(ldList.Last());
+                    panel.Refresh();
+                }
             }
             else
             {
-                ButtonData bd = (picBox.Tag) as ButtonData;
-                List<LineData> ldList = (panel.Tag) as List<LineData>;
-
-                if (ldList.Count == 0 || ldList.Last().bFinished)
+                if (EditModeDoubleTaps())
                 {
-                    tryToStartNewLine(ldList, bd, picBox, me, panel);
+                    SetPicBoxData(picBox, !bd.bDoubleTap);
+                    markAsDirty();
                 }
                 else
                 {
-                    lastPanelUnderCursor = null;
-
-                    LineData ld = ldList.Last();
-                    int EndIndex = bd.Index;
-
-                    if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLineShapeOkay(ld.StartButtonIndex, EndIndex))
+                    if (ldList.Count == 0 || ldList.Last().bFinished)
                     {
-                        if (ConvertLongLineToShortOnesAndAddIfPossible(ldList, EndIndex, picBox, panel) && sequenceHelperActivated())
-                        {
-                            tryToStartNewLine(ldList, bd, picBox, me, panel);
-                        }
+                        tryToStartNewLine(ldList, bd, picBox, me, panel);
                     }
                     else
                     {
-                        ldList.Remove(ld);
-                    }
+                        lastPanelUnderCursor = null;
 
-                    panel.Refresh();
+                        LineData ld = ldList.Last();
+                        int EndIndex = bd.Index;
+
+                        if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLineShapeOkay(ld.StartButtonIndex, EndIndex))
+                        {
+                            if (ConvertLongLineToShortOnesAndAddIfPossible(ldList, EndIndex, picBox, panel) && sequenceHelperActivated())
+                            {
+                                tryToStartNewLine(ldList, bd, picBox, me, panel);
+                            }
+                        }
+                        else
+                        {
+                            ldList.Remove(ld);
+                        }
+
+                        panel.Refresh();
+                    }
                 }
             }
 

@@ -705,10 +705,9 @@ namespace SquareTapperEditor
                     LineData ld = ldList.Last();
                     int EndIndex = bd.Index;
 
-                    if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLongLineOkay(ld.StartButtonIndex, EndIndex))
+                    if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLineShapeOkay(ld.StartButtonIndex, EndIndex))
                     {
-                        ConvertLongLineToShortOnes(ldList, EndIndex, picBox, panel);
-                        markAsDirty();
+                        ConvertLongLineToShortOnesAndAddIfPossible(ldList, EndIndex, picBox, panel);
                     }
                     else
                     {
@@ -780,9 +779,9 @@ namespace SquareTapperEditor
             picBox.Image = bt.bDoubleTap ? ButtonImages[1] : ButtonImages[0];
         }
 
-        private bool CanAddAnotherLineHere(List<LineData> ldList, int buttonIdx)
+        private bool CanAddAnotherLineHere(List<LineData> ldList, int buttonIdx, bool bRequireEmptyButtons = false)
         {
-            int Count = 0;
+            int Count = bRequireEmptyButtons ? 1 : 0;
 
             foreach (LineData ld in ldList)
             {
@@ -793,7 +792,7 @@ namespace SquareTapperEditor
             return Count < 2;
         }
 
-        private bool IsLongLineOkay(int StartButtonIndex, int EndButtonIndex)
+        private bool IsLineShapeOkay(int StartButtonIndex, int EndButtonIndex)
         {
             Point startRowColumn = picBoxIdxToRowColumn(StartButtonIndex);
             Point endRowColumn = picBoxIdxToRowColumn(EndButtonIndex);
@@ -801,8 +800,10 @@ namespace SquareTapperEditor
             return startRowColumn.X == endRowColumn.X || startRowColumn.Y == endRowColumn.Y || isDiagonalLine(startRowColumn, endRowColumn);
         }
 
-        private bool ConvertLongLineToShortOnes(List<LineData> ldList, int endButtonIdx, PictureBox endPicBox, Panel panel)
+        private void ConvertLongLineToShortOnesAndAddIfPossible(List<LineData> ldList, int endButtonIdx, PictureBox endPicBox, Panel panel)
         {
+            bool bLinesSuccessfullyAdded = true;
+
             LineData ldLast = ldList.Last();
             Point startRowColumn = picBoxIdxToRowColumn(ldLast.StartButtonIndex);
             Point endRowColumn = picBoxIdxToRowColumn(endButtonIdx);
@@ -821,17 +822,25 @@ namespace SquareTapperEditor
                 PictureBox middlePicBox = GetPictureBoxWithIdx(panel, middleIdx);
                 Point middleLocation = GetControlCenter(middlePicBox);
 
-                ldLast.LineEndLocation = middleLocation;
-                ldLast.EndButtonIndex = middleIdx;
-                ldLast.bFinished = true;
+                if (CanAddAnotherLineHere(ldList, middleIdx, true))
+                {
+                    ldLast.LineEndLocation = middleLocation;
+                    ldLast.EndButtonIndex = middleIdx;
+                    ldLast.bFinished = true;
 
-                LineData ld = new LineData();
-                ld.StartButtonIndex = middleIdx;
-                ld.LineStartLocation = middleLocation;
-                ld.EndButtonIndex = endButtonIdx;
-                ld.LineEndLocation = GetControlCenter(endPicBox);
-                ld.bFinished = true;
-                ldList.Add(ld);
+                    LineData ld = new LineData();
+                    ld.StartButtonIndex = middleIdx;
+                    ld.LineStartLocation = middleLocation;
+                    ld.EndButtonIndex = endButtonIdx;
+                    ld.LineEndLocation = GetControlCenter(endPicBox);
+                    ld.bFinished = true;
+                    ldList.Add(ld);
+                }
+                else
+                {
+                    bLinesSuccessfullyAdded = false;
+                    ldList.Remove(ldLast);
+                }
             }
             else
             {
@@ -847,6 +856,8 @@ namespace SquareTapperEditor
                     endIdx = startIdx;
                     startIdx = tmp;
                 }
+
+                List<LineData> ldListTmp = new List<LineData>();
 
                 for (int i = startIdx; i < endIdx; ++i)
                 {
@@ -875,17 +886,31 @@ namespace SquareTapperEditor
                     PictureBox firstPicBox = GetPictureBoxWithIdx(panel, firstIdx);
                     PictureBox secondPicBox = GetPictureBoxWithIdx(panel, secondIdx);
 
-                    LineData ld = new LineData();
-                    ld.StartButtonIndex = firstIdx;
-                    ld.LineStartLocation = GetControlCenter(firstPicBox);
-                    ld.EndButtonIndex = secondIdx;
-                    ld.LineEndLocation = GetControlCenter(secondPicBox);
-                    ld.bFinished = true;
-                    ldList.Add(ld);
+                    if (i == startIdx || CanAddAnotherLineHere(ldList, firstIdx, true))
+                    {
+                        LineData ld = new LineData();
+                        ld.StartButtonIndex = firstIdx;
+                        ld.LineStartLocation = GetControlCenter(firstPicBox);
+                        ld.EndButtonIndex = secondIdx;
+                        ld.LineEndLocation = GetControlCenter(secondPicBox);
+                        ld.bFinished = true;
+                        ldListTmp.Add(ld);
+                    }
+                    else
+                    {
+                        bLinesSuccessfullyAdded = false;
+                        break;
+                    }
+                }
+
+                if (bLinesSuccessfullyAdded)
+                {
+                    ldList.AddRange(ldListTmp);
                 }
             }
 
-            return true;
+            if (bLinesSuccessfullyAdded)
+                markAsDirty();
         }
 
         private bool isDiagonalLine(Point startRowColumn, Point endRowColumn)

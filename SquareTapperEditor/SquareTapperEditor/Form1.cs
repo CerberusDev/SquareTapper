@@ -477,10 +477,13 @@ namespace SquareTapperEditor
                 return false;
 
             DialogResult result =
-                MessageBox.Show("Would you like to return to save your changes? If you proceed those changes will not be saved in the currently opened level."
-                , "Unsaved changes detected! Return?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                MessageBox.Show("Would you like to save your changes on the current level before proceeding?"
+                , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
-            return result == DialogResult.Yes;
+            if (result == DialogResult.Yes)
+                save();
+
+            return result == DialogResult.Cancel;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

@@ -219,7 +219,7 @@ namespace SquareTapperEditor
                     int index = int.Parse(pc.Tag as String);
                     pc.Tag = new ButtonData(index);
                     pc.Image = ButtonImages[0];
-                    pc.Click += pictureBox_Click;
+                    pc.MouseUp += pictureBox_Click;
                     pc.Paint += pictureBox_Paint;
                     pc.MouseMove += pictureBox_MouseMove;
                 }

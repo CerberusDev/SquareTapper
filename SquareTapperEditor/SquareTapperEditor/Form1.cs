@@ -36,6 +36,8 @@ namespace SquareTapperEditor
         private List<Panel> LayoutPanels;
         private Panel lastPanelUnderCursor;
 
+        private List<CheckBox> ResetButtons;
+
         private bool bClearingResetTimersInProgress;
         private CheckBox PendingResetButton;
         private System.Timers.Timer ResetButtonsTimer;
@@ -85,8 +87,7 @@ namespace SquareTapperEditor
             MaskComboBoxes1 = new List<ComboBox> { comboBox1 };
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
-            CheckBox ResetButton = checkBox2;
-            ResetButton.Tag = LayoutPanels[0];
+            ResetButtons = new List<CheckBox> { checkBox2 };
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
@@ -189,15 +190,20 @@ namespace SquareTapperEditor
                 }
 
                 CheckBox bt = new CheckBox();
-                bt.Tag = pan;
-                bt.Font = ResetButton.Font;
-                bt.Text = ResetButton.Text;
-                bt.Appearance = ResetButton.Appearance;
-                bt.TextAlign = ResetButton.TextAlign;
-                bt.Size = ResetButton.Size;
-                bt.Location = new Point(ResetButton.Location.X + getCurrentOffsetX(i), ResetButton.Location.Y);
-                bt.CheckedChanged += resetCheckbox_CheckedChanged;
+                bt.Font = ResetButtons[0].Font;
+                bt.Text = ResetButtons[0].Text;
+                bt.Appearance = ResetButtons[0].Appearance;
+                bt.TextAlign = ResetButtons[0].TextAlign;
+                bt.Size = ResetButtons[0].Size;
+                bt.Location = new Point(ResetButtons[0].Location.X + getCurrentOffsetX(i), ResetButtons[0].Location.Y);
                 Controls.Add(bt);
+                ResetButtons.Add(bt);
+            }
+
+            for (int i = 0; i < ResetButtons.Count; ++i)
+            {
+                ResetButtons[i].Tag = LayoutPanels[i];
+                ResetButtons[i].CheckedChanged += resetCheckbox_CheckedChanged;
             }
 
             foreach (Panel panel in LayoutPanels)
@@ -711,11 +717,47 @@ namespace SquareTapperEditor
                     panel.Refresh();
                 }
             }
+
+            updateResetButtonEnabledState(panel);
         }
 
         private Point GetControlCenter(Control ctrl)
         {
             return new Point(ctrl.Location.X + ctrl.Width / 2, ctrl.Location.Y + ctrl.Height / 2);
+        }
+
+        private void updateResetButtonEnabledState(Panel pan)
+        {
+            int index = LayoutPanels.IndexOf(pan);
+            bool bShouldBeEnabled = false;
+
+            if (EditModeDoubleTaps())
+            {
+                foreach (Control ctrl in pan.Controls)
+                {
+                    PictureBox pc = ctrl as PictureBox;
+                    ButtonData bt = (pc.Tag) as ButtonData;
+
+                    if (bt.bDoubleTap)
+                    {
+                        bShouldBeEnabled = true;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                List<LineData> ldList = pan.Tag as List<LineData>;
+                bShouldBeEnabled = ldList.Count > 0;
+            }
+
+            ResetButtons[index].Enabled = bShouldBeEnabled;
+        }
+
+        private void updateAllResetButtonsEnabledState()
+        {
+            foreach (Panel pan in LayoutPanels)
+                updateResetButtonEnabledState(pan);
         }
 
         private void SetPicBoxData(PictureBox picBox, bool bDoubleTap)
@@ -890,6 +932,7 @@ namespace SquareTapperEditor
 
             sr.Close();
             markAsClean();
+            updateAllResetButtonsEnabledState();
         }
 
         private PictureBox GetPictureBoxWithIdx(Panel currPanel, int idx)
@@ -1227,6 +1270,11 @@ namespace SquareTapperEditor
         {
             CheckBox cb = sender as CheckBox;
             cb.Text = cb.Checked ? "Sequences" : "Double Taps";
+
+            updateAllResetButtonsEnabledState();
+
+            if (PendingResetButton != null)
+                clearPendingResetButton();
         }
 
         private void resetCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -1287,6 +1335,8 @@ namespace SquareTapperEditor
                 pan.Tag = new List<LineData>();
                 pan.Refresh();
             }
+
+            updateResetButtonEnabledState(pan);
         }
 
         private void setNewPendingResetButton(CheckBox cb)

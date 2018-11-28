@@ -1353,6 +1353,7 @@ namespace SquareTapperEditor
                 pan.Refresh();
             }
 
+            markAsDirty();
             updateResetButtonEnabledState(pan);
         }
 

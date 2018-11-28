@@ -338,7 +338,7 @@ namespace SquareTapperEditor
             if (tx != null)
             {
                 Button bt1 = new Button();
-                bt1.Image = Properties.Resources.arrow2;
+                bt1.Image = Properties.Resources.arrow_left;
                 bt1.Size = new Size(arrowSizeX, arrowSizeY);
                 bt1.Location = new Point(tx.Location.X - arrowSizeX, tx.Location.Y);
                 bt1.Tag = tx;
@@ -346,7 +346,7 @@ namespace SquareTapperEditor
                 Controls.Add(bt1);
 
                 Button bt2 = new Button();
-                bt2.Image = Properties.Resources.arrow1;
+                bt2.Image = Properties.Resources.arrow_right;
                 bt2.Size = new Size(arrowSizeX, arrowSizeY);
                 bt2.Location = new Point(tx.Location.X + tx.Size.Width, tx.Location.Y);
                 bt2.Tag = tx;

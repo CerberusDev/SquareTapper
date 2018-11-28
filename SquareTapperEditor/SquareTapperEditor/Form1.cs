@@ -330,7 +330,8 @@ namespace SquareTapperEditor
 
         private void SpawnArrows(object ctrl)
         {
-            const int arrowSize = 23;
+            const int arrowSizeX = 19;
+            const int arrowSizeY = 23;
 
             TextBox tx = ctrl as TextBox;
 
@@ -338,15 +339,15 @@ namespace SquareTapperEditor
             {
                 Button bt1 = new Button();
                 bt1.Image = Properties.Resources.arrow2;
-                bt1.Size = new Size(arrowSize, arrowSize);
-                bt1.Location = new Point(tx.Location.X - arrowSize, tx.Location.Y);
+                bt1.Size = new Size(arrowSizeX, arrowSizeY);
+                bt1.Location = new Point(tx.Location.X - arrowSizeX, tx.Location.Y);
                 bt1.Tag = tx;
                 bt1.Click += buttonArrow1_Click;
                 Controls.Add(bt1);
 
                 Button bt2 = new Button();
                 bt2.Image = Properties.Resources.arrow1;
-                bt2.Size = new Size(arrowSize, arrowSize);
+                bt2.Size = new Size(arrowSizeX, arrowSizeY);
                 bt2.Location = new Point(tx.Location.X + tx.Size.Width, tx.Location.Y);
                 bt2.Tag = tx;
                 bt2.Click += buttonArrow2_Click;

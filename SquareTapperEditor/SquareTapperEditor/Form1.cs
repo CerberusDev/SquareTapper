@@ -448,6 +448,10 @@ namespace SquareTapperEditor
                 save();
                 return true;
             }
+            else if (keyData == Keys.Space)
+            {
+                toggleEditMode();
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
@@ -685,6 +689,11 @@ namespace SquareTapperEditor
         private bool EditModeDoubleTaps()
         {
             return !checkBox1.Checked;
+        }
+
+        private void toggleEditMode()
+        {
+            checkBox1.Checked = !checkBox1.Checked;
         }
 
         private bool sequenceHelperActivated()

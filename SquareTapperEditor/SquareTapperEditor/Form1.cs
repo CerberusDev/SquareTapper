@@ -671,6 +671,11 @@ namespace SquareTapperEditor
             return !checkBox1.Checked;
         }
 
+        private bool sequenceHelperActivated()
+        {
+            return checkBox4.Checked;
+        }
+
         private void pictureBox_Click(object sender, EventArgs e)
         {
             if (PendingResetButton != null)
@@ -693,38 +698,47 @@ namespace SquareTapperEditor
 
                 if (ldList.Count == 0 || ldList.Last().bFinished)
                 {
-                    if (CanAddAnotherLineHere(ldList, bd.Index))
-                    {
-                        LineData ld = new LineData();
-
-                        ld.LineStartLocation = GetControlCenter(picBox);
-                        ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
-                        ld.StartButtonIndex = ((picBox.Tag) as ButtonData).Index;
-                        ldList.Add(ld);
-
-                        lastPanelUnderCursor = panel;
-                    }
+                    tryToStartNewLine(ldList, bd, picBox, me, panel);
                 }
                 else
                 {
+                    lastPanelUnderCursor = null;
+
                     LineData ld = ldList.Last();
                     int EndIndex = bd.Index;
 
                     if (ld.StartButtonIndex != EndIndex && CanAddAnotherLineHere(ldList, EndIndex) && IsLineShapeOkay(ld.StartButtonIndex, EndIndex))
                     {
-                        ConvertLongLineToShortOnesAndAddIfPossible(ldList, EndIndex, picBox, panel);
+                        if (ConvertLongLineToShortOnesAndAddIfPossible(ldList, EndIndex, picBox, panel) && sequenceHelperActivated())
+                        {
+                            tryToStartNewLine(ldList, bd, picBox, me, panel);
+                        }
                     }
                     else
                     {
                         ldList.Remove(ld);
                     }
 
-                    lastPanelUnderCursor = null;
                     panel.Refresh();
                 }
             }
 
             updateResetButtonEnabledState(panel);
+        }
+
+        private void tryToStartNewLine(List<LineData> ldList, ButtonData bd, PictureBox picBox, MouseEventArgs me, Panel panel)
+        {
+            if (CanAddAnotherLineHere(ldList, bd.Index))
+            {
+                LineData ld = new LineData();
+
+                ld.LineStartLocation = GetControlCenter(picBox);
+                ld.LineEndLocation = new Point(me.Location.X + picBox.Location.X, me.Location.Y + picBox.Location.Y);
+                ld.StartButtonIndex = ((picBox.Tag) as ButtonData).Index;
+                ldList.Add(ld);
+
+                lastPanelUnderCursor = panel;
+            }
         }
 
         private Point picBoxIdxToRowColumn(int index)
@@ -805,7 +819,7 @@ namespace SquareTapperEditor
             return startRowColumn.X == endRowColumn.X || startRowColumn.Y == endRowColumn.Y || isDiagonalLine(startRowColumn, endRowColumn);
         }
 
-        private void ConvertLongLineToShortOnesAndAddIfPossible(List<LineData> ldList, int endButtonIdx, PictureBox endPicBox, Panel panel)
+        private bool ConvertLongLineToShortOnesAndAddIfPossible(List<LineData> ldList, int endButtonIdx, PictureBox endPicBox, Panel panel)
         {
             bool bLinesSuccessfullyAdded = true;
 
@@ -916,6 +930,8 @@ namespace SquareTapperEditor
 
             if (bLinesSuccessfullyAdded)
                 markAsDirty();
+
+            return bLinesSuccessfullyAdded;
         }
 
         private bool isDiagonalLine(Point startRowColumn, Point endRowColumn)
@@ -1409,7 +1425,17 @@ namespace SquareTapperEditor
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
-            cb.Text = cb.Checked ? "Sequences" : "Double Taps";
+
+            if (cb.Checked)
+            {
+                cb.Text = "Sequences";
+                checkBox4.Enabled = true;
+            }
+            else
+            {
+                cb.Text = "Double Taps";
+                checkBox4.Enabled = false;
+            }
 
             updateAllResetButtonsEnabledState();
 

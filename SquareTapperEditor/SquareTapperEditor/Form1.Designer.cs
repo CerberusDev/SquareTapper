@@ -82,6 +82,7 @@
             this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
@@ -401,7 +402,7 @@
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox1.Location = new System.Drawing.Point(38, 330);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(106, 27);
+            this.checkBox1.Size = new System.Drawing.Size(127, 27);
             this.checkBox1.TabIndex = 213;
             this.checkBox1.Text = "Double Taps";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -660,18 +661,32 @@
             this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox3.Location = new System.Drawing.Point(39, 500);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(106, 27);
+            this.checkBox3.Size = new System.Drawing.Size(126, 27);
             this.checkBox3.TabIndex = 326;
             this.checkBox3.Text = "Reset All";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
+            // checkBox4
+            // 
+            this.checkBox4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox4.Enabled = false;
+            this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox4.Location = new System.Drawing.Point(38, 363);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(127, 27);
+            this.checkBox4.TabIndex = 327;
+            this.checkBox4.Text = "Sequence Helper";
+            this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1904, 1011);
+            this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.pictureBox17);
@@ -791,6 +806,7 @@
         private System.Windows.Forms.PictureBox pictureBox17;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }
 

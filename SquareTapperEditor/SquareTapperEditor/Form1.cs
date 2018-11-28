@@ -448,7 +448,23 @@ namespace SquareTapperEditor
                 save();
                 return true;
             }
+
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!sequenceHelperActivated() && e.KeyCode == Keys.ControlKey)
+                activateSequenceHelper(true);
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                activateSequenceHelper(false);
+                clearUnfinishedLine();
+            }
         }
 
         private bool dontQuit_ChangesMsgBox()
@@ -674,6 +690,11 @@ namespace SquareTapperEditor
         private bool sequenceHelperActivated()
         {
             return checkBox4.Checked;
+        }
+
+        private void activateSequenceHelper(bool bNewState)
+        {
+            checkBox4.Checked = bNewState;
         }
 
         private void pictureBox_Click(object sender, EventArgs e)

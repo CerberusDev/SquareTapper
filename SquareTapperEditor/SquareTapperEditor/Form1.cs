@@ -459,9 +459,10 @@ namespace SquareTapperEditor
                 save();
                 return true;
             }
-            else if (keyData == Keys.Space && FindFocusedControl(this) != checkBox1)
+            else if (keyData == Keys.Space)
             {
                 toggleEditMode();
+                return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);

@@ -113,7 +113,6 @@ namespace SquareTapperEditor
                 Controls.Add(lbl2);
 
                 TextBox txt1 = new TextBox();
-                txt1.Tag = IntervalTextBoxes[0].Tag;
                 txt1.Font = IntervalTextBoxes[0].Font;
                 txt1.Size = IntervalTextBoxes[0].Size;
                 txt1.Location = new Point(IntervalTextBoxes[0].Location.X + getCurrentOffsetX(i), IntervalTextBoxes[0].Location.Y);
@@ -121,7 +120,6 @@ namespace SquareTapperEditor
                 Controls.Add(txt1);
 
                 TextBox txt2 = new TextBox();
-                txt2.Tag = DurationTextBoxes[0].Tag;
                 txt2.Font = DurationTextBoxes[0].Font;
                 txt2.Size = DurationTextBoxes[0].Size;
                 txt2.Location = new Point(DurationTextBoxes[0].Location.X + getCurrentOffsetX(i), DurationTextBoxes[0].Location.Y);
@@ -129,7 +127,6 @@ namespace SquareTapperEditor
                 Controls.Add(txt2);
 
                 TextBox nb1 = new TextBox();
-                nb1.Tag = NumbericUpDowns1[0].Tag;
                 nb1.Font = NumbericUpDowns1[0].Font;
                 nb1.Size = NumbericUpDowns1[0].Size;
                 nb1.Location = new Point(NumbericUpDowns1[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns1[0].Location.Y);
@@ -137,7 +134,6 @@ namespace SquareTapperEditor
                 Controls.Add(nb1);
 
                 TextBox nb2 = new TextBox();
-                nb2.Tag = NumbericUpDowns2[0].Tag;
                 nb2.Font = NumbericUpDowns2[0].Font;
                 nb2.Size = NumbericUpDowns2[0].Size;
                 nb2.Location = new Point(NumbericUpDowns2[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns2[0].Location.Y);
@@ -145,7 +141,6 @@ namespace SquareTapperEditor
                 Controls.Add(nb2);
 
                 TextBox nb3 = new TextBox();
-                nb3.Tag = NumbericUpDowns3[0].Tag;
                 nb3.Font = NumbericUpDowns3[0].Font;
                 nb3.Size = NumbericUpDowns3[0].Size;
                 nb3.Location = new Point(NumbericUpDowns3[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns3[0].Location.Y);
@@ -238,6 +233,9 @@ namespace SquareTapperEditor
             {
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
+                ArrowButtonsData ar = new ArrowButtonsData();
+                ar.Step = 0.05f;
+                tb.Tag = ar;
                 SpawnArrows(tb);
             }
 
@@ -245,6 +243,9 @@ namespace SquareTapperEditor
             {
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
+                ArrowButtonsData ar = new ArrowButtonsData();
+                ar.Step = 0.05f;
+                tb.Tag = ar;
                 SpawnArrows(tb);
             }
 
@@ -252,6 +253,9 @@ namespace SquareTapperEditor
             {
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
+                ArrowButtonsData ar = new ArrowButtonsData();
+                ar.Step = 1;
+                nb.Tag = ar;
                 SpawnArrows(nb);
             }
 
@@ -259,6 +263,9 @@ namespace SquareTapperEditor
             {
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
+                ArrowButtonsData ar = new ArrowButtonsData();
+                ar.Step = 1;
+                nb.Tag = ar;
                 SpawnArrows(nb);
             }
 
@@ -266,6 +273,9 @@ namespace SquareTapperEditor
             {
                 nb.TextChanged += handleTextChanges_decimal;
                 nb.KeyPress += handleKeyPress_decimal;
+                ArrowButtonsData ar = new ArrowButtonsData();
+                ar.Step = 1;
+                nb.Tag = ar;
                 SpawnArrows(nb);
             }
 
@@ -353,6 +363,10 @@ namespace SquareTapperEditor
                 bt2.Tag = tx;
                 bt2.Click += buttonArrow2_Click;
                 Controls.Add(bt2);
+
+                ArrowButtonsData arrowData = tx.Tag as ArrowButtonsData;
+                arrowData.ArrowButtonLeft = bt1;
+                arrowData.ArrowButtonRight = bt2;
             }
         }
 
@@ -361,8 +375,9 @@ namespace SquareTapperEditor
             Button bt = sender as Button;
             TextBox tx = bt.Tag as TextBox;
             float value = getValueFromTextbox(tx);
-            float step = float.Parse(tx.Tag.ToString());
-            tx.Text = (Math.Max(value - step, 0.0f)).ToString();
+
+            ArrowButtonsData ar = tx.Tag as ArrowButtonsData;
+            tx.Text = (Math.Max(value - ar.Step, 0.0f)).ToString();
         }
 
         private void buttonArrow2_Click(object sender, EventArgs e)
@@ -370,8 +385,9 @@ namespace SquareTapperEditor
             Button bt = sender as Button;
             TextBox tx = bt.Tag as TextBox;
             float value = getValueFromTextbox(tx);
-            float step = float.Parse(tx.Tag.ToString());
-            tx.Text = (value + step).ToString();
+
+            ArrowButtonsData ar = tx.Tag as ArrowButtonsData;
+            tx.Text = (value + ar.Step).ToString();
         }
 
         private void refreshLevelComboBox()
@@ -463,6 +479,30 @@ namespace SquareTapperEditor
             {
                 toggleEditMode();
                 return true;
+            }
+
+            if (keyData == Keys.Up || keyData == Keys.Down)
+            {
+                Control ctrl = FindFocusedControl(this);
+
+                if (ctrl != null)
+                {
+                    ArrowButtonsData arrowData = ctrl.Tag as ArrowButtonsData;
+
+                    if (arrowData != null)
+                    {
+                        if (keyData == Keys.Up)
+                        {
+                            arrowData.ArrowButtonRight.PerformClick();
+                        }
+                        else
+                        {
+                            arrowData.ArrowButtonLeft.PerformClick();
+                        }
+
+                        return true;
+                    }
+                }
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -1657,4 +1697,11 @@ namespace SquareTapperEditor
             TileIndex = argTileIndex;
         }
     };
+
+    class ArrowButtonsData
+    {
+        public Button ArrowButtonLeft;
+        public Button ArrowButtonRight;
+        public float Step;
+    }
 }

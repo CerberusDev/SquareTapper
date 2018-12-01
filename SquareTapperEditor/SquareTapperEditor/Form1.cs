@@ -395,6 +395,14 @@ namespace SquareTapperEditor
             ComboBox cb = comboBox31;
             cb.Items.Clear();
 
+            List<int> worldNrList = getAvailableWorldNrs();
+
+            foreach (int nr in worldNrList)
+                cb.Items.Add(worldNrToString(nr));
+        }
+
+        private List<int> getAvailableWorldNrs()
+        {
             string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string[] files = Directory.GetFiles(path, "*.lvl", SearchOption.AllDirectories);
 
@@ -404,9 +412,7 @@ namespace SquareTapperEditor
                 nrList.Add(fileNameToWorldNr(fileName));
 
             nrList.Sort();
-
-            foreach (int nr in nrList)
-                cb.Items.Add(worldNrToString(nr));
+            return nrList;
         }
 
         private void comboBox31_SelectedValueChanged(object sender, EventArgs e)
@@ -1097,6 +1103,13 @@ namespace SquareTapperEditor
             return MaskCodes[Idx - 1];
         }
 
+        private bool isMaskDangerous(int maskIdx)
+        {
+            string s = IdxToMaskCode(maskIdx);
+
+            return s.Contains("Killing");
+        }
+
         // ======================================== import ==========================================
 
         private WorldInfo importToWorldInfo(int worldNr)
@@ -1134,7 +1147,7 @@ namespace SquareTapperEditor
                         li.idx = levelIdx;
 
                         li.interval = float.Parse(levelParams[0]);
-                        li.duration = float.Parse(levelParams[1]);
+                        li.activation = float.Parse(levelParams[1]);
                         li.safe = int.Parse(levelParams[2]);
                         li.dangerous = int.Parse(levelParams[3]);
                         li.unfair = int.Parse(levelParams[4]);
@@ -1200,7 +1213,7 @@ namespace SquareTapperEditor
                 LevelInfo li = wi.levelInfos[i];
 
                 IntervalTextBoxes[i].Text = li.interval.ToString();
-                DurationTextBoxes[i].Text = li.duration.ToString();
+                DurationTextBoxes[i].Text = li.activation.ToString();
                 NumbericUpDowns1[i].Text = li.safe.ToString();
                 NumbericUpDowns2[i].Text = li.dangerous.ToString();
                 NumbericUpDowns3[i].Text = li.unfair.ToString();
@@ -1678,6 +1691,88 @@ namespace SquareTapperEditor
 
             PendingResetButton = null;
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            const int startOffsetX = 20;
+            const int startOffsetY = 5;
+            const int offsetX = 100;
+            const int offsetY = 31;
+
+            int newIdx = (sender as TabControl).SelectedIndex;
+            TabPage gameOverviewPage = (sender as TabControl).TabPages[1];
+
+            if (newIdx == 1)
+            {
+                List<int> worldNrList = getAvailableWorldNrs();
+
+                for (int i = 0; i < worldNrList.Count; ++i)
+                {
+                    WorldInfo wi = importToWorldInfo(worldNrList[i]);
+                    SummaryWorldInfo summary = generateSummaryWorldInfo(wi);
+
+                    generateGameOverviewLabel(summary.nr.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY), true);
+                    generateGameOverviewLabel(summary.avgInterval.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY));
+                    generateGameOverviewLabel(summary.avgActivation.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 2));
+                    generateGameOverviewLabel(summary.totalDoubleTaps.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 3));
+                    generateGameOverviewLabel(summary.totalSafe.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 4));
+                    generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
+                    generateGameOverviewLabel(summary.totalUnfair.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 6));
+                    generateGameOverviewLabel(summary.totalSaveMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
+                    generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
+                    generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
+                }
+            }
+            else
+            {
+                panel2.Controls.Clear();
+            }
+        }
+
+        private void generateGameOverviewLabel(string text, Point location, bool bBold = false)
+        {
+            Label lbl = new Label();
+            lbl.TextAlign = LevelLabels1[0].TextAlign;
+            lbl.Font = new Font(LevelLabels1[0].Font, bBold ? FontStyle.Bold : FontStyle.Regular);
+            lbl.AutoSize = true;
+            lbl.Location = location;
+            lbl.Text = text;
+            panel2.Controls.Add(lbl);
+        }
+
+        private SummaryWorldInfo generateSummaryWorldInfo(WorldInfo wi)
+        {
+            SummaryWorldInfo summary = new SummaryWorldInfo();
+            summary.nr = wi.nr;
+
+            foreach (LevelInfo li in wi.levelInfos)
+            {
+                summary.avgInterval += li.interval;
+                summary.avgActivation += li.activation;
+                summary.totalSafe += li.safe;
+                summary.totalDangerous += li.dangerous;
+                summary.totalUnfair += li.unfair;
+
+                if (li.maskIdx1 != 0)
+                {
+                    if (isMaskDangerous(li.maskIdx1))
+                        ++summary.totalSaveMasks;
+                    else
+                        ++summary.totalDangerousMasks;
+                }
+
+                for (int i = 0; i < 15; ++i)
+                    if (li.doubleTaps[i] == true)
+                        ++summary.totalDoubleTaps;
+
+                summary.totalSequenceLength += li.sequences.Count;
+            }
+
+            summary.avgInterval /= 15.0f;
+            summary.avgActivation /= 15.0f;
+
+            return summary;
+        }
     }
 
     class LineData
@@ -1756,7 +1851,7 @@ namespace SquareTapperEditor
         public int idx;
 
         public float interval;
-        public float duration;
+        public float activation;
         public int safe;
         public int dangerous;
         public int unfair;
@@ -1772,5 +1867,19 @@ namespace SquareTapperEditor
             doubleTaps = new bool[15];
             sequences = new List<LineData>();
         }
+    }
+
+    class SummaryWorldInfo
+    {
+        public int nr;
+        public float avgInterval;
+        public float avgActivation;
+        public int totalSafe;
+        public int totalDangerous;
+        public int totalUnfair;
+        public int totalSaveMasks;
+        public int totalDoubleTaps;
+        public int totalDangerousMasks;
+        public int totalSequenceLength;
     }
 }

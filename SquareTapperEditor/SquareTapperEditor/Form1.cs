@@ -320,7 +320,7 @@ namespace SquareTapperEditor
             if (comboBox31.Items.Count > 0)
             {
                 string firstLevel = comboBox31.Items[0] as string;
-                import(fileNameToWorldNr(firstLevel));
+                importToForm(fileNameToWorldNr(firstLevel));
                 comboBox31.SelectedItem = firstLevel;
             }
         }
@@ -422,7 +422,7 @@ namespace SquareTapperEditor
                 }
                 else
                 {
-                    import(newWorldNr);
+                    importToForm(newWorldNr);
                 }
             }
         }
@@ -1099,15 +1099,16 @@ namespace SquareTapperEditor
 
         // ======================================== import ==========================================
 
-        private void import(int worldNr)
+        private WorldInfo importToWorldInfo(int worldNr)
         {
-            openedWorldNr = worldNr;
-            initLevelNumbers();
+            WorldInfo wi = new WorldInfo();
+            wi.nr = worldNr;
 
             string worldPath = worldNrToPath(worldNr);
             StreamReader sr = new StreamReader(worldPath);
             String line;
-            int levelIdx = 0;
+            LevelInfo li = wi.levelInfos[0];
+            li.idx = -1;
 
             while ((line = sr.ReadLine()) != null)
             {
@@ -1116,10 +1117,11 @@ namespace SquareTapperEditor
                     if (line.Length > 2 && line[0] == '#' && line[1] == '!')
                     {
                         String s = line.Substring(2);
-                        textBox31.Text = s;
+                        wi.comment = s;
                     }
                     else if (line[0] != '#')
                     {
+                        line = line.Replace(".", ",");
                         String[] levelParamsOriginal = line.Split();
                         List<String> levelParams = new List<String>();
 
@@ -1127,25 +1129,22 @@ namespace SquareTapperEditor
                             if (s.Length > 0)
                                 levelParams.Add(s);
 
-                        IntervalTextBoxes[levelIdx].Text = levelParams[0];
-                        DurationTextBoxes[levelIdx].Text = levelParams[1];
-                        NumbericUpDowns1[levelIdx].Text = levelParams[2];
-                        NumbericUpDowns2[levelIdx].Text = levelParams[3];
-                        NumbericUpDowns3[levelIdx].Text = levelParams[4];
+                        int levelIdx = li.idx + 1;
+                        li = wi.levelInfos[levelIdx];
+                        li.idx = levelIdx;
+
+                        li.interval = float.Parse(levelParams[0]);
+                        li.duration = float.Parse(levelParams[1]);
+                        li.safe = int.Parse(levelParams[2]);
+                        li.dangerous = int.Parse(levelParams[3]);
+                        li.unfair = int.Parse(levelParams[4]);
 
                         if (levelParams.Count > 5)
                         {
-                            MaskComboBoxes1[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[5]);
+                            li.maskIdx1 = MaskCodeToIdx(levelParams[5]);
 
                             if (levelParams.Count > 6)
-                                MaskComboBoxes2[levelIdx].SelectedIndex = MaskCodeToIdx(levelParams[6]);
-                            else
-                                MaskComboBoxes2[levelIdx].SelectedIndex = 0;
-                        }
-                        else
-                        {
-                            MaskComboBoxes2[levelIdx].SelectedIndex = 0;
-                            MaskComboBoxes1[levelIdx].SelectedIndex = 0;
+                                li.maskIdx2 = MaskCodeToIdx(levelParams[6]);
                         }
 
                         line = sr.ReadLine();
@@ -1165,23 +1164,59 @@ namespace SquareTapperEditor
                             {
                                 int idx = i * 3 + j;
                                 String currTileData = lineParams[j - 1];
-                                PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[levelIdx], idx);
 
                                 if (currTileData.Contains("SQ"))
                                     sequenceData.Add(new SeqData(currTileData, idx));
 
-                                SetPicBoxData(pc, currTileData.Contains("DB"));
+                                li.doubleTaps[idx - 1] = currTileData.Contains("DB");
                             }
                         }
 
-                        importSequenceData(sequenceData, LayoutPanels[levelIdx]);
-
-                        ++levelIdx;
+                        importSequenceData(sequenceData, li);
                     }
                 }
             }
 
             sr.Close();
+
+            return wi;
+        }
+
+        private void importToForm(int worldNr)
+        {
+            WorldInfo wi = importToWorldInfo(worldNr);
+            applyWorldInfoToForm(wi);
+        }
+
+        private void applyWorldInfoToForm(WorldInfo wi)
+        {
+            openedWorldNr = wi.nr;
+            initLevelNumbers();
+
+            textBox31.Text = wi.comment;
+
+            for (int i = 0; i < 15; ++i)
+            {
+                LevelInfo li = wi.levelInfos[i];
+
+                IntervalTextBoxes[i].Text = li.interval.ToString();
+                DurationTextBoxes[i].Text = li.duration.ToString();
+                NumbericUpDowns1[i].Text = li.safe.ToString();
+                NumbericUpDowns2[i].Text = li.dangerous.ToString();
+                NumbericUpDowns3[i].Text = li.unfair.ToString();
+
+                MaskComboBoxes1[i].SelectedIndex = li.maskIdx1;
+                MaskComboBoxes2[i].SelectedIndex = li.maskIdx2;
+
+                for (int j = 0; j < 15; ++j)
+                {
+                    PictureBox pc = GetPictureBoxWithIdx(LayoutPanels[i], j + 1);
+                    SetPicBoxData(pc, li.doubleTaps[j]);
+
+                    LayoutPanels[i].Tag = li.sequences;
+                }
+            }
+
             markAsClean();
             updateAllResetButtonsEnabledState();
         }
@@ -1200,11 +1235,8 @@ namespace SquareTapperEditor
             return null;
         }
 
-        private void importSequenceData(List<SeqData> originalSequenceData, Panel currPanel)
+        private void importSequenceData(List<SeqData> originalSequenceData, LevelInfo li)
         {
-            List<LineData> ldList = new List<LineData>();
-            currPanel.Tag = ldList;
-
             if (originalSequenceData.Count > 0)
             {
                 int maxSeqID = 0;
@@ -1233,9 +1265,9 @@ namespace SquareTapperEditor
                         ld.bFinished = true;
                         ld.StartButtonIndex = Sequence[i].TileIndex;
                         ld.EndButtonIndex = Sequence[i + 1].TileIndex;
-                        ld.LineStartLocation = GetButtonCenter(Sequence[i].TileIndex, currPanel);
-                        ld.LineEndLocation = GetButtonCenter(Sequence[i + 1].TileIndex, currPanel);
-                        ldList.Add(ld);
+                        ld.LineStartLocation = GetButtonCenter(Sequence[i].TileIndex, LayoutPanels[li.idx]);
+                        ld.LineEndLocation = GetButtonCenter(Sequence[i + 1].TileIndex, LayoutPanels[li.idx]);
+                        li.sequences.Add(ld);
                     }
                 }
             }
@@ -1703,5 +1735,42 @@ namespace SquareTapperEditor
         public Button ArrowButtonLeft;
         public Button ArrowButtonRight;
         public float Step;
+    }
+
+    class WorldInfo
+    {
+        public int nr;
+        public string comment;
+        public LevelInfo[] levelInfos;
+
+        public WorldInfo()
+        {
+            levelInfos = new LevelInfo[15];
+            for (int i = 0; i < 15; ++i)
+                levelInfos[i] = new LevelInfo();
+        }
+    }
+
+    class LevelInfo
+    {
+        public int idx;
+
+        public float interval;
+        public float duration;
+        public int safe;
+        public int dangerous;
+        public int unfair;
+
+        public int maskIdx1;
+        public int maskIdx2;
+
+        public bool[] doubleTaps;
+        public List<LineData> sequences;
+
+        public LevelInfo()
+        {
+            doubleTaps = new bool[15];
+            sequences = new List<LineData>();
+        }
     }
 }

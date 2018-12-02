@@ -1115,7 +1115,7 @@ namespace SquareTapperEditor
             return MaskCodes[Idx - 1];
         }
 
-        private bool isMaskDangerous(int maskIdx)
+        private bool isMaskKilling(int maskIdx)
         {
             string s = IdxToMaskCode(maskIdx);
 
@@ -1741,7 +1741,7 @@ namespace SquareTapperEditor
                     generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
                     generateGameOverviewLabel(summary.totalUnfair.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 6));
                     generateGameOverviewLabel(summary.totalSaveMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
-                    generateGameOverviewLabel(summary.totalDangerousMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
+                    generateGameOverviewLabel(summary.totalKillingMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
                     generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
 
                     chart2.Series[0].Points.AddXY(wi.nr, summary.totalDoubleTaps > 0 ? 1 : 0);
@@ -1749,7 +1749,7 @@ namespace SquareTapperEditor
                     chart2.Series[2].Points.AddXY(wi.nr, summary.totalDangerous > 0 ? 1 : 0);
                     chart2.Series[3].Points.AddXY(wi.nr, summary.totalUnfair > 0 ? 1 : 0);
                     chart2.Series[4].Points.AddXY(wi.nr, summary.totalSaveMasks > 0 ? 1 : 0);
-                    chart2.Series[5].Points.AddXY(wi.nr, summary.totalDangerousMasks > 0 ? 1 : 0);
+                    chart2.Series[5].Points.AddXY(wi.nr, summary.totalKillingMasks > 0 ? 1 : 0);
                     chart2.Series[6].Points.AddXY(wi.nr, summary.totalSequenceLength > 0 ? 1 : 0);
                     chart2.Series[7].Points.AddXY(wi.nr, summary.avgInterval);
                     chart2.Series[8].Points.AddXY(wi.nr, summary.avgActivation);
@@ -1788,16 +1788,16 @@ namespace SquareTapperEditor
 
                 if (li.maskIdx1 != 0)
                 {
-                    if (isMaskDangerous(li.maskIdx1))
-                        ++summary.totalDangerousMasks;
+                    if (isMaskKilling(li.maskIdx1))
+                        ++summary.totalKillingMasks;
                     else
                         ++summary.totalSaveMasks;
                 }
 
                 if (li.maskIdx2 != 0)
                 {
-                    if (isMaskDangerous(li.maskIdx2))
-                        ++summary.totalDangerousMasks;
+                    if (isMaskKilling(li.maskIdx2))
+                        ++summary.totalKillingMasks;
                     else
                         ++summary.totalSaveMasks;
                 }
@@ -1920,7 +1920,7 @@ namespace SquareTapperEditor
         public int totalUnfair;
         public int totalSaveMasks;
         public int totalDoubleTaps;
-        public int totalDangerousMasks;
+        public int totalKillingMasks;
         public int totalSequenceLength;
     }
 }

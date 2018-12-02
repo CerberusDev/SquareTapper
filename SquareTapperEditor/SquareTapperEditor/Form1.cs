@@ -1719,7 +1719,7 @@ namespace SquareTapperEditor
                     generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
                     generateGameOverviewLabel(summary.totalUnfair.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 6));
                     generateGameOverviewLabel(summary.totalSaveMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
-                    generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
+                    generateGameOverviewLabel(summary.totalDangerousMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
                     generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
                 }
             }
@@ -1756,9 +1756,17 @@ namespace SquareTapperEditor
                 if (li.maskIdx1 != 0)
                 {
                     if (isMaskDangerous(li.maskIdx1))
-                        ++summary.totalSaveMasks;
-                    else
                         ++summary.totalDangerousMasks;
+                    else
+                        ++summary.totalSaveMasks;
+                }
+
+                if (li.maskIdx2 != 0)
+                {
+                    if (isMaskDangerous(li.maskIdx2))
+                        ++summary.totalDangerousMasks;
+                    else
+                        ++summary.totalSaveMasks;
                 }
 
                 for (int i = 0; i < 15; ++i)

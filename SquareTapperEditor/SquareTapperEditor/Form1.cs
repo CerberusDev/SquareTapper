@@ -309,11 +309,23 @@ namespace SquareTapperEditor
             markAsClean();
 
             int alpha = 120;
+
             chart1.Series[0].Color = Color.FromArgb(alpha, 72, 69, 145);
             chart1.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
             chart1.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
             chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
             chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
+
+            chart2.Series[0].Color = Color.FromArgb(alpha, 72, 69, 145);
+            chart2.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
+            chart2.Series[3].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[4].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[5].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[6].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[7].Color = Color.FromArgb(150, 0, 25);
+            chart2.Series[8].Color = Color.FromArgb(15, 15, 150);
+
             redrawChart();
             refreshLevelComboBox();
 
@@ -1694,17 +1706,27 @@ namespace SquareTapperEditor
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            const int startOffsetX = 20;
+            const int startOffsetX = 0;
             const int startOffsetY = 5;
             const int offsetX = 100;
-            const int offsetY = 31;
+            const int offsetY = 30;
 
             int newIdx = (sender as TabControl).SelectedIndex;
             TabPage gameOverviewPage = (sender as TabControl).TabPages[1];
 
             if (newIdx == 1)
             {
-                List<int> worldNrList = getAvailableWorldNrs();
+                chart2.Series[0].Points.Clear();
+                chart2.Series[1].Points.Clear();
+                chart2.Series[2].Points.Clear();
+                chart2.Series[3].Points.Clear();
+                chart2.Series[4].Points.Clear();
+                chart2.Series[5].Points.Clear();
+                chart2.Series[6].Points.Clear();
+                chart2.Series[7].Points.Clear();
+                chart2.Series[8].Points.Clear();
+
+                List <int> worldNrList = getAvailableWorldNrs();
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                 {
@@ -1712,8 +1734,8 @@ namespace SquareTapperEditor
                     SummaryWorldInfo summary = generateSummaryWorldInfo(wi);
 
                     generateGameOverviewLabel(summary.nr.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY), true);
-                    generateGameOverviewLabel(summary.avgInterval.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY));
-                    generateGameOverviewLabel(summary.avgActivation.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 2));
+                    generateGameOverviewLabel(Math.Round(summary.avgInterval, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY));
+                    generateGameOverviewLabel(Math.Round(summary.avgActivation, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 2));
                     generateGameOverviewLabel(summary.totalDoubleTaps.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 3));
                     generateGameOverviewLabel(summary.totalSafe.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 4));
                     generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
@@ -1721,6 +1743,16 @@ namespace SquareTapperEditor
                     generateGameOverviewLabel(summary.totalSaveMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
                     generateGameOverviewLabel(summary.totalDangerousMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
                     generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
+
+                    chart2.Series[0].Points.AddXY(wi.nr, summary.totalDoubleTaps > 0 ? 1 : 0);
+                    chart2.Series[1].Points.AddXY(wi.nr, summary.totalSafe > 0 ? 1 : 0);
+                    chart2.Series[2].Points.AddXY(wi.nr, summary.totalDangerous > 0 ? 1 : 0);
+                    chart2.Series[3].Points.AddXY(wi.nr, summary.totalUnfair > 0 ? 1 : 0);
+                    chart2.Series[4].Points.AddXY(wi.nr, summary.totalSaveMasks > 0 ? 1 : 0);
+                    chart2.Series[5].Points.AddXY(wi.nr, summary.totalDangerousMasks > 0 ? 1 : 0);
+                    chart2.Series[6].Points.AddXY(wi.nr, summary.totalSequenceLength > 0 ? 1 : 0);
+                    chart2.Series[7].Points.AddXY(wi.nr, summary.avgInterval);
+                    chart2.Series[8].Points.AddXY(wi.nr, summary.avgActivation);
                 }
             }
             else
@@ -1734,7 +1766,8 @@ namespace SquareTapperEditor
             Label lbl = new Label();
             lbl.TextAlign = LevelLabels1[0].TextAlign;
             lbl.Font = new Font(LevelLabels1[0].Font, bBold ? FontStyle.Bold : FontStyle.Regular);
-            lbl.AutoSize = true;
+            lbl.AutoSize = false;
+            lbl.TextAlign = ContentAlignment.MiddleCenter;
             lbl.Location = location;
             lbl.Text = text;
             panel2.Controls.Add(lbl);

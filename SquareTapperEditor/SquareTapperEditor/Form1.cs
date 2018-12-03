@@ -1785,6 +1785,7 @@ namespace SquareTapperEditor
 
                 double finalMaxY = Math.Ceiling(max * 2.0) / 2.0;
                 chart2.ChartAreas[0].Axes[1].Maximum = finalMaxY;
+                chart2.ChartAreas[0].Axes[1].Interval = 0.5f;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                     for (int j = 2; j < 9; ++j)
@@ -1813,8 +1814,10 @@ namespace SquareTapperEditor
             SummaryWorldInfo summary = new SummaryWorldInfo();
             summary.nr = wi.nr;
 
-            foreach (LevelInfo li in wi.levelInfos)
+            for (int i = 0; i < 12; ++i)
             {
+                LevelInfo li = wi.levelInfos[i];
+
                 summary.avgInterval += li.interval;
                 summary.avgActivation += li.activation;
                 summary.totalSafe += li.safe;
@@ -1837,8 +1840,8 @@ namespace SquareTapperEditor
                         ++summary.totalSaveMasks;
                 }
 
-                for (int i = 0; i < 15; ++i)
-                    if (li.doubleTaps[i] == true)
+                for (int j = 0; j < 15; ++j)
+                    if (li.doubleTaps[j] == true)
                         ++summary.totalDoubleTaps;
 
                 summary.totalSequenceLength += li.sequences.Count;

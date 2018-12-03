@@ -316,15 +316,18 @@ namespace SquareTapperEditor
             chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
             chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
 
-            chart2.Series[0].Color = Color.FromArgb(alpha, 72, 69, 145);
-            chart2.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart2.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
-            chart2.Series[3].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart2.Series[4].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart2.Series[5].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart2.Series[6].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[0].Color = Color.FromArgb(alpha, 150, 150, 150);
+            chart2.Series[1].Color = Color.FromArgb(alpha, 72, 69, 145);
+            chart2.Series[2].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[3].Color = Color.FromArgb(alpha, 0, 0, 0);
+            chart2.Series[4].Color = Color.FromArgb(180, 72, 69, 145);
+            chart2.Series[5].Color = Color.FromArgb(180, 150, 16, 48);
+            chart2.Series[6].Color = Color.FromArgb(alpha, 220, 160, 40);
             chart2.Series[7].Color = Color.FromArgb(150, 0, 25);
             chart2.Series[8].Color = Color.FromArgb(15, 15, 150);
+
+            chart2.Series[7].IsVisibleInLegend = false;
+            chart2.Series[8].IsVisibleInLegend = false;
 
             redrawChart();
             refreshLevelComboBox();

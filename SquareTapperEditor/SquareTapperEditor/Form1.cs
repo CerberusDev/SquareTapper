@@ -326,8 +326,8 @@ namespace SquareTapperEditor
             chart2.Series[7].Color = Color.FromArgb(150, 0, 25);
             chart2.Series[8].Color = Color.FromArgb(15, 15, 150);
 
-            chart2.Series[7].IsVisibleInLegend = false;
-            chart2.Series[8].IsVisibleInLegend = false;
+            //chart2.Series[7].IsVisibleInLegend = false;
+            //chart2.Series[8].IsVisibleInLegend = false;
 
             redrawChart();
             refreshLevelComboBox();
@@ -1730,6 +1730,8 @@ namespace SquareTapperEditor
                 chart2.Series[8].Points.Clear();
 
                 List <int> worldNrList = getAvailableWorldNrs();
+                float max = 0;
+                int maxMechUsed = 0;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                 {
@@ -1747,16 +1749,41 @@ namespace SquareTapperEditor
                     generateGameOverviewLabel(summary.totalKillingMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
                     generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
 
-                    chart2.Series[0].Points.AddXY(wi.nr, summary.totalDoubleTaps > 0 ? 1 : 0);
-                    chart2.Series[1].Points.AddXY(wi.nr, summary.totalSafe > 0 ? 1 : 0);
-                    chart2.Series[2].Points.AddXY(wi.nr, summary.totalDangerous > 0 ? 1 : 0);
-                    chart2.Series[3].Points.AddXY(wi.nr, summary.totalUnfair > 0 ? 1 : 0);
-                    chart2.Series[4].Points.AddXY(wi.nr, summary.totalSaveMasks > 0 ? 1 : 0);
-                    chart2.Series[5].Points.AddXY(wi.nr, summary.totalKillingMasks > 0 ? 1 : 0);
-                    chart2.Series[6].Points.AddXY(wi.nr, summary.totalSequenceLength > 0 ? 1 : 0);
                     chart2.Series[7].Points.AddXY(wi.nr, summary.avgInterval);
                     chart2.Series[8].Points.AddXY(wi.nr, summary.avgActivation);
+
+                    int[] mechUsed = new int[7];
+                    int mechUsedSum = 0;
+
+                    mechUsed[0] = summary.totalDoubleTaps > 0 ? 1 : 0;
+                    mechUsed[1] = summary.totalSafe > 0 ? 1 : 0;
+                    mechUsed[2] = summary.totalDangerous > 0 ? 1 : 0;
+                    mechUsed[3] = summary.totalUnfair > 0 ? 1 : 0;
+                    mechUsed[4] = summary.totalSaveMasks > 0 ? 1 : 0;
+                    mechUsed[5] = summary.totalKillingMasks > 0 ? 1 : 0;
+                    mechUsed[6] = summary.totalSequenceLength > 0 ? 1 : 0;
+
+                    for (int j = 0; j < mechUsed.Count(); ++j)
+                    {
+                        chart2.Series[j].Points.AddXY(wi.nr, mechUsed[j]);
+                        mechUsedSum += mechUsed[j];
+                    }
+
+                    if (summary.avgInterval > max)
+                        max = summary.avgInterval;
+
+                    if (summary.avgActivation > max)
+                        max = summary.avgActivation;
+
+                    if (mechUsedSum > maxMechUsed)
+                        maxMechUsed = mechUsedSum;
                 }
+
+                double tmp = Math.Round(max * 2, MidpointRounding.AwayFromZero) / 2;
+
+                for (int i = 0; i < worldNrList.Count; ++i)
+                    for (int j = 0; j < 8; ++j)
+                        chart2.Series[j].Points[i].YValues[0] *= tmp / maxMechUsed;
             }
             else
             {

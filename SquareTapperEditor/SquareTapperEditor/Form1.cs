@@ -1787,6 +1787,11 @@ namespace SquareTapperEditor
                 chart2.ChartAreas[0].Axes[1].Maximum = finalMaxY;
                 chart2.ChartAreas[0].Axes[1].Interval = 0.5f;
 
+                chart2.ChartAreas[0].Axes[0].Interval = 1.0f;
+                chart2.ChartAreas[0].Axes[0].IntervalOffset = 0.5f;
+                chart2.ChartAreas[0].Axes[0].Minimum = -0.5f;
+                chart2.ChartAreas[0].Axes[0].Maximum = worldNrList.Count - 0.5f;
+
                 for (int i = 0; i < worldNrList.Count; ++i)
                     for (int j = 2; j < 9; ++j)
                         chart2.Series[j].Points[i].YValues[0] *= finalMaxY / maxMechUsed;

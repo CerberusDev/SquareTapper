@@ -1711,9 +1711,9 @@ namespace SquareTapperEditor
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            const int startOffsetX = 0;
+            const int startOffsetX = 10;
             const int startOffsetY = 5;
-            const int offsetX = 100;
+            const int offsetX = 65;
             const int offsetY = 30;
 
             int newIdx = (sender as TabControl).SelectedIndex;
@@ -1807,6 +1807,7 @@ namespace SquareTapperEditor
             Label lbl = new Label();
             lbl.TextAlign = LevelLabels1[0].TextAlign;
             lbl.Font = new Font(LevelLabels1[0].Font, bBold ? FontStyle.Bold : FontStyle.Regular);
+            lbl.Size = new Size(60, 23);
             lbl.AutoSize = false;
             lbl.TextAlign = ContentAlignment.MiddleCenter;
             lbl.Location = location;

@@ -316,18 +316,20 @@ namespace SquareTapperEditor
             chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
             chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
 
-            chart2.Series[0].Color = Color.FromArgb(alpha, 150, 150, 150);
-            chart2.Series[1].Color = Color.FromArgb(alpha, 72, 69, 145);
-            chart2.Series[2].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart2.Series[3].Color = Color.FromArgb(alpha, 0, 0, 0);
-            chart2.Series[4].Color = Color.FromArgb(180, 72, 69, 145);
-            chart2.Series[5].Color = Color.FromArgb(180, 150, 16, 48);
-            chart2.Series[6].Color = Color.FromArgb(alpha, 220, 160, 40);
-            chart2.Series[7].Color = Color.FromArgb(150, 0, 25);
-            chart2.Series[8].Color = Color.FromArgb(15, 15, 150);
+            chart2.Series[0].Color = Color.FromArgb(150, 0, 25);
+            chart2.Series[1].Color = Color.FromArgb(15, 15, 150);
+            chart2.Series[2].Color = Color.FromArgb(alpha, 150, 150, 150);
+            chart2.Series[3].Color = Color.FromArgb(alpha, 72, 69, 145);
+            chart2.Series[4].Color = Color.FromArgb(alpha, 150, 16, 48);
+            chart2.Series[5].Color = Color.FromArgb(alpha, 0, 0, 0);
+            chart2.Series[6].Color = Color.FromArgb(180, 72, 69, 145);
+            chart2.Series[7].Color = Color.FromArgb(180, 150, 16, 48);
+            chart2.Series[8].Color = Color.FromArgb(alpha, 220, 160, 40);
+            chart2.Series[9].Color = Color.FromArgb(150, 0, 25);
+            chart2.Series[10].Color = Color.FromArgb(15, 15, 150);
 
-            //chart2.Series[7].IsVisibleInLegend = false;
-            //chart2.Series[8].IsVisibleInLegend = false;
+            chart2.Series[9].IsVisibleInLegend = false;
+            chart2.Series[10].IsVisibleInLegend = false;
 
             redrawChart();
             refreshLevelComboBox();
@@ -1728,6 +1730,8 @@ namespace SquareTapperEditor
                 chart2.Series[6].Points.Clear();
                 chart2.Series[7].Points.Clear();
                 chart2.Series[8].Points.Clear();
+                chart2.Series[9].Points.Clear();
+                chart2.Series[10].Points.Clear();
 
                 List <int> worldNrList = getAvailableWorldNrs();
                 float max = 0;
@@ -1749,8 +1753,8 @@ namespace SquareTapperEditor
                     generateGameOverviewLabel(summary.totalKillingMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
                     generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
 
-                    chart2.Series[7].Points.AddXY(wi.nr, summary.avgInterval);
-                    chart2.Series[8].Points.AddXY(wi.nr, summary.avgActivation);
+                    chart2.Series[9].Points.AddXY(wi.nr, summary.avgInterval);
+                    chart2.Series[10].Points.AddXY(wi.nr, summary.avgActivation);
 
                     int[] mechUsed = new int[7];
                     int mechUsedSum = 0;
@@ -1765,7 +1769,7 @@ namespace SquareTapperEditor
 
                     for (int j = 0; j < mechUsed.Count(); ++j)
                     {
-                        chart2.Series[j].Points.AddXY(wi.nr, mechUsed[j]);
+                        chart2.Series[j + 2].Points.AddXY(wi.nr, mechUsed[j]);
                         mechUsedSum += mechUsed[j];
                     }
 
@@ -1779,11 +1783,12 @@ namespace SquareTapperEditor
                         maxMechUsed = mechUsedSum;
                 }
 
-                double tmp = Math.Round(max * 2, MidpointRounding.AwayFromZero) / 2;
+                double finalMaxY = Math.Ceiling(max * 2.0) / 2.0;
+                chart2.ChartAreas[0].Axes[1].Maximum = finalMaxY;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
-                    for (int j = 0; j < 8; ++j)
-                        chart2.Series[j].Points[i].YValues[0] *= tmp / maxMechUsed;
+                    for (int j = 2; j < 9; ++j)
+                        chart2.Series[j].Points[i].YValues[0] *= finalMaxY / maxMechUsed;
             }
             else
             {

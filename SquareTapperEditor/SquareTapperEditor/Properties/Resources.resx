@@ -136,6 +136,9 @@
   <data name="dangerous" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dangerous.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="empty_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\empty_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="interval" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\interval.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

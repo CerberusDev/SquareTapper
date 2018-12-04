@@ -45,7 +45,6 @@ namespace SquareTapperEditor
         private int openedWorldNr = -1;
 
         private List<Image> AllIconImages;
-        private List<Image> AvailableIconImages;
         private List<ComboBox> IconComboBoxes;
 
         public Form1()
@@ -93,7 +92,6 @@ namespace SquareTapperEditor
             LayoutPanels = new List<Panel> { panel1 };
             ResetButtons = new List<CheckBox> { checkBox2 };
 
-            AvailableIconImages = new List<Image>();
             IconComboBoxes = new List<ComboBox> { comboBox3 };
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
@@ -1719,16 +1717,16 @@ namespace SquareTapperEditor
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            const int startOffsetX = 10;
-            const int startOffsetY = 5;
-            const int offsetX = 65;
-            const int offsetY = 30;
-
             int newIdx = (sender as TabControl).SelectedIndex;
             TabPage gameOverviewPage = (sender as TabControl).TabPages[1];
 
             if (newIdx == 1)
             {
+                const int startOffsetX = 10;
+                const int startOffsetY = 5;
+                const int offsetX = 65;
+                const int offsetY = 30;
+
                 chart2.Series[0].Points.Clear();
                 chart2.Series[1].Points.Clear();
                 chart2.Series[2].Points.Clear();
@@ -1811,7 +1809,39 @@ namespace SquareTapperEditor
 
             if (newIdx == 2)
             {
-                refreshAvailableIconImages();
+                List<int> worldNrList = getAvailableWorldNrs();
+                const int offsetX = 100;
+
+                for (int i = 0; i < worldNrList.Count; ++i)
+                {
+                    if (i > 0)
+                    {
+                        ComboBox cb = new ComboBox();
+                        cb.DropDownStyle = IconComboBoxes[0].DropDownStyle;
+                        cb.DropDownHeight = IconComboBoxes[0].DropDownHeight;
+                        cb.DrawMode = IconComboBoxes[0].DrawMode;
+                        cb.ItemHeight = IconComboBoxes[0].ItemHeight;
+                        cb.Size = IconComboBoxes[0].Size;
+                        cb.Location = new Point(IconComboBoxes[0].Location.X + offsetX * i, IconComboBoxes[0].Location.Y);
+                        IconComboBoxes.Add(cb);
+                        panel3.Controls.Add(cb);
+                    }
+                }
+
+                foreach (ComboBox cb in IconComboBoxes)
+                {
+                    cb.MeasureItem += comboBoxIcon_MeasureItem;
+                    cb.DrawItem += comboBoxIcon_DrawItem;
+                    //cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
+                    cb.DropDown += comboBoxIcon_DropDown;
+                }
+            }
+            else
+            {
+                panel3.Controls.Clear();
+                panel3.Controls.Add(IconComboBoxes[0]);
+                IconComboBoxes.Clear();
+                IconComboBoxes.Add(panel3.Controls[0] as ComboBox);
             }
         }
 
@@ -1830,23 +1860,29 @@ namespace SquareTapperEditor
             AllIconImages = new List<Image>();
 
             foreach (string iconImage in iconImages)
-                AllIconImages.Add(new Bitmap(iconImage));
+                if (iconImage.Contains("inactive"))
+                    AllIconImages.Add(new Bitmap(iconImage));
         }
 
-        private void refreshAvailableIconImages()
+        private void comboBoxIcon_DropDown(object sender, EventArgs e)
         {
-            AvailableIconImages.Clear();
-            AvailableIconImages.AddRange(AllIconImages);
+            ComboBox senderCb = sender as ComboBox;
+            List<Image> availableIcons = new List<Image>(AllIconImages);
 
             foreach (ComboBox cb in IconComboBoxes)
-                AvailableIconImages.Remove(cb.SelectedItem as Image);
+                if (senderCb != cb)
+                    availableIcons.Remove(cb.SelectedItem as Image);
 
-            foreach (ComboBox cb in IconComboBoxes)
-            {
-                cb.Items.Clear();
-                cb.Items.AddRange(AvailableIconImages.ToArray());
-            }
+            senderCb.Items.Clear();
+            senderCb.Items.Add(Properties.Resources.empty_icon);
+            senderCb.Items.AddRange(availableIcons.ToArray());
         }
+
+        //private void comboBoxIcon_SelectedValueChanged(object sender, EventArgs e)
+        //{
+        //    //ComboBox cb = sender as ComboBox;
+        //    refreshAvailableIconImages();
+        //}
 
         private void comboBoxIcon_DrawItem(object sender, DrawItemEventArgs e)
         {

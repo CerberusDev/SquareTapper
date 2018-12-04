@@ -44,11 +44,15 @@ namespace SquareTapperEditor
 
         private int openedWorldNr = -1;
 
+        private List<Image> AllIconImages;
+        private List<Image> AvailableIconImages;
+        private List<ComboBox> IconComboBoxes;
+
         public Form1()
         {
             InitializeComponent();
 
-            Image[] maskImgases =
+            Image[] maskImages =
             {
                 Properties.Resources.mask1,
                 Properties.Resources.mask2,
@@ -88,6 +92,9 @@ namespace SquareTapperEditor
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
             ResetButtons = new List<CheckBox> { checkBox2 };
+
+            AvailableIconImages = new List<Image>();
+            IconComboBoxes = new List<ComboBox> { comboBox3 };
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
@@ -228,6 +235,7 @@ namespace SquareTapperEditor
             LevelLabels2[14].Text = "III";
 
             initLevelNumbers();
+            initIconImages();
 
             foreach (TextBox tb in IntervalTextBoxes)
             {
@@ -279,7 +287,7 @@ namespace SquareTapperEditor
                 SpawnArrows(nb);
             }
 
-            foreach (Image img in maskImgases)
+            foreach (Image img in maskImages)
             {
                 foreach (ComboBox cb in MaskComboBoxes1)
                     cb.Items.Add(img);
@@ -1800,6 +1808,70 @@ namespace SquareTapperEditor
             {
                 panel2.Controls.Clear();
             }
+
+            if (newIdx == 2)
+            {
+                refreshAvailableIconImages();
+            }
+        }
+
+        private void initIconImages()
+        {
+            string[] basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).Split('\\');
+            string finalBasePath = "";
+
+            for (int i = 0; i < basePath.Count() - 1; ++i)
+                finalBasePath += basePath[i] + "\\";
+
+            finalBasePath += "gui\\signs";
+
+            string[] iconImages = Directory.GetFiles(finalBasePath, "*.png", SearchOption.AllDirectories);
+
+            AllIconImages = new List<Image>();
+
+            foreach (string iconImage in iconImages)
+                AllIconImages.Add(new Bitmap(iconImage));
+        }
+
+        private void refreshAvailableIconImages()
+        {
+            AvailableIconImages.Clear();
+            AvailableIconImages.AddRange(AllIconImages);
+
+            foreach (ComboBox cb in IconComboBoxes)
+                AvailableIconImages.Remove(cb.SelectedItem as Image);
+
+            foreach (ComboBox cb in IconComboBoxes)
+            {
+                cb.Items.Clear();
+                cb.Items.AddRange(AvailableIconImages.ToArray());
+            }
+        }
+
+        private void comboBoxIcon_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            e.DrawBackground();
+
+            ComboBox cbo = sender as ComboBox;
+            Image img = (Image)cbo.Items[e.Index];
+            float hgt = e.Bounds.Height - 2 * MarginHeight;
+            float scale = hgt / img.Height;
+            float wid = img.Width * scale;
+            RectangleF rect = new RectangleF(e.Bounds.X + MarginWidth, e.Bounds.Y + MarginHeight, wid, hgt);
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+            e.Graphics.DrawImage(img, rect);
+        }
+
+        private void comboBoxIcon_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            const int desiredSize = 40;
+
+            if (e.Index < 0) return;
+
+            e.ItemHeight = desiredSize + 2 * MarginHeight;
+            e.ItemWidth = desiredSize + 2 * MarginWidth;
         }
 
         private void generateGameOverviewLabel(string text, Point location, bool bBold = false)

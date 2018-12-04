@@ -46,6 +46,8 @@ namespace SquareTapperEditor
 
         private List<Image> AllIconImages;
         private List<ComboBox> IconComboBoxes;
+        private List<TextBox> IconTextBoxes;
+        private List<PictureBox> LockPicBoxes;
 
         public Form1()
         {
@@ -93,6 +95,8 @@ namespace SquareTapperEditor
             ResetButtons = new List<CheckBox> { checkBox2 };
 
             IconComboBoxes = new List<ComboBox> { comboBox3 };
+            IconTextBoxes = new List<TextBox> { textBox6 };
+            LockPicBoxes = new List<PictureBox> { pictureBox16 };
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
@@ -699,6 +703,11 @@ namespace SquareTapperEditor
 
             redrawChart();
             markAsDirty();
+        }
+
+        private void handleTextChanges_decimalIcon(object sender, EventArgs e)
+        {
+            //mark as dirty
         }
 
         private void handleKeyPress_decimal(object sender, KeyPressEventArgs e)
@@ -1811,9 +1820,10 @@ namespace SquareTapperEditor
             {
                 List<int> worldNrList = getAvailableWorldNrs();
                 const int offsetX = 92;
-                const int offsetY = 180;
+                const int offsetY = 170;
                 const int labelOffsetY = -32;
                 const int maxWorldInRow = 20;
+                const int dropDownHeightBase = 920;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                 {
@@ -1821,6 +1831,13 @@ namespace SquareTapperEditor
 
                     if (i > 0)
                     {
+                        PictureBox pc = new PictureBox();
+                        pc.SizeMode = LockPicBoxes[0].SizeMode;
+                        pc.Image = LockPicBoxes[0].Image;
+                        pc.Location = new Point(LockPicBoxes[0].Location.X + (i % maxWorldInRow) * offsetX, LockPicBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
+                        pc.Size = LockPicBoxes[0].Size;
+                        panel3.Controls.Add(pc);
+
                         ComboBox cb = new ComboBox();
                         cb.DropDownStyle = IconComboBoxes[0].DropDownStyle;
                         cb.DropDownHeight = IconComboBoxes[0].DropDownHeight;
@@ -1830,23 +1847,47 @@ namespace SquareTapperEditor
                         cb.Location = new Point(IconComboBoxes[0].Location.X + offsetX * (i % maxWorldInRow), IconComboBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
                         IconComboBoxes.Add(cb);
                         panel3.Controls.Add(cb);
+
+                        TextBox tx = new TextBox();
+                        tx.Font = IconTextBoxes[0].Font;
+                        tx.Size = IconTextBoxes[0].Size;
+                        tx.Text = "0";
+                        tx.Location = new Point(IconTextBoxes[0].Location.X + offsetX * (i % maxWorldInRow), IconTextBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
+                        IconTextBoxes.Add(tx);
+                        panel3.Controls.Add(tx);
                     }
                 }
 
                 foreach (ComboBox cb in IconComboBoxes)
                 {
+                    cb.DropDownHeight = dropDownHeightBase - cb.Location.Y;
                     cb.MeasureItem += comboBoxIcon_MeasureItem;
                     cb.DrawItem += comboBoxIcon_DrawItem;
                     //cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
                     cb.DropDown += comboBoxIcon_DropDown;
+                }
+
+                foreach (TextBox tx in IconTextBoxes)
+                {
+                    tx.TextChanged += handleTextChanges_decimalIcon;
+                    tx.KeyPress += handleKeyPress_decimal;
                 }
             }
             else
             {
                 panel3.Controls.Clear();
                 panel3.Controls.Add(IconComboBoxes[0]);
+                panel3.Controls.Add(IconTextBoxes[0]);
+                panel3.Controls.Add(LockPicBoxes[0]);
+                
                 IconComboBoxes.Clear();
                 IconComboBoxes.Add(panel3.Controls[0] as ComboBox);
+
+                IconTextBoxes.Clear();
+                IconTextBoxes.Add(panel3.Controls[1] as TextBox);
+
+                LockPicBoxes.Clear();
+                LockPicBoxes.Add(panel3.Controls[2] as PictureBox);
             }
         }
 

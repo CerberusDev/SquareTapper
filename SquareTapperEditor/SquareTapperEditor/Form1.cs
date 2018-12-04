@@ -1810,10 +1810,15 @@ namespace SquareTapperEditor
             if (newIdx == 2)
             {
                 List<int> worldNrList = getAvailableWorldNrs();
-                const int offsetX = 100;
+                const int offsetX = 92;
+                const int offsetY = 180;
+                const int labelOffsetY = -32;
+                const int maxWorldInRow = 20;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                 {
+                    generateIconOverviewLabel(worldNrList[i].ToString(), new Point(IconComboBoxes[0].Location.X + (i % maxWorldInRow) * offsetX, IconComboBoxes[0].Location.Y + labelOffsetY + offsetY * (int)(i / maxWorldInRow)), true);
+
                     if (i > 0)
                     {
                         ComboBox cb = new ComboBox();
@@ -1822,7 +1827,7 @@ namespace SquareTapperEditor
                         cb.DrawMode = IconComboBoxes[0].DrawMode;
                         cb.ItemHeight = IconComboBoxes[0].ItemHeight;
                         cb.Size = IconComboBoxes[0].Size;
-                        cb.Location = new Point(IconComboBoxes[0].Location.X + offsetX * i, IconComboBoxes[0].Location.Y);
+                        cb.Location = new Point(IconComboBoxes[0].Location.X + offsetX * (i % maxWorldInRow), IconComboBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
                         IconComboBoxes.Add(cb);
                         panel3.Controls.Add(cb);
                     }
@@ -1921,6 +1926,19 @@ namespace SquareTapperEditor
             lbl.Location = location;
             lbl.Text = text;
             panel2.Controls.Add(lbl);
+        }
+
+        private void generateIconOverviewLabel(string text, Point location, bool bBold = false)
+        {
+            Label lbl = new Label();
+            lbl.TextAlign = LevelLabels1[0].TextAlign;
+            lbl.Font = new Font(LevelLabels1[0].Font, bBold ? FontStyle.Bold : FontStyle.Regular);
+            lbl.Size = new Size(60, 23);
+            lbl.AutoSize = false;
+            lbl.TextAlign = ContentAlignment.MiddleCenter;
+            lbl.Location = location;
+            lbl.Text = text;
+            panel3.Controls.Add(lbl);
         }
 
         private SummaryWorldInfo generateSummaryWorldInfo(WorldInfo wi)

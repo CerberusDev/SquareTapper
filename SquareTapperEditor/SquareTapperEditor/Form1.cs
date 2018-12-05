@@ -44,7 +44,8 @@ namespace SquareTapperEditor
 
         private int openedWorldNr = -1;
 
-        private List<Image> AllIconImages;
+        private List<IconData> AllIconImages;
+        private IconData EmptyIconImage;
         private List<ComboBox> IconComboBoxes;
         private List<TextBox> IconTextBoxes;
         private List<PictureBox> LockPicBoxes;
@@ -1872,6 +1873,8 @@ namespace SquareTapperEditor
                     tx.TextChanged += handleTextChanges_decimalIcon;
                     tx.KeyPress += handleKeyPress_decimal;
                 }
+
+                importInfoFile();
             }
             else
             {
@@ -1891,6 +1894,64 @@ namespace SquareTapperEditor
             }
         }
 
+        private void importInfoFile()
+        {
+            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\_Info.txt";
+            StreamReader sr = new StreamReader(path);
+            String line;
+            bool bReadingIcons = true;
+            int index = 0;
+
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (bReadingIcons)
+                {
+                    if (line.Length > 1)
+                    {
+                        if (line[0] == '#')
+                        {
+                            bReadingIcons = false;
+                            index = 0;
+                        }
+                        else if(index < IconComboBoxes.Count())
+                        {
+                            foreach (IconData ic in AllIconImages)
+                            {
+                                if (ic.path.Contains(line))
+                                {
+                                    IconComboBoxes[index].Items.Clear();
+                                    IconComboBoxes[index].Items.Add(ic);
+                                    IconComboBoxes[index].SelectedIndex = 0;
+                                    ++index;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else if (index < IconComboBoxes.Count())
+                    {
+                        IconComboBoxes[index].SelectedItem = EmptyIconImage;
+                        ++index;
+                    }
+                }
+                else if (index < IconTextBoxes.Count())
+                {
+                    if (line.Length > 1)
+                    {
+                        IconTextBoxes[index].Text = line;
+                        ++index;
+                    }
+                    else
+                    {
+                        IconTextBoxes[index].Text = "0";
+                        ++index;
+                    }
+                }
+            }
+
+            sr.Close();
+        }
+
         private void initIconImages()
         {
             string[] basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).Split('\\');
@@ -1903,24 +1964,36 @@ namespace SquareTapperEditor
 
             string[] iconImages = Directory.GetFiles(finalBasePath, "*.png", SearchOption.AllDirectories);
 
-            AllIconImages = new List<Image>();
 
-            foreach (string iconImage in iconImages)
-                if (iconImage.Contains("inactive"))
-                    AllIconImages.Add(new Bitmap(iconImage));
+            EmptyIconImage = new IconData();
+            EmptyIconImage.path = "";
+            EmptyIconImage.img = Properties.Resources.empty_icon;
+
+            AllIconImages = new List<IconData>();
+
+            foreach (string iconPath in iconImages)
+            {
+                if (iconPath.Contains("inactive"))
+                {
+                    IconData ic = new IconData();
+                    ic.path = iconPath;
+                    ic.img = new Bitmap(iconPath);
+                    AllIconImages.Add(ic);
+                }
+            }
         }
 
         private void comboBoxIcon_DropDown(object sender, EventArgs e)
         {
             ComboBox senderCb = sender as ComboBox;
-            List<Image> availableIcons = new List<Image>(AllIconImages);
+            List<IconData> availableIcons = new List<IconData>(AllIconImages);
 
             foreach (ComboBox cb in IconComboBoxes)
                 if (senderCb != cb)
-                    availableIcons.Remove(cb.SelectedItem as Image);
+                    availableIcons.Remove(cb.SelectedItem as IconData);
 
             senderCb.Items.Clear();
-            senderCb.Items.Add(Properties.Resources.empty_icon);
+            senderCb.Items.Add(EmptyIconImage);
             senderCb.Items.AddRange(availableIcons.ToArray());
         }
 
@@ -1937,7 +2010,8 @@ namespace SquareTapperEditor
             e.DrawBackground();
 
             ComboBox cbo = sender as ComboBox;
-            Image img = (Image)cbo.Items[e.Index];
+            IconData ic = cbo.Items[e.Index] as IconData;
+            Image img = ic.img;
             float hgt = e.Bounds.Height - 2 * MarginHeight;
             float scale = hgt / img.Height;
             float wid = img.Width * scale;
@@ -2133,5 +2207,28 @@ namespace SquareTapperEditor
         public int totalDoubleTaps;
         public int totalKillingMasks;
         public int totalSequenceLength;
+    }
+
+    class IconData
+    {
+        public string path;
+        public Image img;
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as IconData;
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return path == item.path;
+        }
+
+        public override int GetHashCode()
+        {
+            return path.GetHashCode();
+        }
     }
 }

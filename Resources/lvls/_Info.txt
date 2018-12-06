@@ -24,8 +24,8 @@ sign_22_inactive_512.png
 sign_23_inactive_512.png
 sign_24_inactive_512.png
 
-
-0	0
+# unlock levels
+0
 32	
 60	
 80
@@ -35,7 +35,7 @@ sign_24_inactive_512.png
 100
 100
 100
-130	10
+130
 100
 100
 100
@@ -45,7 +45,7 @@ sign_24_inactive_512.png
 100
 100
 100
-150	20
+150
 100
 100
 100

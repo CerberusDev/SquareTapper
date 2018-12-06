@@ -87,7 +87,7 @@ void LevelSelectScene::InitializeIconsAndRequiredStars()
 		{
 			bReadingIconNames = false;
 		}
-		else
+		else if (Line[0] != '#')
 		{
 			if (bReadingIconNames)
 			{

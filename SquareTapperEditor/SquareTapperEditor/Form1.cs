@@ -1866,6 +1866,9 @@ namespace SquareTapperEditor
                     cb.DrawItem += comboBoxIcon_DrawItem;
                     //cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
                     cb.DropDown += comboBoxIcon_DropDown;
+
+                    cb.Items.Add(EmptyIconImage);
+                    cb.SelectedIndex = 0;
                 }
 
                 foreach (TextBox tx in IconTextBoxes)
@@ -1885,6 +1888,7 @@ namespace SquareTapperEditor
                 
                 IconComboBoxes.Clear();
                 IconComboBoxes.Add(panel3.Controls[0] as ComboBox);
+                IconComboBoxes[0].Items.Clear();
 
                 IconTextBoxes.Clear();
                 IconTextBoxes.Add(panel3.Controls[1] as TextBox);
@@ -1892,6 +1896,42 @@ namespace SquareTapperEditor
                 LockPicBoxes.Clear();
                 LockPicBoxes.Add(panel3.Controls[2] as PictureBox);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            exportInfoFile();
+        }
+
+        private void exportInfoFile()
+        {
+            string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\_Info.txt";
+            StreamWriter sr = new StreamWriter(path);
+
+            foreach (ComboBox cb in IconComboBoxes)
+            {
+                IconData ic = cb.SelectedItem as IconData;
+
+                if (ic.path.Count() > 0)
+                {
+                    string[] tmp = ic.path.Split('\\');
+                    sr.WriteLine(tmp.Last());
+                }
+                else
+                {
+                    sr.WriteLine();
+                }
+            }
+
+            sr.WriteLine();
+            sr.WriteLine("# unlock levels");
+
+            foreach (TextBox tx in IconTextBoxes)
+            {
+                sr.WriteLine(tx.Text);
+            }
+
+            sr.Close();
         }
 
         private void importInfoFile()
@@ -1913,7 +1953,7 @@ namespace SquareTapperEditor
                             bReadingIcons = false;
                             index = 0;
                         }
-                        else if(index < IconComboBoxes.Count())
+                        else if (index < IconComboBoxes.Count())
                         {
                             foreach (IconData ic in AllIconImages)
                             {

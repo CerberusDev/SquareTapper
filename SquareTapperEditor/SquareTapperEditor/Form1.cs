@@ -506,7 +506,15 @@ namespace SquareTapperEditor
         {
             if (keyData == (Keys.Control | Keys.S))
             {
-                save();
+                if (tabControl1.SelectedIndex == 0)
+                {
+                    save();
+                }
+                else
+                {
+                    exportInfoFile();
+                }
+
                 return true;
             }
             else if (keyData == Keys.Space)
@@ -598,17 +606,44 @@ namespace SquareTapperEditor
 
         private bool isDirty()
         {
-            return label27.Visible;
+            if (tabControl1.SelectedIndex == 0)
+            {
+                return tabPage1.Text.Contains('*');
+            }
+            else
+            {
+                return tabPage3.Text.Contains('*');
+            }
         }
 
         private void markAsDirty()
         {
-            label27.Visible = true;
+            if (isDirty())
+                return;
+
+            if (tabControl1.SelectedIndex == 0)
+            {
+                tabPage1.Text += " *";
+            }
+            else
+            {
+                tabPage3.Text += " *";
+            }
         }
 
         private void markAsClean()
         {
-            label27.Visible = false;
+            if (!isDirty())
+                return;
+
+            if (tabControl1.SelectedIndex == 0)
+            {
+                tabPage1.Text = tabPage1.Text.Substring(0, tabPage1.Text.Count() - 2);
+            }
+            else
+            {
+                tabPage3.Text = tabPage3.Text.Substring(0, tabPage3.Text.Count() - 2);
+            }
         }
 
         private void initLevelNumbers()
@@ -708,7 +743,7 @@ namespace SquareTapperEditor
 
         private void handleTextChanges_decimalIcon(object sender, EventArgs e)
         {
-            //mark as dirty
+            markAsDirty();
         }
 
         private void handleKeyPress_decimal(object sender, KeyPressEventArgs e)
@@ -1864,7 +1899,7 @@ namespace SquareTapperEditor
                     cb.DropDownHeight = dropDownHeightBase - cb.Location.Y;
                     cb.MeasureItem += comboBoxIcon_MeasureItem;
                     cb.DrawItem += comboBoxIcon_DrawItem;
-                    //cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
+                    cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
                     cb.DropDown += comboBoxIcon_DropDown;
 
                     cb.Items.Add(EmptyIconImage);
@@ -1932,6 +1967,7 @@ namespace SquareTapperEditor
             }
 
             sr.Close();
+            markAsClean();
         }
 
         private void importInfoFile()
@@ -1990,6 +2026,7 @@ namespace SquareTapperEditor
             }
 
             sr.Close();
+            markAsClean();
         }
 
         private void initIconImages()
@@ -2037,11 +2074,10 @@ namespace SquareTapperEditor
             senderCb.Items.AddRange(availableIcons.ToArray());
         }
 
-        //private void comboBoxIcon_SelectedValueChanged(object sender, EventArgs e)
-        //{
-        //    //ComboBox cb = sender as ComboBox;
-        //    refreshAvailableIconImages();
-        //}
+        private void comboBoxIcon_SelectedValueChanged(object sender, EventArgs e)
+        {
+            markAsDirty();
+        }
 
         private void comboBoxIcon_DrawItem(object sender, DrawItemEventArgs e)
         {

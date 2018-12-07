@@ -100,9 +100,9 @@ namespace SquareTapperEditor
             LayoutPanels = new List<Panel> { panel1 };
             ResetButtons = new List<CheckBox> { checkBox2 };
 
-            IconComboBoxes = new List<ComboBox> { comboBox3 };
-            IconTextBoxes = new List<TextBox> { textBox6 };
-            LockPicBoxes = new List<PictureBox> { pictureBox16 };
+            IconComboBoxes = new List<ComboBox>();
+            IconTextBoxes = new List<TextBox>();
+            LockPicBoxes = new List<PictureBox>();
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
@@ -1465,13 +1465,12 @@ namespace SquareTapperEditor
                     createdWorldNr = fileNameToWorldNr(lastWorldNr) + 1;
                 }
 
+                addIconSet(IconTextBoxes.Count(), createdWorldNr);
                 export(createdWorldNr);
                 initLevelNumbers();
                 markAsClean();
                 refreshLevelComboBox();
                 comboBox31.SelectedItem = comboBox31.Items[comboBox31.Items.Count - 1];
-
-                addIconSet(IconTextBoxes.Count(), createdWorldNr);
             }
         }
 
@@ -1990,82 +1989,60 @@ namespace SquareTapperEditor
 
         private void addIconSet(int i, int worldNr)
         {
-            Point labelLocation = new Point(IconComboBoxes[0].Location.X + (i % iconTabMaxWorldInRow) * iconTabOffsetX,
-                                IconComboBoxes[0].Location.Y + iconTabLabelOffsetY + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
-
+            Point labelLocation = new Point(31 + (i % iconTabMaxWorldInRow) * iconTabOffsetX, 51 + iconTabLabelOffsetY + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
             generateIconOverviewLabel(worldNr.ToString(), labelLocation, true);
 
-            if (i > 0)
-            {
-                addIconCombobox(false);
-                addIconTextbox(false);
-                addIconPicturebox();
-            }
-            else
-            {
-                addIconCombobox(true);
-                addIconTextbox(true);
-            }
+            addIconCombobox(i);
+            addIconTextbox(i);
+            addIconPicturebox(i);
         }
 
-        private void addIconPicturebox()
+        private void addIconPicturebox(int index)
         {
-            int i = LockPicBoxes.Count();
             PictureBox pc = new PictureBox();
-            pc.SizeMode = LockPicBoxes[0].SizeMode;
-            pc.Image = LockPicBoxes[0].Image;
-            pc.Location = new Point(LockPicBoxes[0].Location.X + (i % iconTabMaxWorldInRow) * iconTabOffsetX, LockPicBoxes[0].Location.Y + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
-            pc.Size = LockPicBoxes[0].Size;
+            pc.SizeMode = PictureBoxSizeMode.StretchImage;
+            pc.Image = Properties.Resources.lock23;
+            pc.Location = new Point(31 + (index % iconTabMaxWorldInRow) * iconTabOffsetX, 108 + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
+            pc.Size = new Size(16, 24);
             LockPicBoxes.Add(pc);
             panel3.Controls.Add(pc);
         }
 
-        private void addIconTextbox(bool bAlreadyCreated)
+        private void addIconTextbox(int index)
         {
-            int i = IconTextBoxes.Count();
-            TextBox tx;
+            TextBox tx = new TextBox();
 
-            if (bAlreadyCreated)
-            {
-                tx = IconTextBoxes[0];
-            }
+            if (index == 0)
+                tx.Location = new Point(51, 109);
             else
-            {
-                tx = new TextBox();
-                tx.Font = IconTextBoxes[0].Font;
-                tx.Size = IconTextBoxes[0].Size;
-                tx.Text = "0";
-                tx.Location = new Point(IconTextBoxes[0].Location.X + iconTabOffsetX * (i % iconTabMaxWorldInRow), IconTextBoxes[0].Location.Y + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
-                IconTextBoxes.Add(tx);
-                panel3.Controls.Add(tx);
-            }
+                tx.Location = new Point(IconTextBoxes[0].Location.X + iconTabOffsetX * (index % iconTabMaxWorldInRow), IconTextBoxes[0].Location.Y + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
+                
+            tx.Font = textBox1.Font;
+            tx.Size = new Size(42, 23);
+            tx.Text = "0";
+            IconTextBoxes.Add(tx);
+            panel3.Controls.Add(tx);
 
             tx.TextChanged += handleTextChanges_decimalIcon;
             tx.KeyPress += handleKeyPress_decimal;
         }
 
-        private void addIconCombobox(bool bAlreadyCreated)
+        private void addIconCombobox(int index)
         {
             const int dropDownHeightBase = 920;
-            int i = IconComboBoxes.Count();
-            ComboBox cb;
+            ComboBox cb = new ComboBox();
 
-            if (bAlreadyCreated)
-            {
-                cb = IconComboBoxes[0];
-            }
+            if (index == 0)
+                cb.Location = new Point(31, 51);
             else
-            {
-                cb = new ComboBox();
-                cb.DropDownStyle = IconComboBoxes[0].DropDownStyle;
-                cb.DropDownHeight = IconComboBoxes[0].DropDownHeight;
-                cb.DrawMode = IconComboBoxes[0].DrawMode;
-                cb.ItemHeight = IconComboBoxes[0].ItemHeight;
-                cb.Size = IconComboBoxes[0].Size;
-                cb.Location = new Point(IconComboBoxes[0].Location.X + iconTabOffsetX * (i % iconTabMaxWorldInRow), IconComboBoxes[0].Location.Y + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
-                IconComboBoxes.Add(cb);
-                panel3.Controls.Add(cb);
-            }
+                cb.Location = new Point(IconComboBoxes[0].Location.X + iconTabOffsetX * (index % iconTabMaxWorldInRow), IconComboBoxes[0].Location.Y + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
+
+            cb.DropDownStyle = ComboBoxStyle.DropDownList;
+            cb.DrawMode = DrawMode.OwnerDrawVariable;
+            cb.ItemHeight = 38;
+            cb.Size = new Size(62, 44);
+            IconComboBoxes.Add(cb);
+            panel3.Controls.Add(cb);
 
             cb.DropDownHeight = dropDownHeightBase - cb.Location.Y;
             cb.MeasureItem += comboBoxIcon_MeasureItem;

@@ -2187,6 +2187,11 @@ namespace SquareTapperEditor
         private void comboBoxIcon_SelectedValueChanged(object sender, EventArgs e)
         {
             markAsDirty(true);
+
+            bool tmp = button1.Enabled;
+            button1.Enabled = true;
+            button1.Focus();
+            button1.Enabled = tmp;
         }
 
         private void comboBoxIcon_DrawItem(object sender, DrawItemEventArgs e)

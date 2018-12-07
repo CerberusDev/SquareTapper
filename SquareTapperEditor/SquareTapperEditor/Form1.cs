@@ -800,12 +800,20 @@ namespace SquareTapperEditor
                 tx.SelectionLength = 0;
             }
 
+            if (tx.Text.Length > 1 && tx.Text[0] == '0')
+                tx.Text = tx.Text.Substring(1, tx.Text.Length - 1);
+
             redrawChart();
             markAsDirty();
         }
 
         private void handleTextChanges_decimalIcon(object sender, EventArgs e)
         {
+            TextBox tx = sender as TextBox;
+
+            if (tx.Text.Length > 1 && tx.Text[0] == '0')
+                tx.Text = tx.Text.Substring(1, tx.Text.Length - 1);
+
             markAsDirty(true);
         }
 

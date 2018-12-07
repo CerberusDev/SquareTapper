@@ -2297,6 +2297,12 @@ namespace SquareTapperEditor
 
             return summary;
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var myForm = new Form2();
+            myForm.Show();
+        }
     }
 
     class LineData

@@ -2177,9 +2177,11 @@ namespace SquareTapperEditor
                 if (senderCb != cb)
                     availableIcons.Remove(cb.SelectedItem as IconData);
 
+            object ic = senderCb.SelectedItem;
             senderCb.Items.Clear();
             senderCb.Items.Add(EmptyIconImage);
             senderCb.Items.AddRange(availableIcons.ToArray());
+            senderCb.SelectedItem = ic;
         }
 
         private void comboBoxIcon_SelectedValueChanged(object sender, EventArgs e)

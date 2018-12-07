@@ -356,6 +356,13 @@ namespace SquareTapperEditor
                 importToForm(fileNameToWorldNr(firstLevel));
                 comboBox31.SelectedItem = firstLevel;
             }
+
+            List<int> worldNrList = getAvailableWorldNrs();
+
+            for (int i = 0; i < worldNrList.Count; ++i)
+                addIconSet(i, worldNrList[i]);
+
+            importInfoFile();
         }
         // ======================================== constructor end ==========================================
 
@@ -580,14 +587,37 @@ namespace SquareTapperEditor
                 , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
             if (result == DialogResult.Yes)
+            {
+                if (tabControl1.SelectedIndex == 0)
+                    save();
+                else
+                    exportInfoFile();
+            }
+
+            return result == DialogResult.Cancel;
+        }
+
+        private bool dontQuit_ChangesMsgBox_Exit()
+        {
+            if (!isAnyTabDirty())
+                return false;
+
+            DialogResult result =
+                MessageBox.Show("Would you like to save all your before exiting?"
+                , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            if (result == DialogResult.Yes)
+            {
                 save();
+                exportInfoFile();
+            }
 
             return result == DialogResult.Cancel;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (dontQuit_ChangesMsgBox())
+            if (dontQuit_ChangesMsgBox_Exit())
             {
                 e.Cancel = true;
             }
@@ -609,9 +639,14 @@ namespace SquareTapperEditor
             clearUnfinishedLine();
         }
 
-        private bool isDirty()
+        private bool isAnyTabDirty()
         {
-            if (tabControl1.SelectedIndex == 0)
+            return tabPage1.Text.Contains('*') || tabPage3.Text.Contains('*');
+        }
+
+        private bool isDirty(bool bForceTabPage3 = false)
+        {
+            if (tabControl1.SelectedIndex == 0 && !bForceTabPage3)
             {
                 return tabPage1.Text.Contains('*');
             }
@@ -621,12 +656,12 @@ namespace SquareTapperEditor
             }
         }
 
-        private void markAsDirty()
+        private void markAsDirty(bool bForceTabPage3 = false)
         {
-            if (isDirty())
+            if (isDirty(bForceTabPage3))
                 return;
 
-            if (tabControl1.SelectedIndex == 0)
+            if (tabControl1.SelectedIndex == 0 && !bForceTabPage3)
             {
                 tabPage1.Text += " *";
             }
@@ -636,12 +671,12 @@ namespace SquareTapperEditor
             }
         }
 
-        private void markAsClean()
+        private void markAsClean(bool bForceTabPage3 = false)
         {
-            if (!isDirty())
+            if (!isDirty(bForceTabPage3))
                 return;
 
-            if (tabControl1.SelectedIndex == 0)
+            if (tabControl1.SelectedIndex == 0 && !bForceTabPage3)
             {
                 tabPage1.Text = tabPage1.Text.Substring(0, tabPage1.Text.Count() - 2);
             }
@@ -748,7 +783,7 @@ namespace SquareTapperEditor
 
         private void handleTextChanges_decimalIcon(object sender, EventArgs e)
         {
-            markAsDirty();
+            markAsDirty(true);
         }
 
         private void handleKeyPress_decimal(object sender, KeyPressEventArgs e)
@@ -1392,6 +1427,8 @@ namespace SquareTapperEditor
                 markAsClean();
                 refreshLevelComboBox();
                 comboBox31.SelectedItem = comboBox31.Items[comboBox31.Items.Count - 1];
+
+                addIconSet(IconTextBoxes.Count(), createdWorldNr);
             }
         }
 
@@ -1856,33 +1893,6 @@ namespace SquareTapperEditor
             {
                 panel2.Controls.Clear();
             }
-
-            if (newIdx == 2)
-            {
-                List<int> worldNrList = getAvailableWorldNrs();
-
-                for (int i = 0; i < worldNrList.Count; ++i)
-                    addIconSet(i, worldNrList[i]);
-
-                importInfoFile();
-            }
-            else
-            {
-                panel3.Controls.Clear();
-                panel3.Controls.Add(IconComboBoxes[0]);
-                panel3.Controls.Add(IconTextBoxes[0]);
-                panel3.Controls.Add(LockPicBoxes[0]);
-                
-                IconComboBoxes.Clear();
-                IconComboBoxes.Add(panel3.Controls[0] as ComboBox);
-                IconComboBoxes[0].Items.Clear();
-
-                IconTextBoxes.Clear();
-                IconTextBoxes.Add(panel3.Controls[1] as TextBox);
-
-                LockPicBoxes.Clear();
-                LockPicBoxes.Add(panel3.Controls[2] as PictureBox);
-            }
         }
 
         private void addIconSet(int i, int worldNr)
@@ -2067,7 +2077,7 @@ namespace SquareTapperEditor
             }
 
             sr.Close();
-            markAsClean();
+            markAsClean(true);
         }
 
         private void initIconImages()
@@ -2117,7 +2127,7 @@ namespace SquareTapperEditor
 
         private void comboBoxIcon_SelectedValueChanged(object sender, EventArgs e)
         {
-            markAsDirty();
+            markAsDirty(true);
         }
 
         private void comboBoxIcon_DrawItem(object sender, DrawItemEventArgs e)

@@ -18,6 +18,11 @@ namespace SquareTapperEditor
         private const int MarginWidth = 1;
         private const int MarginHeight = 1;
 
+        private const int iconTabOffsetX = 92;
+        private const int iconTabOffsetY = 170;
+        private const int iconTabLabelOffsetY = -32;
+        private const int iconTabMaxWorldInRow = 20;
+
         private List<Label> LevelLabels1;
         private List<Label> LevelLabels2;
 
@@ -1855,62 +1860,9 @@ namespace SquareTapperEditor
             if (newIdx == 2)
             {
                 List<int> worldNrList = getAvailableWorldNrs();
-                const int offsetX = 92;
-                const int offsetY = 170;
-                const int labelOffsetY = -32;
-                const int maxWorldInRow = 20;
-                const int dropDownHeightBase = 920;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
-                {
-                    generateIconOverviewLabel(worldNrList[i].ToString(), new Point(IconComboBoxes[0].Location.X + (i % maxWorldInRow) * offsetX, IconComboBoxes[0].Location.Y + labelOffsetY + offsetY * (int)(i / maxWorldInRow)), true);
-
-                    if (i > 0)
-                    {
-                        PictureBox pc = new PictureBox();
-                        pc.SizeMode = LockPicBoxes[0].SizeMode;
-                        pc.Image = LockPicBoxes[0].Image;
-                        pc.Location = new Point(LockPicBoxes[0].Location.X + (i % maxWorldInRow) * offsetX, LockPicBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
-                        pc.Size = LockPicBoxes[0].Size;
-                        panel3.Controls.Add(pc);
-
-                        ComboBox cb = new ComboBox();
-                        cb.DropDownStyle = IconComboBoxes[0].DropDownStyle;
-                        cb.DropDownHeight = IconComboBoxes[0].DropDownHeight;
-                        cb.DrawMode = IconComboBoxes[0].DrawMode;
-                        cb.ItemHeight = IconComboBoxes[0].ItemHeight;
-                        cb.Size = IconComboBoxes[0].Size;
-                        cb.Location = new Point(IconComboBoxes[0].Location.X + offsetX * (i % maxWorldInRow), IconComboBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
-                        IconComboBoxes.Add(cb);
-                        panel3.Controls.Add(cb);
-
-                        TextBox tx = new TextBox();
-                        tx.Font = IconTextBoxes[0].Font;
-                        tx.Size = IconTextBoxes[0].Size;
-                        tx.Text = "0";
-                        tx.Location = new Point(IconTextBoxes[0].Location.X + offsetX * (i % maxWorldInRow), IconTextBoxes[0].Location.Y + offsetY * (int)(i / maxWorldInRow));
-                        IconTextBoxes.Add(tx);
-                        panel3.Controls.Add(tx);
-                    }
-                }
-
-                foreach (ComboBox cb in IconComboBoxes)
-                {
-                    cb.DropDownHeight = dropDownHeightBase - cb.Location.Y;
-                    cb.MeasureItem += comboBoxIcon_MeasureItem;
-                    cb.DrawItem += comboBoxIcon_DrawItem;
-                    cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
-                    cb.DropDown += comboBoxIcon_DropDown;
-
-                    cb.Items.Add(EmptyIconImage);
-                    cb.SelectedIndex = 0;
-                }
-
-                foreach (TextBox tx in IconTextBoxes)
-                {
-                    tx.TextChanged += handleTextChanges_decimalIcon;
-                    tx.KeyPress += handleKeyPress_decimal;
-                }
+                    addIconSet(i, worldNrList[i]);
 
                 importInfoFile();
             }
@@ -1931,6 +1883,95 @@ namespace SquareTapperEditor
                 LockPicBoxes.Clear();
                 LockPicBoxes.Add(panel3.Controls[2] as PictureBox);
             }
+        }
+
+        private void addIconSet(int i, int worldNr)
+        {
+            Point labelLocation = new Point(IconComboBoxes[0].Location.X + (i % iconTabMaxWorldInRow) * iconTabOffsetX,
+                                IconComboBoxes[0].Location.Y + iconTabLabelOffsetY + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
+
+            generateIconOverviewLabel(worldNr.ToString(), labelLocation, true);
+
+            if (i > 0)
+            {
+                addIconCombobox(false);
+                addIconTextbox(false);
+                addIconPicturebox();
+            }
+            else
+            {
+                addIconCombobox(true);
+                addIconTextbox(true);
+            }
+        }
+
+        private void addIconPicturebox()
+        {
+            int i = LockPicBoxes.Count();
+            PictureBox pc = new PictureBox();
+            pc.SizeMode = LockPicBoxes[0].SizeMode;
+            pc.Image = LockPicBoxes[0].Image;
+            pc.Location = new Point(LockPicBoxes[0].Location.X + (i % iconTabMaxWorldInRow) * iconTabOffsetX, LockPicBoxes[0].Location.Y + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
+            pc.Size = LockPicBoxes[0].Size;
+            LockPicBoxes.Add(pc);
+            panel3.Controls.Add(pc);
+        }
+
+        private void addIconTextbox(bool bAlreadyCreated)
+        {
+            int i = IconTextBoxes.Count();
+            TextBox tx;
+
+            if (bAlreadyCreated)
+            {
+                tx = IconTextBoxes[0];
+            }
+            else
+            {
+                tx = new TextBox();
+                tx.Font = IconTextBoxes[0].Font;
+                tx.Size = IconTextBoxes[0].Size;
+                tx.Text = "0";
+                tx.Location = new Point(IconTextBoxes[0].Location.X + iconTabOffsetX * (i % iconTabMaxWorldInRow), IconTextBoxes[0].Location.Y + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
+                IconTextBoxes.Add(tx);
+                panel3.Controls.Add(tx);
+            }
+
+            tx.TextChanged += handleTextChanges_decimalIcon;
+            tx.KeyPress += handleKeyPress_decimal;
+        }
+
+        private void addIconCombobox(bool bAlreadyCreated)
+        {
+            const int dropDownHeightBase = 920;
+            int i = IconComboBoxes.Count();
+            ComboBox cb;
+
+            if (bAlreadyCreated)
+            {
+                cb = IconComboBoxes[0];
+            }
+            else
+            {
+                cb = new ComboBox();
+                cb.DropDownStyle = IconComboBoxes[0].DropDownStyle;
+                cb.DropDownHeight = IconComboBoxes[0].DropDownHeight;
+                cb.DrawMode = IconComboBoxes[0].DrawMode;
+                cb.ItemHeight = IconComboBoxes[0].ItemHeight;
+                cb.Size = IconComboBoxes[0].Size;
+                cb.Location = new Point(IconComboBoxes[0].Location.X + iconTabOffsetX * (i % iconTabMaxWorldInRow), IconComboBoxes[0].Location.Y + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
+                IconComboBoxes.Add(cb);
+                panel3.Controls.Add(cb);
+            }
+
+            cb.DropDownHeight = dropDownHeightBase - cb.Location.Y;
+            cb.MeasureItem += comboBoxIcon_MeasureItem;
+            cb.DrawItem += comboBoxIcon_DrawItem;
+            cb.SelectedValueChanged += comboBoxIcon_SelectedValueChanged;
+            cb.DropDown += comboBoxIcon_DropDown;
+
+            cb.Items.Add(EmptyIconImage);
+            cb.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)

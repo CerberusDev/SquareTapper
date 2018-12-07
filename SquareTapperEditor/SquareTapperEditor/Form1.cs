@@ -1866,6 +1866,7 @@ namespace SquareTapperEditor
             {
                 const int startOffsetX = 10;
                 const int startOffsetY = 5;
+                const int picBoxOffsetY = 45;
                 const int offsetX = 65;
                 const int offsetY = 30;
 
@@ -1891,15 +1892,23 @@ namespace SquareTapperEditor
                     SummaryWorldInfo summary = generateSummaryWorldInfo(wi);
 
                     generateGameOverviewLabel(summary.nr.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY), true);
-                    generateGameOverviewLabel(Math.Round(summary.avgInterval, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY));
-                    generateGameOverviewLabel(Math.Round(summary.avgActivation, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 2));
-                    generateGameOverviewLabel(Math.Round(summary.avgDoubleTaps, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 3));
-                    generateGameOverviewLabel(Math.Round(summary.avgSafe, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 4));
-                    generateGameOverviewLabel(Math.Round(summary.avgDangerous, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
-                    generateGameOverviewLabel(Math.Round(summary.avgUnfair, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 6));
-                    generateGameOverviewLabel(Math.Round(summary.avgSaveMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
-                    generateGameOverviewLabel(Math.Round(summary.avgKillingMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
-                    generateGameOverviewLabel(Math.Round(summary.avgSequenceLength, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
+
+                    PictureBox pc = new PictureBox();
+                    pc.Image = (IconComboBoxes[i].SelectedItem as IconData).img;
+                    pc.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pc.Size = new Size(32, 32);
+                    pc.Location = new Point(startOffsetX + i * offsetX + 13, startOffsetY + 30);
+                    panel2.Controls.Add(pc);
+
+                    generateGameOverviewLabel(Math.Round(summary.avgInterval, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY));
+                    generateGameOverviewLabel(Math.Round(summary.avgActivation, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 2));
+                    generateGameOverviewLabel(Math.Round(summary.avgDoubleTaps, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 3));
+                    generateGameOverviewLabel(Math.Round(summary.avgSafe, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 4));
+                    generateGameOverviewLabel(Math.Round(summary.avgDangerous, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 5));
+                    generateGameOverviewLabel(Math.Round(summary.avgUnfair, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 6));
+                    generateGameOverviewLabel(Math.Round(summary.avgSaveMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 7));
+                    generateGameOverviewLabel(Math.Round(summary.avgKillingMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 8));
+                    generateGameOverviewLabel(Math.Round(summary.avgSequenceLength, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 9));
 
                     chart2.Series[9].Points.AddXY(wi.nr, summary.avgInterval);
                     chart2.Series[10].Points.AddXY(wi.nr, summary.avgActivation);

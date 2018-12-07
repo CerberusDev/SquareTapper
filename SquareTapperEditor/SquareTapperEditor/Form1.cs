@@ -1869,13 +1869,13 @@ namespace SquareTapperEditor
                     generateGameOverviewLabel(summary.nr.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY), true);
                     generateGameOverviewLabel(Math.Round(summary.avgInterval, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY));
                     generateGameOverviewLabel(Math.Round(summary.avgActivation, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 2));
-                    generateGameOverviewLabel(summary.totalDoubleTaps.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 3));
-                    generateGameOverviewLabel(summary.totalSafe.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 4));
-                    generateGameOverviewLabel(summary.totalDangerous.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
-                    generateGameOverviewLabel(summary.totalUnfair.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 6));
-                    generateGameOverviewLabel(summary.totalSaveMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
-                    generateGameOverviewLabel(summary.totalKillingMasks.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
-                    generateGameOverviewLabel(summary.totalSequenceLength.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
+                    generateGameOverviewLabel(Math.Round(summary.avgDoubleTaps, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 3));
+                    generateGameOverviewLabel(Math.Round(summary.avgSafe, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 4));
+                    generateGameOverviewLabel(Math.Round(summary.avgDangerous, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 5));
+                    generateGameOverviewLabel(Math.Round(summary.avgUnfair, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 6));
+                    generateGameOverviewLabel(Math.Round(summary.avgSaveMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 7));
+                    generateGameOverviewLabel(Math.Round(summary.avgKillingMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 8));
+                    generateGameOverviewLabel(Math.Round(summary.avgSequenceLength, 2).ToString(), new Point(startOffsetX + i * offsetX, startOffsetY + offsetY * 9));
 
                     chart2.Series[9].Points.AddXY(wi.nr, summary.avgInterval);
                     chart2.Series[10].Points.AddXY(wi.nr, summary.avgActivation);
@@ -1883,13 +1883,13 @@ namespace SquareTapperEditor
                     int[] mechUsed = new int[7];
                     int mechUsedSum = 0;
 
-                    mechUsed[0] = summary.totalDoubleTaps > 0 ? 1 : 0;
-                    mechUsed[1] = summary.totalSafe > 0 ? 1 : 0;
-                    mechUsed[2] = summary.totalDangerous > 0 ? 1 : 0;
-                    mechUsed[3] = summary.totalUnfair > 0 ? 1 : 0;
-                    mechUsed[4] = summary.totalSaveMasks > 0 ? 1 : 0;
-                    mechUsed[5] = summary.totalKillingMasks > 0 ? 1 : 0;
-                    mechUsed[6] = summary.totalSequenceLength > 0 ? 1 : 0;
+                    mechUsed[0] = summary.avgDoubleTaps > 0 ? 1 : 0;
+                    mechUsed[1] = summary.avgSafe > 0 ? 1 : 0;
+                    mechUsed[2] = summary.avgDangerous > 0 ? 1 : 0;
+                    mechUsed[3] = summary.avgUnfair > 0 ? 1 : 0;
+                    mechUsed[4] = summary.avgSaveMasks > 0 ? 1 : 0;
+                    mechUsed[5] = summary.avgKillingMasks > 0 ? 1 : 0;
+                    mechUsed[6] = summary.avgSequenceLength > 0 ? 1 : 0;
 
                     for (int j = 0; j < mechUsed.Count(); ++j)
                     {
@@ -2258,35 +2258,42 @@ namespace SquareTapperEditor
 
                 summary.avgInterval += li.interval;
                 summary.avgActivation += li.activation;
-                summary.totalSafe += li.safe;
-                summary.totalDangerous += li.dangerous;
-                summary.totalUnfair += li.unfair;
+                summary.avgSafe += li.safe;
+                summary.avgDangerous += li.dangerous;
+                summary.avgUnfair += li.unfair;
 
                 if (li.maskIdx1 != 0)
                 {
                     if (isMaskKilling(li.maskIdx1))
-                        ++summary.totalKillingMasks;
+                        ++summary.avgKillingMasks;
                     else
-                        ++summary.totalSaveMasks;
+                        ++summary.avgSaveMasks;
                 }
 
                 if (li.maskIdx2 != 0)
                 {
                     if (isMaskKilling(li.maskIdx2))
-                        ++summary.totalKillingMasks;
+                        ++summary.avgKillingMasks;
                     else
-                        ++summary.totalSaveMasks;
+                        ++summary.avgSaveMasks;
                 }
 
                 for (int j = 0; j < 15; ++j)
                     if (li.doubleTaps[j] == true)
-                        ++summary.totalDoubleTaps;
+                        ++summary.avgDoubleTaps;
 
-                summary.totalSequenceLength += li.sequences.Count;
+                summary.avgSequenceLength += li.sequences.Count;
             }
 
-            summary.avgInterval /= 15.0f;
-            summary.avgActivation /= 15.0f;
+            summary.avgInterval /= 12.0f;
+            summary.avgActivation /= 12.0f;
+            summary.avgDoubleTaps /= 12.0f;
+            summary.avgSafe /= 12.0f;
+            summary.avgDangerous /= 12.0f;
+            summary.avgUnfair /= 12.0f;
+            summary.avgSaveMasks /= 12.0f;
+            summary.avgKillingMasks /= 12.0f;
+            summary.avgSequenceLength /= 12.0f;
 
             return summary;
         }
@@ -2391,13 +2398,13 @@ namespace SquareTapperEditor
         public int nr;
         public float avgInterval;
         public float avgActivation;
-        public int totalSafe;
-        public int totalDangerous;
-        public int totalUnfair;
-        public int totalSaveMasks;
-        public int totalDoubleTaps;
-        public int totalKillingMasks;
-        public int totalSequenceLength;
+        public float avgSafe;
+        public float avgDangerous;
+        public float avgUnfair;
+        public float avgSaveMasks;
+        public float avgDoubleTaps;
+        public float avgKillingMasks;
+        public float avgSequenceLength;
     }
 
     class IconData

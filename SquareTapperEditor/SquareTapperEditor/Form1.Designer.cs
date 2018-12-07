@@ -841,77 +841,77 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(32, 307);
+            this.label11.Location = new System.Drawing.Point(32, 308);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(178, 17);
+            this.label11.Size = new System.Drawing.Size(173, 17);
             this.label11.TabIndex = 395;
-            this.label11.Text = "Total sequences length";
+            this.label11.Text = "Avg. sequences length";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(32, 127);
+            this.label10.Location = new System.Drawing.Point(32, 128);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(135, 17);
+            this.label10.Size = new System.Drawing.Size(130, 17);
             this.label10.TabIndex = 394;
-            this.label10.Text = "Total double taps";
+            this.label10.Text = "Avg. double taps";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(32, 277);
+            this.label9.Location = new System.Drawing.Point(32, 278);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(142, 17);
+            this.label9.Size = new System.Drawing.Size(137, 17);
             this.label9.TabIndex = 393;
-            this.label9.Text = "Total killing masks";
+            this.label9.Text = "Avg. killing masks";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(32, 247);
+            this.label1.Location = new System.Drawing.Point(32, 248);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 17);
+            this.label1.Size = new System.Drawing.Size(126, 17);
             this.label1.TabIndex = 392;
-            this.label1.Text = "Total safe masks";
+            this.label1.Text = "Avg. safe masks";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(32, 217);
+            this.label4.Location = new System.Drawing.Point(32, 218);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(155, 17);
+            this.label4.Size = new System.Drawing.Size(150, 17);
             this.label4.TabIndex = 391;
-            this.label4.Text = "Total unfair squares";
+            this.label4.Text = "Avg. unfair squares";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(32, 187);
+            this.label5.Location = new System.Drawing.Point(32, 188);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(190, 17);
+            this.label5.Size = new System.Drawing.Size(185, 17);
             this.label5.TabIndex = 390;
-            this.label5.Text = "Total dangerous squares";
+            this.label5.Text = "Avg. dangerous squares";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(32, 157);
+            this.label6.Location = new System.Drawing.Point(32, 158);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(144, 17);
+            this.label6.Size = new System.Drawing.Size(139, 17);
             this.label6.TabIndex = 389;
-            this.label6.Text = "Total safe squares";
+            this.label6.Text = "Avg. safe squares";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(32, 97);
+            this.label7.Location = new System.Drawing.Point(32, 98);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(150, 17);
             this.label7.TabIndex = 388;
@@ -921,7 +921,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(32, 67);
+            this.label8.Location = new System.Drawing.Point(32, 68);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(164, 17);
             this.label8.TabIndex = 387;

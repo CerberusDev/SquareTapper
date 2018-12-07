@@ -363,6 +363,7 @@ namespace SquareTapperEditor
                 addIconSet(i, worldNrList[i]);
 
             importInfoFile();
+            updateInfoSaveButton();
         }
         // ======================================== constructor end ==========================================
 
@@ -522,7 +523,7 @@ namespace SquareTapperEditor
                 {
                     save();
                 }
-                else
+                else 
                 {
                     exportInfoFile();
                 }
@@ -577,6 +578,12 @@ namespace SquareTapperEditor
             }
         }
 
+        private void cantSaveInfoMsgBox()
+        {
+            MessageBox.Show("You cannot save world info data with empty icons!"
+                , "Can't save world info data!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private bool dontQuit_ChangesMsgBox()
         {
             if (!isDirty())
@@ -597,30 +604,31 @@ namespace SquareTapperEditor
             return result == DialogResult.Cancel;
         }
 
-        private bool dontQuit_ChangesMsgBox_Exit()
-        {
-            if (!isAnyTabDirty())
-                return false;
-
-            DialogResult result =
-                MessageBox.Show("Would you like to save all your before exiting?"
-                , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-            if (result == DialogResult.Yes)
-            {
-                save();
-                exportInfoFile();
-            }
-
-            return result == DialogResult.Cancel;
-        }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (dontQuit_ChangesMsgBox_Exit())
+            if (isAnyTabDirty())
             {
-                e.Cancel = true;
+                DialogResult result = MessageBox.Show("Would you like to save all your before exiting?"
+                                                        , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                bool bSaveSuccessful = true;
+
+                if (result == DialogResult.Yes)
+                {
+                    save();
+                    bSaveSuccessful = exportInfoFile();
+                }
+
+                if (shouldPreventQuit(result, bSaveSuccessful))
+                {
+                    e.Cancel = true;
+                }
             }
+        }
+
+        private bool shouldPreventQuit(DialogResult result, bool bSaveSuccessful)
+        {
+            return (result == DialogResult.Cancel || !bSaveSuccessful);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -644,6 +652,11 @@ namespace SquareTapperEditor
             return tabPage1.Text.Contains('*') || tabPage3.Text.Contains('*');
         }
 
+        private bool isDirtyTab1()
+        {
+            return tabPage1.Text.Contains('*');
+        }
+
         private bool isDirty(bool bForceTabPage3 = false)
         {
             if (tabControl1.SelectedIndex == 0 && !bForceTabPage3)
@@ -658,6 +671,8 @@ namespace SquareTapperEditor
 
         private void markAsDirty(bool bForceTabPage3 = false)
         {
+            updateInfoSaveButton();
+
             if (isDirty(bForceTabPage3))
                 return;
 
@@ -684,6 +699,14 @@ namespace SquareTapperEditor
             {
                 tabPage3.Text = tabPage3.Text.Substring(0, tabPage3.Text.Count() - 2);
             }
+        }
+
+        private void markAsCleanTab1()
+        {
+            if (!isDirtyTab1())
+                return;
+
+            tabPage1.Text = tabPage1.Text.Substring(0, tabPage1.Text.Count() - 2);
         }
 
         private void initLevelNumbers()
@@ -1435,7 +1458,7 @@ namespace SquareTapperEditor
         private void save()
         {
             export(openedWorldNr);
-            markAsClean();
+            markAsCleanTab1();
         }
 
         // ========================================== export ============================================
@@ -1895,6 +1918,24 @@ namespace SquareTapperEditor
             }
         }
 
+        private void updateInfoSaveButton()
+        {
+            button1.Enabled = isSavingInfoPossible();
+        }
+
+        private bool isSavingInfoPossible()
+        {
+            foreach (ComboBox cb in IconComboBoxes)
+            {
+                IconData ic = cb.SelectedItem as IconData;
+
+                if (ic == EmptyIconImage)
+                    return false;
+            }
+
+            return true;
+        }
+
         private void addIconSet(int i, int worldNr)
         {
             Point labelLocation = new Point(IconComboBoxes[0].Location.X + (i % iconTabMaxWorldInRow) * iconTabOffsetX,
@@ -1989,8 +2030,14 @@ namespace SquareTapperEditor
             exportInfoFile();
         }
 
-        private void exportInfoFile()
+        private bool exportInfoFile()
         {
+            if (!isSavingInfoPossible())
+            {
+                cantSaveInfoMsgBox();
+                return false;
+            }
+
             string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\_Info.txt";
             StreamWriter sr = new StreamWriter(path);
 
@@ -2019,6 +2066,8 @@ namespace SquareTapperEditor
 
             sr.Close();
             markAsClean();
+
+            return true;
         }
 
         private void importInfoFile()

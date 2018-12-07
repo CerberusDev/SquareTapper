@@ -128,6 +128,7 @@ namespace SquareTapperEditor
                 tabPage1.Controls.Add(lbl2);
 
                 TextBox txt1 = new TextBox();
+                txt1.Text = IntervalTextBoxes[0].Text;
                 txt1.Font = IntervalTextBoxes[0].Font;
                 txt1.Size = IntervalTextBoxes[0].Size;
                 txt1.Location = new Point(IntervalTextBoxes[0].Location.X + getCurrentOffsetX(i), IntervalTextBoxes[0].Location.Y);
@@ -135,6 +136,7 @@ namespace SquareTapperEditor
                 tabPage1.Controls.Add(txt1);
 
                 TextBox txt2 = new TextBox();
+                txt2.Text = DurationTextBoxes[0].Text;
                 txt2.Font = DurationTextBoxes[0].Font;
                 txt2.Size = DurationTextBoxes[0].Size;
                 txt2.Location = new Point(DurationTextBoxes[0].Location.X + getCurrentOffsetX(i), DurationTextBoxes[0].Location.Y);
@@ -142,6 +144,7 @@ namespace SquareTapperEditor
                 tabPage1.Controls.Add(txt2);
 
                 TextBox nb1 = new TextBox();
+                nb1.Text = NumbericUpDowns1[0].Text;
                 nb1.Font = NumbericUpDowns1[0].Font;
                 nb1.Size = NumbericUpDowns1[0].Size;
                 nb1.Location = new Point(NumbericUpDowns1[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns1[0].Location.Y);
@@ -149,6 +152,7 @@ namespace SquareTapperEditor
                 tabPage1.Controls.Add(nb1);
 
                 TextBox nb2 = new TextBox();
+                nb2.Text = NumbericUpDowns2[0].Text;
                 nb2.Font = NumbericUpDowns2[0].Font;
                 nb2.Size = NumbericUpDowns2[0].Size;
                 nb2.Location = new Point(NumbericUpDowns2[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns2[0].Location.Y);
@@ -156,6 +160,7 @@ namespace SquareTapperEditor
                 tabPage1.Controls.Add(nb2);
 
                 TextBox nb3 = new TextBox();
+                nb3.Text = NumbericUpDowns3[0].Text;
                 nb3.Font = NumbericUpDowns3[0].Font;
                 nb3.Size = NumbericUpDowns3[0].Size;
                 nb3.Location = new Point(NumbericUpDowns3[0].Location.X + getCurrentOffsetX(i), NumbericUpDowns3[0].Location.Y);
@@ -714,7 +719,7 @@ namespace SquareTapperEditor
         {
             int i = 0;
             foreach (Label lb in LevelLabels1)
-                lb.Text = (++i + openedWorldNr * 12).ToString();
+                lb.Text = (++i + Math.Max(openedWorldNr, 0) * 12).ToString();
         }
 
         private void redrawChart()
@@ -1452,8 +1457,13 @@ namespace SquareTapperEditor
         {
             if (!dontQuit_ChangesMsgBox())
             {
-                string lastWorldNr = comboBox31.Items[comboBox31.Items.Count - 1] as string;
-                int createdWorldNr = fileNameToWorldNr(lastWorldNr) + 1;
+                int createdWorldNr = 0;
+
+                if (comboBox31.Items.Count > 0)
+                {
+                    string lastWorldNr = comboBox31.Items[comboBox31.Items.Count - 1] as string;
+                    createdWorldNr = fileNameToWorldNr(lastWorldNr) + 1;
+                }
 
                 export(createdWorldNr);
                 initLevelNumbers();
@@ -1849,7 +1859,8 @@ namespace SquareTapperEditor
                 }
             }
 
-            pictureBox17.Image = (IconComboBoxes[worldIndex].SelectedItem as IconData).img;
+            if (worldIndex != -1)
+                pictureBox17.Image = (IconComboBoxes[worldIndex].SelectedItem as IconData).img;
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)

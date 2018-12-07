@@ -350,6 +350,11 @@ namespace SquareTapperEditor
             redrawChart();
             refreshLevelComboBox();
 
+            List<int> worldNrList = getAvailableWorldNrs();
+
+            for (int i = 0; i < worldNrList.Count; ++i)
+                addIconSet(i, worldNrList[i]);
+
             if (comboBox31.Items.Count > 0)
             {
                 string firstLevel = comboBox31.Items[0] as string;
@@ -357,13 +362,9 @@ namespace SquareTapperEditor
                 comboBox31.SelectedItem = firstLevel;
             }
 
-            List<int> worldNrList = getAvailableWorldNrs();
-
-            for (int i = 0; i < worldNrList.Count; ++i)
-                addIconSet(i, worldNrList[i]);
-
             importInfoFile();
             updateInfoSaveButton();
+            setIconMiniatureTab1();
         }
         // ======================================== constructor end ==========================================
 
@@ -1343,6 +1344,7 @@ namespace SquareTapperEditor
         private void applyWorldInfoToForm(WorldInfo wi)
         {
             openedWorldNr = wi.nr;
+            setIconMiniatureTab1();
             initLevelNumbers();
 
             textBox31.Text = wi.comment;
@@ -1833,10 +1835,32 @@ namespace SquareTapperEditor
             PendingResetButton = null;
         }
 
+        private void setIconMiniatureTab1()
+        {
+            int worldIndex = -1;
+            List<int> worldNrList = getAvailableWorldNrs();
+
+            foreach (int i in worldNrList)
+            {
+                if (i == openedWorldNr)
+                {
+                    worldIndex = i;
+                    break;
+                }
+            }
+
+            pictureBox17.Image = (IconComboBoxes[worldIndex].SelectedItem as IconData).img;
+        }
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int newIdx = (sender as TabControl).SelectedIndex;
             TabPage gameOverviewPage = (sender as TabControl).TabPages[1];
+
+            if (newIdx == 0)
+            {
+                setIconMiniatureTab1();
+            }
 
             if (newIdx == 1)
             {

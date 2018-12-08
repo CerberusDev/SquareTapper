@@ -335,7 +335,9 @@ namespace SquareTapperEditor
             chart1.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
             chart1.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
             chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
-            chart1.Series[4].Color = Color.FromArgb(15, 15, 150);
+            chart1.Series[4].Color = Color.FromArgb(150, 0, 25);
+            chart1.Series[5].Color = Color.FromArgb(15, 15, 150);
+            chart1.Series[6].Color = Color.FromArgb(15, 15, 150);
 
             chart2.Series[0].Color = Color.FromArgb(150, 0, 25);
             chart2.Series[1].Color = Color.FromArgb(15, 15, 150);
@@ -718,8 +720,10 @@ namespace SquareTapperEditor
             float[] yValues1 = new float[15];
             float[] yValues2 = new float[15];
             float[] yValues3 = new float[15];
-            float[] yValues4 = new float[15];
-            float[] yValues5 = new float[15];
+            float[] yValues4 = new float[12];
+            float[] yValues5 = new float[3];
+            float[] yValues6 = new float[12];
+            float[] yValues7 = new float[3];
 
             float max = 0.0f;
 
@@ -728,29 +732,53 @@ namespace SquareTapperEditor
                 yValues1[i] = getValueFromTextbox(NumbericUpDowns1[i]);
                 yValues2[i] = getValueFromTextbox(NumbericUpDowns2[i]);
                 yValues3[i] = getValueFromTextbox(NumbericUpDowns3[i]);
-                yValues4[i] = getValueFromTextbox(IntervalTextBoxes[i]);
-                yValues5[i] = getValueFromTextbox(DurationTextBoxes[i]);
 
-                if (yValues4[i] > max)
-                    max = yValues4[i];
+                float interval = getValueFromTextbox(IntervalTextBoxes[i]);
+                float duration = getValueFromTextbox(DurationTextBoxes[i]);
 
-                if (yValues5[i] > max)
-                    max = yValues5[i];
+                if (i < 12)
+                {
+                    yValues4[i] = interval;
+                    yValues6[i] = duration;
+                }
+                else
+                {
+                    yValues5[i - 12] = interval;
+                    yValues7[i - 12] = duration;
+                }
+
+                if (interval > max)
+                    max = interval;
+
+                if (duration > max)
+                    max = duration;
             }
 
             float mod = 14.0f / max;
 
-            for (int i = 0; i < 15; ++i)
+            for (int i = 0; i < 12; ++i)
             {
                 yValues4[i] *= mod;
-                yValues5[i] *= mod;
+                yValues6[i] *= mod;
             }
 
-            chart1.Series[0].Points.DataBindY(yValues1);
-            chart1.Series[1].Points.DataBindY(yValues2);
-            chart1.Series[2].Points.DataBindY(yValues3);
-            chart1.Series[3].Points.DataBindY(yValues4);
-            chart1.Series[4].Points.DataBindY(yValues5);
+            float[] xValues0 = new float[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+            float[] xValues1 = new float[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            float[] xValues2 = new float[] { 13, 14, 15 };
+
+            for (int i = 0; i < 3; ++i)
+            {
+                yValues5[i] *= mod;
+                yValues7[i] *= mod;
+            }
+
+            chart1.Series[0].Points.DataBindXY(xValues0, yValues1);
+            chart1.Series[1].Points.DataBindXY(xValues0, yValues2);
+            chart1.Series[2].Points.DataBindXY(xValues0, yValues3);
+            chart1.Series[3].Points.DataBindXY(xValues1, yValues4);
+            chart1.Series[5].Points.DataBindXY(xValues1, yValues6);
+            chart1.Series[4].Points.DataBindXY(xValues2, yValues5);
+            chart1.Series[6].Points.DataBindXY(xValues2, yValues7);
         }
 
         private void handleTextChanges(object sender, EventArgs e)

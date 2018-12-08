@@ -2102,6 +2102,12 @@ namespace SquareTapperEditor
         private void importInfoFile()
         {
             string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\_Info.txt";
+
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
             StreamReader sr = new StreamReader(path);
             String line;
             bool bReadingIcons = true;

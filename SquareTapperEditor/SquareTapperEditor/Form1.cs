@@ -2197,22 +2197,25 @@ namespace SquareTapperEditor
 
             finalBasePath += "gui\\signs";
 
-            string[] iconImages = Directory.GetFiles(finalBasePath, "*.png", SearchOption.AllDirectories);
-
-            AllIconImages = new List<IconData>();
-
-            foreach (string iconPath in iconImages)
+            if (Directory.Exists(finalBasePath))
             {
-                if (iconPath.Contains("inactive"))
-                {
-                    IconData ic = new IconData();
-                    ic.path = iconPath;
-                    ic.img = new Bitmap(iconPath);
+                string[] iconImages = Directory.GetFiles(finalBasePath, "*.png", SearchOption.AllDirectories);
 
-                    if (iconPath.Contains("noicon"))
-                        EmptyIconImage = ic;
-                    else
-                        AllIconImages.Add(ic);
+                AllIconImages = new List<IconData>();
+
+                foreach (string iconPath in iconImages)
+                {
+                    if (iconPath.Contains("inactive"))
+                    {
+                        IconData ic = new IconData();
+                        ic.path = iconPath;
+                        ic.img = new Bitmap(iconPath);
+
+                        if (iconPath.Contains("noicon"))
+                            EmptyIconImage = ic;
+                        else
+                            AllIconImages.Add(ic);
+                    }
                 }
             }
         }

@@ -19,7 +19,7 @@ namespace SquareTapperEditor
         private const int MarginHeight = 1;
 
         private const int iconTabOffsetX = 92;
-        private const int iconTabOffsetY = 170;
+        private const int iconTabOffsetY = 210;
         private const int iconTabLabelOffsetY = -32;
         private const int iconTabMaxWorldInRow = 20;
 
@@ -1996,6 +1996,34 @@ namespace SquareTapperEditor
             addIconCombobox(i);
             addIconTextbox(i);
             addIconPicturebox(i);
+
+            int twoStarNr = 24 * i;
+            int threeStarNr = 36 * i;
+            int maxStarNr = 45 * i;
+
+            const int initialOffsetY = 125;
+            const int offsetY = 18;
+
+            Label lbl1 = new Label();
+            lbl1.Font = new Font("Arial", 9, FontStyle.Regular);
+            lbl1.AutoSize = true;
+            lbl1.Location = new Point(labelLocation.X, labelLocation.Y + initialOffsetY);
+            lbl1.Text = "2*    : " + twoStarNr.ToString();
+            panel3.Controls.Add(lbl1);
+
+            Label lbl2 = new Label();
+            lbl2.Font = new Font("Arial", 9, FontStyle.Regular);
+            lbl2.AutoSize = true;
+            lbl2.Location = new Point(labelLocation.X, labelLocation.Y + initialOffsetY + offsetY);
+            lbl2.Text = "3*    : " + threeStarNr.ToString();
+            panel3.Controls.Add(lbl2);
+
+            Label lbl3 = new Label();
+            lbl3.Font = new Font("Arial", 9, FontStyle.Regular);
+            lbl3.AutoSize = true;
+            lbl3.Location = new Point(labelLocation.X, labelLocation.Y + initialOffsetY + 2 * offsetY);
+            lbl3.Text = "max: " + maxStarNr.ToString();
+            panel3.Controls.Add(lbl3);
         }
 
         private void addIconPicturebox(int index)

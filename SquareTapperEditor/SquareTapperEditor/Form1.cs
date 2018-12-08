@@ -368,7 +368,6 @@ namespace SquareTapperEditor
             }
 
             importInfoFile();
-            updateInfoSaveButton();
             setIconMiniatureTab1();
         }
         // ======================================== constructor end ==========================================
@@ -584,12 +583,6 @@ namespace SquareTapperEditor
             }
         }
 
-        private void cantSaveInfoMsgBox()
-        {
-            MessageBox.Show("You cannot save world info data with empty icons!"
-                , "Can't save world info data!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
         private bool dontQuit_ChangesMsgBox()
         {
             if (!isDirty())
@@ -677,8 +670,6 @@ namespace SquareTapperEditor
 
         private void markAsDirty(bool bForceTabPage3 = false)
         {
-            updateInfoSaveButton();
-
             if (isDirty(bForceTabPage3))
                 return;
 
@@ -1969,24 +1960,6 @@ namespace SquareTapperEditor
             }
         }
 
-        private void updateInfoSaveButton()
-        {
-            button1.Enabled = isSavingInfoPossible();
-        }
-
-        private bool isSavingInfoPossible()
-        {
-            foreach (ComboBox cb in IconComboBoxes)
-            {
-                IconData ic = cb.SelectedItem as IconData;
-
-                if (ic == EmptyIconImage)
-                    return false;
-            }
-
-            return true;
-        }
-
         private void addIconSet(int i, int worldNr)
         {
             Point labelLocation = new Point(31 + (i % iconTabMaxWorldInRow) * iconTabOffsetX, 51 + iconTabLabelOffsetY + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
@@ -2061,12 +2034,6 @@ namespace SquareTapperEditor
 
         private bool exportInfoFile()
         {
-            if (!isSavingInfoPossible())
-            {
-                cantSaveInfoMsgBox();
-                return false;
-            }
-
             string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\_Info.txt";
             StreamWriter sr = new StreamWriter(path);
 
@@ -2176,11 +2143,6 @@ namespace SquareTapperEditor
 
             string[] iconImages = Directory.GetFiles(finalBasePath, "*.png", SearchOption.AllDirectories);
 
-
-            EmptyIconImage = new IconData();
-            EmptyIconImage.path = "";
-            EmptyIconImage.img = Properties.Resources.empty_icon;
-
             AllIconImages = new List<IconData>();
 
             foreach (string iconPath in iconImages)
@@ -2190,7 +2152,11 @@ namespace SquareTapperEditor
                     IconData ic = new IconData();
                     ic.path = iconPath;
                     ic.img = new Bitmap(iconPath);
-                    AllIconImages.Add(ic);
+
+                    if (iconPath.Contains("noicon"))
+                        EmptyIconImage = ic;
+                    else
+                        AllIconImages.Add(ic);
                 }
             }
         }

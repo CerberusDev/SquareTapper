@@ -43,7 +43,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.375		1.5		0		0		0		Horizontal-Standard
+0.375		1.4		0		0		0		Horizontal-Standard
 
 ST			ST			ST			
 ST			ST			ST			
@@ -52,7 +52,7 @@ ST			ST			ST
 ST			ST			ST			
 
 # ============= 4 - 6 =============
-0.3		1.325		0		0		0		HorizontalBig-Standard
+0.3		1.275		0		0		0		HorizontalBig-Standard
 
 ST			ST			ST			
 ST			ST			ST			
@@ -77,7 +77,7 @@ ST			ST			ST
 ST			ST			ST			
 
 # ============= 7 - 9 =============
-0.26		1.15		0		0		0		Horizontal-Standard
+0.26		1.175		0		0		0		Horizontal-Standard
 
 ST			ST			ST			
 ST			ST			ST			
@@ -118,7 +118,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.2		1.075		0		0		0
+0.2		0.975		0		0		0
 
 ST			ST			ST			
 ST			ST			ST			

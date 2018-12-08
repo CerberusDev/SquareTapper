@@ -23,10 +23,10 @@
 #	Z - Square's index in sequence (0 means first)	
 #
 
-#!Standard + Bezpieczne kwadraty + Niebezpieczne kwadraty + Double tap
+#!Standard + Double tap 2 + Bezpieczne kwadraty
 
 # ============= 1 - 3 =============
-0.3		1.25	2		2		0
+0.20	1.0		12		0		0
 
 ST			ST			ST
 ST			ST			ST
@@ -34,118 +34,120 @@ ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
-0.3		1.25	1		3		0
+0.18	1.0		12		0		0
 
 ST			ST			ST
-ST			DB			ST
-ST			DB			ST
-ST			DB			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 
-0.3		1.25	3		1		0
+0.18	1.4		10		0		0
 
 ST			ST			ST
-DB			ST			DB
-DB			ST			DB
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 ST			ST			ST
 
 # ============= 4 - 6 =============
-0.4		1.1 	6		2		0
+0.19	0.85	12		0		0
 
 ST			ST			ST
-ST			DB			ST
-DB			ST			DB
-ST			DB			ST
-ST			ST			ST
-
-0.4		1.1		3		3		0
-
-ST			ST			DB
-DB			ST			ST
-ST			ST			DB
-DB			ST			ST
-ST			ST			DB
-
-0.4		1.1		1		1		0
-
-ST			DB			ST
-DB			ST			DB
 ST			ST			ST
 ST			ST			ST
-DB			DB			DB
+ST			ST			ST
+ST			ST			ST
+
+0.2		1.15	5		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.17	0.9		12		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 7 - 9 =============
-0.4		1.0		4		4		0
-
-ST			DB			ST
-ST			DB			ST
-DB			ST			DB
-ST			ST			ST
-ST			ST			ST
-
-0.4		1.0		0		3		0
+0.14	1.4		10		0		0
 
 ST			ST			ST
-DB			ST			ST
-DB			DB			DB
-ST			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 
-0.4		1.0		5		1		0
-	
-ST			DB			ST
+0.16	1.1		5		0		0
+
 ST			ST			ST
-DB			ST			DB
-ST			DB			ST
-ST			DB			ST 
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.19	0.8		12		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 10 - 12 =============
-0.4		0.8		2		2		0
+0.14	1.4		10		0		0
 
-DB			ST			DB
-ST			DB			ST
-ST			DB			ST
-ST			DB			ST
-DB			ST			DB
-
-0.18	1.4		0		4		0
-
-ST			DB			ST
-ST			DB			ST
-DB			ST			DB
-ST			DB			ST
-ST			DB			ST
-
-0.4		0.8		6		0		0
-
-DB			DB			DB
-DB			ST			DB
 ST			ST			ST
-DB			ST			DB
-DB			DB			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.14	1.1		5		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.16	0.8		12		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 13 - 15 =============
-0.3		0.7		10		5		0
+0.15	1.0		3		0		0
 
-DB			ST			DB
 ST			ST			ST
-DB			DB			DB
-ST			ST			DB
-ST			DB			ST
-
-0.35	0.6		12		3		0
-
-ST			ST			DB
-DB			ST			ST
 ST			ST			ST
-ST			DB			ST
-DB			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.22	1.0		1		3		0
+0.15	0.825	15		0		0
 
-ST			ST			DB
-DB			DB			ST
-ST			ST			DB
-ST			DB			ST
-ST			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+0.06	1.5		15		0		0
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+

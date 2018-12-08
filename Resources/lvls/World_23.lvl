@@ -1,3 +1,4 @@
+
 #
 # Parameters in first line of level definition:
 #
@@ -23,132 +24,136 @@
 #
 
 
-#!Standard + Sekwencje + Niebezpieczne maski + Double tap
+#!14. Standard + Niebiezpieczne maski + Bezpieczne maski
+
 
 # ============= 1 - 3 =============
-0.55		1.2		0		0		0	Horizontal-Killing 			
-
-ST			DB			ST
-SQ(ST).0.2	SQ(ST).0.1	SQ(ST).0.0
-ST			DB			ST
-SQ(ST).1.2	SQ(ST).1.1	SQ(ST).1.0
-ST			DB			ST
-
-0.55		1.2		0		0		0	Horizontal-Killing		
+0.15	3.0		0		0		0		Horizontal-Killing Vertical-Standard
 
 ST			ST			ST
-SQ(ST).0.2	SQ(ST).0.1	SQ(ST).0.0
-DB			DB			DB
-SQ(ST).1.2	SQ(ST).1.1	SQ(ST).1.0
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 ST			ST			ST
 
-0.55		1.2		0		0		0	Horizontal-Killing
+0.48	1.2		0		0		0		Horizontal-Killing Vertical-Standard
 
-DB			ST			DB
-SQ(ST).0.2	SQ(ST).0.1	SQ(ST).0.0
-ST			DB			ST
-SQ(ST).1.2	SQ(ST).1.1	SQ(ST).1.0
-DB			ST			DB
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
+
+0.21	2.5		0		0		0		Horizontal-Killing Vertical-Standard
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 4 - 6 =============
-0.55		1.35	0		0		0	Vertical-Killing
+0.24	2.0		0		0		0		Horizontal-Standard	Vertical-Killing
 
-ST			SQ(ST).0.6	ST			
-ST			SQ(ST).0.5	SQ(ST).0.4
-ST			DB			SQ(ST).0.3
-ST			SQ(ST).0.1	SQ(ST).0.2
-ST			SQ(ST).0.0	ST			
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.55		1.15	0		0		0	Vertical-Killing
+0.27	1.75		0		0		0		Horizontal-Standard	Vertical-Killing
 
-ST			ST			ST			
-SQ(DB).0.2	SQ(ST).0.3	SQ(DB).0.4
-SQ(ST).0.1	ST			SQ(ST).0.5
-SQ(ST).0.0	ST			SQ(ST).0.6
-ST			ST			ST			
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.55		1.25		0		0		0	Vertical-Killing
 
-ST			SQ(ST).0.6	ST			
-SQ(ST).0.4	SQ(DB).0.5	ST
-SQ(ST).0.3	ST			ST
-SQ(ST).0.2	SQ(DB).0.1	ST
-ST			SQ(ST).0.0	ST	
+0.30	1.5		0		0		0		Horizontal-Standard	Vertical-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 7 - 9 =============
-0.4		1.3		0		0		0	Full-Killing
+0.31	1.4		0		0		0		Vertical-Standard	HorizontalBig-Killing
 
-SQ(ST).1.4	SQ(DB).1.3	SQ(ST).1.2
-ST			ST			SQ(DB).1.1
-SQ(ST).0.0	ST			SQ(ST).1.0
-SQ(DB).0.1	ST			ST			
-SQ(ST).0.2	SQ(DB).0.3	SQ(ST).0.4
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.4		1.25		0		0		0	Vertical-Killing
+0.355	1.3		0		0		0		Vertical-Standard	HorizontalBig-Killing
 
-ST			ST			ST			
-SQ(DB).0.0	ST			SQ(DB).0.6
-SQ(ST).0.1	ST			SQ(DB).0.5
-SQ(ST).0.2	SQ(DB).0.3	SQ(ST).0.4
-ST			ST			ST			
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
+0.4		1.2		0		0		0		Vertical-Standard	HorizontalBig-Killing
 
-0.35		1.15	0		0		0	Full-Killing
-
-SQ(ST).1.2	SQ(ST).1.3	SQ(ST).1.4
-SQ(ST).1.1	DB			DB			
-SQ(ST).1.0	DB			SQ(ST).0.0
-DB			DB			SQ(ST).0.1			
-SQ(ST).0.4	SQ(ST).0.3	SQ(ST).0.2
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 10 - 12 =============
-0.35	1.1		0		0		0 	Full-Killing
+0.44	1.1		0		0		0		Chessboard-Standard		Horizontal-Killing
 
-SQ(ST).0.0	ST			ST			
-SQ(DB).0.1	SQ(ST).0.2	SQ(DB).0.3
-ST			DB			SQ(ST).0.4
-SQ(DB).0.7	SQ(ST).0.6	SQ(DB).0.5
-SQ(ST).0.8	ST			ST			
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.325	1.25	0		0		0	Vertical-Killing
+0.18	1.5		0		0		0		Chessboard-Standard		Vertical-Killing
 
-SQ(DB).0.4	ST			SQ(DB).1.0
-SQ(ST).0.3	ST			SQ(ST).1.1
-SQ(ST).0.2	ST			SQ(ST).1.2
-SQ(ST).0.1	ST			SQ(ST).1.3
-SQ(DB).0.0	ST			SQ(DB).1.4
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-0.3		1.2		0		0		0	Full-Killing
+0.52	1.0		0		0		0		Chessboard-Standard		Vertical-Killing
 
-ST			ST			SQ(DB).0.8
-SQ(ST).0.5	SQ(DB).0.6	SQ(ST).0.7
-SQ(DB).0.4	ST			ST			
-SQ(ST).0.3	SQ(DB).0.2	SQ(ST).0.1
-ST			ST			SQ(DB).0.0
-
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
 # ============= 13 - 15 =============
-0.55	0.75	0		0		0	
 
-SQ(ST).0.0	DB			DB			
-SQ(ST).0.1	SQ(ST).0.3	DB			
-SQ(ST).0.2	SQ(ST).0.4	SQ(ST).0.6
-DB			SQ(ST).0.5	SQ(ST).0.7
-DB			DB			SQ(ST).0.8
+0.18	1.2		0		0		0		Full-Standard		Horizontal-Killing
 
-0.55	1.15		0		0		0	
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-SQ(DB).0.8	SQ(ST).0.7	SQ(ST).0.6
-SQ(DB).1.3	SQ(ST).1.4	SQ(ST).1.5
-SQ(DB).0.3	SQ(ST).0.4	SQ(ST).0.5
-SQ(DB).1.2	SQ(ST).1.1	SQ(ST).1.0
-SQ(DB).0.2	SQ(ST).0.1	SQ(ST).0.0
+0.25	0.9		0		0		0		Full-Standard		HorizontalBig-Killing
 
-0.55	1.0		0		0		0 	Full-Killing
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
 
-DB			DB			SQ(ST).0.7	
-DB			SQ(ST).0.4	SQ(ST).0.6	
-SQ(ST).0.1	SQ(ST).0.3	SQ(ST).0.8
-SQ(ST).0.0	SQ(ST).0.5	DB
-SQ(ST).0.2	DB			DB
+0.18	1.2		0		0		0		Full-Standard		Vertical-Killing
+
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+ST			ST			ST
+
+
+

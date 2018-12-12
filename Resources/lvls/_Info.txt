@@ -23,6 +23,15 @@ sign_21_inactive_512.png
 sign_22_inactive_512.png
 sign_23_inactive_512.png
 sign_24_inactive_512.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
+noicon_inactive.png
 
 # unlock levels
 0
@@ -50,3 +59,12 @@ sign_24_inactive_512.png
 100
 100
 100
+0
+0
+0
+0
+0
+0
+0
+0
+0

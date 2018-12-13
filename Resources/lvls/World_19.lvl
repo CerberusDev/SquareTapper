@@ -118,7 +118,7 @@ SQ(ST).0.0	DB			SQ(ST).0.6
 ST			ST			ST			
 DB			ST			DB			
 
-0.45		1.15		0		0		0
+0.45		1.2		0		0		0
 
 SQ(ST).0.0	ST			SQ(ST).1.0	
 SQ(DB).0.1	ST			SQ(DB).1.1	

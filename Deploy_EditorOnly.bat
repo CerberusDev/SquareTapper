@@ -6,4 +6,4 @@ for /f "tokens=*" %%a in ('dir /A:D /B /O:-D %BUILDDROP%') do set NEWEST=%%a&& g
 
 set NEWESTFULL=%BUILDDROP%\%NEWEST%
 
-xcopy /s .\Resources\lvls\SquareTapperEditor.exe %NEWESTFULL%\BuildPC\lvls
+xcopy /s /y .\Resources\lvls\SquareTapperEditor.exe %NEWESTFULL%\BuildPC\lvls

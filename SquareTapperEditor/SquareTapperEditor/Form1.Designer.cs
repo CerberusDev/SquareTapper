@@ -708,7 +708,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(42, 23);
             this.textBox2.TabIndex = 363;
-            this.textBox2.Tag = "0,05";
+            this.textBox2.Tag = "0,025";
             this.textBox2.Text = "0,0";
             // 
             // chart1
@@ -768,7 +768,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(42, 23);
             this.textBox1.TabIndex = 362;
-            this.textBox1.Tag = "0,05";
+            this.textBox1.Tag = "0,025";
             this.textBox1.Text = "0,0";
             // 
             // tabPage2

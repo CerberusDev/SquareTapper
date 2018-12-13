@@ -255,7 +255,7 @@ namespace SquareTapperEditor
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
                 ArrowButtonsData ar = new ArrowButtonsData();
-                ar.Step = 0.05f;
+                ar.Step = 0.025f;
                 tb.Tag = ar;
                 SpawnArrows(tb);
             }
@@ -265,7 +265,7 @@ namespace SquareTapperEditor
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
                 ArrowButtonsData ar = new ArrowButtonsData();
-                ar.Step = 0.05f;
+                ar.Step = 0.025f;
                 tb.Tag = ar;
                 SpawnArrows(tb);
             }

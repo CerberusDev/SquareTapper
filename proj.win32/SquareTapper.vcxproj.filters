@@ -18,7 +18,13 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LevelSelectScene.cpp">
+    <ClCompile Include="..\Classes\BaseScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DebugScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameMask.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameScene.cpp">
@@ -27,23 +33,33 @@
     <ClCompile Include="..\Classes\GameSquare.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameMask.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\VerticalGameMask.cpp">
+    <ClCompile Include="..\Classes\GameSquareSequence.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HorizontalGameMask.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\StarImage.cpp" />
-    <ClCompile Include="..\Classes\GameSquareSequence.cpp" />
-    <ClCompile Include="..\Classes\SquareTapper.cpp" />
-    <ClCompile Include="..\Classes\DebugScene.cpp" />
-    <ClCompile Include="..\Classes\ToggleGameMask.cpp" />
-    <ClCompile Include="..\Classes\BaseScene.cpp" />
-    <ClCompile Include="..\Classes\TutorialScene_Standard.cpp" />
-    <ClCompile Include="..\Classes\TutorialScene_DoubleTap.cpp" />
+    <ClCompile Include="..\Classes\LevelSelectScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SquareTapper.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StarImage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ToggleGameMask.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TutorialScene_DoubleTap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TutorialScene_Standard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\VerticalGameMask.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -52,7 +68,13 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LevelSelectScene.h">
+    <ClInclude Include="..\Classes\BaseScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DebugScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMask.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene.h">
@@ -61,25 +83,33 @@
     <ClInclude Include="..\Classes\GameSquare.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameMask.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SquareTapper.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\VerticalGameMask.h">
+    <ClInclude Include="..\Classes\GameSquareSequence.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HorizontalGameMask.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\StarImage.h" />
-    <ClInclude Include="..\Classes\GameSquareSequence.h" />
-    <ClInclude Include="..\Classes\DebugScene.h" />
-    <ClInclude Include="..\Classes\ToggleGameMask.h" />
-    <ClInclude Include="..\Classes\BaseScene.h" />
-    <ClInclude Include="..\Classes\TutorialScene_Standard.h" />
-    <ClInclude Include="..\Classes\TutorialScene_DoubleTap.h" />
+    <ClInclude Include="..\Classes\LevelSelectScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SquareTapper.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StarImage.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ToggleGameMask.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TutorialScene_DoubleTap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TutorialScene_Standard.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\VerticalGameMask.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

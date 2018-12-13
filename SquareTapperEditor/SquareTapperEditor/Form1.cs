@@ -747,7 +747,7 @@ namespace SquareTapperEditor
             }
 
             const float max = 2.8f;
-            float mod = 14.0f / 2.8f;
+            float mod = 14.0f / max;
 
             for (int i = 0; i < 12; ++i)
             {

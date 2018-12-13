@@ -4,7 +4,7 @@ set FolderName=%FolderName:~0,-5%
 set FolderName=SquareTapper_%date:/=%_%FolderName%
 
 mkdir C:\Users\Cerberus\Dropbox\SquareTapper\%FolderName%
-xcopy /s .\proj.visualstudio\Cocos2d\ARM\Release\CocosVisualStudio.apk C:\Users\Cerberus\Dropbox\SquareTapper\%FolderName%
+xcopy /s .\proj.android\app\build\outputs\apk\release\SquareTapper-release.apk C:\Users\Cerberus\Dropbox\SquareTapper\%FolderName%
 
 mkdir C:\Users\Cerberus\Dropbox\SquareTapper\%FolderName%\BuildPC
 xcopy /s .\proj.win32\Release.win32\*.dll C:\Users\Cerberus\Dropbox\SquareTapper\%FolderName%\BuildPC

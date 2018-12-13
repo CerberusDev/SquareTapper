@@ -725,8 +725,6 @@ namespace SquareTapperEditor
             float[] yValues6 = new float[12];
             float[] yValues7 = new float[3];
 
-            float max = 0.0f;
-
             for (int i = 0; i < 15; ++i)
             {
                 yValues1[i] = getValueFromTextbox(NumbericUpDowns1[i]);
@@ -746,15 +744,10 @@ namespace SquareTapperEditor
                     yValues5[i - 12] = interval;
                     yValues7[i - 12] = duration;
                 }
-
-                if (interval > max)
-                    max = interval;
-
-                if (duration > max)
-                    max = duration;
             }
 
-            float mod = 14.0f / max;
+            const float max = 2.8f;
+            float mod = 14.0f / 2.8f;
 
             for (int i = 0; i < 12; ++i)
             {

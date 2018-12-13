@@ -537,7 +537,7 @@ namespace SquareTapperEditor
 
                 return true;
             }
-            else if (keyData == Keys.Space)
+            else if (keyData == Keys.Space && FindFocusedControl(this) != textBox31)
             {
                 toggleEditMode();
                 return true;
@@ -926,6 +926,8 @@ namespace SquareTapperEditor
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            button2.Focus();
+
             if (PendingResetButton != null)
                 clearPendingResetButton();
 
@@ -2347,6 +2349,16 @@ namespace SquareTapperEditor
         {
             var myForm = new Form2();
             myForm.Show();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+            button2.Focus();
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+            button2.Focus();
         }
     }
 

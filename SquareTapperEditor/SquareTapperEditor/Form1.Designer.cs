@@ -201,6 +201,7 @@
             this.tabPage1.Size = new System.Drawing.Size(1912, 1021);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Edit levels layout";
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // pictureBox17
             // 
@@ -421,6 +422,7 @@
             this.textBox31.Name = "textBox31";
             this.textBox31.Size = new System.Drawing.Size(1189, 23);
             this.textBox31.TabIndex = 375;
+            this.textBox31.TextChanged += new System.EventHandler(this.textBox31_TextChanged);
             // 
             // label29
             // 
@@ -760,6 +762,7 @@
             this.chart1.Size = new System.Drawing.Size(832, 397);
             this.chart1.TabIndex = 364;
             this.chart1.Text = "chart1";
+            this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // textBox1
             // 

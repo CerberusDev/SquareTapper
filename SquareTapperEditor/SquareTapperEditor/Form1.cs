@@ -342,6 +342,16 @@ namespace SquareTapperEditor
             chart1.Series[5].Color = activationColor;
             chart1.Series[6].Color = activationColor;
 
+            chart1.Series[3].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            chart1.Series[4].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            chart1.Series[5].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            chart1.Series[6].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+
+            chart1.Series[3].MarkerSize = 8;
+            chart1.Series[4].MarkerSize = 8;
+            chart1.Series[5].MarkerSize = 8;
+            chart1.Series[6].MarkerSize = 8;
+
             chart2.Series[0].Color = intervalColor;
             chart2.Series[1].Color = activationColor;
             chart2.Series[2].Color = Color.FromArgb(alpha, 150, 150, 150);
@@ -356,6 +366,12 @@ namespace SquareTapperEditor
 
             chart2.Series[9].IsVisibleInLegend = false;
             chart2.Series[10].IsVisibleInLegend = false;
+
+            chart2.Series[9].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            chart2.Series[10].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+
+            chart2.Series[9].MarkerSize = 8;
+            chart2.Series[10].MarkerSize = 8;
 
             redrawChart();
             refreshLevelComboBox();
@@ -380,7 +396,7 @@ namespace SquareTapperEditor
         private int getCurrentOffsetX(int i)
         {
             const int offsetX = 107;
-            const int offsetX_bonus = 50;
+            const int offsetX_bonus = 30;
 
             int baseOffset = offsetX * i;
 

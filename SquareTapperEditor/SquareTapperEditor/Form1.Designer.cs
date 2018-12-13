@@ -52,7 +52,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox17 = new System.Windows.Forms.PictureBox();
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -67,11 +66,6 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.pictureBox230 = new System.Windows.Forms.PictureBox();
-            this.pictureBox229 = new System.Windows.Forms.PictureBox();
-            this.pictureBox228 = new System.Windows.Forms.PictureBox();
-            this.pictureBox227 = new System.Windows.Forms.PictureBox();
-            this.pictureBox226 = new System.Windows.Forms.PictureBox();
             this.textBox31 = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -80,21 +74,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox15 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -115,15 +94,40 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox17 = new System.Windows.Forms.PictureBox();
+            this.pictureBox230 = new System.Windows.Forms.PictureBox();
+            this.pictureBox229 = new System.Windows.Forms.PictureBox();
+            this.pictureBox228 = new System.Windows.Forms.PictureBox();
+            this.pictureBox227 = new System.Windows.Forms.PictureBox();
+            this.pictureBox226 = new System.Windows.Forms.PictureBox();
+            this.pictureBox13 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox14 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox15 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox230)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox229)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox227)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
@@ -139,10 +143,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -202,15 +202,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Edit levels layout";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // pictureBox17
-            // 
-            this.pictureBox17.Location = new System.Drawing.Point(19, 14);
-            this.pictureBox17.Name = "pictureBox17";
-            this.pictureBox17.Size = new System.Drawing.Size(45, 45);
-            this.pictureBox17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox17.TabIndex = 397;
-            this.pictureBox17.TabStop = false;
             // 
             // button4
             // 
@@ -365,56 +356,6 @@
             this.label31.TabIndex = 381;
             this.label31.Text = "Interval";
             // 
-            // pictureBox230
-            // 
-            this.pictureBox230.Image = global::SquareTapperEditor.Properties.Resources.unfair;
-            this.pictureBox230.Location = new System.Drawing.Point(115, 248);
-            this.pictureBox230.Name = "pictureBox230";
-            this.pictureBox230.Size = new System.Drawing.Size(25, 25);
-            this.pictureBox230.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox230.TabIndex = 380;
-            this.pictureBox230.TabStop = false;
-            // 
-            // pictureBox229
-            // 
-            this.pictureBox229.Image = global::SquareTapperEditor.Properties.Resources.dangerous;
-            this.pictureBox229.Location = new System.Drawing.Point(115, 220);
-            this.pictureBox229.Name = "pictureBox229";
-            this.pictureBox229.Size = new System.Drawing.Size(25, 25);
-            this.pictureBox229.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox229.TabIndex = 379;
-            this.pictureBox229.TabStop = false;
-            // 
-            // pictureBox228
-            // 
-            this.pictureBox228.Image = global::SquareTapperEditor.Properties.Resources.safe;
-            this.pictureBox228.Location = new System.Drawing.Point(115, 192);
-            this.pictureBox228.Name = "pictureBox228";
-            this.pictureBox228.Size = new System.Drawing.Size(25, 25);
-            this.pictureBox228.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox228.TabIndex = 378;
-            this.pictureBox228.TabStop = false;
-            // 
-            // pictureBox227
-            // 
-            this.pictureBox227.Image = global::SquareTapperEditor.Properties.Resources.total_activation_time;
-            this.pictureBox227.Location = new System.Drawing.Point(104, 164);
-            this.pictureBox227.Name = "pictureBox227";
-            this.pictureBox227.Size = new System.Drawing.Size(53, 25);
-            this.pictureBox227.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox227.TabIndex = 377;
-            this.pictureBox227.TabStop = false;
-            // 
-            // pictureBox226
-            // 
-            this.pictureBox226.Image = global::SquareTapperEditor.Properties.Resources.interval;
-            this.pictureBox226.Location = new System.Drawing.Point(104, 134);
-            this.pictureBox226.Name = "pictureBox226";
-            this.pictureBox226.Size = new System.Drawing.Size(53, 25);
-            this.pictureBox226.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox226.TabIndex = 376;
-            this.pictureBox226.TabStop = false;
-            // 
             // textBox31
             // 
             this.textBox31.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -510,171 +451,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(99, 165);
             this.panel1.TabIndex = 367;
-            // 
-            // pictureBox13
-            // 
-            this.pictureBox13.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox13.Location = new System.Drawing.Point(66, 132);
-            this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox13.TabIndex = 325;
-            this.pictureBox13.TabStop = false;
-            this.pictureBox13.Tag = "3";
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox10.Location = new System.Drawing.Point(66, 99);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox10.TabIndex = 325;
-            this.pictureBox10.TabStop = false;
-            this.pictureBox10.Tag = "6";
-            // 
-            // pictureBox14
-            // 
-            this.pictureBox14.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox14.Location = new System.Drawing.Point(33, 132);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox14.TabIndex = 324;
-            this.pictureBox14.TabStop = false;
-            this.pictureBox14.Tag = "2";
-            // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox7.Location = new System.Drawing.Point(66, 66);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox7.TabIndex = 325;
-            this.pictureBox7.TabStop = false;
-            this.pictureBox7.Tag = "9";
-            // 
-            // pictureBox15
-            // 
-            this.pictureBox15.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox15.Location = new System.Drawing.Point(0, 132);
-            this.pictureBox15.Name = "pictureBox15";
-            this.pictureBox15.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox15.TabIndex = 323;
-            this.pictureBox15.TabStop = false;
-            this.pictureBox15.Tag = "1";
-            // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox11.Location = new System.Drawing.Point(33, 99);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox11.TabIndex = 324;
-            this.pictureBox11.TabStop = false;
-            this.pictureBox11.Tag = "5";
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox4.Location = new System.Drawing.Point(66, 33);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 325;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Tag = "12";
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox12.Location = new System.Drawing.Point(0, 99);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox12.TabIndex = 323;
-            this.pictureBox12.TabStop = false;
-            this.pictureBox12.Tag = "4";
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox8.Location = new System.Drawing.Point(33, 66);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox8.TabIndex = 324;
-            this.pictureBox8.TabStop = false;
-            this.pictureBox8.Tag = "8";
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox5.Location = new System.Drawing.Point(33, 33);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 324;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Tag = "11";
-            // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox9.Location = new System.Drawing.Point(0, 66);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox9.TabIndex = 323;
-            this.pictureBox9.TabStop = false;
-            this.pictureBox9.Tag = "7";
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox6.Location = new System.Drawing.Point(0, 33);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox6.TabIndex = 323;
-            this.pictureBox6.TabStop = false;
-            this.pictureBox6.Tag = "10";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox3.Location = new System.Drawing.Point(66, 0);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 322;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Tag = "15";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox2.Location = new System.Drawing.Point(33, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 322;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Tag = "14";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SquareTapperEditor.Properties.Resources.button3;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(33, 33);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 147;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Tag = "13";
             // 
             // comboBox2
             // 
@@ -1003,6 +779,230 @@
             this.panel3.Size = new System.Drawing.Size(1869, 922);
             this.panel3.TabIndex = 367;
             // 
+            // pictureBox17
+            // 
+            this.pictureBox17.Location = new System.Drawing.Point(19, 14);
+            this.pictureBox17.Name = "pictureBox17";
+            this.pictureBox17.Size = new System.Drawing.Size(45, 45);
+            this.pictureBox17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox17.TabIndex = 397;
+            this.pictureBox17.TabStop = false;
+            // 
+            // pictureBox230
+            // 
+            this.pictureBox230.Image = global::SquareTapperEditor.Properties.Resources.unfair;
+            this.pictureBox230.Location = new System.Drawing.Point(118, 248);
+            this.pictureBox230.Name = "pictureBox230";
+            this.pictureBox230.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox230.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox230.TabIndex = 380;
+            this.pictureBox230.TabStop = false;
+            // 
+            // pictureBox229
+            // 
+            this.pictureBox229.Image = global::SquareTapperEditor.Properties.Resources.dangerous;
+            this.pictureBox229.Location = new System.Drawing.Point(118, 220);
+            this.pictureBox229.Name = "pictureBox229";
+            this.pictureBox229.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox229.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox229.TabIndex = 379;
+            this.pictureBox229.TabStop = false;
+            // 
+            // pictureBox228
+            // 
+            this.pictureBox228.Image = global::SquareTapperEditor.Properties.Resources.safe;
+            this.pictureBox228.Location = new System.Drawing.Point(118, 192);
+            this.pictureBox228.Name = "pictureBox228";
+            this.pictureBox228.Size = new System.Drawing.Size(25, 25);
+            this.pictureBox228.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox228.TabIndex = 378;
+            this.pictureBox228.TabStop = false;
+            // 
+            // pictureBox227
+            // 
+            this.pictureBox227.Image = global::SquareTapperEditor.Properties.Resources.total_activation_time;
+            this.pictureBox227.Location = new System.Drawing.Point(104, 164);
+            this.pictureBox227.Name = "pictureBox227";
+            this.pictureBox227.Size = new System.Drawing.Size(53, 25);
+            this.pictureBox227.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox227.TabIndex = 377;
+            this.pictureBox227.TabStop = false;
+            // 
+            // pictureBox226
+            // 
+            this.pictureBox226.Image = global::SquareTapperEditor.Properties.Resources.interval;
+            this.pictureBox226.Location = new System.Drawing.Point(104, 134);
+            this.pictureBox226.Name = "pictureBox226";
+            this.pictureBox226.Size = new System.Drawing.Size(53, 25);
+            this.pictureBox226.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox226.TabIndex = 376;
+            this.pictureBox226.TabStop = false;
+            // 
+            // pictureBox13
+            // 
+            this.pictureBox13.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox13.Location = new System.Drawing.Point(66, 132);
+            this.pictureBox13.Name = "pictureBox13";
+            this.pictureBox13.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox13.TabIndex = 325;
+            this.pictureBox13.TabStop = false;
+            this.pictureBox13.Tag = "3";
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox10.Location = new System.Drawing.Point(66, 99);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox10.TabIndex = 325;
+            this.pictureBox10.TabStop = false;
+            this.pictureBox10.Tag = "6";
+            // 
+            // pictureBox14
+            // 
+            this.pictureBox14.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox14.Location = new System.Drawing.Point(33, 132);
+            this.pictureBox14.Name = "pictureBox14";
+            this.pictureBox14.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox14.TabIndex = 324;
+            this.pictureBox14.TabStop = false;
+            this.pictureBox14.Tag = "2";
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox7.Location = new System.Drawing.Point(66, 66);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox7.TabIndex = 325;
+            this.pictureBox7.TabStop = false;
+            this.pictureBox7.Tag = "9";
+            // 
+            // pictureBox15
+            // 
+            this.pictureBox15.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox15.Location = new System.Drawing.Point(0, 132);
+            this.pictureBox15.Name = "pictureBox15";
+            this.pictureBox15.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox15.TabIndex = 323;
+            this.pictureBox15.TabStop = false;
+            this.pictureBox15.Tag = "1";
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox11.Location = new System.Drawing.Point(33, 99);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox11.TabIndex = 324;
+            this.pictureBox11.TabStop = false;
+            this.pictureBox11.Tag = "5";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox4.Location = new System.Drawing.Point(66, 33);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox4.TabIndex = 325;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Tag = "12";
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox12.Location = new System.Drawing.Point(0, 99);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox12.TabIndex = 323;
+            this.pictureBox12.TabStop = false;
+            this.pictureBox12.Tag = "4";
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox8.Location = new System.Drawing.Point(33, 66);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox8.TabIndex = 324;
+            this.pictureBox8.TabStop = false;
+            this.pictureBox8.Tag = "8";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox5.Location = new System.Drawing.Point(33, 33);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 324;
+            this.pictureBox5.TabStop = false;
+            this.pictureBox5.Tag = "11";
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox9.Location = new System.Drawing.Point(0, 66);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox9.TabIndex = 323;
+            this.pictureBox9.TabStop = false;
+            this.pictureBox9.Tag = "7";
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox6.Location = new System.Drawing.Point(0, 33);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox6.TabIndex = 323;
+            this.pictureBox6.TabStop = false;
+            this.pictureBox6.Tag = "10";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox3.Location = new System.Drawing.Point(66, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 322;
+            this.pictureBox3.TabStop = false;
+            this.pictureBox3.Tag = "15";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox2.Location = new System.Drawing.Point(33, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 322;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Tag = "14";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::SquareTapperEditor.Properties.Resources.button3;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(33, 33);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 147;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "13";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1023,13 +1023,18 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
+            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox230)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox229)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox228)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox227)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox226)).EndInit();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
@@ -1045,11 +1050,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            this.tabPage3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

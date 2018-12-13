@@ -329,18 +329,21 @@ namespace SquareTapperEditor
 
             markAsClean();
 
-            int alpha = 120;
+            int alpha = 90;
+
+            Color intervalColor = Color.FromArgb(210, 130, 22);
+            Color activationColor = Color.FromArgb(0, 120, 0);
 
             chart1.Series[0].Color = Color.FromArgb(alpha, 72, 69, 145);
             chart1.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
             chart1.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
-            chart1.Series[3].Color = Color.FromArgb(150, 0, 25);
-            chart1.Series[4].Color = Color.FromArgb(150, 0, 25);
-            chart1.Series[5].Color = Color.FromArgb(15, 15, 150);
-            chart1.Series[6].Color = Color.FromArgb(15, 15, 150);
+            chart1.Series[3].Color = intervalColor;
+            chart1.Series[4].Color = intervalColor;
+            chart1.Series[5].Color = activationColor;
+            chart1.Series[6].Color = activationColor;
 
-            chart2.Series[0].Color = Color.FromArgb(150, 0, 25);
-            chart2.Series[1].Color = Color.FromArgb(15, 15, 150);
+            chart2.Series[0].Color = intervalColor;
+            chart2.Series[1].Color = activationColor;
             chart2.Series[2].Color = Color.FromArgb(alpha, 150, 150, 150);
             chart2.Series[3].Color = Color.FromArgb(alpha, 72, 69, 145);
             chart2.Series[4].Color = Color.FromArgb(alpha, 150, 16, 48);
@@ -348,8 +351,8 @@ namespace SquareTapperEditor
             chart2.Series[6].Color = Color.FromArgb(180, 72, 69, 145);
             chart2.Series[7].Color = Color.FromArgb(180, 150, 16, 48);
             chart2.Series[8].Color = Color.FromArgb(alpha, 220, 160, 40);
-            chart2.Series[9].Color = Color.FromArgb(150, 0, 25);
-            chart2.Series[10].Color = Color.FromArgb(15, 15, 150);
+            chart2.Series[9].Color = intervalColor;
+            chart2.Series[10].Color = activationColor;
 
             chart2.Series[9].IsVisibleInLegend = false;
             chart2.Series[10].IsVisibleInLegend = false;

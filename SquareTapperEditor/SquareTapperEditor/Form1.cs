@@ -19,7 +19,8 @@ namespace SquareTapperEditor
         private const int MarginHeight = 1;
 
         private const int iconTabOffsetX = 92;
-        private const int iconTabOffsetY = 210;
+        private const int iconTabOffsetY = 198;
+        private const int iconTabInitialOffsetY = 40;
         private const int iconTabLabelOffsetY = -32;
         private const int iconTabMaxWorldInRow = 20;
 
@@ -2004,7 +2005,7 @@ namespace SquareTapperEditor
 
         private void addIconSet(int i, int worldNr)
         {
-            Point labelLocation = new Point(31 + (i % iconTabMaxWorldInRow) * iconTabOffsetX, 51 + iconTabLabelOffsetY + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
+            Point labelLocation = new Point(31 + (i % iconTabMaxWorldInRow) * iconTabOffsetX, iconTabInitialOffsetY + iconTabLabelOffsetY + iconTabOffsetY * (int)(i / iconTabMaxWorldInRow));
             generateIconOverviewLabel(worldNr.ToString(), labelLocation, true);
 
             addIconCombobox(i);
@@ -2045,7 +2046,7 @@ namespace SquareTapperEditor
             PictureBox pc = new PictureBox();
             pc.SizeMode = PictureBoxSizeMode.StretchImage;
             pc.Image = Properties.Resources.lock23;
-            pc.Location = new Point(31 + (index % iconTabMaxWorldInRow) * iconTabOffsetX, 108 + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
+            pc.Location = new Point(31 + (index % iconTabMaxWorldInRow) * iconTabOffsetX, 57 + iconTabInitialOffsetY + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
             pc.Size = new Size(16, 24);
             LockPicBoxes.Add(pc);
             panel3.Controls.Add(pc);
@@ -2056,7 +2057,7 @@ namespace SquareTapperEditor
             TextBox tx = new TextBox();
 
             if (index == 0)
-                tx.Location = new Point(51, 109);
+                tx.Location = new Point(51, 58 + iconTabInitialOffsetY);
             else
                 tx.Location = new Point(IconTextBoxes[0].Location.X + iconTabOffsetX * (index % iconTabMaxWorldInRow), IconTextBoxes[0].Location.Y + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
                 
@@ -2076,7 +2077,7 @@ namespace SquareTapperEditor
             ComboBox cb = new ComboBox();
 
             if (index == 0)
-                cb.Location = new Point(31, 51);
+                cb.Location = new Point(31, iconTabInitialOffsetY);
             else
                 cb.Location = new Point(IconComboBoxes[0].Location.X + iconTabOffsetX * (index % iconTabMaxWorldInRow), IconComboBoxes[0].Location.Y + iconTabOffsetY * (int)(index / iconTabMaxWorldInRow));
 

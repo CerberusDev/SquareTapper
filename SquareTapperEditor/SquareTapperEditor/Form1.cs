@@ -56,6 +56,10 @@ namespace SquareTapperEditor
         private List<TextBox> IconTextBoxes;
         private List<PictureBox> LockPicBoxes;
 
+        private List<Label> IconTwoStarsLabels;
+        private List<Label> IconThreeStarsLabels;
+        private List<Label> IconMaxStarsLabels;
+
         public Form1()
         {
             InitializeComponent();
@@ -104,6 +108,10 @@ namespace SquareTapperEditor
             IconComboBoxes = new List<ComboBox>();
             IconTextBoxes = new List<TextBox>();
             LockPicBoxes = new List<PictureBox>();
+
+            IconTwoStarsLabels = new List<Label>();
+            IconThreeStarsLabels = new List<Label>();
+            IconMaxStarsLabels = new List<Label>();
 
             int pictureBoxSize = LayoutPanels[0].Controls[0].Size.Width;
 
@@ -374,6 +382,12 @@ namespace SquareTapperEditor
             chart2.Series[9].MarkerSize = 8;
             chart2.Series[10].MarkerSize = 8;
 
+            chart3.Series[0].Color = Color.FromArgb(150, 150, 150);
+            chart3.Series[1].Color = Color.FromArgb(150, 150, 150);
+            chart3.Series[2].Color = Color.FromArgb(150, 150, 150);
+            chart3.Series[3].Color = intervalColor;
+            chart3.Series[4].Color = Color.FromArgb(224, 64, 10);
+
             redrawChart();
             refreshLevelComboBox();
 
@@ -391,6 +405,8 @@ namespace SquareTapperEditor
 
             importInfoFile();
             setIconMiniatureTab1();
+
+            tabControl1.SelectedIndex = 2;
         }
         // ======================================== constructor end ==========================================
 
@@ -853,6 +869,7 @@ namespace SquareTapperEditor
                 tx.Text = tx.Text.Substring(1, tx.Text.Length - 1);
 
             markAsDirty(true);
+            redrawIconChart();
         }
 
         private void handleKeyPress_decimal(object sender, KeyPressEventArgs e)
@@ -1505,6 +1522,7 @@ namespace SquareTapperEditor
                 markAsClean();
                 refreshLevelComboBox();
                 comboBox31.SelectedItem = comboBox31.Items[comboBox31.Items.Count - 1];
+                redrawIconChart();
             }
         }
 
@@ -2024,6 +2042,7 @@ namespace SquareTapperEditor
             lbl1.AutoSize = true;
             lbl1.Location = new Point(labelLocation.X, labelLocation.Y + initialOffsetY);
             lbl1.Text = "2*    : " + twoStarNr.ToString();
+            IconTwoStarsLabels.Add(lbl1);
             panel3.Controls.Add(lbl1);
 
             Label lbl2 = new Label();
@@ -2031,6 +2050,7 @@ namespace SquareTapperEditor
             lbl2.AutoSize = true;
             lbl2.Location = new Point(labelLocation.X, labelLocation.Y + initialOffsetY + offsetY);
             lbl2.Text = "3*    : " + threeStarNr.ToString();
+            IconThreeStarsLabels.Add(lbl2);
             panel3.Controls.Add(lbl2);
 
             Label lbl3 = new Label();
@@ -2038,6 +2058,7 @@ namespace SquareTapperEditor
             lbl3.AutoSize = true;
             lbl3.Location = new Point(labelLocation.X, labelLocation.Y + initialOffsetY + 2 * offsetY);
             lbl3.Text = "max: " + maxStarNr.ToString();
+            IconMaxStarsLabels.Add(lbl3);
             panel3.Controls.Add(lbl3);
         }
 
@@ -2200,6 +2221,8 @@ namespace SquareTapperEditor
 
             sr.Close();
             markAsClean(true);
+
+            redrawIconChart();
         }
 
         private void initIconImages()
@@ -2379,6 +2402,42 @@ namespace SquareTapperEditor
         private void chart1_Click(object sender, EventArgs e)
         {
             button2.Focus();
+        }
+
+        private void redrawIconChart()
+        {
+            int worldsNr = IconComboBoxes.Count;
+
+            float[] xValues = new float[worldsNr];
+            float[] yValues0 = new float[worldsNr];
+            float[] yValues1 = new float[worldsNr];
+            float[] yValues2 = new float[worldsNr];
+            float[] yValues3 = new float[worldsNr];
+            float[] yValues4 = new float[worldsNr];
+
+            for (int i = 0; i < worldsNr; ++i)
+            {
+                xValues[i] = i;
+                yValues1[i] = getNumberFromIconStarLabel(IconTwoStarsLabels[i].Text);
+                yValues0[i] = yValues1[i] / 2;
+                yValues2[i] = getNumberFromIconStarLabel(IconThreeStarsLabels[i].Text);
+                yValues3[i] = getNumberFromIconStarLabel(IconMaxStarsLabels[i].Text);
+                yValues4[i] = IconTextBoxes[i].Text.Length > 0 ? int.Parse(IconTextBoxes[i].Text) : 0;
+            }
+
+            chart3.Series[0].Points.DataBindXY(xValues, yValues0);
+            chart3.Series[1].Points.DataBindXY(xValues, yValues1);
+            chart3.Series[2].Points.DataBindXY(xValues, yValues2);
+            chart3.Series[3].Points.DataBindXY(xValues, yValues3);
+            chart3.Series[4].Points.DataBindXY(xValues, yValues4);
+
+            chart3.ChartAreas[0].AxisX.Maximum = (float)xValues.Count() - 0.5f;
+        }
+
+        private int getNumberFromIconStarLabel(string s)
+        {
+            string[] tmp = s.Split(':');
+            return int.Parse(tmp[1]);
         }
     }
 

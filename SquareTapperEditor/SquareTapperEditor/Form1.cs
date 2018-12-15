@@ -571,7 +571,7 @@ namespace SquareTapperEditor
 
                 return true;
             }
-            else if (keyData == Keys.Space && FindFocusedControl(this) != textBox31)
+            else if (keyData == Keys.Space && FindFocusedControl(this) != textBox31 && tabControl1.SelectedIndex == 0)
             {
                 toggleEditMode();
                 return true;

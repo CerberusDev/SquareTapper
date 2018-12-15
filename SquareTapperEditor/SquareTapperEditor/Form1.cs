@@ -405,8 +405,6 @@ namespace SquareTapperEditor
 
             importInfoFile();
             setIconMiniatureTab1();
-
-            tabControl1.SelectedIndex = 2;
         }
         // ======================================== constructor end ==========================================
 

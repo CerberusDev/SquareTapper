@@ -63,9 +63,9 @@ DB			ST			DB
 0.5		1.275		0		3		0
 
 DB			DB			ST			
-SQ(ST).1.0	SQ(ST).1.1	SQ(ST).1.2	
-ST			DB			ST			
-SQ(ST).0.0	SQ(ST).0.1	SQ(ST).0.2	
+SQ(ST).0.0	ST			SQ(ST).1.0	
+SQ(ST).0.1	DB			SQ(ST).1.1	
+SQ(ST).0.2	ST			SQ(ST).1.2	
 ST			DB			DB			
 
 0.5		1.2		0		1		0

@@ -37,7 +37,6 @@
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -50,7 +49,7 @@
             System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -108,7 +107,8 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -116,9 +116,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button1 = new System.Windows.Forms.Button();
@@ -149,6 +148,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
@@ -788,7 +788,8 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.chart2);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label9);
@@ -796,8 +797,6 @@
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.panel2);
             this.tabPage2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -807,68 +806,154 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Whole game overview";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(32, 355);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(150, 17);
+            this.label8.TabIndex = 397;
+            this.label8.Text = "Avg. activation time";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(32, 385);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(164, 17);
+            this.label7.TabIndex = 396;
+            this.label7.Text = "Avg. interval duration";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(32, 298);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(173, 17);
+            this.label11.TabIndex = 395;
+            this.label11.Text = "Avg. sequences length";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Location = new System.Drawing.Point(32, 118);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(130, 17);
+            this.label10.TabIndex = 394;
+            this.label10.Text = "Avg. double taps";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label9.Location = new System.Drawing.Point(32, 268);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(137, 17);
+            this.label9.TabIndex = 393;
+            this.label9.Text = "Avg. killing masks";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(32, 238);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 17);
+            this.label1.TabIndex = 392;
+            this.label1.Text = "Avg. safe masks";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.Location = new System.Drawing.Point(32, 208);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(150, 17);
+            this.label4.TabIndex = 391;
+            this.label4.Text = "Avg. unfair squares";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(32, 178);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(185, 17);
+            this.label5.TabIndex = 390;
+            this.label5.Text = "Avg. dangerous squares";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label6.Location = new System.Drawing.Point(32, 148);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(139, 17);
+            this.label6.TabIndex = 389;
+            this.label6.Text = "Avg. safe squares";
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.chart2);
+            this.panel2.Location = new System.Drawing.Point(226, 29);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1643, 516);
+            this.panel2.TabIndex = 366;
+            // 
             // chart2
             // 
             this.chart2.BackColor = System.Drawing.SystemColors.Control;
+            chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea2.AxisX.Interval = 1D;
+            chartArea2.AxisX.LabelStyle.Enabled = false;
+            chartArea2.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea2.AxisY.LabelStyle.Enabled = false;
             chartArea2.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea2);
-            legend1.BackColor = System.Drawing.SystemColors.Control;
-            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
-            legend1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            legend1.IsTextAutoFit = false;
-            legend1.LegendItemOrder = System.Windows.Forms.DataVisualization.Charting.LegendItemOrder.ReversedSeriesOrder;
-            legend1.Name = "Legend2";
-            this.chart2.Legends.Add(legend1);
-            this.chart2.Location = new System.Drawing.Point(35, 421);
+            this.chart2.Location = new System.Drawing.Point(-35, 298);
             this.chart2.Name = "chart2";
             series8.BorderWidth = 3;
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Legend = "Legend2";
             series8.Name = "Interval duration";
             series9.BorderWidth = 3;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Legend = "Legend2";
             series9.Name = "Activation time";
             series10.ChartArea = "ChartArea1";
             series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series10.Legend = "Legend2";
             series10.Name = "Double taps";
             series11.ChartArea = "ChartArea1";
             series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series11.Legend = "Legend2";
             series11.Name = "Safe squares";
             series12.ChartArea = "ChartArea1";
             series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series12.Legend = "Legend2";
             series12.Name = "Dangerous squares";
             series13.ChartArea = "ChartArea1";
             series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series13.Legend = "Legend2";
             series13.Name = "Unfair squares";
             series14.ChartArea = "ChartArea1";
             series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series14.Legend = "Legend2";
             series14.Name = "Safe masks";
             series15.ChartArea = "ChartArea1";
             series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series15.Legend = "Legend2";
             series15.Name = "Killing masks";
             series16.ChartArea = "ChartArea1";
             series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StackedColumn;
-            series16.Legend = "Legend2";
             series16.Name = "Sequences";
             series17.BorderWidth = 3;
             series17.ChartArea = "ChartArea1";
             series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series17.Legend = "Legend2";
             series17.Name = "Series10";
             series18.BorderWidth = 3;
             series18.ChartArea = "ChartArea1";
             series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series18.Legend = "Legend2";
             series18.Name = "Series11";
             this.chart2.Series.Add(series8);
             this.chart2.Series.Add(series9);
@@ -881,108 +966,9 @@
             this.chart2.Series.Add(series16);
             this.chart2.Series.Add(series17);
             this.chart2.Series.Add(series18);
-            this.chart2.Size = new System.Drawing.Size(1834, 541);
+            this.chart2.Size = new System.Drawing.Size(1834, 200);
             this.chart2.TabIndex = 396;
             this.chart2.Text = "chart2";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(32, 353);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(173, 17);
-            this.label11.TabIndex = 395;
-            this.label11.Text = "Avg. sequences length";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(32, 173);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(130, 17);
-            this.label10.TabIndex = 394;
-            this.label10.Text = "Avg. double taps";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(32, 323);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(137, 17);
-            this.label9.TabIndex = 393;
-            this.label9.Text = "Avg. killing masks";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(32, 293);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 17);
-            this.label1.TabIndex = 392;
-            this.label1.Text = "Avg. safe masks";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(32, 263);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(150, 17);
-            this.label4.TabIndex = 391;
-            this.label4.Text = "Avg. unfair squares";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(32, 233);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(185, 17);
-            this.label5.TabIndex = 390;
-            this.label5.Text = "Avg. dangerous squares";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(32, 203);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(139, 17);
-            this.label6.TabIndex = 389;
-            this.label6.Text = "Avg. safe squares";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(32, 143);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(150, 17);
-            this.label7.TabIndex = 388;
-            this.label7.Text = "Avg. activation time";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(32, 113);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(164, 17);
-            this.label8.TabIndex = 387;
-            this.label8.Text = "Avg. interval duration";
-            // 
-            // panel2
-            // 
-            this.panel2.AutoScroll = true;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(226, 29);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1643, 374);
-            this.panel2.TabIndex = 366;
             // 
             // tabPage3
             // 
@@ -1005,11 +991,11 @@
             chartArea3.AxisY.Interval = 250D;
             chartArea3.Name = "ChartArea1";
             this.chart3.ChartAreas.Add(chartArea3);
-            legend2.BackColor = System.Drawing.SystemColors.Control;
-            legend2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            legend2.IsTextAutoFit = false;
-            legend2.Name = "Legend1";
-            this.chart3.Legends.Add(legend2);
+            legend1.BackColor = System.Drawing.SystemColors.Control;
+            legend1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.chart3.Legends.Add(legend1);
             this.chart3.Location = new System.Drawing.Point(19, 460);
             this.chart3.Name = "chart3";
             series19.BorderWidth = 3;
@@ -1111,6 +1097,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
@@ -1174,8 +1161,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
@@ -1185,6 +1170,8 @@
         private System.Windows.Forms.PictureBox pictureBox17;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
     }
 }
 

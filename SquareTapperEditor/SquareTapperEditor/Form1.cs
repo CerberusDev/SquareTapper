@@ -60,6 +60,18 @@ namespace SquareTapperEditor
         private List<Label> IconThreeStarsLabels;
         private List<Label> IconMaxStarsLabels;
 
+        static int alpha = 90;
+
+        Color intervalColor = Color.FromArgb(210, 130, 22);
+        Color activationColor = Color.FromArgb(0, 120, 0);
+        Color doubleTapColor = Color.FromArgb(alpha, 150, 150, 150);
+        Color safeColor = Color.FromArgb(alpha, 72, 69, 145);
+        Color dangerousColor = Color.FromArgb(alpha, 150, 16, 48);
+        Color unfairColor = Color.FromArgb(alpha, 0, 0, 0);
+        Color safeMasksColor = Color.FromArgb(180, 72, 69, 145);
+        Color killingMasksColor = Color.FromArgb(180, 150, 16, 48);
+        Color sequenceColor = Color.FromArgb(alpha, 220, 160, 40);
+
         public Form1()
         {
             InitializeComponent();
@@ -338,14 +350,9 @@ namespace SquareTapperEditor
 
             markAsClean();
 
-            int alpha = 90;
-
-            Color intervalColor = Color.FromArgb(210, 130, 22);
-            Color activationColor = Color.FromArgb(0, 120, 0);
-
-            chart1.Series[0].Color = Color.FromArgb(alpha, 72, 69, 145);
-            chart1.Series[1].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart1.Series[2].Color = Color.FromArgb(alpha, 0, 0, 0);
+            chart1.Series[0].Color = safeColor;
+            chart1.Series[1].Color = dangerousColor;
+            chart1.Series[2].Color = unfairColor;
             chart1.Series[3].Color = intervalColor;
             chart1.Series[4].Color = intervalColor;
             chart1.Series[5].Color = activationColor;
@@ -363,24 +370,12 @@ namespace SquareTapperEditor
 
             chart2.Series[0].Color = intervalColor;
             chart2.Series[1].Color = activationColor;
-            chart2.Series[2].Color = Color.FromArgb(alpha, 150, 150, 150);
-            chart2.Series[3].Color = Color.FromArgb(alpha, 72, 69, 145);
-            chart2.Series[4].Color = Color.FromArgb(alpha, 150, 16, 48);
-            chart2.Series[5].Color = Color.FromArgb(alpha, 0, 0, 0);
-            chart2.Series[6].Color = Color.FromArgb(180, 72, 69, 145);
-            chart2.Series[7].Color = Color.FromArgb(180, 150, 16, 48);
-            chart2.Series[8].Color = Color.FromArgb(alpha, 220, 160, 40);
-            chart2.Series[9].Color = intervalColor;
-            chart2.Series[10].Color = activationColor;
 
-            chart2.Series[9].IsVisibleInLegend = false;
-            chart2.Series[10].IsVisibleInLegend = false;
+            chart2.Series[0].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            chart2.Series[1].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
 
-            chart2.Series[9].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            chart2.Series[10].MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-
-            chart2.Series[9].MarkerSize = 8;
-            chart2.Series[10].MarkerSize = 8;
+            chart2.Series[0].MarkerSize = 8;
+            chart2.Series[1].MarkerSize = 8;
 
             chart3.Series[0].Color = Color.FromArgb(150, 150, 150);
             chart3.Series[1].Color = Color.FromArgb(150, 150, 150);
@@ -405,8 +400,36 @@ namespace SquareTapperEditor
 
             importInfoFile();
             setIconMiniatureTab1();
+
+            colorizeGameOverviewLabel(label10, doubleTapColor);
+            colorizeGameOverviewLabel(label6, safeColor);
+            colorizeGameOverviewLabel(label5, dangerousColor);
+            colorizeGameOverviewLabel(label4, unfairColor);
+            colorizeGameOverviewLabel(label1, safeMasksColor);
+            colorizeGameOverviewLabel(label9, killingMasksColor);
+            colorizeGameOverviewLabel(label11, sequenceColor);
+
+            colorizeGameOverviewLabel(label7, intervalColor);
+            colorizeGameOverviewLabel(label8, activationColor);
         }
         // ======================================== constructor end ==========================================
+
+        private void colorizeGameOverviewLabel(Label lbl, Color color)
+        {
+            const int offsetY = 6;
+
+            Point baseLoc = lbl.Location;
+
+            PictureBox pc = new PictureBox();
+            pc.BackColor = color;
+            pc.Location = new Point(baseLoc.X, baseLoc.Y - offsetY);
+            pc.Size = new Size(185, 30);
+            tabPage2.Controls.Add(pc);
+
+            lbl.Parent = pc;
+            lbl.BackColor = Color.Transparent;
+            lbl.Location = new Point(0, offsetY);
+        }
 
         private int getCurrentOffsetX(int i)
         {
@@ -1924,27 +1947,16 @@ namespace SquareTapperEditor
 
             if (newIdx == 1)
             {
-                const int startOffsetX = 10;
-                const int startOffsetY = 5;
+                const int startOffsetX = 25;
+                const int startOffsetY = 10;
                 const int picBoxOffsetY = 45;
-                const int offsetX = 65;
+                const int offsetX = 45;
                 const int offsetY = 30;
 
                 chart2.Series[0].Points.Clear();
                 chart2.Series[1].Points.Clear();
-                chart2.Series[2].Points.Clear();
-                chart2.Series[3].Points.Clear();
-                chart2.Series[4].Points.Clear();
-                chart2.Series[5].Points.Clear();
-                chart2.Series[6].Points.Clear();
-                chart2.Series[7].Points.Clear();
-                chart2.Series[8].Points.Clear();
-                chart2.Series[9].Points.Clear();
-                chart2.Series[10].Points.Clear();
 
                 List <int> worldNrList = getAvailableWorldNrs();
-                float max = 0;
-                int maxMechUsed = 0;
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                 {
@@ -1956,62 +1968,36 @@ namespace SquareTapperEditor
                     PictureBox pc = new PictureBox();
                     pc.Image = (IconComboBoxes[i].SelectedItem as IconData).img;
                     pc.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pc.Size = new Size(32, 32);
-                    pc.Location = new Point(startOffsetX + i * offsetX + 13, startOffsetY + 30);
+                    pc.Size = new Size(30, 30);
+                    pc.Location = new Point(startOffsetX + i * offsetX + 15, startOffsetY + 30);
                     panel2.Controls.Add(pc);
 
-                    generateGameOverviewLabelAndPic(summary.avgInterval, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY), false, Color.Black);
-                    generateGameOverviewLabelAndPic(summary.avgActivation, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 2), false, Color.Black);
-                    generateGameOverviewLabelAndPic(summary.avgDoubleTaps, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 3), false, chart2.Series[2].Color);
-                    generateGameOverviewLabelAndPic(summary.avgSafe, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 4), false, chart2.Series[3].Color);
-                    generateGameOverviewLabelAndPic(summary.avgDangerous, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 5), false, chart2.Series[4].Color);
-                    generateGameOverviewLabelAndPic(summary.avgUnfair, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 6), false, chart2.Series[5].Color);
-                    generateGameOverviewLabelAndPic(summary.avgSaveMasks, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 7), false, chart2.Series[6].Color);
-                    generateGameOverviewLabelAndPic(summary.avgKillingMasks, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 8), false, chart2.Series[7].Color);
-                    generateGameOverviewLabelAndPic(summary.avgSequenceLength, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 9), false, chart2.Series[8].Color);
+                    Color doubleTapColor = Color.FromArgb(alpha, 150, 150, 150);
+                    Color safeColor = Color.FromArgb(alpha, 72, 69, 145);
+                    Color dangerousColor = Color.FromArgb(alpha, 150, 16, 48);
+                    Color unfairColor = Color.FromArgb(alpha, 0, 0, 0);
+                    Color safeMasksColor = Color.FromArgb(180, 72, 69, 145);
+                    Color killingMasksColor = Color.FromArgb(180, 150, 16, 48);
+                    Color sequenceColor = Color.FromArgb(alpha, 220, 160, 40);
 
-                    chart2.Series[9].Points.AddXY(wi.nr, summary.avgInterval);
-                    chart2.Series[10].Points.AddXY(wi.nr, summary.avgActivation);
+                    generateGameOverviewLabelAndPic(summary.avgDoubleTaps, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 1), false, doubleTapColor);
+                    generateGameOverviewLabelAndPic(summary.avgSafe, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 2), false, safeColor);
+                    generateGameOverviewLabelAndPic(summary.avgDangerous, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 3), false, dangerousColor);
+                    generateGameOverviewLabelAndPic(summary.avgUnfair, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 4), false, unfairColor);
+                    generateGameOverviewLabelAndPic(summary.avgSaveMasks, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 5), false, safeMasksColor);
+                    generateGameOverviewLabelAndPic(summary.avgKillingMasks, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 6), false, killingMasksColor);
+                    generateGameOverviewLabelAndPic(summary.avgSequenceLength, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 7), false, sequenceColor);
 
-                    int[] mechUsed = new int[7];
-                    int mechUsedSum = 0;
-
-                    mechUsed[0] = summary.avgDoubleTaps > 0 ? 1 : 0;
-                    mechUsed[1] = summary.avgSafe > 0 ? 1 : 0;
-                    mechUsed[2] = summary.avgDangerous > 0 ? 1 : 0;
-                    mechUsed[3] = summary.avgUnfair > 0 ? 1 : 0;
-                    mechUsed[4] = summary.avgSaveMasks > 0 ? 1 : 0;
-                    mechUsed[5] = summary.avgKillingMasks > 0 ? 1 : 0;
-                    mechUsed[6] = summary.avgSequenceLength > 0 ? 1 : 0;
-
-                    for (int j = 0; j < mechUsed.Count(); ++j)
-                    {
-                        chart2.Series[j + 2].Points.AddXY(wi.nr, mechUsed[j]);
-                        mechUsedSum += mechUsed[j];
-                    }
-
-                    if (summary.avgInterval > max)
-                        max = summary.avgInterval;
-
-                    if (summary.avgActivation > max)
-                        max = summary.avgActivation;
-
-                    if (mechUsedSum > maxMechUsed)
-                        maxMechUsed = mechUsedSum;
+                    chart2.Series[0].Points.AddXY(wi.nr, summary.avgInterval);
+                    chart2.Series[1].Points.AddXY(wi.nr, summary.avgActivation);
                 }
-
-                double finalMaxY = Math.Ceiling(max * 2.0) / 2.0;
-                chart2.ChartAreas[0].Axes[1].Maximum = finalMaxY;
-                chart2.ChartAreas[0].Axes[1].Interval = 0.5f;
 
                 chart2.ChartAreas[0].Axes[0].Interval = 1.0f;
                 chart2.ChartAreas[0].Axes[0].IntervalOffset = 0.5f;
                 chart2.ChartAreas[0].Axes[0].Minimum = -0.5f;
                 chart2.ChartAreas[0].Axes[0].Maximum = worldNrList.Count - 0.5f;
 
-                for (int i = 0; i < worldNrList.Count; ++i)
-                    for (int j = 2; j < 9; ++j)
-                        chart2.Series[j].Points[i].YValues[0] *= finalMaxY / maxMechUsed;
+                chart2.Size = new Size(worldNrList.Count * offsetX + startOffsetX + 92, 200);
             }
             else
             {

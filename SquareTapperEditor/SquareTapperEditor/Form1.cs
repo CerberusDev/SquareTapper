@@ -1951,7 +1951,7 @@ namespace SquareTapperEditor
                     WorldInfo wi = importToWorldInfo(worldNrList[i]);
                     SummaryWorldInfo summary = generateSummaryWorldInfo(wi);
 
-                    generateGameOverviewLabel(summary.nr.ToString(), new Point(startOffsetX + i * offsetX, startOffsetY), true);
+                    generateGameOverviewLabelAndPic(summary.nr, new Point(startOffsetX + i * offsetX, startOffsetY));
 
                     PictureBox pc = new PictureBox();
                     pc.Image = (IconComboBoxes[i].SelectedItem as IconData).img;
@@ -1960,15 +1960,15 @@ namespace SquareTapperEditor
                     pc.Location = new Point(startOffsetX + i * offsetX + 13, startOffsetY + 30);
                     panel2.Controls.Add(pc);
 
-                    generateGameOverviewLabel(Math.Round(summary.avgInterval, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY));
-                    generateGameOverviewLabel(Math.Round(summary.avgActivation, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 2));
-                    generateGameOverviewLabel(Math.Round(summary.avgDoubleTaps, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 3));
-                    generateGameOverviewLabel(Math.Round(summary.avgSafe, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 4));
-                    generateGameOverviewLabel(Math.Round(summary.avgDangerous, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 5));
-                    generateGameOverviewLabel(Math.Round(summary.avgUnfair, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 6));
-                    generateGameOverviewLabel(Math.Round(summary.avgSaveMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 7));
-                    generateGameOverviewLabel(Math.Round(summary.avgKillingMasks, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 8));
-                    generateGameOverviewLabel(Math.Round(summary.avgSequenceLength, 2).ToString(), new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 9));
+                    generateGameOverviewLabelAndPic(summary.avgInterval, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY), false, Color.Black);
+                    generateGameOverviewLabelAndPic(summary.avgActivation, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 2), false, Color.Black);
+                    generateGameOverviewLabelAndPic(summary.avgDoubleTaps, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 3), false, chart2.Series[2].Color);
+                    generateGameOverviewLabelAndPic(summary.avgSafe, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 4), false, chart2.Series[3].Color);
+                    generateGameOverviewLabelAndPic(summary.avgDangerous, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 5), false, chart2.Series[4].Color);
+                    generateGameOverviewLabelAndPic(summary.avgUnfair, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 6), false, chart2.Series[5].Color);
+                    generateGameOverviewLabelAndPic(summary.avgSaveMasks, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 7), false, chart2.Series[6].Color);
+                    generateGameOverviewLabelAndPic(summary.avgKillingMasks, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 8), false, chart2.Series[7].Color);
+                    generateGameOverviewLabelAndPic(summary.avgSequenceLength, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 9), false, chart2.Series[8].Color);
 
                     chart2.Series[9].Points.AddXY(wi.nr, summary.avgInterval);
                     chart2.Series[10].Points.AddXY(wi.nr, summary.avgActivation);
@@ -2309,18 +2309,40 @@ namespace SquareTapperEditor
             e.ItemWidth = desiredSize + 2 * MarginWidth;
         }
 
-        private void generateGameOverviewLabel(string text, Point location, bool bBold = false)
+        private void generateGameOverviewLabelAndPic(float nr, Point location, bool bLevelNr = true, Color? color = null)
         {
+            PictureBox pc = null;
+
+            if (!bLevelNr && nr > 0.0f)
+            {
+                pc = new PictureBox();
+                pc.BackColor = color ?? Color.Black;
+                pc.Size = new Size(30, 30);
+                pc.Location = new Point(location.X + 15, location.Y - 3);
+                panel2.Controls.Add(pc);
+            }
+
             Label lbl = new Label();
             lbl.TextAlign = LevelLabels1[0].TextAlign;
-            lbl.Font = new Font(LevelLabels1[0].Font, bBold ? FontStyle.Bold : FontStyle.Regular);
+            lbl.Font = new Font(LevelLabels1[0].Font, bLevelNr ? FontStyle.Bold : FontStyle.Regular);
             lbl.Size = new Size(60, 23);
             lbl.AutoSize = false;
             lbl.TextAlign = ContentAlignment.MiddleCenter;
-            lbl.Location = location;
-            lbl.Text = text;
-            panel2.Controls.Add(lbl);
+            lbl.Text = Math.Round(nr, 1).ToString();
+
+            if (pc != null)
+            {
+                lbl.Parent = pc;
+                lbl.Location = new Point(location.X - pc.Location.X, location.Y - pc.Location.Y);
+                lbl.BackColor = Color.Transparent;
+            }
+            else
+            {
+                lbl.Location = location;
+                panel2.Controls.Add(lbl);
+            }
         }
+
 
         private void generateIconOverviewLabel(string text, Point location, bool bBold = false)
         {

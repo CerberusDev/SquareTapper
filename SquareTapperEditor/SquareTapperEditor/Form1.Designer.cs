@@ -1364,7 +1364,7 @@
             this.panel2.Controls.Add(this.chart2);
             this.panel2.Location = new System.Drawing.Point(226, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1643, 516);
+            this.panel2.Size = new System.Drawing.Size(1643, 519);
             this.panel2.TabIndex = 366;
             // 
             // chart2

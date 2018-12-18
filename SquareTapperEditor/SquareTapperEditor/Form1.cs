@@ -2017,7 +2017,9 @@ namespace SquareTapperEditor
             }
             else
             {
+                var chart = chart2;
                 panel2.Controls.Clear();
+                panel2.Controls.Add(chart);
             }
         }
 

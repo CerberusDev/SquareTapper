@@ -2366,49 +2366,55 @@ namespace SquareTapperEditor
             SummaryWorldInfo summary = new SummaryWorldInfo();
             summary.nr = wi.nr;
 
-            for (int i = 0; i < 12; ++i)
+            for (int i = 0; i < 15; ++i)
             {
                 LevelInfo li = wi.levelInfos[i];
-
-                summary.avgInterval += li.interval;
-                summary.avgActivation += li.activation;
-                summary.avgSafe += li.safe;
-                summary.avgDangerous += li.dangerous;
-                summary.avgUnfair += li.unfair;
-
-                if (li.maskIdx1 != 0)
-                {
-                    if (isMaskKilling(li.maskIdx1))
-                        ++summary.avgKillingMasks;
-                    else
-                        ++summary.avgSaveMasks;
-
-                    summary.totals[li.maskIdx1 + 4] += 1;
-                }
-
-                if (li.maskIdx2 != 0)
-                {
-                    if (isMaskKilling(li.maskIdx2))
-                        ++summary.avgKillingMasks;
-                    else
-                        ++summary.avgSaveMasks;
-
-                    summary.totals[li.maskIdx2 + 4] += 1;
-                }
+                int dbNr = 0;
 
                 for (int j = 0; j < 15; ++j)
                     if (li.doubleTaps[j] == true)
-                        ++summary.avgDoubleTaps;
+                        ++dbNr;
 
-                summary.avgSequenceLength += li.sequences.Count;
+                summary.totals[0] += dbNr;
+                summary.totals[1] += li.safe;
+                summary.totals[2] += li.dangerous;
+                summary.totals[3] += li.unfair;
+                summary.totals[4] += li.sequences.Count;
 
+                if (li.maskIdx1 != 0)
+                    summary.totals[li.maskIdx1 + 4] += 1;
+
+                if (li.maskIdx2 != 0)
+                    summary.totals[li.maskIdx2 + 4] += 1;
+
+                if (i < 12)
+                {
+                    summary.avgDoubleTaps += dbNr;
+                    summary.avgInterval += li.interval;
+                    summary.avgActivation += li.activation;
+                    summary.avgSafe += li.safe;
+                    summary.avgDangerous += li.dangerous;
+                    summary.avgUnfair += li.unfair;
+
+                    if (li.maskIdx1 != 0)
+                    {
+                        if (isMaskKilling(li.maskIdx1))
+                            ++summary.avgKillingMasks;
+                        else
+                            ++summary.avgSaveMasks;
+                    }
+
+                    if (li.maskIdx2 != 0)
+                    {
+                        if (isMaskKilling(li.maskIdx2))
+                            ++summary.avgKillingMasks;
+                        else
+                            ++summary.avgSaveMasks;
+                    }
+
+                    summary.avgSequenceLength += li.sequences.Count;
+                }
             }
-
-            summary.totals[0] = (int)summary.avgDoubleTaps;
-            summary.totals[1] = (int)summary.avgSafe;
-            summary.totals[2] = (int)summary.avgDangerous;
-            summary.totals[3] = (int)summary.avgUnfair;
-            summary.totals[4] = (int)summary.avgSequenceLength;
 
             summary.avgInterval /= 12.0f;
             summary.avgActivation /= 12.0f;

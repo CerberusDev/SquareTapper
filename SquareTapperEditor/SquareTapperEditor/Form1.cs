@@ -60,6 +60,8 @@ namespace SquareTapperEditor
         private List<Label> IconThreeStarsLabels;
         private List<Label> IconMaxStarsLabels;
 
+        private List<Label> TotalLabels;
+
         static int alpha = 90;
 
         Color intervalColor = Color.FromArgb(210, 130, 22);
@@ -102,6 +104,8 @@ namespace SquareTapperEditor
             MaskCodes.Add("Chessboard-Killing");
             MaskCodes.Add("Full-Standard");
             MaskCodes.Add("Full-Killing");
+
+            TotalLabels = new List<Label> { label17, label18, label19, label20, label21, label22, label23, label24, label25, label26, label27, label28, label30, label37, label38 };
 
             ButtonImages = new List<Image> { Properties.Resources.button2, Properties.Resources.button3 };
 
@@ -1957,6 +1961,7 @@ namespace SquareTapperEditor
                 chart2.Series[1].Points.Clear();
 
                 List <int> worldNrList = getAvailableWorldNrs();
+                int[] totals = new int[15];
 
                 for (int i = 0; i < worldNrList.Count; ++i)
                 {
@@ -1965,20 +1970,15 @@ namespace SquareTapperEditor
 
                     generateGameOverviewLabelAndPic(summary.nr, new Point(startOffsetX + i * offsetX, startOffsetY));
 
+                    for (int j = 0; j < 15; ++j)
+                        totals[j] += summary.totals[j];
+
                     PictureBox pc = new PictureBox();
                     pc.Image = (IconComboBoxes[i].SelectedItem as IconData).img;
                     pc.SizeMode = PictureBoxSizeMode.StretchImage;
                     pc.Size = new Size(30, 30);
                     pc.Location = new Point(startOffsetX + i * offsetX + 15, startOffsetY + 30);
                     panel2.Controls.Add(pc);
-
-                    Color doubleTapColor = Color.FromArgb(alpha, 150, 150, 150);
-                    Color safeColor = Color.FromArgb(alpha, 72, 69, 145);
-                    Color dangerousColor = Color.FromArgb(alpha, 150, 16, 48);
-                    Color unfairColor = Color.FromArgb(alpha, 0, 0, 0);
-                    Color safeMasksColor = Color.FromArgb(180, 72, 69, 145);
-                    Color killingMasksColor = Color.FromArgb(180, 150, 16, 48);
-                    Color sequenceColor = Color.FromArgb(alpha, 220, 160, 40);
 
                     generateGameOverviewLabelAndPic(summary.avgDoubleTaps, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 1), false, doubleTapColor);
                     generateGameOverviewLabelAndPic(summary.avgSafe, new Point(startOffsetX + i * offsetX, picBoxOffsetY + startOffsetY + offsetY * 2), false, safeColor);
@@ -1998,6 +1998,22 @@ namespace SquareTapperEditor
                 chart2.ChartAreas[0].Axes[0].Maximum = worldNrList.Count - 0.5f;
 
                 chart2.Size = new Size(worldNrList.Count * offsetX + startOffsetX + 92, 200);
+
+                TotalLabels[0].Text = totals[0].ToString();
+                TotalLabels[1].Text = totals[1].ToString();
+                TotalLabels[2].Text = totals[2].ToString();
+                TotalLabels[3].Text = totals[3].ToString();
+                TotalLabels[4].Text = totals[4].ToString();
+                TotalLabels[5].Text = totals[5].ToString();
+                TotalLabels[6].Text = totals[7].ToString();
+                TotalLabels[7].Text = totals[9].ToString();
+                TotalLabels[8].Text = totals[11].ToString();
+                TotalLabels[9].Text = totals[13].ToString();
+                TotalLabels[10].Text = totals[6].ToString();
+                TotalLabels[11].Text = totals[8].ToString();
+                TotalLabels[12].Text = totals[10].ToString();
+                TotalLabels[13].Text = totals[12].ToString();
+                TotalLabels[14].Text = totals[14].ToString();
             }
             else
             {
@@ -2364,6 +2380,8 @@ namespace SquareTapperEditor
                         ++summary.avgKillingMasks;
                     else
                         ++summary.avgSaveMasks;
+
+                    summary.totals[li.maskIdx1 + 4] += 1;
                 }
 
                 if (li.maskIdx2 != 0)
@@ -2372,6 +2390,8 @@ namespace SquareTapperEditor
                         ++summary.avgKillingMasks;
                     else
                         ++summary.avgSaveMasks;
+
+                    summary.totals[li.maskIdx2 + 4] += 1;
                 }
 
                 for (int j = 0; j < 15; ++j)
@@ -2379,7 +2399,14 @@ namespace SquareTapperEditor
                         ++summary.avgDoubleTaps;
 
                 summary.avgSequenceLength += li.sequences.Count;
+
             }
+
+            summary.totals[0] = (int)summary.avgDoubleTaps;
+            summary.totals[1] = (int)summary.avgSafe;
+            summary.totals[2] = (int)summary.avgDangerous;
+            summary.totals[3] = (int)summary.avgUnfair;
+            summary.totals[4] = (int)summary.avgSequenceLength;
 
             summary.avgInterval /= 12.0f;
             summary.avgActivation /= 12.0f;
@@ -2444,6 +2471,48 @@ namespace SquareTapperEditor
         {
             string[] tmp = s.Split(':');
             return int.Parse(tmp[1]);
+        }
+
+        private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            if (e.Row == 0 && e.Column == 0)
+            {
+                SolidBrush brush = new SolidBrush(doubleTapColor);
+                e.Graphics.FillRectangle(brush, e.CellBounds);
+            }
+            else if(e.Row == 0 && e.Column == 1)
+            {
+                SolidBrush brush = new SolidBrush(safeColor);
+                e.Graphics.FillRectangle(brush, e.CellBounds);
+            }
+            else if(e.Row == 0 && e.Column == 2)
+            {
+                SolidBrush brush = new SolidBrush(dangerousColor);
+                e.Graphics.FillRectangle(brush, e.CellBounds);
+            }
+            else if(e.Row == 0 && e.Column == 3)
+            {
+                SolidBrush brush = new SolidBrush(unfairColor);
+                e.Graphics.FillRectangle(brush, e.CellBounds);
+            }
+            else if(e.Row == 0 && e.Column == 4)
+            {
+                SolidBrush brush = new SolidBrush(sequenceColor);
+                e.Graphics.FillRectangle(brush, e.CellBounds);
+            }
+            else
+            {
+                e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+            }
+
+            e.Graphics.DrawLine(Pens.Black, e.CellBounds.Location, new Point(e.CellBounds.Right, e.CellBounds.Top));
+            e.Graphics.DrawLine(Pens.Black, e.CellBounds.Location, new Point(e.CellBounds.Left, e.CellBounds.Bottom));
+
+            if (e.Row == 1)
+                e.Graphics.DrawLine(Pens.Black, new Point(e.CellBounds.Left, e.CellBounds.Bottom - 1), new Point(e.CellBounds.Right, e.CellBounds.Bottom - 1));
+
+            if (e.Column == 14)
+                e.Graphics.DrawLine(Pens.Black, new Point(e.CellBounds.Right - 1, e.CellBounds.Top), new Point(e.CellBounds.Right - 1, e.CellBounds.Bottom));
         }
     }
 
@@ -2553,6 +2622,12 @@ namespace SquareTapperEditor
         public float avgDoubleTaps;
         public float avgKillingMasks;
         public float avgSequenceLength;
+        public int[] totals;
+
+        public SummaryWorldInfo()
+        {
+            totals = new int[15];
+        }
     }
 
     class IconData

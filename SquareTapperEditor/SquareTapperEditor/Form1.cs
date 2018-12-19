@@ -67,6 +67,7 @@ namespace SquareTapperEditor
         private List<PictureBox> SimulatedSquaresActive;
         private List<PictureBox> SimulatedSquaresAvailable;
         private List<Image> SimulatedSquaresImages;
+        private List<CheckBox> SimulateButtons;
 
         private System.Timers.Timer SimulateTimer;
         private float intervalCounter;
@@ -167,6 +168,7 @@ namespace SquareTapperEditor
             MaskComboBoxes2 = new List<ComboBox> { comboBox2 };
             LayoutPanels = new List<Panel> { panel1 };
             ResetButtons = new List<CheckBox> { checkBox2 };
+            SimulateButtons = new List<CheckBox> { checkBox5 };
 
             IconComboBoxes = new List<ComboBox>();
             IconTextBoxes = new List<TextBox>();
@@ -286,6 +288,16 @@ namespace SquareTapperEditor
                 bt.Location = new Point(ResetButtons[0].Location.X + getCurrentOffsetX(i), ResetButtons[0].Location.Y);
                 tabPage1.Controls.Add(bt);
                 ResetButtons.Add(bt);
+
+                CheckBox st = new CheckBox();
+                st.Font = SimulateButtons[0].Font;
+                st.Text = SimulateButtons[0].Text;
+                st.Appearance = SimulateButtons[0].Appearance;
+                st.TextAlign = SimulateButtons[0].TextAlign;
+                st.Size = SimulateButtons[0].Size;
+                st.Location = new Point(SimulateButtons[0].Location.X + getCurrentOffsetX(i), SimulateButtons[0].Location.Y);
+                tabPage1.Controls.Add(st);
+                SimulateButtons.Add(st);
             }
 
             for (int i = 0; i < ResetButtons.Count; ++i)
@@ -293,6 +305,12 @@ namespace SquareTapperEditor
                 ResetButtons[i].Tag = LayoutPanels[i];
                 ResetButtons[i].CheckedChanged += resetCheckbox_CheckedChanged;
                 ResetButtons[i].EnabledChanged += resetCheckbox_EnabledChanged;
+            }
+
+            for (int i = 0; i < SimulateButtons.Count; ++i)
+            {
+                SimulateButtons[i].Tag = i;
+                SimulateButtons[i].CheckedChanged += simulateCheckbox_CheckedChanged;
             }
 
             foreach (Panel panel in LayoutPanels)
@@ -322,22 +340,27 @@ namespace SquareTapperEditor
             initLevelNumbers();
             initIconImages();
 
-            foreach (TextBox tb in IntervalTextBoxes)
+            for (int i = 0; i < IntervalTextBoxes.Count; ++i)
             {
+                TextBox tb = IntervalTextBoxes[i];
+
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
                 ArrowButtonsData ar = new ArrowButtonsData();
                 ar.Step = 0.025f;
+                ar.Idx = i;
                 tb.Tag = ar;
                 SpawnArrows(tb);
             }
-
-            foreach (TextBox tb in DurationTextBoxes)
+            for (int i = 0; i < DurationTextBoxes.Count; ++i)
             {
+                TextBox tb = DurationTextBoxes[i];
+
                 tb.TextChanged += handleTextChanges;
                 tb.KeyPress += handleKeyPress;
                 ArrowButtonsData ar = new ArrowButtonsData();
                 ar.Step = 0.025f;
+                ar.Idx = i;
                 tb.Tag = ar;
                 SpawnArrows(tb);
             }
@@ -469,10 +492,38 @@ namespace SquareTapperEditor
         }
         // ======================================== constructor end ==========================================
 
-        private void button5_Click(object sender, EventArgs e)
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
+            if (checkBox6.Checked)
+                checkBox6.Text = "Automatic Simulation ON";
+            else
+                checkBox6.Text = "Automatic Simulation OFF";
+        }
+
+        private void stopAllSimulations(CheckBox oneToKeep = null)
+        {
+            foreach (CheckBox currCB in SimulateButtons)
+                if (currCB != oneToKeep)
+                    currCB.Checked = false;
+
             resetSimulation();
-            startSimulation(0.3f, 1.5f);
+        }
+
+        private void simulateCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+
+            if (cb.Checked)
+            {
+                int idx = (int)(cb.Tag);
+
+                stopAllSimulations(cb);
+                startSimulation(idx);
+            }
+            else
+            {
+                stopSimulation();
+            }
         }
 
         private void stopSimulation()
@@ -491,14 +542,14 @@ namespace SquareTapperEditor
             }
         }
 
-        private void startSimulation(float interval, float activation)
+        private void startSimulation(int idx)
         {
             SimulatedSquaresActive.Clear();
             SimulatedSquaresAvailable.Clear();
             SimulatedSquaresAvailable.AddRange(SimulatedSquares);
 
-            simulationInterval = interval;
-            simulationActivation = activation;
+            simulationInterval = getValueFromTextbox(IntervalTextBoxes[idx]);
+            simulationActivation = getValueFromTextbox(DurationTextBoxes[idx]);
 
             intervalCounter = 0.0f;
             completedCounter = 0;
@@ -508,6 +559,9 @@ namespace SquareTapperEditor
 
         private void simulateTimerElapsed(Object source, System.Timers.ElapsedEventArgs e)
         {
+            if (tabControl1.SelectedIndex != 0)
+                return;
+
             float deltaTime = (float)SimulateTimer.Interval * 0.001f;
             intervalCounter += deltaTime;
 
@@ -545,10 +599,13 @@ namespace SquareTapperEditor
             {
                 intervalCounter -= simulationInterval;
 
-                Random rnd1 = new Random();
-                PictureBox pc = SimulatedSquaresAvailable[rnd1.Next(SimulatedSquaresAvailable.Count() - 1)];
-                SimulatedSquaresAvailable.Remove(pc);
-                SimulatedSquaresActive.Add(pc);
+                if (SimulatedSquaresAvailable.Count() > 0)
+                {
+                    Random rnd1 = new Random();
+                    PictureBox pc = SimulatedSquaresAvailable[rnd1.Next(SimulatedSquaresAvailable.Count() - 1)];
+                    SimulatedSquaresAvailable.Remove(pc);
+                    SimulatedSquaresActive.Add(pc);
+                }
             }
         }
 
@@ -785,9 +842,11 @@ namespace SquareTapperEditor
             if (!isDirty())
                 return false;
 
+            stopAllSimulations();
             DialogResult result =
                 MessageBox.Show("Would you like to save your changes on the current level before proceeding?"
                 , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
 
             if (result == DialogResult.Yes)
             {
@@ -804,6 +863,7 @@ namespace SquareTapperEditor
         {
             if (isAnyTabDirty())
             {
+                stopAllSimulations();
                 DialogResult result = MessageBox.Show("Would you like to save all your before exiting?"
                                                         , "Save changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
@@ -983,6 +1043,19 @@ namespace SquareTapperEditor
 
             redrawChart();
             markAsDirty();
+
+            stopAllSimulations();
+
+            int idx = (argTextbox.Tag as ArrowButtonsData).Idx;
+
+            if (checkBox6.Checked)
+            {
+                SimulateButtons[idx].Checked = true;
+            }
+            else if (SimulateButtons[idx].Checked)
+            {
+                startSimulation(idx);
+            }
         }
 
         private void handleKeyPress(object sender, KeyPressEventArgs e)
@@ -1596,6 +1669,7 @@ namespace SquareTapperEditor
 
             markAsClean();
             updateAllResetButtonsEnabledState();
+            stopAllSimulations();
         }
 
         private PictureBox GetPictureBoxWithIdx(Panel currPanel, int idx)
@@ -1939,12 +2013,12 @@ namespace SquareTapperEditor
 
             if (cb.Checked)
             {
-                cb.Text = "Sequences";
+                cb.Text = "Edit Mode: Sequences";
                 checkBox4.Enabled = true;
             }
             else
             {
-                cb.Text = "Double Taps";
+                cb.Text = "Edit Mode: Double Taps";
                 checkBox4.Enabled = false;
             }
 
@@ -2089,6 +2163,10 @@ namespace SquareTapperEditor
             if (newIdx == 0)
             {
                 setIconMiniatureTab1();
+            }
+            else
+            {
+                stopAllSimulations();
             }
 
             if (newIdx == 1)
@@ -2721,6 +2799,7 @@ namespace SquareTapperEditor
         public Button ArrowButtonLeft;
         public Button ArrowButtonRight;
         public float Step;
+        public int Idx;
     }
 
     class WorldInfo

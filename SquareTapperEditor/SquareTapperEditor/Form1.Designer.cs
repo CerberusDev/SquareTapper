@@ -58,7 +58,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button5 = new System.Windows.Forms.Button();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pictureBox41 = new System.Windows.Forms.PictureBox();
             this.pictureBox40 = new System.Windows.Forms.PictureBox();
@@ -245,7 +246,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Controls.Add(this.checkBox6);
+            this.tabPage1.Controls.Add(this.checkBox5);
             this.tabPage1.Controls.Add(this.panel4);
             this.tabPage1.Controls.Add(this.pictureBox17);
             this.tabPage1.Controls.Add(this.button4);
@@ -289,16 +291,32 @@
             this.tabPage1.Text = "Edit levels layout";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // button5
+            // checkBox6
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button5.Location = new System.Drawing.Point(88, 937);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 24);
-            this.button5.TabIndex = 401;
-            this.button5.Text = "Start";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.checkBox6.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox6.Checked = true;
+            this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox6.Location = new System.Drawing.Point(39, 561);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(193, 27);
+            this.checkBox6.TabIndex = 403;
+            this.checkBox6.Text = "Automatic Simulation ON";
+            this.checkBox6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox5.Location = new System.Drawing.Point(293, 561);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(99, 27);
+            this.checkBox5.TabIndex = 402;
+            this.checkBox5.Text = "Simulate";
+            this.checkBox5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox5.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -319,7 +337,7 @@
             this.panel4.Controls.Add(this.pictureBox29);
             this.panel4.Controls.Add(this.pictureBox28);
             this.panel4.Controls.Add(this.pictureBox27);
-            this.panel4.Location = new System.Drawing.Point(40, 599);
+            this.panel4.Location = new System.Drawing.Point(40, 607);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(192, 332);
             this.panel4.TabIndex = 399;
@@ -531,7 +549,7 @@
             this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox4.Location = new System.Drawing.Point(39, 390);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(158, 27);
+            this.checkBox4.Size = new System.Drawing.Size(193, 27);
             this.checkBox4.TabIndex = 395;
             this.checkBox4.Text = "Sequence Helper OFF";
             this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -542,9 +560,9 @@
             // 
             this.checkBox3.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox3.Location = new System.Drawing.Point(40, 527);
+            this.checkBox3.Location = new System.Drawing.Point(39, 527);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(157, 27);
+            this.checkBox3.Size = new System.Drawing.Size(193, 27);
             this.checkBox3.TabIndex = 394;
             this.checkBox3.Text = "Reset All";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -773,9 +791,9 @@
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox1.Location = new System.Drawing.Point(39, 357);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(158, 27);
+            this.checkBox1.Size = new System.Drawing.Size(193, 27);
             this.checkBox1.TabIndex = 369;
-            this.checkBox1.Text = "Double Taps";
+            this.checkBox1.Text = "Edit Mode: Double Taps";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -1029,7 +1047,7 @@
             chartArea1.AxisY.Minimum = 0D;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Location = new System.Drawing.Point(217, 582);
+            this.chart1.Location = new System.Drawing.Point(217, 594);
             this.chart1.Name = "chart1";
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1";
@@ -1063,7 +1081,7 @@
             this.chart1.Series.Add(series5);
             this.chart1.Series.Add(series6);
             this.chart1.Series.Add(series7);
-            this.chart1.Size = new System.Drawing.Size(1692, 397);
+            this.chart1.Size = new System.Drawing.Size(1692, 385);
             this.chart1.TabIndex = 364;
             this.chart1.Text = "chart1";
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
@@ -1960,7 +1978,8 @@
         private System.Windows.Forms.PictureBox pictureBox30;
         private System.Windows.Forms.PictureBox pictureBox29;
         private System.Windows.Forms.PictureBox pictureBox28;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox6;
     }
 }
 

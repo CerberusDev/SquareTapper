@@ -177,6 +177,30 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="icon_k2A_icon.ico" />
+    <None Include="Resources\completed.png" />
+    <None Include="Resources\s21.png" />
+    <None Include="Resources\s20.png" />
+    <None Include="Resources\s19.png" />
+    <None Include="Resources\s18.png" />
+    <None Include="Resources\s17.png" />
+    <None Include="Resources\s16.png" />
+    <None Include="Resources\s15.png" />
+    <None Include="Resources\s14.png" />
+    <None Include="Resources\s13.png" />
+    <None Include="Resources\s12.png" />
+    <None Include="Resources\s11.png" />
+    <None Include="Resources\s10.png" />
+    <None Include="Resources\s9.png" />
+    <None Include="Resources\s8.png" />
+    <None Include="Resources\s7.png" />
+    <None Include="Resources\s6.png" />
+    <None Include="Resources\s5.png" />
+    <None Include="Resources\s4.png" />
+    <None Include="Resources\s3.png" />
+    <None Include="Resources\s2.png" />
+    <None Include="Resources\s1.png" />
+    <None Include="Resources\s0.png" />
+    <None Include="Resources\board.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

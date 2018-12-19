@@ -48,6 +48,7 @@ namespace SquareTapperEditor
         private CheckBox PendingResetButton;
         private System.Timers.Timer ResetButtonsTimer;
 
+
         private int openedWorldNr = -1;
 
         private List<IconData> AllIconImages;
@@ -61,6 +62,17 @@ namespace SquareTapperEditor
         private List<Label> IconMaxStarsLabels;
 
         private List<Label> TotalLabels;
+
+        private List<PictureBox> SimulatedSquares;
+        private List<PictureBox> SimulatedSquaresActive;
+        private List<PictureBox> SimulatedSquaresAvailable;
+        private List<Image> SimulatedSquaresImages;
+
+        private System.Timers.Timer SimulateTimer;
+        private float intervalCounter;
+        private int completedCounter;
+        private float simulationInterval;
+        private float simulationActivation;
 
         static int alpha = 90;
 
@@ -106,6 +118,41 @@ namespace SquareTapperEditor
             MaskCodes.Add("Full-Killing");
 
             TotalLabels = new List<Label> { label17, label18, label19, label20, label21, label22, label23, label24, label25, label26, label27, label28, label30, label37, label38 };
+
+            SimulatedSquaresActive = new List<PictureBox>();
+            SimulatedSquaresAvailable = new List<PictureBox>();
+            SimulatedSquares = new List<PictureBox> { pictureBox27, pictureBox28, pictureBox29, pictureBox30, pictureBox31, pictureBox32, pictureBox33, pictureBox34, pictureBox35, pictureBox36, pictureBox37, pictureBox38, pictureBox39, pictureBox40, pictureBox41 };
+            SimulatedSquaresImages = new List<Image>
+            {
+                Properties.Resources.s0,
+                Properties.Resources.s1,
+                Properties.Resources.s2,
+                Properties.Resources.s3,
+                Properties.Resources.s4,
+                Properties.Resources.s5,
+                Properties.Resources.s6,
+                Properties.Resources.s7,
+                Properties.Resources.s8,
+                Properties.Resources.s9,
+                Properties.Resources.s10,
+                Properties.Resources.s11,
+                Properties.Resources.s12,
+                Properties.Resources.s13,
+                Properties.Resources.s14,
+                Properties.Resources.s15,
+                Properties.Resources.s16,
+                Properties.Resources.s17,
+                Properties.Resources.s18,
+                Properties.Resources.s19,
+                Properties.Resources.s20,
+                Properties.Resources.s21
+            };
+
+            SimulateTimer = new System.Timers.Timer(33);
+            SimulateTimer.SynchronizingObject = this;
+            SimulateTimer.Elapsed += simulateTimerElapsed;
+
+            resetSimulation();
 
             ButtonImages = new List<Image> { Properties.Resources.button2, Properties.Resources.button3 };
 
@@ -415,8 +462,95 @@ namespace SquareTapperEditor
 
             colorizeGameOverviewLabel(label7, intervalColor);
             colorizeGameOverviewLabel(label8, activationColor);
+
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
         // ======================================== constructor end ==========================================
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            resetSimulation();
+            startSimulation(0.3f, 1.5f);
+        }
+
+        private void stopSimulation()
+        {
+            SimulateTimer.Enabled = false;
+        }
+
+        private void resetSimulation()
+        {
+            SimulateTimer.Enabled = false;
+
+            foreach (PictureBox pc in SimulatedSquares)
+            {
+                pc.Tag = 0.0f;
+                pc.Image = SimulatedSquaresImages.Last();
+            }
+        }
+
+        private void startSimulation(float interval, float activation)
+        {
+            SimulatedSquaresActive.Clear();
+            SimulatedSquaresAvailable.Clear();
+            SimulatedSquaresAvailable.AddRange(SimulatedSquares);
+
+            simulationInterval = interval;
+            simulationActivation = activation;
+
+            intervalCounter = 0.0f;
+            completedCounter = 0;
+
+            SimulateTimer.Enabled = true;
+        }
+
+        private void simulateTimerElapsed(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            float deltaTime = (float)SimulateTimer.Interval * 0.001f;
+            intervalCounter += deltaTime;
+
+            List<PictureBox> SimulatedSquaresCompleted = new List<PictureBox>();
+
+            foreach (PictureBox pc in SimulatedSquaresActive)
+            {
+                float progress = (float)pc.Tag;
+                progress = progress + deltaTime / simulationActivation;
+
+                if (progress >= 1.0f)
+                {
+                    progress = 1.0f;
+                    SimulatedSquaresCompleted.Add(pc);
+                    pc.Image = Properties.Resources.completed;
+                    ++completedCounter;
+
+                    if (completedCounter == 3)
+                        stopSimulation();
+                }
+                else
+                {
+                    int imageIdx = SimulatedSquaresImages.Count - 1 - (int)Math.Round(progress * (SimulatedSquaresImages.Count - 1));
+                    pc.Image = SimulatedSquaresImages[imageIdx];
+                }
+
+                pc.Tag = progress;
+
+            }
+
+            foreach (PictureBox pc in SimulatedSquaresCompleted)
+                SimulatedSquaresActive.Remove(pc);
+
+            if (intervalCounter > simulationInterval)
+            {
+                intervalCounter -= simulationInterval;
+
+                Random rnd1 = new Random();
+                PictureBox pc = SimulatedSquaresAvailable[rnd1.Next(SimulatedSquaresAvailable.Count() - 1)];
+                SimulatedSquaresAvailable.Remove(pc);
+                SimulatedSquaresActive.Add(pc);
+            }
+        }
 
         private void colorizeGameOverviewLabel(Label lbl, Color color)
         {
@@ -437,8 +571,8 @@ namespace SquareTapperEditor
 
         private int getCurrentOffsetX(int i)
         {
-            const int offsetX = 107;
-            const int offsetX_bonus = 30;
+            const int offsetX = 103;
+            const int offsetX_bonus = 18;
 
             int baseOffset = offsetX * i;
 

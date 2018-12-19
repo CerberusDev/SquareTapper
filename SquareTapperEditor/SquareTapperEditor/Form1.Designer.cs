@@ -531,11 +531,12 @@
             this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox4.Location = new System.Drawing.Point(39, 390);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(127, 27);
+            this.checkBox4.Size = new System.Drawing.Size(158, 27);
             this.checkBox4.TabIndex = 395;
-            this.checkBox4.Text = "Sequence Helper";
+            this.checkBox4.Text = "Sequence Helper OFF";
             this.checkBox4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -543,7 +544,7 @@
             this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox3.Location = new System.Drawing.Point(40, 527);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(126, 27);
+            this.checkBox3.Size = new System.Drawing.Size(157, 27);
             this.checkBox3.TabIndex = 394;
             this.checkBox3.Text = "Reset All";
             this.checkBox3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -772,7 +773,7 @@
             this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkBox1.Location = new System.Drawing.Point(39, 357);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(127, 27);
+            this.checkBox1.Size = new System.Drawing.Size(158, 27);
             this.checkBox1.TabIndex = 369;
             this.checkBox1.Text = "Double Taps";
             this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -1120,6 +1120,14 @@ namespace SquareTapperEditor
             checkBox4.Checked = bNewState;
         }
 
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+                checkBox4.Text = "Sequence helper ON";
+            else
+                checkBox4.Text = "Sequence helper OFF";
+        }
+
         private void pictureBox_Click(object sender, EventArgs e)
         {
             button2.Focus();

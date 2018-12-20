@@ -314,8 +314,8 @@ bool LevelSelectScene::init()
 	PageViewMenu->setCurrentPageIndex(StartWorldNumber);
 
 	CreateResetProgressButton();
-	CreateBackToMenuButton();
 	CreateDebugButton();
+	CreateDebugButton2();
 
 	return true;
 }
@@ -487,8 +487,6 @@ void LevelSelectScene::CreateDebugButton()
 			}
 
 			UserDefaultData->flush();
-
-			LevelSelectScene::InitializeLevelParams();
 			Director::getInstance()->replaceScene(LevelSelectScene::create());
 		}
 	});
@@ -496,21 +494,21 @@ void LevelSelectScene::CreateDebugButton()
 	this->addChild(DebugButton, 1);
 }
 
-void LevelSelectScene::CreateBackToMenuButton()
+void LevelSelectScene::CreateDebugButton2()
 {
-	auto BackToMenuButton = ui::Button::create("gui/icons/icon_menu_inactive_512.png", "img/ui/icon_menu_inactive_512.png");
-	BackToMenuButton->setPosition(Vec2(GameScene::GetScreenPositionX(0), GameScene::GetButtonsPositionY()));
-	BackToMenuButton->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
+	auto DebugButton = ui::Button::create("img/ui/DebugButton2.png", "img/ui/DebugButton2.png");
+	DebugButton->setPosition(Vec2(GameScene::GetScreenPositionX(0), GameScene::GetButtonsPositionY()));
+	DebugButton->setScale(BUTTON_SPRITE_SIZE / BUTTON_TEXTURES_SIZE);
 
-	BackToMenuButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
+	DebugButton->addTouchEventListener([&](Ref* sender, ui::Widget::TouchEventType type) {
 		if (type == ui::Widget::TouchEventType::ENDED)
 		{
-			//temporary: do nothing
-			//Director::getInstance()->replaceScene(LevelSelectScene::create(0));
+			LevelSelectScene::InitializeLevelParams();
+			Director::getInstance()->replaceScene(LevelSelectScene::create());
 		}
 	});
 
-	this->addChild(BackToMenuButton, 1);
+	this->addChild(DebugButton, 1);
 }
 
 void LevelSelectScene::GetNextLevelIDs(int CurrWorldNumber, int CurrLevelNumber, int& NextWorldNumber, int& NextLevelNumber)

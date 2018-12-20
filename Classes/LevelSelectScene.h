@@ -54,5 +54,5 @@ public:
 	void CreateStarsLabel(cocos2d::ui::Layout* PageLayout);
 	void CreateResetProgressButton();
 	void CreateDebugButton();
-	void CreateBackToMenuButton();
+	void CreateDebugButton2();
 };

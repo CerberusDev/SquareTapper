@@ -15,5 +15,5 @@ public:
 	virtual void OnSquareFailed(GameSquare* FailedSquare) = 0 ;
 
 protected:
-	void Blink(bool bLongWhiteBlink);
+	void Blink(bool bPermamentWhiteBlink);
 };

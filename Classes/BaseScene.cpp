@@ -6,25 +6,21 @@
 
 USING_NS_CC;
 
-void BaseScene::Blink(bool bLongWhiteBlink)
+void BaseScene::Blink(bool bPermamentWhiteBlink)
 {
-	auto BlinkSprite = Sprite::create(bLongWhiteBlink ? "gui/squares/square_active_512.png" : "gui/squares/square_star_512.png");
+	auto BlinkSprite = Sprite::create(bPermamentWhiteBlink ? "gui/squares/square_active_512.png" : "gui/squares/square_star_512.png");
 	BlinkSprite->setOpacity(0.0f);
 	BlinkSprite->setPosition(DESIGN_RES_X / 2.0f, DESIGN_RES_Y / 2.0f);
 	BlinkSprite->setScale(DESIGN_RES_X / SQUARE_TEXTURES_SIZE, DESIGN_RES_Y / SQUARE_TEXTURES_SIZE);
 
-	if (bLongWhiteBlink)
+	if (bPermamentWhiteBlink)
 	{
 		addChild(BlinkSprite, 0);
 
 		auto FadeInAction = FadeTo::create(0.10f, 255);
 		auto DelayAction = DelayTime::create(0.16f);
-		auto FadeOutAction = FadeTo::create(0.25f, 0);
-		auto RemoveMyself = CallFunc::create([BlinkSprite]() {
-			BlinkSprite->removeFromParent();
-		});
 
-		BlinkSprite->runAction(Sequence::create(FadeInAction, DelayAction, FadeOutAction, RemoveMyself, nullptr));
+		BlinkSprite->runAction(Sequence::createWithTwoActions(FadeInAction, DelayAction));
 	}
 	else
 	{

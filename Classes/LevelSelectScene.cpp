@@ -11,6 +11,7 @@ USING_NS_CC;
 
 #define ARROW_ICON_SIZE 120.0f
 
+const std::string LevelSelectScene::WorldLockedSpriteFilename = "gui/bqsqr/bgsqr_5_inactive_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_0Stars = "gui/squares/square_active_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_1Star = "gui/percent/percent_33_inactive_star_512.png";
 const std::string LevelSelectScene::LevelButtonSpriteFilename_2Stars = "gui/percent/percent_66_inactive_star_512.png";
@@ -293,9 +294,14 @@ bool LevelSelectScene::init()
 		}
 
 		if (bWorldLocked)
+		{
 			CreateRequiredStarsLabel(i, PageLayout);
+			CreateWorldIcon(i, PageLayout, EWorldIconType::Locked);
+		}
 		else
-			CreateWorldIcon(i, PageLayout, bMaxStarsOnAllLevels);
+		{
+			CreateWorldIcon(i, PageLayout, bMaxStarsOnAllLevels ? EWorldIconType::Maxed : EWorldIconType::Available);
+		}
 
 		CreateTopArrowsIcons(i, PageLayout);
 
@@ -380,9 +386,17 @@ const std::string& LevelSelectScene::GetLevelButtonSpriteFilename(int StarsNumbe
 	}
 }
 
-void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout, bool bMaxedVersion)
+void LevelSelectScene::CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout, EWorldIconType IconType)
 {
-	auto WorldIcon = Sprite::create(bMaxedVersion ? IconNamePerWorld_Maxed[WorldNumber] : IconNamePerWorld_Standard[WorldNumber]);
+	Sprite* WorldIcon = nullptr;
+
+	switch (IconType)
+	{
+	case EWorldIconType::Locked:		WorldIcon = Sprite::create(WorldLockedSpriteFilename);					break;
+	case EWorldIconType::Available:		WorldIcon = Sprite::create(IconNamePerWorld_Standard[WorldNumber]);		break;
+	case EWorldIconType::Maxed:			WorldIcon = Sprite::create(IconNamePerWorld_Maxed[WorldNumber]);		break;
+	}
+
 	WorldIcon->setPosition(Vec2(DESIGN_RES_X / 2.0f, GameScene::GetScreenPositionY(SQUARE_AMOUNT_Y)));
 	WorldIcon->setScale(SQUARE_SPRITE_SIZE / SQUARE_TEXTURES_SIZE);
 	PageLayout->addChild(WorldIcon);
@@ -420,8 +434,8 @@ void LevelSelectScene::CreateRequiredStarsLabel(int WorldNumber, cocos2d::ui::La
 	std::stringstream Stream;
 	Stream << RequiredStarsPerWorld[WorldNumber];
 	auto StarsLabel = Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LabelFontSize);
-	StarsLabel->setPosition(Vec2(GameScene::GetScreenPositionX(0), GameScene::GetLabelsPositionY()));
-	StarsLabel->setColor(GOLD_COLOR);
+	StarsLabel->setPosition(Vec2(DESIGN_RES_X / 2.0f, GameScene::GetScreenPositionY(SQUARE_AMOUNT_Y)));
+	StarsLabel->setColor(GREY_COLOR);
 	PageLayout->addChild(StarsLabel);
 }
 

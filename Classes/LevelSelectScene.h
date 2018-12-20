@@ -10,6 +10,7 @@
 class LevelSelectScene : public cocos2d::Scene
 {
 protected:
+	static const std::string WorldLockedSpriteFilename;
 	static const std::string LevelButtonSpriteFilename_0Stars;
 	static const std::string LevelButtonSpriteFilename_1Star;
 	static const std::string LevelButtonSpriteFilename_2Stars;
@@ -48,7 +49,7 @@ public:
 
 	void CreateLevelButton(int WorldNumber, int LevelNumber, int StarsNumber, cocos2d::ui::Layout* PageLayout);
 	const std::string& GetLevelButtonSpriteFilename(int StarsNumber);
-	void CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout, bool bMaxedVersion);
+	void CreateWorldIcon(int WorldNumber, cocos2d::ui::Layout* PageLayout, EWorldIconType IconType);
 	void CreateTopArrowsIcons(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateRequiredStarsLabel(int WorldNumber, cocos2d::ui::Layout* PageLayout);
 	void CreateStarsLabel(cocos2d::ui::Layout* PageLayout);

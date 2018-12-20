@@ -80,7 +80,6 @@ struct LevelParams
 };
 
 std::string GetLevelRecordKey(const int LevelDisplayName);
-std::string GetLevelAttemptsKey(const int LevelDisplayName);
 
 template<typename T>
 bool VectorContains(const std::vector<T>& Vector, const T& ElementToCheck)

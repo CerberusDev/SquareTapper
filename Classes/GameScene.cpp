@@ -106,19 +106,6 @@ bool GameScene::init()
 	LevelLabel->setColor(GREY_COLOR);
 	this->addChild(LevelLabel, 1);
 
-	const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsStruct.GetLevelID());
-	int AttemptsNumber = UserDefault::getInstance()->getIntegerForKey(LevelAttemptsKey.c_str(), 0);
-	++AttemptsNumber;
-	UserDefault::getInstance()->setIntegerForKey(LevelAttemptsKey.c_str(), AttemptsNumber);
-
-	float AttemptsNrLabelFontSize = 40.0f;
-	std::stringstream AttemptsNrLabelStream;
-	AttemptsNrLabelStream << "." << AttemptsNumber;
-	auto AttemptsNrLabel = Label::createWithTTF(AttemptsNrLabelStream.str(), FONT_FILE_PATH_STANDARD, AttemptsNrLabelFontSize);
-	AttemptsNrLabel->setPosition(Vec2(GetScreenPositionX(MAX_STARS_NUMBER - 1), GetLabelsPositionY()));
-	AttemptsNrLabel->setColor(GREY_COLOR);
-	this->addChild(AttemptsNrLabel, 1);
-
 	float DebugLabelsFontSize = 22.0f;
 
 	std::stringstream DebugWorldStream;

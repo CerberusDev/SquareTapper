@@ -452,8 +452,6 @@ void LevelSelectScene::CreateResetProgressButton()
 				{
 					const std::string LevelRecordKey = GetLevelRecordKey(LevelParamsContainer[i][j].GetLevelID());
 					UserDefaultData->setIntegerForKey(LevelRecordKey.c_str(), 0);
-					const std::string LevelAttemptsKey = GetLevelAttemptsKey(LevelParamsContainer[i][j].GetLevelID());
-					UserDefaultData->setIntegerForKey(LevelAttemptsKey.c_str(), 0);
 				}
 			}
 

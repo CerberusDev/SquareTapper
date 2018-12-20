@@ -11,9 +11,3 @@ std::string GetLevelRecordKey(const int LevelDisplayName)
 	return StringStreamLevelKey.str();
 }
 
-std::string GetLevelAttemptsKey(const int LevelDisplayName)
-{
-	std::stringstream StringStreamLevelKey;
-	StringStreamLevelKey << "LevelAttempts" << LevelDisplayName;
-	return StringStreamLevelKey.str();
-}

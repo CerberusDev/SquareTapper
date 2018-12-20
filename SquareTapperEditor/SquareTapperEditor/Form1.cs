@@ -126,30 +126,51 @@ namespace SquareTapperEditor
             SimulatedSquaresImages = new List<Image>
             {
                 Properties.Resources.s0,
+                Properties.Resources.s0_5,
                 Properties.Resources.s1,
+                Properties.Resources.s1_5,
                 Properties.Resources.s2,
+                Properties.Resources.s2_5,
                 Properties.Resources.s3,
+                Properties.Resources.s3_5,
                 Properties.Resources.s4,
+                Properties.Resources.s4_5,
                 Properties.Resources.s5,
+                Properties.Resources.s5_5,
                 Properties.Resources.s6,
+                Properties.Resources.s6_5,
                 Properties.Resources.s7,
+                Properties.Resources.s7_5,
                 Properties.Resources.s8,
+                Properties.Resources.s8_5,
                 Properties.Resources.s9,
+                Properties.Resources.s9_5,
                 Properties.Resources.s10,
+                Properties.Resources.s10_5,
                 Properties.Resources.s11,
+                Properties.Resources.s11_5,
                 Properties.Resources.s12,
+                Properties.Resources.s12_5,
                 Properties.Resources.s13,
+                Properties.Resources.s13_5,
                 Properties.Resources.s14,
+                Properties.Resources.s14_5,
                 Properties.Resources.s15,
+                Properties.Resources.s15_5,
                 Properties.Resources.s16,
+                Properties.Resources.s16_5,
                 Properties.Resources.s17,
+                Properties.Resources.s17_5,
                 Properties.Resources.s18,
+                Properties.Resources.s18_5,
                 Properties.Resources.s19,
+                Properties.Resources.s19_5,
                 Properties.Resources.s20,
+                Properties.Resources.s20_5,
                 Properties.Resources.s21
             };
 
-            SimulateTimer = new System.Timers.Timer(33);
+            SimulateTimer = new System.Timers.Timer(20);
             SimulateTimer.SynchronizingObject = this;
             SimulateTimer.Elapsed += simulateTimerElapsed;
 

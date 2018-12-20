@@ -177,6 +177,27 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="icon_k2A_icon.ico" />
+    <None Include="Resources\s20_5.png" />
+    <None Include="Resources\s19_5.png" />
+    <None Include="Resources\s18_5.png" />
+    <None Include="Resources\s17_5.png" />
+    <None Include="Resources\s16_5.png" />
+    <None Include="Resources\s15_5.png" />
+    <None Include="Resources\s14_5.png" />
+    <None Include="Resources\s13_5.png" />
+    <None Include="Resources\s12_5.png" />
+    <None Include="Resources\s11_5.png" />
+    <None Include="Resources\s10_5.png" />
+    <None Include="Resources\s9_5.png" />
+    <None Include="Resources\s8_5.png" />
+    <None Include="Resources\s7_5.png" />
+    <None Include="Resources\s6_5.png" />
+    <None Include="Resources\s5_5.png" />
+    <None Include="Resources\s4_5.png" />
+    <None Include="Resources\s3_5.png" />
+    <None Include="Resources\s2_5.png" />
+    <None Include="Resources\s1_5.png" />
+    <None Include="Resources\s0_5.png" />
     <None Include="Resources\completed.png" />
     <None Include="Resources\s21.png" />
     <None Include="Resources\s20.png" />

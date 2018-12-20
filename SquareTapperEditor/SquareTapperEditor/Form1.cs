@@ -70,8 +70,10 @@ namespace SquareTapperEditor
         private List<CheckBox> SimulateButtons;
 
         private System.Timers.Timer SimulateTimer;
+        private System.Timers.Timer SimulateTimer_Finished;
         private float intervalCounter;
         private int completedCounter;
+        private int simulationIdx;
         private float simulationInterval;
         private float simulationActivation;
 
@@ -173,6 +175,11 @@ namespace SquareTapperEditor
             SimulateTimer = new System.Timers.Timer(20);
             SimulateTimer.SynchronizingObject = this;
             SimulateTimer.Elapsed += simulateTimerElapsed;
+
+            SimulateTimer_Finished = new System.Timers.Timer(1000);
+            SimulateTimer_Finished.SynchronizingObject = this;
+            SimulateTimer_Finished.Elapsed += simulateTimerFinishedElapsed;
+            SimulateTimer_Finished.Enabled = false;
 
             resetSimulation();
 
@@ -550,11 +557,12 @@ namespace SquareTapperEditor
         private void stopSimulation()
         {
             SimulateTimer.Enabled = false;
+            SimulateTimer_Finished.Enabled = false;
         }
 
         private void resetSimulation()
         {
-            SimulateTimer.Enabled = false;
+            stopSimulation();
 
             foreach (PictureBox pc in SimulatedSquares)
             {
@@ -569,6 +577,7 @@ namespace SquareTapperEditor
             SimulatedSquaresAvailable.Clear();
             SimulatedSquaresAvailable.AddRange(SimulatedSquares);
 
+            simulationIdx = idx;
             simulationInterval = getValueFromTextbox(IntervalTextBoxes[idx]);
             simulationActivation = getValueFromTextbox(DurationTextBoxes[idx]);
 
@@ -601,7 +610,10 @@ namespace SquareTapperEditor
                     ++completedCounter;
 
                     if (completedCounter == 3)
+                    {
                         stopSimulation();
+                        SimulateTimer_Finished.Enabled = true;
+                    }
                 }
                 else
                 {
@@ -628,6 +640,12 @@ namespace SquareTapperEditor
                     SimulatedSquaresActive.Add(pc);
                 }
             }
+        }
+
+        private void simulateTimerFinishedElapsed(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            resetSimulation();
+            startSimulation(simulationIdx);
         }
 
         private void colorizeGameOverviewLabel(Label lbl, Color color)

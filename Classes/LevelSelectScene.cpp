@@ -418,7 +418,7 @@ void LevelSelectScene::CreateRequiredStarsLabel(int WorldNumber, cocos2d::ui::La
 {
 	float LabelFontSize = 40.0f;
 	std::stringstream Stream;
-	Stream << "." << RequiredStarsPerWorld[WorldNumber];
+	Stream << RequiredStarsPerWorld[WorldNumber];
 	auto StarsLabel = Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LabelFontSize);
 	StarsLabel->setPosition(Vec2(GameScene::GetScreenPositionX(0), GameScene::GetLabelsPositionY()));
 	StarsLabel->setColor(GOLD_COLOR);
@@ -429,7 +429,7 @@ void LevelSelectScene::CreateStarsLabel(cocos2d::ui::Layout* PageLayout)
 {
 	float LabelFontSize = 40.0f;
 	std::stringstream Stream;
-	Stream << "." << TotalNumberOfStars;
+	Stream << TotalNumberOfStars;
 	auto StarsLabel = Label::createWithTTF(Stream.str(), FONT_FILE_PATH_STANDARD, LabelFontSize);
 	StarsLabel->setPosition(Vec2(GameScene::GetScreenPositionX(MAX_STARS_NUMBER - 1), GameScene::GetLabelsPositionY()));
 	StarsLabel->setColor(GOLD_COLOR);

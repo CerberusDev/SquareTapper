@@ -156,7 +156,7 @@ void GameSquare::ActivationEnded()
 {
 	ActivationSprite->setScale(SpritesScale);
 
-	if (SafetyType == ESquareSafetyType::Standard)
+	if (SafetyType == ESquareSafetyType::Standard || (SafetyType == ESquareSafetyType::DangerousSecondTap && !bAlreadyTapped))
 	{
 		Failed();
 	}

@@ -85,7 +85,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.55		0.6		0		1		0
+0.55		0.6		0		6		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -93,7 +93,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.3		0.725		0		2		0
+0.3		0.725		0		7		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -102,7 +102,7 @@ ST			ST			ST
 ST			ST			ST			
 
 # ============= 10 - 12 =============
-0.25		0.85		0		8		0
+0.25		0.8		0		5		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -110,7 +110,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.23		0.75		0		7		0
+0.23		0.75		0		4		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -118,7 +118,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.385		0.55		0		6		0
+0.385		0.6		0		3		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -127,7 +127,7 @@ ST			ST			ST
 ST			ST			ST			
 
 # ============= 13 - 15 =============
-0.2		0.55		0		15		0
+0.2		0.5		0		15		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -135,7 +135,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.5		0.5		0		3		0
+0.2		0.7		0		0		0
 
 ST			ST			ST			
 ST			ST			ST			
@@ -143,7 +143,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.18		0.6		0		12		0
+0.2		0.7		0		12		0
 
 ST			ST			ST			
 ST			ST			ST			

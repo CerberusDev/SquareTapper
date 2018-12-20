@@ -127,7 +127,7 @@ ST			ST			ST
 ST			ST			ST			
 
 # ============= 13 - 15 =============
-1.55		0.7		0		0		0
+1.55		0.7		0		0		0		Chessboard-Standard
 
 ST			ST			ST			
 ST			ST			ST			
@@ -135,7 +135,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.29		0.625		0		0		0
+0.29		0.625		0		0		0		Chessboard-Standard
 
 ST			ST			ST			
 ST			ST			ST			
@@ -143,7 +143,7 @@ ST			ST			ST
 ST			ST			ST			
 ST			ST			ST			
 
-0.07		2		0		0		0
+0.07		2		0		0		0		Chessboard-Standard
 
 ST			ST			ST			
 ST			ST			ST			
